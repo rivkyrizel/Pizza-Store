@@ -1,8 +1,15 @@
 ﻿
-namespace DO;
+namespace DalFacade.DO;
 /// <summary>
 /// structure for 
 /// </summary>
-internal struct Enums
+
+
+public enum eCategory
 {
+    Shoes,
+    Chlothes,
+    Babies
 }
+
+

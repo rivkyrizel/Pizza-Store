@@ -1,8 +1,8 @@
 ﻿
 
-namespace DO;
+namespace DalFacade.DO;
 
-internal struct Order
+public struct Order
 {
     public int ID { get; set; }
     public string CustomerName { get; set; }
