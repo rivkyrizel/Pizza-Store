@@ -1,5 +1,4 @@
 ﻿
-
 namespace DalFacade.DO;
 
 public struct Order
@@ -11,6 +10,8 @@ public struct Order
     public DateTime OrderDate { get; set; }
     public DateTime ShipDate { get; set; }
     public DateTime DeliveryDate { get; set; }
+
+   
     public override string ToString() =>
     $@"Order ID={ID}: {CustomerName}, CustomerEmail - {CustomerEmail}  CustomerAdress: {CustomerAdress} 
     OrderDate {OrderDate}  ShipDate {ShipDate}  DeliveryDate {DeliveryDate}";
