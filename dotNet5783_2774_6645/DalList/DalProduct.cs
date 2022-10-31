@@ -2,15 +2,16 @@
 
 namespace DalList;
 
-public class DalProduct
+public static class DalProduct
 {
-    public int createProduct(Product product)
+    public static int createProduct(Product product)
     {
+        product.ID = DataSource.Config.ProductID;
         DataSource.ProductList[DataSource.Config.productIdx++] = product;
         return DataSource.Config.productIdx;
     }
 
-    public Product readProduct(int id)
+    public static Product readProduct(int id)
     {
         for (int i = 0; i < DataSource.Config.productIdx; i++)
         {
@@ -18,15 +19,19 @@ public class DalProduct
                 return DataSource.ProductList[i];
 
         }
-        throw new Exception("error");
+        throw new Exception("error product not found");
     }
 
-    public Product[] readProducts()
+    public static Product[] readProductList()
     {
-        return DataSource.ProductList;
+        Product[] productList = new Product[DataSource.Config.productIdx];
+        for (int i = 0; i < productList.Length; i++)
+            productList[i] = DataSource.ProductList[i];
+
+        return productList;
     }
 
-    public void updateProduct(Product updateProduct)
+    public static void updateProduct(Product updateProduct)
     {
         for (int i = 0; i < DataSource.Config.productIdx; i++)
         {
@@ -40,18 +45,22 @@ public class DalProduct
         throw new Exception("error");
     }
 
-    public void deleteProduct(int id)
+    public static void deleteProduct(int id)
     {
         for (int i = 0; i < DataSource.Config.productIdx; i++)
         {
             if (id == DataSource.ProductList[i].ID)
             {
-                DataSource.ProductList[i] = DataSource.ProductList[DataSource.Config.productIdx--];
+                for (int j = i; j < DataSource.Config.productIdx; j++)
+                {
+                    DataSource.ProductList[j] = DataSource.ProductList[j + 1];
+                }
+                DataSource.Config.productIdx--;
                 return;
             }
 
         }
-        throw new Exception("error");
+        throw new Exception("error can't delete product");
     }
 }
 

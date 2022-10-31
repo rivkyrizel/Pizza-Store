@@ -2,7 +2,7 @@
 
 namespace DalList;
 
-internal static class DataSource
+public static class DataSource
 {
     static readonly Random rand = new Random();
     internal static Product[] ProductList = new Product[50];
@@ -13,7 +13,7 @@ internal static class DataSource
         SInitialize();
     }
 
-    internal static class Config
+    public static class Config
     {
         private static int productID = 100000;
         public static int ProductID { get { return productID++; } }
@@ -27,10 +27,11 @@ internal static class DataSource
 
     private static void CreateProductList()
     {
-        string[] productNames = { "כסא", "שולחן" };
+        string[] productNames = { "chair", "table" };
 
-        for (int i = 0; i < 10; Config.productIdx++, i++)
+        for (int i = 0; i < 10;  i++)
         {
+            Config.productIdx++;
             ProductList[i] = new Product();
             int numberForName = (int)rand.NextInt64(productNames.Length);
             int numberForPrice = (int)rand.NextInt64(10, 100);
@@ -47,8 +48,9 @@ internal static class DataSource
         string[] CustomerName = { "aaa", "bbb", "ccc" };
         string[] CustomerAdress = { "ddd", "eee", "fff" };
         string[] CustomerEmail = { "ggg", "hhh", "iii" };
-        for (int i = 0; i < 20; Config.orderIdx++, i++)
+        for (int i = 0; i < 20; i++)
         {
+            Config.orderIdx++;
             OrderList[i] = new Order();
             int numberForName = (int)rand.NextInt64(CustomerName.Length);
             int numberForAdress = (int)rand.NextInt64(CustomerAdress.Length);

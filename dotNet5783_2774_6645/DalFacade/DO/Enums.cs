@@ -8,7 +8,7 @@ namespace DalFacade.DO;
 public enum eCategory
 {
     Shoes,
-    Chlothes,
+    Clothes,
      Babies
 }
 

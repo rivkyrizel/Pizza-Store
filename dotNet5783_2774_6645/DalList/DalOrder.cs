@@ -1,15 +1,17 @@
-﻿using DalFacade.DO;
+﻿using System.Collections.Generic;
+using DalFacade.DO;
 
 namespace DalList;
-public struct DalOrder
+public static class DalOrder
 {
-    public int createOrder(Order order)
+    public static int createOrder(Order order)
     {
+        order.ID = DataSource.Config.OrderID;
         DataSource.OrderList[DataSource.Config.orderIdx++] = order;
         return DataSource.Config.orderIdx;
     }
 
-    public Order readOrder(int id)
+    public static Order readOrder(int id)
     {
         for (int i = 0; i < DataSource.Config.orderIdx; i++)
         {
@@ -17,14 +19,18 @@ public struct DalOrder
                 return DataSource.OrderList[i];
 
         }
-        throw new Exception("error");
+        throw new Exception("error order not found");
     }
-    public Order[] readOrders()
+    public static Order[] readOrderList()
     {
-        return DataSource.OrderList;
+        Order[] orderList = new Order[DataSource.Config.orderIdx];
+        for (int i = 0; i < orderList.Length; i++) 
+            orderList[i] = DataSource.OrderList[i];
+   
+        return orderList;
     }
 
-    public void updateOrder(Order updateOrder)
+    public static void updateOrder(Order updateOrder)
     {
         for (int i = 0; i < DataSource.Config.orderIdx; i++)
         {
@@ -38,18 +44,22 @@ public struct DalOrder
         throw new Exception("error");
     }
 
-    public void deleteOrder(int id)
+    public static void deleteOrder(int id)
     {
         for (int i = 0; i < DataSource.Config.orderIdx; i++)
         {
             if (id == DataSource.OrderList[i].ID)
             {
-                DataSource.OrderList[i] = DataSource.OrderList[DataSource.Config.orderIdx--];
+                for (int j = i; j < DataSource.Config.orderIdx; j++)
+                {
+                    DataSource.OrderList[j] = DataSource.OrderList[j + 1];
+                }
+                DataSource.Config.orderIdx--;
                 return;
             }
 
         }
-        throw new Exception("error");
+        throw new Exception("error can't delete order");
     }
 }
 
