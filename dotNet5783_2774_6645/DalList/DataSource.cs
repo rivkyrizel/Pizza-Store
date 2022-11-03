@@ -10,7 +10,7 @@ public static class DataSource
     internal static OrderItem[] OrderItem = new OrderItem[200];
     static DataSource()
     {
-        SInitialize();
+        sInitialize();
     }
 
     public static class Config
@@ -25,7 +25,7 @@ public static class DataSource
         internal static int orderItemIdx = 0;
     }
 
-    private static void CreateProductList()
+    private static void createProductList()
     {
         string[] productNames = { "chair", "table" };
 
@@ -43,7 +43,7 @@ public static class DataSource
             ProductList[i].Category = (eCategory)x;
         }
     }
-    private static void CreateOrderList()
+    private static void createOrderList()
     {
         string[] CustomerName = { "aaa", "bbb", "ccc" };
         string[] CustomerAdress = { "ddd", "eee", "fff" };
@@ -67,7 +67,7 @@ public static class DataSource
 
         }
     }
-    private static void CreateOrderItemList()
+    private static void createOrderItemList()
     {
         string[] productNames = { "כסא", "שולחן" };
         for (int i = 0; i < 40; Config.orderItemIdx++, i++)
@@ -87,11 +87,11 @@ public static class DataSource
         }
     }
 
-    private static void SInitialize()
+    private static void sInitialize()
     {
-        CreateProductList();
-        CreateOrderList();
-        CreateOrderItemList();
+        createProductList();
+        createOrderList();
+        createOrderItemList();
     }
 }
 

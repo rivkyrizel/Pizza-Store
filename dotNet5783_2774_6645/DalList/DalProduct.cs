@@ -4,14 +4,14 @@ namespace DalList;
 
 public static class DalProduct
 {
-    public static int createProduct(Product product)
+    public static int CreateProduct(Product product)
     {
         product.ID = DataSource.Config.ProductID;
         DataSource.ProductList[DataSource.Config.productIdx++] = product;
         return DataSource.Config.productIdx;
     }
 
-    public static Product readProduct(int id)
+    public static Product ReadProduct(int id)
     {
         for (int i = 0; i < DataSource.Config.productIdx; i++)
         {
@@ -22,7 +22,7 @@ public static class DalProduct
         throw new Exception("error product not found");
     }
 
-    public static Product[] readProductList()
+    public static Product[] ReadProductList()
     {
         Product[] productList = new Product[DataSource.Config.productIdx];
         for (int i = 0; i < productList.Length; i++)
@@ -31,7 +31,7 @@ public static class DalProduct
         return productList;
     }
 
-    public static void updateProduct(Product updateProduct)
+    public static void UpdateProduct(Product updateProduct)
     {
         for (int i = 0; i < DataSource.Config.productIdx; i++)
         {
@@ -45,7 +45,7 @@ public static class DalProduct
         throw new Exception("error");
     }
 
-    public static void deleteProduct(int id)
+    public static void DeleteProduct(int id)
     {
         for (int i = 0; i < DataSource.Config.productIdx; i++)
         {
