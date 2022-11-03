@@ -1,15 +1,15 @@
 ﻿
 namespace DalFacade.DO;
 /// <summary>
-/// structure for 
+/// structure for categories
 /// </summary>
 
 
 public enum eCategory
 {
-    Shoes,
-    Clothes,
-     Babies
+    Pizza,
+    Pasta,
+    Salads,
+    Bagels,
+    Drinks
 }
-
-

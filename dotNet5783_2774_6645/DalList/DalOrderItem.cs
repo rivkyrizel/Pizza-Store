@@ -1,29 +1,45 @@
 ﻿using DalFacade.DO;
-using System.Diagnostics.Metrics;
 
 namespace DalList;
 public class DalOrderItem
 {
-    internal static OrderItem[] orderItems = new OrderItem[DataSource.Config.orderItemIdx];
 
-    public static int createOrderItem(OrderItem orderItem)
+
+    /// <summary>
+    /// create new order item
+    /// </summary>
+    /// <param name="orderItem"> neworder item details </param>
+    /// <returns> index of new order item </returns>
+    public static int CreateOrderItem(OrderItem orderItem)
     {
         DataSource.OrderItem[DataSource.Config.orderItemIdx++] = orderItem;
         return DataSource.Config.orderItemIdx;
     }
-    public static OrderItem[] readOrderItems(int orderId)
+
+    /// <summary>
+    ///  returns all items in specified order
+    /// </summary>
+    /// <param name="orderId"></param>
+    /// <returns> List of items in requested order </returns>
+    /// <exception cref="ArgumentException"> No order with the given id found </exception>
+    public static OrderItem[] ReadOrderItems(int orderId)
     {
+        OrderItem[] orderItems = new OrderItem[DataSource.Config.orderItemIdx];
         int counter = 0;
 
         for (int i = 0; i < DataSource.Config.orderItemIdx; i++)
             if (orderId == DataSource.OrderItem[i].OrderID)
                 orderItems[counter++] = DataSource.OrderItem[i];
 
-        if (counter == 0) throw new Exception("error");
+        if (counter == 0) throw new ArgumentException(" No order found ");
         return orderItems;
     }
 
-    public static OrderItem[] readAllItems()
+    /// <summary>
+    /// returns all ordered items
+    /// </summary>
+    /// <returns> All ordered items </returns>
+    public static OrderItem[] ReadAllItems()
     {
         OrderItem[] allItems = new OrderItem[DataSource.Config.orderItemIdx];
         for (int i = 0; i < allItems.Length; i++)
@@ -32,19 +48,31 @@ public class DalOrderItem
         return allItems;
     }
 
-    public static OrderItem readOrderItem(int orderId, int producId)
+    /// <summary>
+    /// returns details of specific ordered item by the product's id and the order id
+    /// </summary>
+    /// <param name="orderId"> Id of order that desired item is in</param>
+    /// <param name="productId"> Id of product </param>
+    /// <returns> Details of ordered item </returns>
+    /// <exception cref="ArgumentException"> no order </exception>
+    public static OrderItem ReadOrderItem(int orderId, int productId)
     {
         for (int i = 0; i < DataSource.Config.orderItemIdx; i++)
         {
-            if (orderId == DataSource.OrderItem[i].OrderID && producId == DataSource.OrderItem[i].ProductID)
+            if (orderId == DataSource.OrderItem[i].OrderID && productId == DataSource.OrderItem[i].ProductID)
             {
                 return DataSource.OrderItem[i];
             }
         }
-        throw new Exception("error");
+        throw new ArgumentException(" requested item  not found ");
     }
 
-    public static void updateOrderItem(OrderItem updateOrderItem)
+    /// <summary>
+    /// Updates ordered item
+    /// </summary>
+    /// <param name="updateOrderItem"></param>
+    /// <exception cref="ArgumentException"></exception>
+    public static void UpdateOrderItem(OrderItem updateOrderItem)
     {
         for (int i = 0; i < DataSource.Config.orderItemIdx; i++)
         {
@@ -56,10 +84,10 @@ public class DalOrderItem
             }
 
         }
-        throw new Exception("error");
+        throw new ArgumentException("error");
     }
 
-    public static void deleteOrder(int orderId, int producId)
+    public static void DeleteOrder(int orderId, int producId)
     {
         for (int i = 0; i < DataSource.Config.orderItemIdx; i++)
         {
