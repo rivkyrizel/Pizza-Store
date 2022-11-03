@@ -70,8 +70,8 @@ public class DalOrderItem
     /// <summary>
     /// Updates ordered item
     /// </summary>
-    /// <param name="updateOrderItem"></param>
-    /// <exception cref="ArgumentException"></exception>
+    /// <param name="updateOrderItem"> Details of ordered item to update</param>
+    /// <exception cref="ArgumentException"> No order with given id found </exception>
     public static void UpdateOrderItem(OrderItem updateOrderItem)
     {
         for (int i = 0; i < DataSource.Config.orderItemIdx; i++)
@@ -84,14 +84,20 @@ public class DalOrderItem
             }
 
         }
-        throw new ArgumentException("error");
+        throw new ArgumentException("could not update ordered item ");
     }
 
-    public static void DeleteOrder(int orderId, int producId)
+    /// <summary>
+    ///  deletes ordered item by product id and order id
+    /// </summary>
+    /// <param name="orderId"> Id of order with desired item </param>
+    /// <param name="productId"> Id of product </param>
+    /// <exception cref="Exception"> No such product in given order </exception>
+    public static void DeleteOrder(int orderId, int productId)
     {
         for (int i = 0; i < DataSource.Config.orderItemIdx; i++)
         {
-            if (orderId == DataSource.OrderItem[i].OrderID && producId == DataSource.OrderItem[i].ProductID)
+            if (orderId == DataSource.OrderItem[i].OrderID && productId == DataSource.OrderItem[i].ProductID)
             {
                 for (int j = i; j < DataSource.Config.orderItemIdx; j++)
                 {
@@ -102,7 +108,7 @@ public class DalOrderItem
             }
 
         }
-        throw new Exception("error");
+        throw new Exception("could not delete ordered item ");
     }
 
 }

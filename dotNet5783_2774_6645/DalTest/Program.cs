@@ -6,19 +6,14 @@ namespace DalTest;
 
 public class Program
 {
-    //private static DalProduct DalP = new DalProduct();
-    //private static DalOrder DalO = new DalOrder();
-    //private static DalOrderItem DalOItem = new DalOrderItem();
     static void Main()
     {
-        string s;
-        int val;
+        int choice;
         do
         {
             Console.WriteLine("enter 1 for product , 2 for orders, 3 for orders items, 0 to exit");
-            s = Console.ReadLine();
-            val = Convert.ToInt32(s);
-            switch (val)
+            int.TryParse(Console.ReadLine(), out choice);
+            switch (choice)
             {
                 case 1:
                     CRUDProduct();
@@ -33,8 +28,7 @@ public class Program
                     Console.WriteLine("incorrect input");
                     break;
             }
-        } while (val != 0);
-
+        } while (choice != 0);
     }
     private static void CRUDOrder()
     {
@@ -126,10 +120,7 @@ public class Program
         } while (s != "0");
     }
 
-    /// <summary>
-    /// /////////////////
-    /// </summary>
-    /// <returns></returns>
+    
     private static Order createOrder()
     {
         Order newOrder = new Order();
@@ -150,42 +141,39 @@ public class Program
     private static void addOrder()
     {
         Order newOrder = createOrder();
-        DalOrder.createOrder(newOrder);
+        DalOrder.CreateOrder(newOrder);
     }
 
     private static void displayOrder()
     {
-        string s;
         Console.WriteLine("enter id:");
-        s = Console.ReadLine();
-        int val = Convert.ToInt32(s);
-        Console.WriteLine(DalOrder.readOrder(val).ToString());
+        int.TryParse(Console.ReadLine(), out int id);
+        Console.WriteLine(DalOrder.ReadOrder(id));
     }
 
     private static void displayOrderList()
     {
-        Order[] orderList = DalOrder.readOrderList();
+        Order[] orderList = DalOrder.ReadOrderList();
         for (int i = 0; i < orderList.Length; i++)
-        {
-            Console.WriteLine(orderList[i].ToString());
-        }
+            Console.WriteLine(orderList[i]);
     }
 
     private static void updateOrder()
     {
+        int id;
         Order newOrder = createOrder();
         Console.WriteLine("enter order ID");
-        string s = Console.ReadLine();
-        newOrder.ID = Convert.ToInt32(s);
-        DalOrder.updateOrder(newOrder);
+        int.TryParse(Console.ReadLine(), out id);
+        newOrder.ID = id;
+        DalOrder.UpdateOrder(newOrder);
     }
 
     private static void deleteOrder()
     {
+        int id;
         Console.WriteLine("enter id:");
-        string s = Console.ReadLine();
-        int id = Convert.ToInt32(s);
-        DalOrder.deleteOrder(id);
+        int.TryParse(Console.ReadLine(), out id);
+        DalOrder.DeleteOrder(id);
     }
 
     /// <summary>
@@ -199,35 +187,39 @@ public class Program
         Console.WriteLine("enter name:");
         newProduct.Name = Console.ReadLine();
         Console.WriteLine("enter price:");
-        newProduct.Price = Convert.ToInt32(Console.ReadLine());
+        int.TryParse(Console.ReadLine(), out int price);
+        newProduct.Price = price;
         Console.WriteLine("enter category:");
-        newProduct.Category = (eCategory)Convert.ToInt32(Console.ReadLine());
+        int.TryParse(Console.ReadLine(), out int category);
+        newProduct.Category = (eCategory)category;
         Console.WriteLine("enter amount in stock:");
-        newProduct.InStock = Convert.ToInt32(Console.ReadLine());
+        int.TryParse(Console.ReadLine(), out int inStock);
+        newProduct.InStock = inStock;
         return newProduct;
 
     }
     private static void addProduct()
     {
         Product newProduct = createProduct();
-        DalProduct.createProduct(newProduct);
+        DalProduct.CreateProduct(newProduct);
     }
 
     private static void displayProduct()
     {
-        string s;
         Console.WriteLine("enter id:");
-        s = Console.ReadLine();
-        int val = Convert.ToInt32(s);
-        Console.WriteLine(DalProduct.readProduct(val).ToString());
+        int.TryParse(Console.ReadLine(), out int id);
+        Console.WriteLine(DalProduct.ReadProduct(id));
     }
 
     private static void displayProductList()
     {
-        Product[] productList = DalProduct.readProductList();
+        Product[] productList = DalProduct.ReadProductList();
+        Console.WriteLine("|    ID    |       NAME       | CATEGORY | PRICE | IN STOCK |");
+        Console.WriteLine("|__________|__________________|__________|_______|__________|");
+        Console.WriteLine("|          |                  |          |       |          |");
         for (int i = 0; i < productList.Length; i++)
         {
-            Console.WriteLine(productList[i].ToString());
+            Console.WriteLine(productList[i]);
         }
     }
 
@@ -235,17 +227,16 @@ public class Program
     {
         Product newProduct = createProduct();
         Console.WriteLine("enter Product ID");
-        string s = Console.ReadLine();
-        newProduct.ID = Convert.ToInt32(s);
-        DalProduct.updateProduct(newProduct);
+        int.TryParse(Console.ReadLine(), out int id);
+        newProduct.ID = id;
+        DalProduct.UpdateProduct(newProduct);
     }
 
     private static void deleteProduct()
     {
         Console.WriteLine("enter id:");
-        string s = Console.ReadLine();
-        int id = Convert.ToInt32(s);
-        DalProduct.deleteProduct(id);
+        int.TryParse(Console.ReadLine(), out int id);
+        DalProduct.DeleteProduct(id);
     }
 
 
@@ -258,66 +249,68 @@ public class Program
     {
         OrderItem newOrderItem = new OrderItem();
         Console.WriteLine("enter product id:");
-        newOrderItem.ProductID = Convert.ToInt32(Console.ReadLine());
+        int.TryParse(Console.ReadLine(), out int productId);
+        newOrderItem.ProductID = productId;
         Console.WriteLine("enter order id:");
-        newOrderItem.OrderID = Convert.ToInt32(Console.ReadLine());
+        int.TryParse(Console.ReadLine(), out int orderId);
+        newOrderItem.OrderID = orderId;
         Console.WriteLine("enter price:");
-        newOrderItem.Price = Convert.ToInt32(Console.ReadLine());
+        int.TryParse(Console.ReadLine(), out int price);
+        newOrderItem.Price = price;
         Console.WriteLine("enter amount:");
-        newOrderItem.Amount = Convert.ToInt32(Console.ReadLine());
+        int.TryParse(Console.ReadLine(), out int amount);
+        newOrderItem.Amount = amount;
         return newOrderItem;
 
     }
     private static void addOrderItem()
     {
         OrderItem newOrderItem = createOrderItem();
-        DalOrderItem.createOrderItem(newOrderItem);
+        DalOrderItem.CreateOrderItem(newOrderItem);
     }
 
     private static void displayOrderItems()
     {
-        string s;
         Console.WriteLine("enter order id:");
-        s = Console.ReadLine();
-        int val = Convert.ToInt32(s);
-        OrderItem[] orderItems = DalOrderItem.readOrderItems(val);
+        int.TryParse(Console.ReadLine(), out int id);
+        OrderItem[] orderItems = DalOrderItem.ReadOrderItems(id);
         for (int i = 0; i < orderItems.Length; i++)
             if (orderItems[i].OrderID != 0)
-                Console.WriteLine(orderItems[i].ToString());
-       
+                Console.WriteLine(orderItems[i]);
+
     }
 
     private static void displayAllItems()
     {
-        OrderItem[] orderList = DalOrderItem.readAllItems();
+        OrderItem[] orderList = DalOrderItem.ReadAllItems();
         for (int i = 0; i < orderList.Length; i++)
         {
-            Console.WriteLine(orderList[i].ToString());
+            Console.WriteLine(orderList[i]);
         }
     }
 
     private static void displayItem()
     {
         Console.WriteLine("enter order id:");
-        int orderId = Convert.ToInt32(Console.ReadLine());
+        int.TryParse(Console.ReadLine(), out int orderId);
         Console.WriteLine("enter product id:");
-        int productId = Convert.ToInt32(Console.ReadLine());
-        Console.WriteLine(DalOrderItem.readOrderItem(orderId, productId).ToString());
+        int.TryParse(Console.ReadLine(), out int productId);
+        Console.WriteLine(DalOrderItem.ReadOrderItem(orderId, productId));
     }
 
     private static void updateOrderItem()
     {
         OrderItem newOrderItem = createOrderItem();
-        DalOrderItem.updateOrderItem(newOrderItem);
+        DalOrderItem.UpdateOrderItem(newOrderItem);
     }
 
     private static void deleteOrderItem()
     {
         Console.WriteLine("enter product id:");
-        int productId = Convert.ToInt32(Console.ReadLine());
+        int.TryParse(Console.ReadLine(), out int productId);
         Console.WriteLine("enter order id:");
-        int orderId = Convert.ToInt32(Console.ReadLine());
-        DalOrderItem.deleteOrder(orderId, productId);
+        int.TryParse(Console.ReadLine(), out int orderId);
+        DalOrderItem.DeleteOrder(orderId, productId);
     }
 
 }

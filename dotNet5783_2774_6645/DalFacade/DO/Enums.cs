@@ -7,8 +7,8 @@ namespace DalFacade.DO;
 
 public enum eCategory
 {
-    Pizza,
-    Pasta,
+    Pizza_,
+    Pasta_,
     Salads,
     Bagels,
     Drinks

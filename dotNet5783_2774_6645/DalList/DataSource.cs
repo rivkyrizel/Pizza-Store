@@ -27,20 +27,19 @@ public static class DataSource
 
     private static void createProductList()
     {
-        string[] productNames = { "chair", "table" };
-
-        for (int i = 0; i < 10;  i++)
+        (string, eCategory)[] products = { ("  Ravioli  ", (eCategory)1), ("   Pizza   ", (eCategory)0), (" Sandwich  ", (eCategory)3), ("Ice coffee ", (eCategory)4), ("  Coffee   ", (eCategory)4), ("   Baguet  ", (eCategory)3), ("Greek Salad", (eCategory)4), (" XL pizza  ", (eCategory)0), ("Basic Salad", (eCategory)3), (" Coca Cola ", (eCategory)4) };
+        for (int i = 0; i < 10; i++)
         {
             Config.productIdx++;
             ProductList[i] = new Product();
-            int numberForName = (int)rand.NextInt64(productNames.Length);
             int numberForPrice = (int)rand.NextInt64(10, 100);
-            ProductList[i].Name = productNames[numberForName];
+            ProductList[i].Name = products[i].Item1;
+            ProductList[i].Category = products[i].Item2;
             ProductList[i].Price = numberForPrice;
             ProductList[i].ID = Config.ProductID;
-            ProductList[i].InStock = (int)rand.NextInt64(10, 5000);
+            ProductList[i].InStock = (int)rand.NextInt64(1000, 5000);
             int x = 1;
-            ProductList[i].Category = (eCategory)x;
+
         }
     }
     private static void createOrderList()
