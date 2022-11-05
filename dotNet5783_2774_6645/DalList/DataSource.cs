@@ -32,7 +32,7 @@ public static class DataSource
         {
             Config.productIdx++;
             ProductList[i] = new Product();
-            int numberForPrice = (int)rand.NextInt64(10, 100);
+            int numberForPrice = (int)rand.NextInt64(10, 50);
             ProductList[i].Name = products[i].Item1;
             ProductList[i].Category = products[i].Item2;
             ProductList[i].Price = numberForPrice;
@@ -68,7 +68,6 @@ public static class DataSource
     }
     private static void createOrderItemList()
     {
-        string[] productNames = { "כסא", "שולחן" };
         for (int i = 0; i < 40; Config.orderItemIdx++, i++)
         {
             int orderAmount = (int)rand.NextInt64(1, 4);
@@ -76,7 +75,7 @@ public static class DataSource
             for (int j = 0; j < orderAmount; j++)
             {
                 int productIdx = i % 10;
-                int itemAmount = (int)rand.NextInt64(1, 15);
+                int itemAmount = (int)rand.NextInt64(1, 9);
                 OrderItem[i] = new OrderItem();
                 OrderItem[i].OrderID = OrderList[orderIdx].ID;
                 OrderItem[i].Amount = itemAmount;

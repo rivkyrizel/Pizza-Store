@@ -154,6 +154,9 @@ public class Program
     private static void displayOrderList()
     {
         Order[] orderList = DalOrder.ReadOrderList();
+        Console.WriteLine("|    ID     |   NAME  |  EMAIL   | ADRESS |        ORDER DATE       |        SHIP DATE      |      DELIVERY DATE    |");
+        Console.WriteLine("|___________|_________|__________|________|_________________________|_______________________|_______________________|");
+        Console.WriteLine("|           |         |          |        |                         |                       |                       |");
         for (int i = 0; i < orderList.Length; i++)
             Console.WriteLine(orderList[i]);
     }
