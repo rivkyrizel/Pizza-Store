@@ -163,6 +163,9 @@ public class Program
     {
         Console.WriteLine("enter id:");
         int.TryParse(Console.ReadLine(), out int id);
+        Console.WriteLine("|    ID     |   NAME  |  EMAIL   | ADRESS |        ORDER DATE       |        SHIP DATE      |      DELIVERY DATE    |");
+        Console.WriteLine("|___________|_________|__________|________|_________________________|_______________________|_______________________|");
+        Console.WriteLine("|           |         |          |        |                         |                       |                       |");
         Console.WriteLine(DalOrder.ReadOrder(id));
     }
 
@@ -225,6 +228,9 @@ public class Program
     {
         Console.WriteLine("enter id:");
         int.TryParse(Console.ReadLine(), out int id);
+        Console.WriteLine("|    ID    |       NAME       | CATEGORY | PRICE | IN STOCK |");
+        Console.WriteLine("|__________|__________________|__________|_______|__________|");
+        Console.WriteLine("|          |                  |          |       |          |");
         Console.WriteLine(DalProduct.ReadProduct(id));
     }
 
@@ -290,8 +296,10 @@ public class Program
         Console.WriteLine("enter order id:");
         int.TryParse(Console.ReadLine(), out int id);
         OrderItem[] orderItems = DalOrderItem.ReadOrderItems(id);
+        Console.WriteLine("| PRODUCT ID |  ORDER ID  |   PRICE   |  AMOUNT  |");
+        Console.WriteLine("|____________|____________|___________|__________|");
+        Console.WriteLine("|            |            |           |          |");
         for (int i = 0; i < orderItems.Length; i++)
-            if (orderItems[i].OrderID != 0)
                 Console.WriteLine(orderItems[i]);
 
     }
@@ -314,6 +322,9 @@ public class Program
         int.TryParse(Console.ReadLine(), out int orderId);
         Console.WriteLine("enter product id:");
         int.TryParse(Console.ReadLine(), out int productId);
+        Console.WriteLine("| PRODUCT ID |  ORDER ID  |   PRICE   |  AMOUNT  |");
+        Console.WriteLine("|____________|____________|___________|__________|");
+        Console.WriteLine("|            |            |           |          |");
         Console.WriteLine(DalOrderItem.ReadOrderItem(orderId, productId));
     }
 
@@ -333,4 +344,6 @@ public class Program
     }
 
 }
+
+
 

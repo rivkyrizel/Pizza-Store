@@ -24,15 +24,19 @@ public class DalOrderItem
     /// <exception cref="ArgumentException"> No order with the given id found </exception>
     public static OrderItem[] ReadOrderItems(int orderId)
     {
-        OrderItem[] orderItems = new OrderItem[DataSource.Config.orderItemIdx];
+        //OrderItem[] orderItems = new OrderItem[DataSource.Config.orderItemIdx];
+        List<OrderItem> list = new List<OrderItem>();
         int counter = 0;
 
         for (int i = 0; i < DataSource.Config.orderItemIdx; i++)
             if (orderId == DataSource.OrderItem[i].OrderID)
-                orderItems[counter++] = DataSource.OrderItem[i];
+            {
+                list.Add(DataSource.OrderItem[i]);
+                counter++;
+            }
 
         if (counter == 0) throw new ArgumentException(" No order found ");
-        return orderItems;
+        return list.ToArray();
     }
 
     /// <summary>

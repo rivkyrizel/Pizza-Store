@@ -27,11 +27,9 @@ public static class DalOrder
     public static Order ReadOrder(int id)
     {
         for (int i = 0; i < DataSource.Config.orderIdx; i++)
-        {
             if (id == DataSource.OrderList[i].ID)
                 return DataSource.OrderList[i];
 
-        }
         throw new ArgumentException("order not found");
     }
 
@@ -42,9 +40,9 @@ public static class DalOrder
     public static Order[] ReadOrderList()
     {
         Order[] orderList = new Order[DataSource.Config.orderIdx];
-        for (int i = 0; i < orderList.Length; i++) 
+        for (int i = 0; i < orderList.Length; i++)
             orderList[i] = DataSource.OrderList[i];
-   
+
         return orderList;
     }
 
