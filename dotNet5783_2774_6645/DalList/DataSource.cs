@@ -12,7 +12,6 @@ public static class DataSource
     {
         sInitialize();
     }
-
     public static class Config
     {
         private static int productID = 100000;
@@ -32,7 +31,7 @@ public static class DataSource
         {
             Config.productIdx++;
             ProductList[i] = new Product();
-            int numberForPrice = (int)rand.NextInt64(10, 50);
+            int numberForPrice = (int)rand.NextInt64(10, 100);
             ProductList[i].Name = products[i].Item1;
             ProductList[i].Category = products[i].Item2;
             ProductList[i].Price = numberForPrice;
@@ -56,11 +55,14 @@ public static class DataSource
             int numberForEmail = (int)rand.NextInt64(CustomerEmail.Length);
             TimeSpan ShipDate = TimeSpan.FromDays(2);
             TimeSpan deliveryDate = TimeSpan.FromDays(20);
+            Random ran = new Random();
+            DateTime start = new DateTime(2020, 1, 1);
+            int range = (DateTime.Today - start).Days;
             OrderList[i].ID = Config.OrderID;
             OrderList[i].CustomerName = CustomerName[numberForName];
             OrderList[i].CustomerAdress = CustomerAdress[numberForAdress];
             OrderList[i].CustomerEmail = CustomerEmail[numberForEmail];
-            OrderList[i].OrderDate = DateTime.MinValue;
+            OrderList[i].OrderDate = start.AddDays(ran.Next(range));
             OrderList[i].ShipDate = OrderList[i].OrderDate + ShipDate;
             OrderList[i].DeliveryDate = OrderList[i].OrderDate + deliveryDate;
 
@@ -70,7 +72,7 @@ public static class DataSource
     {
         for (int i = 0; i < 40; Config.orderItemIdx++, i++)
         {
-            int orderAmount = (int)rand.NextInt64(1, 4);
+            int orderAmount = (int)rand.NextInt64(1, 20);
             int orderIdx = i % 20;
             for (int j = 0; j < orderAmount; j++)
             {
@@ -79,7 +81,7 @@ public static class DataSource
                 OrderItem[i] = new OrderItem();
                 OrderItem[i].OrderID = OrderList[orderIdx].ID;
                 OrderItem[i].Amount = itemAmount;
-                OrderItem[i].Price = ProductList[productIdx].Price * itemAmount;
+                OrderItem[i].Price = ProductList[productIdx].Price;
                 OrderItem[i].ProductID = ProductList[productIdx].ID;
             }
         }

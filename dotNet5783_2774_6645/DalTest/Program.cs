@@ -8,25 +8,37 @@ public class Program
 {
     static void Main()
     {
-        int choice;
+
+        //using reflection (call static constructor)
+        Type staticClassInfo = typeof(DalList.DataSource);
+        var staticClassConstructorInfo = staticClassInfo.TypeInitializer;
+        staticClassConstructorInfo.Invoke(null, null);
+        int choice=0;
         do
         {
-            Console.WriteLine("enter 1 for product , 2 for orders, 3 for orders items, 0 to exit");
-            int.TryParse(Console.ReadLine(), out choice);
-            switch (choice)
+            try
             {
-                case 1:
-                    CRUDProduct();
-                    break;
-                case 2:
-                    CRUDOrder();
-                    break;
-                case 3:
-                    CRUDOrderItem();
-                    break;
-                default:
-                    Console.WriteLine("incorrect input");
-                    break;
+                Console.WriteLine("enter 1 for product , 2 for orders, 3 for orders items, 0 to exit");
+                int.TryParse(Console.ReadLine(), out choice);
+                switch (choice)
+                {
+                    case 1:
+                        CRUDProduct();
+                        break;
+                    case 2:
+                        CRUDOrder();
+                        break;
+                    case 3:
+                        CRUDOrderItem();
+                        break;
+                    default:
+                        Console.WriteLine("incorrect input");
+                        break;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("{0} Exception caught.", e.Message);
             }
         } while (choice != 0);
     }
@@ -120,7 +132,10 @@ public class Program
         } while (s != "0");
     }
 
-    
+    /// <summary>
+    /// accepts order details from user
+    /// </summary>
+    /// <returns>order object</returns>
     private static Order createOrder()
     {
         Order newOrder = new Order();
@@ -180,10 +195,9 @@ public class Program
     }
 
     /// <summary>
-    /// /////////////////
-    /// Product
+    /// accepts product details from user
     /// </summary>
-    /// <returns></returns>
+    /// <returns>product object</returns>
     private static Product createProduct()
     {
         Product newProduct = new Product();
@@ -244,10 +258,9 @@ public class Program
 
 
     /// <summary>
-    /// /////////////////
-    /// order item
+    /// accepts order item details from user
     /// </summary>
-    /// <returns></returns>
+    /// <returns>order item object</returns>
     private static OrderItem createOrderItem()
     {
         OrderItem newOrderItem = new OrderItem();
@@ -286,6 +299,9 @@ public class Program
     private static void displayAllItems()
     {
         OrderItem[] orderList = DalOrderItem.ReadAllItems();
+        Console.WriteLine("| PRODUCT ID |  ORDER ID  |   PRICE   |  AMOUNT  |");
+        Console.WriteLine("|____________|____________|___________|__________|");
+        Console.WriteLine("|            |            |           |          |");
         for (int i = 0; i < orderList.Length; i++)
         {
             Console.WriteLine(orderList[i]);
