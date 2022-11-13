@@ -1,6 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
-using DalFacade.DO;
-using DalList;
+using DO;
+using Dal;
 
 namespace DalTest;
 
@@ -10,15 +10,16 @@ public class Program
     {
 
         //using reflection (call static constructor)
-        Type staticClassInfo = typeof(DalList.DataSource);
+        Type staticClassInfo = typeof(Dal.DataSource);
         var staticClassConstructorInfo = staticClassInfo.TypeInitializer;
         staticClassConstructorInfo.Invoke(null, null);
+
         int choice=0;
         do
         {
             try
             {
-                Console.WriteLine("enter 1 for product , 2 for orders, 3 for orders items, 0 to exit");
+                Console.WriteLine("enter: \n 1 for product \n 2 for orders \n 3 for orders items \n 0 to exit");
                 int.TryParse(Console.ReadLine(), out choice);
                 switch (choice)
                 {
@@ -47,7 +48,7 @@ public class Program
         string s = "0";
         do
         {
-            Console.WriteLine("enter a to add order , b to display orders by id , c to display list of orders, d to update order , e to erase order from list, 0 to return main menu");
+            Console.WriteLine("enter: \n a to add order \n b to display orders by id \n c to display list of orders \n d to update order \n e to erase order from list \n 0 to return main menu");
             s = Console.ReadLine();
             switch (s)
             {
@@ -75,7 +76,7 @@ public class Program
         string s = "0";
         do
         {
-            Console.WriteLine("enter a to add order item, b to display order items by order id , c to display list of all ordered items,d to display ordered item by product id and order id, e to update orders item , f to erase order item from list, 0 to return main menu");
+            Console.WriteLine("enter: \n a to add order item \n b to display order items by order id \n c to display list of all ordered items \n d to display ordered item by product id and order id \n e to update orders item \n f to erase order item from list \n 0 to return main menu");
 
             s = Console.ReadLine();
             switch (s)
@@ -108,7 +109,7 @@ public class Program
         string s = "0";
         do
         {
-            Console.WriteLine("enter a to add product , b to display product by id , c to display list of products, d to update product , e to erase product from list, 0 to return main menu");
+            Console.WriteLine("enter: \n a to add product \n b to display product by id \n c to display list of products \n d to update product \n e to erase product from list \n 0 to return main menu");
 
             s = Console.ReadLine();
             switch (s)
@@ -183,7 +184,7 @@ public class Program
     {
         int id;
         Order newOrder = createOrder();
-        Console.WriteLine("enter order ID");
+        Console.WriteLine("enter order ID:");
         int.TryParse(Console.ReadLine(), out id);
         newOrder.ID = id;
         DalOrder.UpdateOrder(newOrder);

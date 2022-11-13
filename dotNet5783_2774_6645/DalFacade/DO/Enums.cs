@@ -1,5 +1,5 @@
 ﻿
-namespace DalFacade.DO;
+namespace DO;
 /// <summary>
 /// structure for categories
 /// </summary>

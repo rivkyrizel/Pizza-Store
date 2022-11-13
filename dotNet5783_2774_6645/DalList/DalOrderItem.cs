@@ -1,6 +1,6 @@
-﻿using DalFacade.DO;
+﻿using DO;
 
-namespace DalList;
+namespace Dal;
 public class DalOrderItem
 {
 
@@ -21,7 +21,7 @@ public class DalOrderItem
     /// </summary>
     /// <param name="orderId"></param>
     /// <returns> List of items in requested order </returns>
-    /// <exception cref="ArgumentException"> No order with the given id found </exception>
+    /// <exception cref="Exception"> No order with the given id found </exception>
     public static OrderItem[] ReadOrderItems(int orderId)
     {
         //OrderItem[] orderItems = new OrderItem[DataSource.Config.orderItemIdx];
@@ -35,7 +35,7 @@ public class DalOrderItem
                 counter++;
             }
 
-        if (counter == 0) throw new ArgumentException(" No order found ");
+        if (counter == 0) throw new Exception(" No order found ");
         return list.ToArray();
     }
 
@@ -58,7 +58,7 @@ public class DalOrderItem
     /// <param name="orderId"> Id of order that desired item is in</param>
     /// <param name="productId"> Id of product </param>
     /// <returns> Details of ordered item </returns>
-    /// <exception cref="ArgumentException"> no order </exception>
+    /// <exception cref="Exception"> no order </exception>
     public static OrderItem ReadOrderItem(int orderId, int productId)
     {
         for (int i = 0; i < DataSource.Config.orderItemIdx; i++)
@@ -68,14 +68,14 @@ public class DalOrderItem
                 return DataSource.OrderItem[i];
             }
         }
-        throw new ArgumentException(" requested item  not found ");
+        throw new Exception(" requested item  not found ");
     }
 
     /// <summary>
     /// Updates ordered item
     /// </summary>
     /// <param name="updateOrderItem"> Details of ordered item to update</param>
-    /// <exception cref="ArgumentException"> No order with given id found </exception>
+    /// <exception cref="Exception"> No order with given id found </exception>
     public static void UpdateOrderItem(OrderItem updateOrderItem)
     {
         for (int i = 0; i < DataSource.Config.orderItemIdx; i++)
@@ -88,7 +88,7 @@ public class DalOrderItem
             }
 
         }
-        throw new ArgumentException("could not update ordered item ");
+        throw new Exception("could not update ordered item ");
     }
 
     /// <summary>

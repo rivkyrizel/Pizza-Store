@@ -1,6 +1,6 @@
-﻿using DalFacade.DO;
+﻿using DO;
 
-namespace DalList;
+namespace Dal;
 
 public static class DataSource
 {
@@ -12,7 +12,7 @@ public static class DataSource
     {
         sInitialize();
     }
-    public static class Config
+    internal static class Config
     {
         private static int productID = 100000;
         public static int ProductID { get { return productID++; } }
@@ -46,6 +46,7 @@ public static class DataSource
         string[] CustomerName = { "aaa", "bbb", "ccc" };
         string[] CustomerAdress = { "ddd", "eee", "fff" };
         string[] CustomerEmail = { "ggg", "hhh", "iii" };
+
         for (int i = 0; i < 20; i++)
         {
             Config.orderIdx++;
@@ -53,19 +54,34 @@ public static class DataSource
             int numberForName = (int)rand.NextInt64(CustomerName.Length);
             int numberForAdress = (int)rand.NextInt64(CustomerAdress.Length);
             int numberForEmail = (int)rand.NextInt64(CustomerEmail.Length);
-            TimeSpan ShipDate = TimeSpan.FromDays(2);
-            TimeSpan deliveryDate = TimeSpan.FromDays(20);
-            Random ran = new Random();
-            DateTime start = new DateTime(2020, 1, 1);
-            int range = (DateTime.Today - start).Days;
             OrderList[i].ID = Config.OrderID;
             OrderList[i].CustomerName = CustomerName[numberForName];
             OrderList[i].CustomerAdress = CustomerAdress[numberForAdress];
             OrderList[i].CustomerEmail = CustomerEmail[numberForEmail];
-            OrderList[i].OrderDate = start.AddDays(ran.Next(range));
-            OrderList[i].ShipDate = OrderList[i].OrderDate + ShipDate;
-            OrderList[i].DeliveryDate = OrderList[i].OrderDate + deliveryDate;
 
+            Random ran = new Random();
+            DateTime start = new DateTime(2010, 1, 1);
+            int range = (DateTime.Today - start).Days;
+            OrderList[i].OrderDate = start.AddDays(ran.Next(range));
+            int dateShipExist = (int)rand.NextInt64(0, 5);
+            if (dateShipExist > 0)
+            {
+                TimeSpan spanOrderShip = TimeSpan.FromDays(5);
+                OrderList[i].ShipDate = OrderList[i].OrderDate + spanOrderShip;
+                int dateDeliveryExist = (int)rand.NextInt64(0, 5);
+                if (dateDeliveryExist > 0)
+                {
+                    TimeSpan spanShipDelivery = TimeSpan.FromDays(30);
+                    OrderList[i].DeliveryDate = OrderList[i].ShipDate + spanShipDelivery;
+                }
+                else
+                    OrderList[i].DeliveryDate = DateTime.MinValue;
+            }
+            else
+            {
+                OrderList[i].ShipDate = DateTime.MinValue;
+                OrderList[i].DeliveryDate = DateTime.MinValue;
+            }
         }
     }
     private static void createOrderItemList()

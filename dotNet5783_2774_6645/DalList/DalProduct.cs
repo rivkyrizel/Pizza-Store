@@ -1,8 +1,8 @@
-﻿using DalFacade.DO;
+﻿using DO;
 
-namespace DalList;
+namespace Dal;
 
-public static class DalProduct
+public  class DalProduct
 {
     /// <summary>
     /// create product
@@ -21,7 +21,7 @@ public static class DalProduct
     /// </summary>
     /// <param name="id">id of specific product</param>
     /// <returns>  product details of given id</returns>
-    /// <exception cref="ArgumentException">no product with requested id found</exception>
+    /// <exception cref="Exception">no product with requested id found</exception>
     public static Product ReadProduct(int id)
     {
         for (int i = 0; i < DataSource.Config.productIdx; i++)
@@ -30,7 +30,7 @@ public static class DalProduct
                 return DataSource.ProductList[i];
 
         }
-        throw new ArgumentException("error product not found");
+        throw new Exception("error product not found");
     }
 
     /// <summary>
@@ -50,7 +50,7 @@ public static class DalProduct
     /// Updates an product
     /// </summary>
     /// <param name="updateProduct"> The updated product </param>
-    /// <exception cref="ArgumentException"> No order with the given id found </exception>
+    /// <exception cref="Exception"> No order with the given id found </exception>
     public static void UpdateProduct(Product updateProduct)
     {
         for (int i = 0; i < DataSource.Config.productIdx; i++)
@@ -62,14 +62,14 @@ public static class DalProduct
             }
 
         }
-        throw new ArgumentException("could not update product");
+        throw new Exception("could not update product");
     }
 
     /// <summary>
     ///  Deletes product by given id
     /// </summary>
     /// <param name="id"> Id of product to delete </param>
-    /// <exception cref="ArgumentException"> No product found with the given id </exception>
+    /// <exception cref="Exception"> No product found with the given id </exception>
     public static void DeleteProduct(int id)
     {
         for (int i = 0; i < DataSource.Config.productIdx; i++)
@@ -85,7 +85,7 @@ public static class DalProduct
             }
 
         }
-        throw new ArgumentException("error can't delete product");
+        throw new Exception("error can't delete product");
     }
 }
 

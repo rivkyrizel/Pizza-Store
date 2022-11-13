@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using DalFacade.DO;
+﻿using DO;
 
-namespace DalList;
+namespace Dal;
 
-public static class DalOrder
+public class DalOrder
 {
 
     /// <summary>
@@ -23,14 +22,14 @@ public static class DalOrder
     /// </summary>
     /// <param name="id"> id of specific order </param>
     /// <returns> order details of given id </returns>
-    /// <exception cref="ArgumentException"> no order with requested id found </exception>
+    /// <exception cref="Exception"> no order with requested id found </exception>
     public static Order ReadOrder(int id)
     {
         for (int i = 0; i < DataSource.Config.orderIdx; i++)
             if (id == DataSource.OrderList[i].ID)
                 return DataSource.OrderList[i];
 
-        throw new ArgumentException("order not found");
+        throw new Exception("order not found");
     }
 
     /// <summary>
@@ -50,7 +49,7 @@ public static class DalOrder
     /// Updates an order
     /// </summary>
     /// <param name="updateOrder"> The updated order </param>
-    /// <exception cref="ArgumentException"> No order with the given id found </exception>
+    /// <exception cref="Exception"> No order with the given id found </exception>
     public static void UpdateOrder(Order updateOrder)
     {
         for (int i = 0; i < DataSource.Config.orderIdx; i++)
@@ -62,14 +61,14 @@ public static class DalOrder
             }
 
         }
-        throw new ArgumentException(" could not update order ");
+        throw new Exception(" could not update order ");
     }
 
     /// <summary>
     ///  Deletes order by given id
     /// </summary>
     /// <param name="id"> Id of order to delete </param>
-    /// <exception cref="ArgumentException"> No order found with the given id </exception>
+    /// <exception cref="Exception"> No order found with the given id </exception>
     public static void DeleteOrder(int id)
     {
         for (int i = 0; i < DataSource.Config.orderIdx; i++)
@@ -85,7 +84,7 @@ public static class DalOrder
             }
 
         }
-        throw new ArgumentException(" could not delete order");
+        throw new Exception(" could not delete order");
     }
 }
 
