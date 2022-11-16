@@ -167,7 +167,7 @@ public class Program
         Console.WriteLine("|    ID     |   NAME  |  EMAIL   | ADRESS |        ORDER DATE       |        SHIP DATE      |      DELIVERY DATE    |");
         Console.WriteLine("|___________|_________|__________|________|_________________________|_______________________|_______________________|");
         Console.WriteLine("|           |         |          |        |                         |                       |                       |");
-        Console.WriteLine(DalOrder.ReadOrder(id));
+        Console.WriteLine(DalOrder.Get(id));
     }
 
     private static void displayOrderList()

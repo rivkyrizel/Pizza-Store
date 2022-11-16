@@ -1,8 +1,9 @@
 ﻿using DO;
+using DalApi;
 
 namespace Dal;
 
-public class DalOrder
+internal class DalOrder:IOrder
 {
 
     /// <summary>
@@ -10,58 +11,12 @@ public class DalOrder
     /// </summary>
     /// <param name="order">the new order</param>
     /// <returns> id of the order</returns>
-    public static int CreateOrder(Order order)
+    /// 
+    public int Add(Order o)
     {
-        order.ID = DataSource.Config.OrderID;
-        DataSource.OrderList[DataSource.Config.orderIdx++] = order;
-        return DataSource.Config.orderIdx;
-    }
-
-    /// <summary>
-    /// functiod receives id if order and returns the orders details
-    /// </summary>
-    /// <param name="id"> id of specific order </param>
-    /// <returns> order details of given id </returns>
-    /// <exception cref="Exception"> no order with requested id found </exception>
-    public static Order ReadOrder(int id)
-    {
-        for (int i = 0; i < DataSource.Config.orderIdx; i++)
-            if (id == DataSource.OrderList[i].ID)
-                return DataSource.OrderList[i];
-
-        throw new Exception("order not found");
-    }
-
-    /// <summary>
-    /// returns all orders
-    /// </summary>
-    /// <returns> all orders in system </returns>
-    public static Order[] ReadOrderList()
-    {
-        Order[] orderList = new Order[DataSource.Config.orderIdx];
-        for (int i = 0; i < orderList.Length; i++)
-            orderList[i] = DataSource.OrderList[i];
-
-        return orderList;
-    }
-
-    /// <summary>
-    /// Updates an order
-    /// </summary>
-    /// <param name="updateOrder"> The updated order </param>
-    /// <exception cref="Exception"> No order with the given id found </exception>
-    public static void UpdateOrder(Order updateOrder)
-    {
-        for (int i = 0; i < DataSource.Config.orderIdx; i++)
-        {
-            if (updateOrder.ID == DataSource.OrderList[i].ID)
-            {
-                DataSource.OrderList[i] = updateOrder;
-                return;
-            }
-
-        }
-        throw new Exception(" could not update order ");
+        o.ID = DataSource.Config.OrderID;
+        DataSource.OrderList.Add(o);
+        return o.ID;
     }
 
     /// <summary>
@@ -69,22 +24,66 @@ public class DalOrder
     /// </summary>
     /// <param name="id"> Id of order to delete </param>
     /// <exception cref="Exception"> No order found with the given id </exception>
-    public static void DeleteOrder(int id)
+    public void Delete(int id)
     {
-        for (int i = 0; i < DataSource.Config.orderIdx; i++)
+        foreach (Order item in DataSource.OrderList)
         {
-            if (id == DataSource.OrderList[i].ID)
+            if (id == item.ID)
             {
-                for (int j = i; j < DataSource.Config.orderIdx; j++)
-                {
-                    DataSource.OrderList[j] = DataSource.OrderList[j + 1];
-                }
-                DataSource.Config.orderIdx--;
+                DataSource.OrderList.Remove(item);
                 return;
             }
-
         }
-        throw new Exception(" could not delete order");
+        throw new ItemNotFound("could not delete order");
+       
+    }
+
+    /// <summary>
+    /// Updates an order
+    /// </summary>
+    /// <param name="updateOrder"> The updated order </param>
+    /// <exception cref="Exception"> No order with the given id found </exception>
+
+
+    public void Update(Order o)
+    {
+        foreach (Order item in DataSource.OrderList)
+        {
+            if (o.ID == item.ID)
+            {
+                Order n = item;
+                n = o;
+                return;
+            }
+        }
+        throw new ItemNotFound(" could not update order ");
+    }
+
+    /// <summary>
+    /// returns all orders
+    /// </summary>
+    /// <returns> all orders in system </returns>
+    public IEnumerable<Order> GetList()
+    {
+        return DataSource.OrderList;
+    }
+
+
+    /// <summary>
+    /// functiod receives id if order and returns the orders details
+    /// </summary>
+    /// <param name="id"> id of specific order </param>
+    /// <returns> order details of given id </returns>
+    /// <exception cref="Exception"> no order with requested id found </exception>
+
+
+    public Order Get(int id)
+    {
+        foreach (Order item in DataSource.OrderList)
+
+            if (id == item.ID) return item;
+        
+        throw new ItemNotFound("order not found");
     }
 }
 

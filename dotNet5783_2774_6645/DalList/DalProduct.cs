@@ -1,19 +1,69 @@
 ﻿using DO;
+using DalApi;
 
 namespace Dal;
 
-public  class DalProduct
+internal class DalProduct:IProduct
 {
+
     /// <summary>
     /// create product
     /// </summary>
     /// <param name="product">the new product</param>
     /// <returns>id of the product</returns>
-    public static int CreateProduct(Product product)
+    public int Add(Product p)
     {
-        product.ID = DataSource.Config.ProductID;
-        DataSource.ProductList[DataSource.Config.productIdx++] = product;
-        return DataSource.Config.productIdx;
+        p.ID = DataSource.Config.ProductID;
+        DataSource.ProductList.Add(p);
+        return p.ID;
+    }
+
+    /// <summary>
+    ///  Deletes product by given id
+    /// </summary>
+    /// <param name="id"> Id of product to delete </param>
+    /// <exception cref="Exception"> No product found with the given id </exception>
+    public void Delete(int id)
+    {
+        foreach(Product item in DataSource.ProductList)
+        {
+            if (id == item.ID)
+            {
+                DataSource.ProductList.Remove(item);
+                return;
+            }
+
+        }
+        throw new ItemNotFound("error can't delete product");
+    }
+
+    /// <summary>
+    /// Updates an product
+    /// </summary>
+    /// <param name="updateProduct"> The updated product </param>
+    /// <exception cref="Exception"> No order with the given id found </exception>
+
+    public void Update(Product p)
+    {
+        foreach (Product item in DataSource.ProductList)
+        {
+            if (p.ID == item.ID)
+            {
+                Product newP = new Product();
+                newP = p;
+                return;
+            }
+        }
+        throw new ItemNotFound("could not update product");
+    }
+
+    /// <summary>
+    /// returns all products
+    /// </summary>
+    /// <returns> all products in system </returns>
+    public IEnumerable<Product> GetList()
+    {
+        return DataSource.ProductList;
     }
 
     /// <summary>
@@ -22,70 +72,14 @@ public  class DalProduct
     /// <param name="id">id of specific product</param>
     /// <returns>  product details of given id</returns>
     /// <exception cref="Exception">no product with requested id found</exception>
-    public static Product ReadProduct(int id)
+    public Product Get(int id)
     {
-        for (int i = 0; i < DataSource.Config.productIdx; i++)
+        foreach (Product item in DataSource.ProductList)
         {
-            if (id == DataSource.ProductList[i].ID)
-                return DataSource.ProductList[i];
-
+            if (id == item.ID)
+                return item;
         }
         throw new Exception("error product not found");
-    }
-
-    /// <summary>
-    /// returns all products
-    /// </summary>
-    /// <returns> all products in system </returns>
-    public static Product[] ReadProductList()
-    {
-        Product[] productList = new Product[DataSource.Config.productIdx];
-        for (int i = 0; i < productList.Length; i++)
-            productList[i] = DataSource.ProductList[i];
-
-        return productList;
-    }
-
-    /// <summary>
-    /// Updates an product
-    /// </summary>
-    /// <param name="updateProduct"> The updated product </param>
-    /// <exception cref="Exception"> No order with the given id found </exception>
-    public static void UpdateProduct(Product updateProduct)
-    {
-        for (int i = 0; i < DataSource.Config.productIdx; i++)
-        {
-            if (updateProduct.ID == DataSource.ProductList[i].ID)
-            {
-                DataSource.ProductList[i] = updateProduct;
-                return;
-            }
-
-        }
-        throw new Exception("could not update product");
-    }
-
-    /// <summary>
-    ///  Deletes product by given id
-    /// </summary>
-    /// <param name="id"> Id of product to delete </param>
-    /// <exception cref="Exception"> No product found with the given id </exception>
-    public static void DeleteProduct(int id)
-    {
-        for (int i = 0; i < DataSource.Config.productIdx; i++)
-        {
-            if (id == DataSource.ProductList[i].ID)
-            {
-                for (int j = i; j < DataSource.Config.productIdx; j++)
-                {
-                    DataSource.ProductList[j] = DataSource.ProductList[j + 1];
-                }
-                DataSource.Config.productIdx--;
-                return;
-            }
-
-        }
-        throw new Exception("error can't delete product");
     }
 }
 
