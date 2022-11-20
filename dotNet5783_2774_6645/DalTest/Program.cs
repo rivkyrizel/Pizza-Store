@@ -1,20 +1,22 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using DO;
 using Dal;
+using DalApi;
 
 namespace DalTest;
 
 public class Program
 {
+    public static IDal DalList = new DalList();
     static void Main()
     {
 
         //using reflection (call static constructor)
-        Type staticClassInfo = typeof(Dal.DataSource);
-        var staticClassConstructorInfo = staticClassInfo.TypeInitializer;
-        staticClassConstructorInfo.Invoke(null, null);
+        //Type staticClassInfo = typeof(Dal.DataSource);
+        //var staticClassConstructorInfo = staticClassInfo.TypeInitializer;
+        //staticClassConstructorInfo.Invoke(null, null);
 
-        int choice=0;
+        int choice = 0;
         do
         {
             try
@@ -157,7 +159,7 @@ public class Program
     private static void addOrder()
     {
         Order newOrder = createOrder();
-        DalOrder.CreateOrder(newOrder);
+        DalList.Order.Add(newOrder);
     }
 
     private static void displayOrder()
@@ -167,17 +169,18 @@ public class Program
         Console.WriteLine("|    ID     |   NAME  |  EMAIL   | ADRESS |        ORDER DATE       |        SHIP DATE      |      DELIVERY DATE    |");
         Console.WriteLine("|___________|_________|__________|________|_________________________|_______________________|_______________________|");
         Console.WriteLine("|           |         |          |        |                         |                       |                       |");
-        Console.WriteLine(DalOrder.Get(id));
+        Console.WriteLine(DalList.Order.Get(id));
     }
 
     private static void displayOrderList()
     {
-        Order[] orderList = DalOrder.ReadOrderList();
+        IEnumerable<Order> orderList = DalList.Order.GetList();
         Console.WriteLine("|    ID     |   NAME  |  EMAIL   | ADRESS |        ORDER DATE       |        SHIP DATE      |      DELIVERY DATE    |");
         Console.WriteLine("|___________|_________|__________|________|_________________________|_______________________|_______________________|");
         Console.WriteLine("|           |         |          |        |                         |                       |                       |");
-        for (int i = 0; i < orderList.Length; i++)
-            Console.WriteLine(orderList[i]);
+        foreach (Order item in orderList)
+            Console.WriteLine(item);
+
     }
 
     private static void updateOrder()
@@ -187,7 +190,7 @@ public class Program
         Console.WriteLine("enter order ID:");
         int.TryParse(Console.ReadLine(), out id);
         newOrder.ID = id;
-        DalOrder.UpdateOrder(newOrder);
+        DalList.Order.Update(newOrder);
     }
 
     private static void deleteOrder()
@@ -195,7 +198,7 @@ public class Program
         int id;
         Console.WriteLine("enter id:");
         int.TryParse(Console.ReadLine(), out id);
-        DalOrder.DeleteOrder(id);
+        DalList.Order.Delete(id);
     }
 
     /// <summary>
@@ -222,7 +225,7 @@ public class Program
     private static void addProduct()
     {
         Product newProduct = createProduct();
-        DalProduct.CreateProduct(newProduct);
+        DalList.Product.Add(newProduct);
     }
 
     private static void displayProduct()
@@ -232,19 +235,17 @@ public class Program
         Console.WriteLine("|    ID    |       NAME       | CATEGORY | PRICE | IN STOCK |");
         Console.WriteLine("|__________|__________________|__________|_______|__________|");
         Console.WriteLine("|          |                  |          |       |          |");
-        Console.WriteLine(DalProduct.ReadProduct(id));
+        Console.WriteLine(DalList.Product.Get(id));
     }
 
     private static void displayProductList()
     {
-        Product[] productList = DalProduct.ReadProductList();
+        IEnumerable<Product> productList = DalList.Product.GetList();
         Console.WriteLine("|    ID    |       NAME       | CATEGORY | PRICE | IN STOCK |");
         Console.WriteLine("|__________|__________________|__________|_______|__________|");
         Console.WriteLine("|          |                  |          |       |          |");
-        for (int i = 0; i < productList.Length; i++)
-        {
-            Console.WriteLine(productList[i]);
-        }
+        foreach (Product item in productList)
+            Console.WriteLine(item);
     }
 
     private static void updateProduct()
@@ -253,14 +254,14 @@ public class Program
         Console.WriteLine("enter Product ID");
         int.TryParse(Console.ReadLine(), out int id);
         newProduct.ID = id;
-        DalProduct.UpdateProduct(newProduct);
+        DalList.Product.Update(newProduct);
     }
 
     private static void deleteProduct()
     {
         Console.WriteLine("enter id:");
         int.TryParse(Console.ReadLine(), out int id);
-        DalProduct.DeleteProduct(id);
+        DalList.Product.Delete(id);
     }
 
 
@@ -289,59 +290,53 @@ public class Program
     private static void addOrderItem()
     {
         OrderItem newOrderItem = createOrderItem();
-        DalOrderItem.CreateOrderItem(newOrderItem);
+        DalList.OrderItem.Add(newOrderItem);
     }
 
     private static void displayOrderItems()
     {
         Console.WriteLine("enter order id:");
         int.TryParse(Console.ReadLine(), out int id);
-        OrderItem[] orderItems = DalOrderItem.ReadOrderItems(id);
+        IEnumerable<OrderItem> orderItems = DalList.OrderItem.GetOrderItems(id);
         Console.WriteLine("| PRODUCT ID |  ORDER ID  |   PRICE   |  AMOUNT  |");
         Console.WriteLine("|____________|____________|___________|__________|");
         Console.WriteLine("|            |            |           |          |");
-        for (int i = 0; i < orderItems.Length; i++)
-                Console.WriteLine(orderItems[i]);
+        foreach (OrderItem item in orderItems)
+            Console.WriteLine(item);
 
     }
 
     private static void displayAllItems()
     {
-        OrderItem[] orderList = DalOrderItem.ReadAllItems();
+        IEnumerable<OrderItem> orderList = DalList.OrderItem.GetList();
         Console.WriteLine("| PRODUCT ID |  ORDER ID  |   PRICE   |  AMOUNT  |");
         Console.WriteLine("|____________|____________|___________|__________|");
         Console.WriteLine("|            |            |           |          |");
-        for (int i = 0; i < orderList.Length; i++)
-        {
-            Console.WriteLine(orderList[i]);
-        }
+        foreach (OrderItem item in orderList)
+            Console.WriteLine(item);
     }
 
     private static void displayItem()
     {
-        Console.WriteLine("enter order id:");
-        int.TryParse(Console.ReadLine(), out int orderId);
-        Console.WriteLine("enter product id:");
-        int.TryParse(Console.ReadLine(), out int productId);
+        Console.WriteLine("enter  id:");
+        int.TryParse(Console.ReadLine(), out int Id);
         Console.WriteLine("| PRODUCT ID |  ORDER ID  |   PRICE   |  AMOUNT  |");
         Console.WriteLine("|____________|____________|___________|__________|");
         Console.WriteLine("|            |            |           |          |");
-        Console.WriteLine(DalOrderItem.ReadOrderItem(orderId, productId));
+        Console.WriteLine(DalList.OrderItem.Get(Id));
     }
 
     private static void updateOrderItem()
     {
         OrderItem newOrderItem = createOrderItem();
-        DalOrderItem.UpdateOrderItem(newOrderItem);
+        DalList.OrderItem.Update(newOrderItem);
     }
 
     private static void deleteOrderItem()
     {
-        Console.WriteLine("enter product id:");
-        int.TryParse(Console.ReadLine(), out int productId);
-        Console.WriteLine("enter order id:");
-        int.TryParse(Console.ReadLine(), out int orderId);
-        DalOrderItem.DeleteOrder(orderId, productId);
+        Console.WriteLine("enter id:");
+        int.TryParse(Console.ReadLine(), out int Id);
+        DalList.OrderItem.Delete(Id);
     }
 
 }

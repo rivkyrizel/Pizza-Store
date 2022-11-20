@@ -5,9 +5,9 @@ namespace Dal;
 public static class DataSource
 {
     static readonly Random rand = new Random();
-    internal static List<Product> ProductList;
-    internal static List<Order> OrderList;
-    internal static List<OrderItem> OrderItemList;
+    internal static List<Product> ProductList=new List<Product>();
+    internal static List<Order> OrderList=new List<Order>();
+    internal static List<OrderItem> OrderItemList=new List<OrderItem>();
     static DataSource()
     {
         sInitialize();
@@ -26,7 +26,8 @@ public static class DataSource
 
     private static void createProductList()
     {
-     
+
+
         (string, eCategory)[] products = { ("  Ravioli  ", (eCategory)1), ("   Pizza   ", (eCategory)0), (" Sandwich  ", (eCategory)3), ("Ice coffee ", (eCategory)4), ("  Coffee   ", (eCategory)4), ("   Baguet  ", (eCategory)3), ("Greek Salad", (eCategory)4), (" XL pizza  ", (eCategory)0), ("Basic Salad", (eCategory)3), (" Coca Cola ", (eCategory)4) };
         for (int i = 0; i < 10; i++)
         {
@@ -85,7 +86,7 @@ public static class DataSource
     }
     private static void createOrderItemList()
     {
-        for (int i = 0; i < 40;  i++)
+        for (int i = 0; i < 40; i++)
         {
             int orderAmount = (int)rand.NextInt64(1, 20);
             int orderIdx = i % 20;
