@@ -49,6 +49,7 @@ public static class DataSource
 
         for (int i = 0; i < 20; i++)
         {
+            
             Order order = new Order();
             int numberForName = (int)rand.NextInt64(CustomerName.Length);
             int numberForAdress = (int)rand.NextInt64(CustomerAdress.Length);
@@ -66,12 +67,12 @@ public static class DataSource
             if (dateShipExist > 0)
             {
                 TimeSpan spanOrderShip = TimeSpan.FromDays(5);
-                order.ShipDate = OrderList[i].OrderDate + spanOrderShip;
+                order.ShipDate = order.OrderDate + spanOrderShip;
                 int dateDeliveryExist = (int)rand.NextInt64(0, 5);
                 if (dateDeliveryExist > 0)
                 {
                     TimeSpan spanShipDelivery = TimeSpan.FromDays(30);
-                    order.DeliveryDate = OrderList[i].ShipDate + spanShipDelivery;
+                    order.DeliveryDate = order.ShipDate + spanShipDelivery;
                 }
                 else
                     order.DeliveryDate = DateTime.MinValue;

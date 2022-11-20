@@ -12,15 +12,15 @@ public class Program
     {
 
         //using reflection (call static constructor)
-        //Type staticClassInfo = typeof(Dal.DataSource);
-        //var staticClassConstructorInfo = staticClassInfo.TypeInitializer;
-        //staticClassConstructorInfo.Invoke(null, null);
+        Type staticClassInfo = typeof(Dal.DataSource);
+        var staticClassConstructorInfo = staticClassInfo.TypeInitializer;
+        staticClassConstructorInfo.Invoke(null, null);
 
         int choice = 0;
         do
         {
-            try
-            {
+            //try
+            //{
                 Console.WriteLine("enter: \n 1 for product \n 2 for orders \n 3 for orders items \n 0 to exit");
                 int.TryParse(Console.ReadLine(), out choice);
                 switch (choice)
@@ -38,11 +38,12 @@ public class Program
                         Console.WriteLine("incorrect input");
                         break;
                 }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("{0} Exception caught.", e.Message);
-            }
+            //}
+
+            //catch (Exception e)
+            //{
+            //    Console.WriteLine("{0} Exception caught.", e.Message);
+            //}
         } while (choice != 0);
     }
     private static void CRUDOrder()
