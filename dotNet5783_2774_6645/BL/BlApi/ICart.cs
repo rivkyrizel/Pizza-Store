@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BO;
 
-namespace BL.BlApi
+namespace BlApi;
+
+public interface ICart
 {
-    internal interface ICart
-    {
-    }
+
+    public Cart AddToCart(Cart cart, int productId);
+    public Cart updateAmount(Cart cart, int productId, int newAmount);
+    public Cart confirmOrder(Cart cart, string name, string email, string address);
 }
+

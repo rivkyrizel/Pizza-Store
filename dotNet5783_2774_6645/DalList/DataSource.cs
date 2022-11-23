@@ -12,7 +12,7 @@ public static class DataSource
     {
         sInitialize();
     }
-    internal static class Config
+    public static class Config
     {
         private static int productID = 100000;
         public static int ProductID { get { return productID++; } }
