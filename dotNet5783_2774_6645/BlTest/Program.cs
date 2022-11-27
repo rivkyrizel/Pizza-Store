@@ -102,7 +102,7 @@ public class Program
                     getProductForCustomer();
                     break;
                 case "d":
-                    getProductForMenager();
+                    getProductForManager();
                     break;
                 case "e":
                     addProduct();
@@ -144,7 +144,16 @@ public class Program
 
     private static void getProductForCustomer()
     {
-  
+       int id= displayProduct();
+        Product p = BL.product.GetProductForCustomer(id);
+        Console.WriteLine(p);
+    }
+
+    private static void getProductForManager()
+    {
+        int id=displayProduct();
+        Product p = BL.product.GetProductForManager(id);
+        Console.WriteLine(p);
     }
 
     private static void displayOrder()
@@ -242,27 +251,20 @@ public class Program
     private static void addProduct()
     {
         Product newProduct = createProduct();
-        DalList.Product.Add(newProduct);
+        BL.product.AddProduct(newProduct);
     }
 
-    private static void displayProduct()
+    private static int displayProduct()
     {
         Console.WriteLine("enter id:");
         int.TryParse(Console.ReadLine(), out int id);
         Console.WriteLine("|    ID    |       NAME       | CATEGORY | PRICE | IN STOCK |");
         Console.WriteLine("|__________|__________________|__________|_______|__________|");
         Console.WriteLine("|          |                  |          |       |          |");
+        return id;
     }
 
-    private static void displayProductList()
-    {
-        IEnumerable<Product> productList = DalList.Product.GetList();
-        Console.WriteLine("|    ID    |       NAME       | CATEGORY | PRICE | IN STOCK |");
-        Console.WriteLine("|__________|__________________|__________|_______|__________|");
-        Console.WriteLine("|          |                  |          |       |          |");
-        foreach (Product item in productList)
-            Console.WriteLine(item);
-    }
+
 
     private static void updateProduct()
     {
@@ -270,14 +272,14 @@ public class Program
         Console.WriteLine("enter Product ID");
         int.TryParse(Console.ReadLine(), out int id);
         newProduct.ID = id;
-        DalList.Product.Update(newProduct);
+        BL.product.UpdateProduct(newProduct);
     }
 
     private static void deleteProduct()
     {
         Console.WriteLine("enter id:");
         int.TryParse(Console.ReadLine(), out int id);
-        DalList.Product.Delete(id);
+        BL.product.DeleteProduct(id);
     }
 
 

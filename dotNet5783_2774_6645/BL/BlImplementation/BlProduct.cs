@@ -52,7 +52,7 @@ internal class BlProduct : IProduct
 
     }
 
-    public BO.Product GetProductForMenager(int id)
+    public BO.Product GetProductForManager(int id)
     {
         return Get(id);
     }

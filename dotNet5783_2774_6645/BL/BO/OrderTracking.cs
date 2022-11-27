@@ -1,5 +1,4 @@
-﻿using static BO.Enums;
-namespace BO;
+﻿namespace BO;
 
 public class OrderTracking
 {

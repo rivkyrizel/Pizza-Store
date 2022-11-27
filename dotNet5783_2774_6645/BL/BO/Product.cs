@@ -1,5 +1,4 @@
-﻿using static BO.Enums;
-namespace BO;
+﻿namespace BO;
 
 public class Product
 {
@@ -8,5 +7,8 @@ public class Product
     public double Price { get; set; }
     public eCategory Category { get; set; }
     public int InStock { get; set; }
+    public override string ToString() =>
+$@"|  {ID}  |   {Name}    |  {Category}  |  {Price}   |    {InStock}  
+ -------------------------------------------------";
 }
 
