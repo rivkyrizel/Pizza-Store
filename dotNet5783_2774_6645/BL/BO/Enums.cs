@@ -13,7 +13,7 @@ public enum eCategory
 public enum OrderStatus
 {
     Confirmed,
-    Send,
+    Sent,
     DeliveredToCustomer
 }
 

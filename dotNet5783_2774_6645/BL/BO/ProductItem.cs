@@ -1,4 +1,4 @@
-﻿using static BO.Enums;
+﻿using static BO.eCategory;
 namespace BO;
 
 public class ProductItem

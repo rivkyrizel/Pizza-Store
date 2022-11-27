@@ -7,6 +7,6 @@ public interface ICart
 
     public Cart AddToCart(Cart cart, int productId);
     public Cart updateAmount(Cart cart, int productId, int newAmount);
-    public Cart confirmOrder(Cart cart, string name, string email, string address);
+    public void confirmOrder(Cart cart, string name, string email, string address);
 }
 

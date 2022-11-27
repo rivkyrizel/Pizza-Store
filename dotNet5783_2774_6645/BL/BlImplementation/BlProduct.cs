@@ -37,12 +37,19 @@ internal class BlProduct : IProduct
     public void DeleteProduct(int id)
     {
         IEnumerable<BO.OrderItem> orderItems = (IEnumerable<BO.OrderItem>)dal.OrderItem.GetList();
-        
+
         foreach (BO.OrderItem item in orderItems)
             if (item.ProductId == id)
-                throw new Exception("00000");
+                throw new BlProductFoundInOrders();
+        try
+        {
+            dal.Product.Delete(id);
+        }
+        catch (DalApi.ItemNotFound e)
+        {
+            throw new BlIdNotFound(e);
+        }
 
-        dal.Product.Delete(id);
     }
 
     public BO.Product GetProductForMenager(int id)
@@ -56,10 +63,18 @@ internal class BlProduct : IProduct
     }
     private BO.Product Get(int id)
     {
-        if (id > 0)
-            return castDOToBO(dal.Product.Get(id));
+        try
+        {
+            if (id > 0)
+                return castDOToBO(dal.Product.Get(id));
 
-        throw new Exception("ID isn't valid");
+            throw new BlInvalideData();
+        }
+        catch (DalApi.ItemNotFound e)
+        {
+            throw new BlIdNotFound(e);
+        }
+
     }
 
     public IEnumerable<BO.ProductForList> GetProductForList()
@@ -74,13 +89,22 @@ internal class BlProduct : IProduct
 
     public void UpdateProduct(BO.Product p)
     {
-
-        if (p.ID > 0 && p.Name != "" && p.Price > 0 && p.InStock > 0)
+        try
         {
-            dal.Product.Update(castBOToDO(p));
-        }
 
-        throw new Exception("the product isn't valid");
+            if (p.ID > 0) throw new BlInvalideData();
+
+            if (p.Name != "" && p.Price > 0 && p.InStock > 0)
+            {
+                dal.Product.Update(castBOToDO(p));
+            }
+
+            throw new BlNullValueException();
+        }
+        catch (DalApi.ItemNotFound e)
+        {
+            throw new BlIdNotFound(e);
+        }
     }
 }
 

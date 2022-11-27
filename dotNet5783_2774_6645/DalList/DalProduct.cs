@@ -71,7 +71,7 @@ internal class DalProduct:IProduct
     /// </summary>
     /// <param name="id">id of specific product</param>
     /// <returns>  product details of given id</returns>
-    /// <exception cref="Exception">no product with requested id found</exception>
+    /// <exception cref="ItemNotFound">no product with requested id found</exception>
     public Product Get(int id)
     {
         foreach (Product item in DataSource.ProductList)
@@ -79,7 +79,7 @@ internal class DalProduct:IProduct
             if (id == item.ID)
                 return item;
         }
-        throw new Exception("error product not found");
+        throw new ItemNotFound("error product not found");
     }
 }
 

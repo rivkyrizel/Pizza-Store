@@ -6,7 +6,7 @@ namespace BlImplementation;
 internal class BlCart : ICart
 {
     private DalApi.IDal dal = new Dal.DalList();
-   private  bool IsValidEmail(string email)
+    private bool IsValidEmail(string email)
     {
         var trimmedEmail = email.Trim();
 
@@ -24,86 +24,121 @@ internal class BlCart : ICart
             return false;
         }
     }
+
+    private DO.OrderItem castBOtoDO(BO.OrderItem boItem)
+    {
+        DO.OrderItem doItem = new DO.OrderItem();
+        doItem.ID = boItem.ID;
+        doItem.Price = boItem.Price;
+        doItem.ProductID = boItem.ProductId;
+        doItem.Amount = boItem.Amount;
+        return doItem;
+    }
     public BO.Cart AddToCart(BO.Cart cart, int productId)
     {
-        DO.Product p = dal.Product.Get(productId);
-        foreach (BO.OrderItem item in cart.Items)
-            if (p.InStock > 1)
-                if (item.ProductId == productId)
-                {
-                    item.Amount += 1;
-                    item.TotalPrice += p.Price;
-                }
-                else
-                {
-                    BO.OrderItem oItem = new BO.OrderItem();
-                    oItem.ID = DataSource.Config.OrderItemID;
-                    oItem.Name = p.Name;
-                    oItem.ProductId = p.ID;
-                    oItem.Price = p.Price;
-                    oItem.Amount = 1;
-                    oItem.TotalPrice = p.Price;
-                }
-        return cart;
+        try
+        {
+            DO.Product p = dal.Product.Get(productId);
+            foreach (BO.OrderItem item in cart.Items)
+                if (p.InStock > 1)
+                    if (item.ProductId == productId)
+                    {
+                        item.Amount += 1;
+                        item.TotalPrice += p.Price;
+                    }
+                    else
+                    {
+                        BO.OrderItem oItem = new BO.OrderItem();
+                        oItem.ID = DataSource.Config.OrderItemID;
+                        oItem.Name = p.Name;
+                        oItem.ProductId = p.ID;
+                        oItem.Price = p.Price;
+                        oItem.Amount = 1;
+                        oItem.TotalPrice = p.Price;
+                    }
+            return cart;
+        }
+        catch (DalApi.ItemNotFound e)
+        {
+            throw new BlIdNotFound(e);
+        }
     }
 
-    public BO.Cart confirmOrder(BO.Cart cart, string name, string email, string address)
+    public void confirmOrder(BO.Cart cart, string name, string email, string address)
     {
-        TimeSpan timeSpan;
-        timeSpan = TimeSpan.Zero;
-        foreach (BO.OrderItem item in cart.Items)
+        try
         {
-            DO.Product p = dal.Product.Get(item.ProductId);
-            if (p.InStock < item.Amount)
-                throw new Exception("hiiiiiiii");
+            foreach (BO.OrderItem item in cart.Items)
+            {
+                DO.Product p = dal.Product.Get(item.ProductId);
+                if (p.InStock < item.Amount)
+                    throw new BlOutOfStockException();
+                if (item.Amount < 0)
+                    throw new BlNegativeAmountException();
+            }
+            if (name == "" || email == "" || address == "")
+                throw new BlNullValueException();
+            if (!IsValidEmail(email))
+                throw new BlInvalidEmailException();
+            DO.Order order = new DO.Order();
+            order.CustomerAdress = address;
+            order.CustomerEmail = email;
+            order.CustomerName = name;
+            order.DeliveryDate = DateTime.MinValue;
+            order.ShipDate = DateTime.MinValue;
+            order.OrderDate = DateTime.Now;
+            int orderId = dal.Order.Add(order);
+            foreach (BO.OrderItem item in cart.Items)
+            {
+                DO.OrderItem oItem = castBOtoDO(item);
+                oItem.OrderID = orderId;
+                DO.Product product = dal.Product.Get(oItem.ProductID);
+                product.InStock = product.InStock - oItem.Amount;
+                dal.Product.Update(product);
+            }
         }
-        if (name == "" || email == "" || address == "")
-            throw new Exception("one or more is empty");
-        if(!IsValidEmail(email))
-            throw new Exception("email not valid");
-        BO.Order order = new BO.Order();
-        order.CustomerAddress = address;
-        order.CustomerEmail = email;
-        order.CustomerName = name;
-        order.DeliveryDate = DateTime.MinValue;
-        order.ShipDate = DateTime.MinValue;
-        order.PaymentDate = DateTime.Now;
-        order.Items = cart.Items;
-        order.Status = 0;
-        order.TotalPrice = cart.Totalprice;
-
-
-
+        catch (DalApi.ItemNotFound e)
+        {
+            throw new BlIdNotFound(e);
+        }
     }
 
     public BO.Cart updateAmount(BO.Cart cart, int productId, int newAmount)
     {
-        DO.Product p = dal.Product.Get(productId);
-        foreach (BO.OrderItem item in cart.Items)
+        try
         {
-            if (item.ProductId == productId)
+            DO.Product p = dal.Product.Get(productId);
+            foreach (BO.OrderItem item in cart.Items)
             {
-                if (item.Amount > newAmount)
+                if (item.ProductId == productId)
                 {
-                    item.TotalPrice -= p.Price * (item.Amount - newAmount);
-                    item.Amount = newAmount;
-                }
-                else if (item.Amount < newAmount)
-                {
-                    if (p.InStock >= newAmount)
+                    if (item.Amount > newAmount)
                     {
+                        item.TotalPrice -= p.Price * (item.Amount - newAmount);
                         item.Amount = newAmount;
-                        item.TotalPrice += p.Price * newAmount;
+                    }
+                    else if (item.Amount < newAmount)
+                    {
+                        if (p.InStock >= newAmount)
+                        {
+                            item.Amount = newAmount;
+                            item.TotalPrice += p.Price * newAmount;
+                        }
+                    }
+                    else if (newAmount == 0)
+                    {
+                        cart.Items = cart.Items.Where(i => i != item);
+                        break;
                     }
                 }
-                else if (newAmount == 0)
-                {
-                    cart.Items = cart.Items.Where(i => i != item);
-                    break;
-                }
             }
+            return cart;
         }
-        return cart;
+
+        catch (DalApi.ItemNotFound e)
+        {
+            throw new BlIdNotFound(e);
+        }
     }
 }
 
