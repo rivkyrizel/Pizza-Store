@@ -1,5 +1,4 @@
-﻿using static BO.Enums;
-namespace BO;
+﻿namespace BO;
 
 public class Order
 {
@@ -13,6 +12,10 @@ public class Order
     public DateTime DeliveryDate { set; get; }
     public IEnumerable<OrderItem> Items { set; get; }
     public double TotalPrice { set; get; }
+
+    public override string ToString() =>
+    $@"|  {ID}   |   {CustomerName}   |    {CustomerEmail}   |   {CustomerAddress}  |   {PaymentDate}   |  {ShipDate}  |  {DeliveryDate}  |  {Status}  |  {TotalPrice}  |
+ -------------------------------------------------------------------------------------------------------------------------------";
 }
 
 

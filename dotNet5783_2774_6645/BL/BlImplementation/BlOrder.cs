@@ -17,7 +17,7 @@ internal class BlOrder : IOrder
         oBO.DeliveryDate = oDO.DeliveryDate;
         return oBO;
     }
-    public IEnumerable<BO.OrderForList> OrderForList()
+    public IEnumerable<BO.OrderForList> OrderList()
     {
         return (IEnumerable<BO.OrderForList>)Dal.Order.GetList();
     }

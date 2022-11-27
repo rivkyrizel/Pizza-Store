@@ -1,5 +1,6 @@
 ﻿using BlApi;
 using BlImplementation;
+using BO;
 
 public class Program
 {
@@ -33,24 +34,24 @@ public class Program
         string s = "0";
         do
         {
-            Console.WriteLine("enter: \n a to add order \n b to display orders by id \n c to display list of orders \n d to update order \n e to erase order from list \n 0 to return main menu");
+            Console.WriteLine("enter: \n a to get order for manager \n b to display orders by id \n c to update shiped date \n d to update dalivery date \n e to update order \n 0 to return main menu");
             s = Console.ReadLine();
             switch (s)
             {
                 case "a":
-                    addOrder();
+                    displayOrderList();
                     break;
                 case "b":
                     displayOrder();
                     break;
                 case "c":
-                    displayOrderList();
+                    updateShipedDate();
                     break;
                 case "d":
-                    updateOrder();
+                    updateDeliveryDate();
                     break;
                 case "e":
-                    deleteOrder();
+                    updateOrder();
                     break;
             }
         } while (s != "0");
@@ -149,40 +150,72 @@ public class Program
     {
         Console.WriteLine("enter id:");
         int.TryParse(Console.ReadLine(), out int id);
-        Console.WriteLine("|    ID     |   NAME  |  EMAIL   | ADRESS |        ORDER DATE       |        SHIP DATE      |      DELIVERY DATE    |");
-        Console.WriteLine("|___________|_________|__________|________|_________________________|_______________________|_______________________|");
-        Console.WriteLine("|           |         |          |        |                         |                       |                       |");
-        Console.WriteLine(DalList.Order.Get(id));
+        Console.WriteLine("|    ID     |   NAME  |  EMAIL   | ADRESS |        ORDER DATE       |        SHIP DATE      |      DELIVERY DATE    |    STATUS  |  TOTAL PRICE  |");
+        Console.WriteLine("|___________|_________|__________|________|_________________________|_______________________|_______________________|____________|_______________|");
+        Console.WriteLine("|           |         |          |        |                         |                       |                       |            |                ");
+        Console.WriteLine(BL.order.GetOrder(id));
     }
 
     private static void displayOrderList()
     {
-        IEnumerable<Order> orderList = DalList.Order.GetList();
-        Console.WriteLine("|    ID     |   NAME  |  EMAIL   | ADRESS |        ORDER DATE       |        SHIP DATE      |      DELIVERY DATE    |");
-        Console.WriteLine("|___________|_________|__________|________|_________________________|_______________________|_______________________|");
-        Console.WriteLine("|           |         |          |        |                         |                       |                       |");
-        foreach (Order item in orderList)
+        IEnumerable<OrderForList> orderList = BL.order.OrderList();
+        Console.WriteLine("|    ID     |   NAME  |   STATUS  | ADRESS |      AMOUNT OF ITEMS    |       TOTAL PRICE     |");
+        Console.WriteLine("|___________|_________|___________|________|_________________________|_______________________|");
+        Console.WriteLine("|           |         |           |        |                         |                       |");
+        foreach (OrderForList item in orderList)
             Console.WriteLine(item);
 
     }
 
-    private static void updateOrder()
+    private static void updateShipedOrder()
     {
-        int id;
-        Order newOrder = createOrder();
-        Console.WriteLine("enter order ID:");
-        int.TryParse(Console.ReadLine(), out id);
-        newOrder.ID = id;
-        DalList.Order.Update(newOrder);
+        try
+        {
+            int id;
+            Console.WriteLine("enter order ID:");
+            int.TryParse(Console.ReadLine(), out id);
+            BL.order.UpdateShipedOrder(id);
+        }
+        catch(BlInvalidStatusException e)
+        {
+            Console.WriteLine(e.Message);
+        }
+        catch(BlIdNotFound e)
+        {
+            Console.WriteLine(e);
+        }
+        catch(Exception e)
+        {
+            Console.WriteLine(e);
+        }
+    }
+    private static void updateDeliveryOrder()
+    {
+        try
+        {
+            int id;
+            Console.WriteLine("enter order ID:");
+            int.TryParse(Console.ReadLine(), out id);
+            BL.order.UpdateDeliveryOrder(id);
+        }
+        catch (BlInvalidStatusException e)
+        {
+            Console.WriteLine(e.Message);
+        }
+        catch (BlIdNotFound e)
+        {
+            Console.WriteLine(e);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
     }
 
-    private static void deleteOrder()
+    private static void updateOrder()
     {
-        int id;
-        Console.WriteLine("enter id:");
-        int.TryParse(Console.ReadLine(), out id);
-        DalList.Order.Delete(id);
     }
+
 
     /// <summary>
     /// accepts product details from user
