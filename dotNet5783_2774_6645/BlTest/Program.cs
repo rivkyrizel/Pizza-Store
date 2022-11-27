@@ -129,7 +129,7 @@ public class Program
         Console.WriteLine("|__________|__________________|__________|_______|");
         Console.WriteLine("|          |                  |          |       |");
         foreach (ProductForList item in productList)
-            Console.WriteLine(item);
+           Console.WriteLine(item);
     }
 
     private static void getProductItem()

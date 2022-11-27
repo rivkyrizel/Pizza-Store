@@ -28,6 +28,29 @@ internal class BlProduct : IProduct
         pDO.InStock = pBO.InStock;
         return pDO;
     }
+
+    private BO.ProductForList castDOtoBOpForList(DO.Product pDO)
+    {
+        BO.ProductForList pBO = new();
+        pBO.ID = pDO.ID;
+        pBO.Name = pDO.Name;
+        pBO.Price = pDO.Price;
+        pBO.Category = (BO.eCategory)pDO.Category;
+        return pBO;
+    }
+
+    private BO.ProductItem castDOtoBOpItem(DO.Product pDO)
+    {
+        BO.ProductItem pBO = new();
+        pBO.ID = pDO.ID;
+        pBO.Name = pDO.Name;
+        pBO.Price = pDO.Price;
+        pBO.Category = (BO.eCategory)pDO.Category;
+        pBO.Amount = pDO.InStock;
+        pBO.InStock = Convert.ToBoolean(pDO.InStock);
+        return pBO;
+    }
+
     public void AddProduct(BO.Product p)
     {
         if (p.ID > 0 && p.Name != "" && p.Price > 0 && p.InStock > 0)
@@ -36,10 +59,10 @@ internal class BlProduct : IProduct
 
     public void DeleteProduct(int id)
     {
-        IEnumerable<BO.OrderItem> orderItems = (IEnumerable<BO.OrderItem>)dal.OrderItem.GetList();
+        IEnumerable<DO.OrderItem> orderItems = dal.OrderItem.GetList();
 
-        foreach (BO.OrderItem item in orderItems)
-            if (item.ProductId == id)
+        foreach (DO.OrderItem item in orderItems)
+            if (item.ProductID == id)
                 throw new BlProductFoundInOrders();
         try
         {
@@ -79,12 +102,24 @@ internal class BlProduct : IProduct
 
     public IEnumerable<BO.ProductForList> GetProductList()
     {
-        return (IEnumerable<BO.ProductForList>)dal.Product.GetList();
+        IEnumerable<DO.Product> DOlist = dal.Product.GetList();
+        List<BO.ProductForList> BOlist = new();
+        foreach (DO.Product item in DOlist)
+        {
+            BOlist.Add(castDOtoBOpForList(item));
+        }
+        return BOlist;
     }
 
     public IEnumerable<BO.ProductItem> GetProductItem()
     {
-        return (IEnumerable<BO.ProductItem>)dal.Product.GetList();
+        IEnumerable<DO.Product> DOlist = dal.Product.GetList();
+        List<BO.ProductItem> BOlist = new();
+        foreach (DO.Product item in DOlist)
+        {
+            BOlist.Add(castDOtoBOpItem(item));
+        }
+        return BOlist;
     }
 
     public void UpdateProduct(BO.Product p)
