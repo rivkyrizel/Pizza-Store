@@ -17,9 +17,31 @@ internal class BlOrder : IOrder
         oBO.DeliveryDate = oDO.DeliveryDate;
         return oBO;
     }
+    private BO.OrderForList castDOtoBOOrderForList(DO.Order oDO)
+    {
+        double totalprice=0;
+        BO.OrderForList oBO = new();
+        IEnumerable<DO.OrderItem> listOrderItem = Dal.OrderItem.GetOrderItems(oDO.ID);
+        oBO.ID = oDO.ID;
+        oBO.CustomerName = oDO.CustomerName;
+        oBO.AmountOfItems = listOrderItem.Count();
+        if (oDO.ShipDate == DateTime.MinValue) oBO.Status = (BO.OrderStatus)0;
+        else if (oDO.DeliveryDate == DateTime.MinValue) oBO.Status = (BO.OrderStatus)1;
+        else oBO.Status = (BO.OrderStatus)2;
+        foreach (DO.OrderItem item in listOrderItem)
+            totalprice += Dal.Product.Get(item.ProductID).Price * item.Amount;
+        oBO.TotalPrice = totalprice;
+        return oBO;
+    }
     public IEnumerable<BO.OrderForList> OrderList()
     {
-        return (IEnumerable<BO.OrderForList>)Dal.Order.GetList();
+        IEnumerable<DO.Order> DOlist = Dal.Order.GetList();
+        List<BO.OrderForList> BOlist=new();
+        foreach (DO.Order item in DOlist)
+        {
+            BOlist.Add(castDOtoBOOrderForList(item));
+        }
+        return BOlist;
     }
 
     public BO.Order GetOrder(int orderId)
