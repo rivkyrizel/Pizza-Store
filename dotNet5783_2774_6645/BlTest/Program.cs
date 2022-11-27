@@ -5,6 +5,7 @@ using BO;
 public class Program
 {
     public static IBl BL = new Bl();
+    public static Cart cart = new();
     static void Main()
     {
         int choice = 0;
@@ -57,33 +58,24 @@ public class Program
         } while (s != "0");
 
     }
-    private static void CRUDOrderItem()
+    private static void CRUDCart()
     {
         string s = "0";
         do
         {
-            Console.WriteLine("enter: \n a to add order item \n b to display order items by order id \n c to display list of all ordered items \n d to display ordered item by product id and order id \n e to update orders item \n f to erase order item from list \n 0 to return main menu");
+            Console.WriteLine("enter: \n a to add to cart \n b to update amount of item \n c to confirm order");
 
             s = Console.ReadLine();
             switch (s)
             {
                 case "a":
-                    addOrderItem();
+                    addToCart();
                     break;
                 case "b":
-                    displayOrderItems();
+                    updateAmount();
                     break;
                 case "c":
-                    displayAllItems();
-                    break;
-                case "d":
-                    displayItem();
-                    break;
-                case "e":
-                    updateOrderItem();
-                    break;
-                case "f":
-                    deleteOrderItem();
+                    confirmOrder();
                     break;
             }
         } while (s != "0");
@@ -284,75 +276,34 @@ public class Program
     /// <summary>
     /// accepts order item details from user
     /// </summary>
-    /// <returns>order item object</returns>
-    private static OrderItem createOrderItem()
+    /// <returns> cart object</returns>
+    private static void addToCart()
     {
-        OrderItem newOrderItem = new OrderItem();
-        Console.WriteLine("enter product id:");
-        int.TryParse(Console.ReadLine(), out int productId);
-        newOrderItem.ProductID = productId;
-        Console.WriteLine("enter order id:");
-        int.TryParse(Console.ReadLine(), out int orderId);
-        newOrderItem.OrderID = orderId;
-        Console.WriteLine("enter price:");
-        int.TryParse(Console.ReadLine(), out int price);
-        newOrderItem.Price = price;
-        Console.WriteLine("enter amount:");
+        Console.WriteLine("enter product ID:");
+        int.TryParse(Console.ReadLine(), out int pId);
+        cart = BL.Cart.AddToCart(cart, pId);
+    }
+
+    private static void confirmOrder()
+    {
+        Console.WriteLine("enter name:");
+        string name = Console.ReadLine();
+        Console.WriteLine("enter email:");
+        string email = Console.ReadLine();
+        Console.WriteLine("enter address:");
+        string address = Console.ReadLine();
+
+        BL.Cart.confirmOrder(cart, name, email, address);
+    }
+
+    private static void updateAmount()
+    {
+        Console.WriteLine("enter product ID:");
+        int.TryParse(Console.ReadLine(), out int pId);
+        Console.WriteLine("enter new amount:");
         int.TryParse(Console.ReadLine(), out int amount);
-        newOrderItem.Amount = amount;
-        return newOrderItem;
-
-    }
-    private static void addOrderItem()
-    {
-        OrderItem newOrderItem = createOrderItem();
-        DalList.OrderItem.Add(newOrderItem);
+        cart = BL.Cart.updateAmount(cart, pId, amount);
     }
 
-    private static void displayOrderItems()
-    {
-        Console.WriteLine("enter order id:");
-        int.TryParse(Console.ReadLine(), out int id);
-        IEnumerable<OrderItem> orderItems = DalList.OrderItem.GetOrderItems(id);
-        Console.WriteLine("| PRODUCT ID |  ORDER ID  |   PRICE   |  AMOUNT  |");
-        Console.WriteLine("|____________|____________|___________|__________|");
-        Console.WriteLine("|            |            |           |          |");
-        foreach (OrderItem item in orderItems)
-            Console.WriteLine(item);
-
-    }
-
-    private static void displayAllItems()
-    {
-        IEnumerable<OrderItem> orderList = DalList.OrderItem.GetList();
-        Console.WriteLine("| PRODUCT ID |  ORDER ID  |   PRICE   |  AMOUNT  |");
-        Console.WriteLine("|____________|____________|___________|__________|");
-        Console.WriteLine("|            |            |           |          |");
-        foreach (OrderItem item in orderList)
-            Console.WriteLine(item);
-    }
-
-    private static void displayItem()
-    {
-        Console.WriteLine("enter  id:");
-        int.TryParse(Console.ReadLine(), out int Id);
-        Console.WriteLine("| PRODUCT ID |  ORDER ID  |   PRICE   |  AMOUNT  |");
-        Console.WriteLine("|____________|____________|___________|__________|");
-        Console.WriteLine("|            |            |           |          |");
-        Console.WriteLine(DalList.OrderItem.Get(Id));
-    }
-
-    private static void updateOrderItem()
-    {
-        OrderItem newOrderItem = createOrderItem();
-        DalList.OrderItem.Update(newOrderItem);
-    }
-
-    private static void deleteOrderItem()
-    {
-        Console.WriteLine("enter id:");
-        int.TryParse(Console.ReadLine(), out int Id);
-        DalList.OrderItem.Delete(Id);
-    }
 }
-}
+
