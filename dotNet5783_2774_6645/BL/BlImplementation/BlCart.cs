@@ -80,6 +80,7 @@ internal class BlCart : ICart
                 throw new BlNullValueException();
             if (!IsValidEmail(email))
                 throw new BlInvalidEmailException();
+
             DO.Order order = new DO.Order();
             order.CustomerAdress = address;
             order.CustomerEmail = email;
@@ -88,10 +89,13 @@ internal class BlCart : ICart
             order.ShipDate = DateTime.MinValue;
             order.OrderDate = DateTime.Now;
             int orderId = dal.Order.Add(order);
+
             foreach (BO.OrderItem item in cart.Items)
             {
                 DO.OrderItem oItem = castBOtoDO(item);
                 oItem.OrderID = orderId;
+                dal.OrderItem.Add(oItem);
+
                 DO.Product product = dal.Product.Get(oItem.ProductID);
                 product.InStock = product.InStock - oItem.Amount;
                 dal.Product.Update(product);
