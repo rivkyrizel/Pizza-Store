@@ -95,25 +95,31 @@ public class Program
         string s = "0";
         do
         {
-            Console.WriteLine("enter: \n a to add product \n b to display product by id \n c to display list of products \n d to update product \n e to erase product from list \n 0 to return main menu");
+            Console.WriteLine("enter: \n a to get product for manager \n b to get product to customer \n c to get product by id to customer  \n d to get product by id to manager  \n e to add product \n f to erase product from list \n g  to update product\n  0 to return main menu");
 
             s = Console.ReadLine();
             switch (s)
             {
                 case "a":
-                    addProduct();
+                    getProductList();
                     break;
                 case "b":
-                    displayProduct();
+                    getProductItem();
                     break;
                 case "c":
-                    displayProductList();
+                    getProductForCustomer();
                     break;
                 case "d":
-                    updateProduct();
+                    getProductForMenager();
                     break;
                 case "e":
+                    addProduct();
+                    break;
+                case "f":
                     deleteProduct();
+                    break;
+                case "g":
+                    updateProduct();
                     break;
             }
         } while (s != "0");
@@ -123,27 +129,30 @@ public class Program
     /// accepts order details from user
     /// </summary>
     /// <returns>order object</returns>
-    private static Order createOrder()
-    {
-        Order newOrder = new Order();
-        Console.WriteLine("enter name:");
-        newOrder.CustomerName = Console.ReadLine();
-        Console.WriteLine("enter email:");
-        newOrder.CustomerEmail = Console.ReadLine();
-        Console.WriteLine("enter adress:");
-        newOrder.CustomerAdress = Console.ReadLine();
-        newOrder.OrderDate = DateTime.MinValue;
-        TimeSpan ShipDate = TimeSpan.FromDays(2);
-        TimeSpan deliveryDate = TimeSpan.FromDays(20);
-        newOrder.ShipDate = newOrder.OrderDate + ShipDate;
-        newOrder.DeliveryDate = newOrder.OrderDate + deliveryDate;
-        return newOrder;
 
-    }
-    private static void addOrder()
+    private static void getProductList()
     {
-        Order newOrder = createOrder();
-        DalList.Order.Add(newOrder);
+        IEnumerable<ProductForList> productList = BL.product.GetProductList();
+        Console.WriteLine("|    ID    |       NAME       | CATEGORY | PRICE |");
+        Console.WriteLine("|__________|__________________|__________|_______|");
+        Console.WriteLine("|          |                  |          |       |");
+        foreach (ProductForList item in productList)
+            Console.WriteLine(item);
+    }
+
+    private static void getProductItem()
+    {
+        IEnumerable<ProductItem> productList = BL.product.GetProductItem();
+        Console.WriteLine("|    ID    |       NAME       | CATEGORY | PRICE |   AMOUNT  |   IN STOCK |");
+        Console.WriteLine("|__________|__________________|__________|_______|___________|____________|");
+        Console.WriteLine("|          |                  |          |       |           |            |");
+        foreach (ProductItem item in productList)
+            Console.WriteLine(item);
+    }
+
+    private static void getProductForCustomer()
+    {
+  
     }
 
     private static void displayOrder()
@@ -167,7 +176,7 @@ public class Program
 
     }
 
-    private static void updateShipedOrder()
+    private static void updateShipedDate()
     {
         try
         {
@@ -189,7 +198,7 @@ public class Program
             Console.WriteLine(e);
         }
     }
-    private static void updateDeliveryOrder()
+    private static void updateDeliveryDate()
     {
         try
         {
@@ -251,7 +260,6 @@ public class Program
         Console.WriteLine("|    ID    |       NAME       | CATEGORY | PRICE | IN STOCK |");
         Console.WriteLine("|__________|__________________|__________|_______|__________|");
         Console.WriteLine("|          |                  |          |       |          |");
-        Console.WriteLine(DalList.Product.Get(id));
     }
 
     private static void displayProductList()

@@ -77,7 +77,7 @@ internal class BlProduct : IProduct
 
     }
 
-    public IEnumerable<BO.ProductForList> GetProductForList()
+    public IEnumerable<BO.ProductForList> GetProductList()
     {
         return (IEnumerable<BO.ProductForList>)dal.Product.GetList();
     }
