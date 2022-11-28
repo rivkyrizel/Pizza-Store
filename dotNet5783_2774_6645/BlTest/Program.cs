@@ -233,7 +233,7 @@ public class Program
     /// <returns>product object</returns>
     private static Product createProduct()
     {
-        Product newProduct = new Product();
+        Product newProduct = new();
         Console.WriteLine("enter name:");
         newProduct.Name = Console.ReadLine();
         Console.WriteLine("enter price:");
