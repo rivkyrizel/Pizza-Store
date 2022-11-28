@@ -11,7 +11,7 @@ public class ProductItem
     public bool InStock { get; set; }
 
     public override string ToString() =>
-    $@"|  {ID}  |   {Name}    |  {Category}  |  {Price}   |   {Amount}   |    {InStock}   |
- ---------------------------------------------------------------------------";
+    $@"|  {ID}  |   {Name}    |  {Category}  |  {Price}   |   {Amount}    |    {InStock}    |
+ -------------------------------------------------------------------------";
 }
 

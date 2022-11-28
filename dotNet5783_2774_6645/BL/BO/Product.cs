@@ -8,7 +8,7 @@ public class Product
     public eCategory Category { get; set; }
     public int InStock { get; set; }
     public override string ToString() =>
-$@"|  {ID}  |   {Name}    |  {Category}  |  {Price}   |    {InStock}  
- -------------------------------------------------";
+$@"|  {ID}  |   {Name}    |  {Category}  |  {Price}   |   {InStock}   |
+ ------------------------------------------------------------";
 }
 
