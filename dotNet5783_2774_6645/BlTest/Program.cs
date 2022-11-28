@@ -117,10 +117,10 @@ public class Program
         } while (s != "0");
     }
 
-    /// <summary>
-    /// accepts order details from user
-    /// </summary>
-    /// <returns>order object</returns>
+    ///  <summary>
+    ///  accepts order details from user
+    ///  </summary>
+    ///  <returns>order object</returns>
 
     private static void getProductList()
     {
