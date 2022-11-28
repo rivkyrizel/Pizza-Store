@@ -9,7 +9,7 @@ public class OrderForList
     public int AmountOfItems { set; get; }
     public double TotalPrice { set; get; }
     public override string ToString() =>
-    $@"|  {ID}   |   {CustomerName}   |    {Status}   |   {AmountOfItems}  |   {TotalPrice}   |
- ----------------------------------------------------------------------------------------------";
+    $@"|  {ID}   |   {CustomerName}   |    {Status}   |   {AmountOfItems}   |   {TotalPrice}    |
+ ---------------------------------------------------------------------";
 }
 

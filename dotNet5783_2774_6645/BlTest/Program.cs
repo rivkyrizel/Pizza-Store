@@ -6,6 +6,8 @@ public class Program
 {
     public static IBl BL = new Bl();
     public static Cart cart = new();
+
+    //=========================================== MAIN ===================================================
     static void Main()
     {
         int choice = 0;
@@ -30,6 +32,10 @@ public class Program
             }
         } while (choice != 0);
     }
+
+
+    //=========================================== ORDER ===================================================
+
     private static void CRUDOrder()
     {
         string s = "0";
@@ -58,6 +64,15 @@ public class Program
         } while (s != "0");
 
     }
+
+
+
+
+
+
+
+    //=========================================== CART ===================================================
+
     private static void CRUDCart()
     {
         string s = "0";
@@ -81,6 +96,40 @@ public class Program
         } while (s != "0");
 
     }
+
+
+    private static void addToCart()
+    {
+        Console.WriteLine("enter product ID:");
+        int.TryParse(Console.ReadLine(), out int pId);
+        cart = BL.Cart.AddToCart(cart, pId);
+    }
+
+    private static void confirmOrder()
+    {
+        Console.WriteLine("enter name:");
+        string name = Console.ReadLine();
+        Console.WriteLine("enter email:");
+        string email = Console.ReadLine();
+        Console.WriteLine("enter address:");
+        string address = Console.ReadLine();
+
+        BL.Cart.confirmOrder(cart, name, email, address);
+    }
+
+    private static void updateAmount()
+    {
+        Console.WriteLine("enter product ID:");
+        int.TryParse(Console.ReadLine(), out int pId);
+        Console.WriteLine("enter new amount:");
+        int.TryParse(Console.ReadLine(), out int amount);
+        cart = BL.Cart.updateAmount(cart, pId, amount);
+    }
+
+
+
+    //=========================================== PRODUCT ===================================================
+
     private static void CRUDProduct()
     {
 
@@ -160,18 +209,18 @@ public class Program
     {
         Console.WriteLine("enter id:");
         int.TryParse(Console.ReadLine(), out int id);
-        Console.WriteLine("|    ID     |   NAME  |  EMAIL   | ADRESS |        ORDER DATE       |        SHIP DATE      |      DELIVERY DATE    |    STATUS  |  TOTAL PRICE  |");
-        Console.WriteLine("|___________|_________|__________|________|_________________________|_______________________|_______________________|____________|_______________|");
-        Console.WriteLine("|           |         |          |        |                         |                       |                       |            |                ");
+        Console.WriteLine("|    ID     |   NAME  |  EMAIL   | ADRESS |        ORDER DATE       |        SHIP DATE      |      DELIVERY DATE    |       STATUS      |  TOTAL PRICE  |");
+        Console.WriteLine("|___________|_________|__________|________|_________________________|_______________________|_______________________|___________________|_______________|");
+        Console.WriteLine("|           |         |          |        |                         |                       |                       |                   |               |");
         Console.WriteLine(BL.order.GetOrder(id));
     }
 
     private static void displayOrderList()
     {
         IEnumerable<OrderForList> orderList = BL.order.OrderList();
-        Console.WriteLine("|    ID     |   NAME  |   STATUS  | ADRESS |      AMOUNT OF ITEMS    |       TOTAL PRICE     |");
-        Console.WriteLine("|___________|_________|___________|________|_________________________|_______________________|");
-        Console.WriteLine("|           |         |           |        |                         |                       |");
+        Console.WriteLine("|    ID     |   NAME  |           STATUS         | AMOUNT |TOTAL PRICE|");
+        Console.WriteLine("|___________|_________|__________________________|________|___________|");
+        Console.WriteLine("|           |         |                          |        |           |");
         foreach (OrderForList item in orderList)
             Console.WriteLine(item);
 
@@ -199,6 +248,7 @@ public class Program
             Console.WriteLine(e);
         }
     }
+
     private static void updateDeliveryDate()
     {
         try
@@ -236,6 +286,7 @@ public class Program
         Product newProduct = new();
         Console.WriteLine("enter name:");
         newProduct.Name = Console.ReadLine();
+        newProduct.ID = Dal.DataSource.Config.ProductID;
         Console.WriteLine("enter price:");
         int.TryParse(Console.ReadLine(), out int price);
         newProduct.Price = price;
@@ -287,33 +338,7 @@ public class Program
     /// accepts order item details from user
     /// </summary>
     /// <returns> cart object</returns>
-    private static void addToCart()
-    {
-        Console.WriteLine("enter product ID:");
-        int.TryParse(Console.ReadLine(), out int pId);
-        cart = BL.Cart.AddToCart(cart, pId);
-    }
 
-    private static void confirmOrder()
-    {
-        Console.WriteLine("enter name:");
-        string name = Console.ReadLine();
-        Console.WriteLine("enter email:");
-        string email = Console.ReadLine();
-        Console.WriteLine("enter address:");
-        string address = Console.ReadLine();
-
-        BL.Cart.confirmOrder(cart, name, email, address);
-    }
-
-    private static void updateAmount()
-    {
-        Console.WriteLine("enter product ID:");
-        int.TryParse(Console.ReadLine(), out int pId);
-        Console.WriteLine("enter new amount:");
-        int.TryParse(Console.ReadLine(), out int amount);
-        cart = BL.Cart.updateAmount(cart, pId, amount);
-    }
 
 }
 

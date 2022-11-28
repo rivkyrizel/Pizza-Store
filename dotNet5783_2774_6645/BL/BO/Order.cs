@@ -14,8 +14,8 @@ public class Order
     public double TotalPrice { set; get; }
 
     public override string ToString() =>
-    $@"|  {ID}   |   {CustomerName}   |    {CustomerEmail}   |   {CustomerAddress}  |   {PaymentDate}   |  {ShipDate}  |  {DeliveryDate}  |  {Status}  |  {TotalPrice}  |
- -------------------------------------------------------------------------------------------------------------------------------";
+    $@"|  {ID}   |   {CustomerName}   |    {CustomerEmail}   |   {CustomerAddress}  |   {PaymentDate}   |  {ShipDate}  |  {DeliveryDate}  |{Status}|     {TotalPrice}     |
+ ------------------------------------------------------------------------------------------------------------------------------------------------------";
 }
 
 

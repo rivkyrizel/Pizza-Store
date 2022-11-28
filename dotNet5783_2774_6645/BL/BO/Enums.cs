@@ -12,8 +12,8 @@ public enum eCategory
 
 public enum OrderStatus
 {
-    Confirmed,
-    Sent,
+    _____Confirmed_____,
+    _______Sent________,
     DeliveredToCustomer
 }
 

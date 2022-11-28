@@ -7,6 +7,8 @@ internal class BlOrder : IOrder
 
     private BO.Order castDOtoBO(DO.Order oDO)
     {
+        double totalprice = 0;
+        IEnumerable<DO.OrderItem> listOrderItem = Dal.OrderItem.GetOrderItems(oDO.ID);
         BO.Order oBO = new();
         oBO.ID = oDO.ID;
         oBO.PaymentDate = oDO.OrderDate;
@@ -15,6 +17,9 @@ internal class BlOrder : IOrder
         oBO.CustomerEmail = oDO.CustomerEmail;
         oBO.CustomerName = oDO.CustomerName;
         oBO.DeliveryDate = oDO.DeliveryDate;
+        foreach (DO.OrderItem item in listOrderItem)
+            totalprice += Dal.Product.Get(item.ProductID).Price * item.Amount;
+        oBO.TotalPrice = totalprice;
         return oBO;
     }
     private BO.OrderForList castDOtoBOOrderForList(DO.Order oDO)

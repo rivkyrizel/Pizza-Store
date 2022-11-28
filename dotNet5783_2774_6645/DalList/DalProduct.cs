@@ -45,12 +45,11 @@ internal class DalProduct:IProduct
 
     public void Update(Product p)
     {
-        foreach (Product item in DataSource.ProductList)
+        for (int i = 0; i < DataSource.ProductList.Count; i++)
         {
-            if (p.ID == item.ID)
+            if (p.ID == DataSource.ProductList[i].ID)
             {
-                Product newP = new Product();
-                newP = p;
+                DataSource.ProductList[i] = p;
                 return;
             }
         }

@@ -127,11 +127,12 @@ internal class BlProduct : IProduct
         try
         {
 
-            if (p.ID > 0) throw new BlInvalideData();
+            if (p.ID < 0) throw new BlInvalideData();
 
             if (p.Name != "" && p.Price > 0 && p.InStock > 0)
             {
                 dal.Product.Update(castBOToDO(p));
+                return;
             }
 
             throw new BlNullValueException();
