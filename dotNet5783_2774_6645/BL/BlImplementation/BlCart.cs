@@ -39,24 +39,36 @@ internal class BlCart : ICart
         try
         {
             DO.Product p = dal.Product.Get(productId);
-            foreach (BO.OrderItem item in cart.Items)
-                if (p.InStock > 1)
-                    if (item.ProductId == productId)
-                    {
-                        item.Amount += 1;
-                        item.TotalPrice += p.Price;
-                    }
-                    else
-                    {
-                        BO.OrderItem oItem = new BO.OrderItem();
-                        oItem.ID = DataSource.Config.OrderItemID;
-                        oItem.Name = p.Name;
-                        oItem.ProductId = p.ID;
-                        oItem.Price = p.Price;
-                        oItem.Amount = 1;
-                        oItem.TotalPrice = p.Price;
-                    }
-            return cart;
+            if (p.InStock > 1)
+            {
+                if (cart.Items != null)
+                    foreach (BO.OrderItem item in cart.Items)
+                        if (item.ProductId == productId)
+                        {
+                            item.Amount += 1;
+                            item.TotalPrice += p.Price;
+                            return cart;
+                        }
+
+
+                BO.OrderItem oItem = new BO.OrderItem();
+                oItem.ID = DataSource.Config.OrderItemID;
+                oItem.Name = p.Name;
+                oItem.ProductId = p.ID;
+                oItem.Price = p.Price;
+                oItem.Amount = 1;
+                if (cart.Items != null)
+                    cart.Items = cart.Items.Append(oItem);
+                else
+                {
+                    List<BO.OrderItem> items = new List<BO.OrderItem>();
+                    items.Add(oItem);   
+                    cart.Items = items; 
+                }
+                return cart;
+            }
+            throw new BlInvalidAmount();
+
         }
         catch (DalApi.ItemNotFound e)
         {

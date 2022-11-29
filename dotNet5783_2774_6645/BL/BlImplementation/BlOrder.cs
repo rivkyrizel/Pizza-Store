@@ -20,6 +20,12 @@ internal class BlOrder : IOrder
         foreach (DO.OrderItem item in listOrderItem)
             totalprice += Dal.Product.Get(item.ProductID).Price * item.Amount;
         oBO.TotalPrice = totalprice;
+        if (oDO.ShipDate == DateTime.MinValue)
+            oBO.Status = (BO.OrderStatus)0;
+        else if (oDO.DeliveryDate == DateTime.MinValue)
+            oBO.Status = (BO.OrderStatus)1;
+        else
+            oBO.Status = (BO.OrderStatus)2;
         return oBO;
     }
     private BO.OrderForList castDOtoBOOrderForList(DO.Order oDO)

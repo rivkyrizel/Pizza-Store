@@ -69,6 +69,13 @@ public class BlInvalidStatusException : Exception
 
 }
 
+public class BlInvalidAmount : Exception
+{
+    public override string Message =>
+                    "invalid amount of product";
+
+}
+
 
 
 

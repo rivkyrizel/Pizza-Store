@@ -317,16 +317,5 @@ public class Program
         cart = BL.Cart.updateAmount(cart, pId, amount);
     }
 
-
-
-    
-
-
-
-
-   
-
-
-
 }
 
