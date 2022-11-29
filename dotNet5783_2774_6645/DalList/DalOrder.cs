@@ -3,7 +3,7 @@ using DalApi;
 
 namespace Dal;
 
-internal class DalOrder:IOrder
+internal class DalOrder : IOrder
 {
 
     /// <summary>
@@ -35,7 +35,7 @@ internal class DalOrder:IOrder
             }
         }
         throw new ItemNotFound("could not delete order");
-       
+
     }
 
     /// <summary>
@@ -47,12 +47,11 @@ internal class DalOrder:IOrder
 
     public void Update(Order o)
     {
-        foreach (Order item in DataSource.OrderList)
+        for (int i = 0; i < DataSource.OrderList.Count; i++)
         {
-            if (o.ID == item.ID)
+            if (o.ID == DataSource.OrderList[i].ID)
             {
-                Order n = item;
-                n = o;
+                DataSource.OrderList[i]= o;
                 return;
             }
         }
@@ -82,7 +81,7 @@ internal class DalOrder:IOrder
         foreach (Order item in DataSource.OrderList)
 
             if (id == item.ID) return item;
-        
+
         throw new ItemNotFound("order not found");
     }
 }
