@@ -73,7 +73,6 @@ internal class BlCart : ICart
 
 
                 BO.OrderItem oItem = new BO.OrderItem();
-                oItem.ID = DataSource.Config.OrderItemID;
                 oItem.Name = p.Name;
                 oItem.ProductId = p.ID;
                 oItem.Price = p.Price;
