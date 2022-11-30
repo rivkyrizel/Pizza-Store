@@ -8,11 +8,13 @@ public class Program
     public static Cart cart = new();
 
     //=========================================== MAIN ===================================================
+   
+    
     static void Main()
     {
         int choice = 0;
         do
-        {  
+        {
             Console.WriteLine("enter: \n 1 for product \n 2 for orders \n 3 for cart \n 0 to exit");
             int.TryParse(Console.ReadLine(), out choice);
             switch (choice)
@@ -36,6 +38,9 @@ public class Program
 
     //=========================================== PRODUCT ===================================================
 
+    /// <summary>
+    /// Actions on a product
+    /// </summary>
     private static void CRUDProduct()
     {
 
@@ -72,6 +77,9 @@ public class Program
         } while (s != "0");
     }
 
+    /// <summary>
+    /// get product list for manager
+    /// </summary>
     private static void getProductList()
     {
         IEnumerable<ProductForList> productList = BL.product.GetProductList();
@@ -82,6 +90,9 @@ public class Program
             Console.WriteLine(item);
     }
 
+    /// <summary>
+    /// get product list for user
+    /// </summary>
     private static void getProductItem()
     {
         IEnumerable<ProductItem> productList = BL.product.GetProductItem();
@@ -92,40 +103,107 @@ public class Program
             Console.WriteLine(item);
     }
 
+    /// <summary>
+    /// get product by id for user
+    /// </summary>
     private static void getProductForCustomer()
     {
-        int id = displayProduct();
-        Product p = BL.product.GetProductForCustomer(id);
-        Console.WriteLine(p);
+        try
+        {
+            int id = displayProduct();
+            Product p = BL.product.GetProductForCustomer(id);
+            Console.WriteLine(p);
+        }
+        catch (BlIdNotFound e)
+        {
+            Console.WriteLine(e.Message + e.InnerException);
+        }
+        catch (BlInvalideData e)
+        {
+            Console.WriteLine(e.Message);
+        }
     }
 
+
+    /// <summary>
+    /// get product by id for manager
+    /// </summary>
     private static void getProductForManager()
     {
-        int id = displayProduct();
-        Product p = BL.product.GetProductForManager(id);
-        Console.WriteLine(p);
+        try
+        {
+            int id = displayProduct();
+            Product p = BL.product.GetProductForManager(id);
+            Console.WriteLine(p);
+        }
+        catch (BlIdNotFound e)
+        {
+            Console.WriteLine(e.Message + e.InnerException);
+        }
+        catch (BlInvalideData e)
+        {
+            Console.WriteLine(e.Message);
+        }
     }
 
+    /// <summary>
+    /// add product for a list of products
+    /// </summary>
     private static void addProduct()
     {
         Product newProduct = createProduct();
         BL.product.AddProduct(newProduct);
     }
+
     private static void deleteProduct()
     {
-        Console.WriteLine("enter id:");
-        int.TryParse(Console.ReadLine(), out int id);
-        BL.product.DeleteProduct(id);
+        try
+        {
+            Console.WriteLine("enter id:");
+            int.TryParse(Console.ReadLine(), out int id);
+            BL.product.DeleteProduct(id);
+        }
+        catch (BlProductFoundInOrders e)
+        {
+            Console.WriteLine(e.Message);
+        }
+        catch (BlIdNotFound e)
+        {
+            Console.WriteLine(e.Message);
+        }
     }
 
+    /// <summary>
+    /// update product in a list of products
+    /// </summary>
     private static void updateProduct()
     {
-        Product newProduct = createProduct();
-        Console.WriteLine("enter Product ID");
-        int.TryParse(Console.ReadLine(), out int id);
-        newProduct.ID = id;
-        BL.product.UpdateProduct(newProduct);
+        try
+        {
+            Product newProduct = createProduct();
+            Console.WriteLine("enter Product ID");
+            int.TryParse(Console.ReadLine(), out int id);
+            newProduct.ID = id;
+            BL.product.UpdateProduct(newProduct);
+        }
+        catch (BlIdNotFound e)
+        {
+            Console.WriteLine(e.Message + e.InnerException);
+        }
+        catch (BlNullValueException e)
+        {
+            Console.WriteLine(e.Message);
+        }
+        catch (BlInvalideData e)
+        {
+            Console.WriteLine(e.Message);
+        }
     }
+
+    /// <summary>
+    /// Receives product details from the manager
+    /// </summary>
+    /// <returns>details of product</returns>
     private static Product createProduct()
     {
         Product newProduct = new();
@@ -157,7 +235,10 @@ public class Program
 
 
     //=========================================== ORDER ===================================================
-
+    
+    /// <summary>
+    /// Actions on an order
+    /// </summary>
     private static void CRUDOrder()
     {
         string s = "0";
@@ -189,7 +270,9 @@ public class Program
 
 
 
-
+    /// <summary>
+    /// display order list 
+    /// </summary>
     private static void displayOrderList()
     {
         IEnumerable<OrderForList> orderList = BL.order.OrderList();
@@ -200,16 +283,34 @@ public class Program
             Console.WriteLine(item);
 
     }
+
+    /// <summary>
+    /// displat order by id
+    /// </summary>
     private static void displayOrder()
     {
-        Console.WriteLine("enter id:");
-        int.TryParse(Console.ReadLine(), out int id);
-        Console.WriteLine("|    ID     |   NAME  |  EMAIL   | ADRESS |        ORDER DATE       |        SHIP DATE      |      DELIVERY DATE    |       STATUS      |  TOTAL PRICE  |");
-        Console.WriteLine("|___________|_________|__________|________|_________________________|_______________________|_______________________|___________________|_______________|");
-        Console.WriteLine("|           |         |          |        |                         |                       |                       |                   |               |");
-        Console.WriteLine(BL.order.GetOrder(id));
+        try
+        {
+            Console.WriteLine("enter id:");
+            int.TryParse(Console.ReadLine(), out int id);
+            Console.WriteLine("|    ID     |   NAME  |  EMAIL   | ADRESS |        ORDER DATE       |        SHIP DATE      |      DELIVERY DATE    |       STATUS      |  TOTAL PRICE  |");
+            Console.WriteLine("|___________|_________|__________|________|_________________________|_______________________|_______________________|___________________|_______________|");
+            Console.WriteLine("|           |         |          |        |                         |                       |                       |                   |               |");
+            Console.WriteLine(BL.order.GetOrder(id));
+        }
+        catch (BlIdNotFound e)
+        {
+            Console.WriteLine(e.Message + e.InnerException);
+        }
+        catch (BlInvalideData e)
+        {
+            Console.WriteLine(e.Message);
+        }
     }
 
+    /// <summary>
+    /// update shiped date
+    /// </summary>
     private static void updateShipedDate()
     {
         try
@@ -225,14 +326,13 @@ public class Program
         }
         catch (BlIdNotFound e)
         {
-            Console.WriteLine(e);
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
+            Console.WriteLine(e.Message + e.InnerException);
         }
     }
 
+    /// <summary>
+    /// update delivery date
+    /// </summary>
     private static void updateDeliveryDate()
     {
         try
@@ -264,6 +364,10 @@ public class Program
 
     //=========================================== CART ===================================================
 
+
+    /// <summary>
+    /// Actions on a cart
+    /// </summary>
     private static void CRUDCart()
     {
         string s = "0";
@@ -288,33 +392,83 @@ public class Program
 
     }
 
-
+    /// <summary>
+    /// add product to the cart
+    /// </summary>
     private static void addToCart()
     {
-        Console.WriteLine("enter product ID:");
-        int.TryParse(Console.ReadLine(), out int pId);
-        cart = BL.Cart.AddToCart(cart, pId);
+        try
+        {
+            Console.WriteLine("enter product ID:");
+            int.TryParse(Console.ReadLine(), out int pId);
+            cart = BL.Cart.AddToCart(cart, pId);
+        }
+        catch (BlIdNotFound e)
+        {
+            Console.WriteLine(e.Message + e.InnerException);
+        }
+        catch (BlOutOfStockException e)
+        {
+            Console.WriteLine(e.Message);
+        }
     }
 
+    /// <summary>
+    /// confirms order and sends carts details to datasource
+    /// </summary>
     private static void confirmOrder()
     {
-        Console.WriteLine("enter name:");
-        string name = Console.ReadLine();
-        Console.WriteLine("enter email:");
-        string email = Console.ReadLine();
-        Console.WriteLine("enter address:");
-        string address = Console.ReadLine();
+        try
+        {
+            Console.WriteLine("enter name:");
+            string name = Console.ReadLine();
+            Console.WriteLine("enter email:");
+            string email = Console.ReadLine();
+            Console.WriteLine("enter address:");
+            string address = Console.ReadLine();
 
-        BL.Cart.confirmOrder(cart, name, email, address);
+            BL.Cart.confirmOrder(cart, name, email, address);
+        }
+        catch (BlIdNotFound e)
+        {
+            Console.WriteLine(e.Message + e.InnerException);
+        }
+        catch (BlInvalidEmailException e)
+        {
+            Console.WriteLine(e.Message);
+        }
+        catch (BlNullValueException e)
+        {
+            Console.WriteLine(e.Message);
+        }
+        catch (BlNegativeAmountException e)
+        {
+            Console.WriteLine(e.Message);
+        }
+        catch (BlOutOfStockException e)
+        {
+            Console.WriteLine(e.Message);
+        }
     }
 
+
+    /// <summary>
+    /// update amount of product in the cart
+    /// </summary>
     private static void updateAmount()
     {
-        Console.WriteLine("enter product ID:");
-        int.TryParse(Console.ReadLine(), out int pId);
-        Console.WriteLine("enter new amount:");
-        int.TryParse(Console.ReadLine(), out int amount);
-        cart = BL.Cart.updateAmount(cart, pId, amount);
+        try
+        {
+            Console.WriteLine("enter product ID:");
+            int.TryParse(Console.ReadLine(), out int pId);
+            Console.WriteLine("enter new amount:");
+            int.TryParse(Console.ReadLine(), out int amount);
+            cart = BL.Cart.updateAmount(cart, pId, amount);
+        }
+        catch (BlIdNotFound e)
+        {
+            Console.WriteLine(e.Message + e.InnerException);
+        }
     }
 
 }
