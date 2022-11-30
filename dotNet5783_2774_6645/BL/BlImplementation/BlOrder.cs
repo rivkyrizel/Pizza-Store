@@ -44,6 +44,11 @@ internal class BlOrder : IOrder
         oBO.TotalPrice = totalprice;
         return oBO;
     }
+
+    /// <summary>
+    /// gets list of all orders
+    /// </summary>
+    /// <returns> list of orders </returns>
     public IEnumerable<BO.OrderForList> OrderList()
     {
         IEnumerable<DO.Order> DOlist = Dal.Order.GetList();
@@ -55,6 +60,13 @@ internal class BlOrder : IOrder
         return BOlist;
     }
 
+    /// <summary>
+    /// gets order by id
+    /// </summary>
+    /// <param name="orderId"> id of order to receive </param>
+    /// <returns> order details </returns>
+    /// <exception cref="BlInvalideData"> invalid order id </exception>
+    /// <exception cref="BlIdNotFound"> order with specified id not found </exception>
     public BO.Order GetOrder(int orderId)
     {
         try
@@ -70,6 +82,13 @@ internal class BlOrder : IOrder
 
     }
 
+    /// <summary>
+    /// updates delivery date in order to current date
+    /// </summary>
+    /// <param name="orderId"> id of order to update</param>
+    /// <returns> updated order </returns>
+    /// <exception cref="BlInvalidStatusException"> order status not correct </exception>
+    /// <exception cref="BlIdNotFound"> order with specified id not found </exception>
     public BO.Order UpdateDeliveryOrder(int orderId)
     {
         try
@@ -92,11 +111,24 @@ internal class BlOrder : IOrder
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="orderId"></param>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
     public BO.Order UpdateOrder(int orderId)
     {
         throw new NotImplementedException();
     }
 
+    /// <summary>
+    /// updates shipped date in order to current date
+    /// </summary>
+    /// <param name="orderId"> id of order to update </param>
+    /// <returns> updated order </returns>
+    /// <exception cref="BlInvalidStatusException"> order status not correct </exception>
+    /// <exception cref="BlIdNotFound"> order with specified id not found </exception>
     public BO.Order UpdateShipedOrder(int orderId)
     {
         try

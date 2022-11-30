@@ -43,6 +43,7 @@ public class BlOutOfStockException : Exception
     public override string Message =>
                    "item out of stock exception";
 }
+
 public class BlNullValueException : Exception
 {
     public override string Message =>

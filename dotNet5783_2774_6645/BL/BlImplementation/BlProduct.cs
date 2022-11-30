@@ -51,12 +51,22 @@ internal class BlProduct : IProduct
         return pBO;
     }
 
+    /// <summary>
+    /// Adds new product
+    /// </summary>
+    /// <param name="p"> new product </param>
     public void AddProduct(BO.Product p)
     {
         if (p.ID > 0 && p.Name != "" && p.Price > 0 && p.InStock > 0)
             dal.Product.Add(castBOToDO(p));
     }
 
+    /// <summary>
+    /// Deletes a product
+    /// </summary>
+    /// <param name="id"> id of product to delete </param>
+    /// <exception cref="BlProductFoundInOrders"> the product exists in users orders </exception>
+    /// <exception cref="BlIdNotFound">  no product with id found </exception>
     public void DeleteProduct(int id)
     {
         IEnumerable<DO.OrderItem> orderItems = dal.OrderItem.GetList();
@@ -75,11 +85,21 @@ internal class BlProduct : IProduct
 
     }
 
+    /// <summary>
+    /// gets product by id
+    /// </summary>
+    /// <param name="id"> id of requested product </param>
+    /// <returns></returns>
     public BO.Product GetProductForManager(int id)
     {
         return Get(id);
     }
 
+    /// <summary>
+    /// gets product by id
+    /// </summary>
+    /// <param name="id"> id of requested product </param>
+    /// <returns></returns>
     public BO.Product GetProductForCustomer(int id)
     {
         return Get(id);
@@ -100,6 +120,10 @@ internal class BlProduct : IProduct
 
     }
 
+    /// <summary>
+    /// gets list of products for manager 
+    /// </summary>
+    /// <returns> list of products </returns>
     public IEnumerable<BO.ProductForList> GetProductList()
     {
         IEnumerable<DO.Product> DOlist = dal.Product.GetList();
@@ -111,6 +135,10 @@ internal class BlProduct : IProduct
         return BOlist;
     }
 
+    /// <summary>
+    /// gets list of product for user
+    /// </summary>
+    /// <returns> list of product, type:productitem</returns>
     public IEnumerable<BO.ProductItem> GetProductItem()
     {
         IEnumerable<DO.Product> DOlist = dal.Product.GetList();
@@ -122,6 +150,13 @@ internal class BlProduct : IProduct
         return BOlist;
     }
 
+    /// <summary>
+    /// updates product details
+    /// </summary>
+    /// <param name="p"> product object to update </param>
+    /// <exception cref="BlInvalideData"> id is invalid  </exception>
+    /// <exception cref="BlNullValueException"> product details missing </exception>
+    /// <exception cref="BlIdNotFound"> id of product does not exist </exception>
     public void UpdateProduct(BO.Product p)
     {
         try
