@@ -428,6 +428,7 @@ public class Program
             string address = Console.ReadLine();
 
             BL.Cart.confirmOrder(cart, name, email, address);
+            cart = new Cart();
         }
         catch (BlIdNotFound e)
         {
