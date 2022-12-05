@@ -8,8 +8,8 @@ public class Program
     public static Cart cart = new();
 
     //=========================================== MAIN ===================================================
-   
-    
+
+
     static void Main()
     {
         int choice = 0;
@@ -235,7 +235,7 @@ public class Program
 
 
     //=========================================== ORDER ===================================================
-    
+
     /// <summary>
     /// Actions on an order
     /// </summary>
@@ -358,11 +358,49 @@ public class Program
 
     private static void updateOrder()
     {
+        try
+        {
+            Console.WriteLine("enter order ID:");
+            int.TryParse(Console.ReadLine(), out int id);
+            BO.Order o = new();
+            o.ID = id;
+            List<BO.OrderItem> list = new();
+            BO.OrderItem oItem = new();
+            int choice = 0;
+            do
+            {
+                Console.WriteLine("enter product ID:");
+                int.TryParse(Console.ReadLine(), out int productId);
+                oItem.ProductId = productId;
+                Console.WriteLine("enter new amount:");
+                int.TryParse(Console.ReadLine(), out int amount);
+                oItem.Amount = amount;
+                list.Add(oItem);
+                Console.WriteLine("press 0 to stop any key to continue");
+                int.TryParse(Console.ReadLine(), out choice);
+            } while (choice != 0);
+
+            o.Items = list;
+            BL.order.UpdateOrder(o);
+        }
+        catch (BlInvalidAmount e)
+        {
+            Console.WriteLine(e.Message);
+        }
+        catch(BlNegativeAmountException e)
+        {
+            Console.WriteLine(e.Message);
+        }
+        catch(BlIdNotFound e)
+        {
+            Console.WriteLine(e.Message+e.InnerException);
+        }
     }
 
 
 
-    //=========================================== CART ===================================================
+    //=========================================== CART =======================================================
+
 
 
     /// <summary>
