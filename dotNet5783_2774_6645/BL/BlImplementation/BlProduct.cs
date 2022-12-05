@@ -179,9 +179,19 @@ internal class BlProduct : IProduct
         }
     }
 
-    public IEnumerable<ProductItem> GetListProductByCategory(eCategory e)
+    public IEnumerable<ProductItem> GetListProductByCategory(BO.eCategory e)
     {
-        throw new NotImplementedException();
+        List<ProductItem> l = new();
+        IEnumerable<DO.Product> ls = dal.Product.GetList();
+        foreach (DO.Product product in ls)
+        {
+            if ((int)(object)product.Category == (int)(object)e)
+            {
+                ProductItem item = castDOtoBOpItem(product);
+                l.Add(item);
+            }
+        }
+        return l;
     }
 }
 
