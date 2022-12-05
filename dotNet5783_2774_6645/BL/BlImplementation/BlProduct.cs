@@ -1,4 +1,5 @@
 ﻿using BlApi;
+using BO;
 
 namespace BlImplementation;
 
@@ -176,6 +177,11 @@ internal class BlProduct : IProduct
         {
             throw new BlIdNotFound(e);
         }
+    }
+
+    public IEnumerable<ProductItem> GetListProductByCategory(eCategory e)
+    {
+        throw new NotImplementedException();
     }
 }
 

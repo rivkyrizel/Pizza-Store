@@ -10,6 +10,7 @@ public interface IProduct
     public void AddProduct(Product p);
     public void DeleteProduct(int id);
     public void UpdateProduct(Product p);
+    public IEnumerable<ProductItem> GetListProductByCategory(eCategory e);
 
 }
 
