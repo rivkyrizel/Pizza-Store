@@ -58,7 +58,7 @@ internal class BlProduct : IProduct
     /// <param name="p"> new product </param>
     public void AddProduct(BO.Product p)
     {
-        if (p.ID > 0 && p.Name != "" && p.Price > 0 && p.InStock > 0)
+        if ( p.Name != "" && p.Price > 0 && p.InStock > 0)
             dal.Product.Add(castBOToDO(p));
     }
 

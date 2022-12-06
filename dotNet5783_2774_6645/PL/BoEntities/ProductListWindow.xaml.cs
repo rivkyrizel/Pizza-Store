@@ -21,17 +21,34 @@ namespace PL.BoEntities
     /// </summary>
     public partial class ProductListWindow : Window
     {
-        IBl bl = new Bl();
-        public ProductListWindow()
+        IBl bl; 
+        public ProductListWindow(IBl Bl)
         {
+             bl=Bl;
             InitializeComponent();
             AttributeSelector.ItemsSource = Enum.GetValues(typeof(BO.eCategory));
-            ProductsListview.ItemsSource = bl.product.GetProductItem();
+            ProductsListview.ItemsSource = bl.product.GetProductList();
         }
 
         private void AttributeSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-           
+            object s = AttributeSelector.SelectedItem;
+            ProductsListview.ItemsSource = bl.product.GetListProductByCategory((BO.eCategory)s);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            new ProductWindow(bl).Show();
+        }
+
+        private void ProductsListview_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void ProductsListview_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            new ProductWindow(bl, false, ((BO.ProductForList)ProductsListview.SelectedItems[0]).ID).Show();
         }
     }
 }
