@@ -24,9 +24,9 @@ internal class BlProduct : IProduct
         DO.Product pDO = new DO.Product();
         pDO.ID = pBO.ID;
         pDO.Name = pBO.Name;
-        pDO.Price = pBO.Price;
+        pDO.Price = (double)pBO.Price;
         pDO.Category = (DO.eCategory)pBO.Category;
-        pDO.InStock = pBO.InStock;
+        pDO.InStock = (int)pBO.InStock;
         return pDO;
     }
 

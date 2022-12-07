@@ -2,9 +2,9 @@
 
 public class OrderTracking
 {
-    public int ID { get; set; }
-    public OrderStatus Status { get; set; }
-    public List<(DateTime, OrderStatus)> TrackList { get; set; } = new List<(DateTime, OrderStatus)>();
+    public int? ID { get; set; }
+    public OrderStatus? Status { get; set; }
+    public List<(DateTime?, OrderStatus?)>? TrackList { get; set; } = new List<(DateTime?, OrderStatus?)>();
     public override string ToString()
     {
         string toString = $@"ID: {ID} "+"\n";

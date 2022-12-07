@@ -14,7 +14,7 @@ internal class DalOrderItem : IOrderItem
     public int Add(OrderItem o)
     {
         DataSource.OrderItemList.Add(o);
-        return o.OrderID;
+        return (int)o.OrderID;
     }
 
     /// <summary>

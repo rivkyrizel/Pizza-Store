@@ -482,8 +482,10 @@ public class Program
             string email = Console.ReadLine();
             Console.WriteLine("enter address:");
             string address = Console.ReadLine();
-
-            BL.Cart.confirmOrder(cart, name, email, address);
+            cart.CustomerAddress = address;
+            cart.CustomerEmail = email;
+            cart.CustomerName = name;
+            BL.Cart.confirmOrder(cart);
             cart = new Cart();
         }
         catch (BlIdNotFound e)

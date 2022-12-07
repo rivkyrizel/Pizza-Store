@@ -40,10 +40,10 @@ internal class BlCart : ICart
     private DO.OrderItem castBOtoDO(BO.OrderItem boItem)
     {
         DO.OrderItem doItem = new DO.OrderItem();
-        doItem.ID = boItem.ID;
-        doItem.Price = boItem.Price;
-        doItem.ProductID = boItem.ProductId;
-        doItem.Amount = boItem.Amount;
+        doItem.ID = (int)boItem.ID;
+        doItem.Price = (double)boItem.Price;
+        doItem.ProductID = (int)boItem.ProductId;
+        doItem.Amount = (int)boItem.Amount;
         return doItem;
     }
 
@@ -82,8 +82,8 @@ internal class BlCart : ICart
                 else
                 {
                     List<BO.OrderItem> items = new List<BO.OrderItem>();
-                    items.Add(oItem);   
-                    cart.Items = items; 
+                    items.Add(oItem);
+                    cart.Items = items;
                 }
                 return cart;
             }
@@ -108,27 +108,27 @@ internal class BlCart : ICart
     /// <exception cref="BlNullValueException"> user details missing </exception>
     /// <exception cref="BlInvalidEmailException"> invalid email </exception>
     /// <exception cref="BlIdNotFound"> id does not exist </exception>
-    public void confirmOrder(BO.Cart cart, string name, string email, string address)
+    public void confirmOrder(BO.Cart cart)
     {
         try
         {
             foreach (BO.OrderItem item in cart.Items)
             {
-                DO.Product p = dal.Product.Get(item.ProductId);
+                DO.Product p = dal.Product.Get((int)item.ProductId);
                 if (p.InStock < item.Amount)
                     throw new BlOutOfStockException();
                 if (item.Amount < 0)
                     throw new BlNegativeAmountException();
             }
-            if (name == "" || email == "" || address == "")
+            if (cart.CustomerName == "" || cart.CustomerEmail == "" || cart.CustomerAddress == "")
                 throw new BlNullValueException();
-            if (!IsValidEmail(email))
+            if (!IsValidEmail(cart.CustomerEmail))
                 throw new BlInvalidEmailException();
 
             DO.Order order = new DO.Order();
-            order.CustomerAdress = address;
-            order.CustomerEmail = email;
-            order.CustomerName = name;
+            order.CustomerAdress = cart.CustomerAddress;
+            order.CustomerEmail = cart.CustomerEmail;
+            order.CustomerName = cart.CustomerName;
             order.DeliveryDate = DateTime.MinValue;
             order.ShipDate = DateTime.MinValue;
             order.OrderDate = DateTime.Now;
@@ -140,7 +140,7 @@ internal class BlCart : ICart
                 oItem.OrderID = orderId;
                 dal.OrderItem.Add(oItem);
 
-                DO.Product product = dal.Product.Get(oItem.ProductID);
+                DO.Product product = dal.Product.Get((int)oItem.ProductID);
                 product.InStock = product.InStock - oItem.Amount;
                 dal.Product.Update(product);
             }
