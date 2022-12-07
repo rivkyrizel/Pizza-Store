@@ -80,5 +80,18 @@ internal class DalProduct:IProduct
         }
         throw new ItemNotFound("error product not found");
     }
+
+    public IEnumerable<Product> GetListProductByCategory(eCategory e)
+    {
+        List<Product> l = new();
+        foreach (DO.Product product in DataSource.ProductList)
+        {
+            if ((int)(object)product.Category == (int)(object)e)
+            {
+                l.Add(product);
+            }
+        }
+        return l;
+    }
 }
 

@@ -58,7 +58,7 @@ internal class BlProduct : IProduct
     /// <param name="p"> new product </param>
     public void AddProduct(BO.Product p)
     {
-        if ( p.Name != "" && p.Price > 0 && p.InStock > 0)
+        if (p.Name != "" && p.Price > 0 && p.InStock > 0)
             dal.Product.Add(castBOToDO(p));
     }
 
@@ -181,15 +181,12 @@ internal class BlProduct : IProduct
 
     public IEnumerable<ProductItem> GetListProductByCategory(BO.eCategory e)
     {
+        IEnumerable<DO.Product> ls = dal.Product.GetListProductByCategory((DO.eCategory)e);
         List<ProductItem> l = new();
-        IEnumerable<DO.Product> ls = dal.Product.GetList();
         foreach (DO.Product product in ls)
         {
-            if ((int)(object)product.Category == (int)(object)e)
-            {
-                ProductItem item = castDOtoBOpItem(product);
-                l.Add(item);
-            }
+            ProductItem item = castDOtoBOpItem(product);
+            l.Add(item);
         }
         return l;
     }
