@@ -1,4 +1,6 @@
 ﻿using BlApi;
+using BO;
+
 namespace BlImplementation;
 
 internal class BlOrder : IOrder
@@ -239,5 +241,34 @@ internal class BlOrder : IOrder
             throw new BlIdNotFound(e);
         }
     }
+
+    public OrderTracking OrderTracking(int orderId)
+    {
+        try
+        {
+            DO.Order order = Dal.Order.Get(orderId);
+            BO.OrderTracking orderTracking = new();
+            orderTracking.ID = orderId;
+            orderTracking.TrackList.Add((order.OrderDate, OrderStatus._____Confirmed_____));
+            orderTracking.Status = OrderStatus._____Confirmed_____;
+            if (order.ShipDate > DateTime.MinValue)
+            {
+                orderTracking.TrackList.Add((order.ShipDate, OrderStatus._______Sent________));
+                orderTracking.Status = OrderStatus._______Sent________;
+                if (order.DeliveryDate > DateTime.MinValue)
+                {
+                    orderTracking.TrackList.Add((order.DeliveryDate, OrderStatus.DeliveredToCustomer));
+                    orderTracking.Status = OrderStatus.DeliveredToCustomer;
+                }
+            }
+            return orderTracking;
+        }
+        catch (DalApi.ItemNotFound e)
+        {
+            throw new BlIdNotFound(e);
+        }
+    }
+
 }
+
 

@@ -244,7 +244,7 @@ public class Program
         string s = "0";
         do
         {
-            Console.WriteLine("enter: \n a to get order for manager \n b to display orders by id \n c to update shiped date \n d to update dalivery date \n e to update order \n 0 to return main menu");
+            Console.WriteLine("enter: \n a to get order for manager \n b to display orders by id \n c to update shiped date \n d to update dalivery date \n e to update order \n g to order tracking \n 0 to return main menu");
             s = Console.ReadLine();
             switch (s)
             {
@@ -263,8 +263,26 @@ public class Program
                 case "e":
                     updateOrder();
                     break;
+                case "g":
+                    orderTracking();
+                    break;
             }
         } while (s != "0");
+
+    }
+
+    private static void orderTracking()
+    {
+        try
+        {
+            Console.WriteLine("enter id:");
+            int.TryParse(Console.ReadLine(), out int id);
+            Console.WriteLine( BL.order.OrderTracking(id));
+        }
+        catch (BlIdNotFound e)
+        {
+            Console.WriteLine(e.Message + e.InnerException);
+        }
 
     }
 
@@ -387,13 +405,13 @@ public class Program
         {
             Console.WriteLine(e.Message);
         }
-        catch(BlNegativeAmountException e)
+        catch (BlNegativeAmountException e)
         {
             Console.WriteLine(e.Message);
         }
-        catch(BlIdNotFound e)
+        catch (BlIdNotFound e)
         {
-            Console.WriteLine(e.Message+e.InnerException);
+            Console.WriteLine(e.Message + e.InnerException);
         }
     }
 

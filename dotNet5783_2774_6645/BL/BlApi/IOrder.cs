@@ -9,6 +9,7 @@ public interface IOrder
     public Order UpdateShipedOrder(int orderId);
     public Order UpdateDeliveryOrder(int orderId);
     public void UpdateOrder(Order updateOrder);
+    public OrderTracking OrderTracking(int orderId);
 
 }
 

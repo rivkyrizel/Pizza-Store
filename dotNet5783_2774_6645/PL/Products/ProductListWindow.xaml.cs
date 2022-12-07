@@ -21,10 +21,10 @@ namespace PL.BoEntities
     /// </summary>
     public partial class ProductListWindow : Window
     {
-        IBl bl; 
+        IBl bl;
         public ProductListWindow(IBl Bl)
         {
-             bl=Bl;
+            bl = Bl;
             InitializeComponent();
             AttributeSelector.ItemsSource = Enum.GetValues(typeof(BO.eCategory));
             ProductsListview.ItemsSource = bl.product.GetProductList();
