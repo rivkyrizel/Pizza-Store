@@ -62,11 +62,10 @@ internal class DalOrderItem : IOrderItem
     /// returns all ordered items
     /// </summary>
     /// <returns> All ordered items </returns>
-    public IEnumerable<OrderItem> GetList()
+    public IEnumerable<OrderItem>? GetList(Func<OrderItem, bool>? func=null)
     {
-        return DataSource.OrderItemList;
+        return (IEnumerable<OrderItem>)DataSource.OrderItemList;
     }
-
     /// <summary>
     /// returns details of specific ordered item by ID
     /// </summary>
@@ -91,9 +90,9 @@ internal class DalOrderItem : IOrderItem
     /// <param name="orderId"></param>
     /// <returns> List of items in requested order </returns>
     /// <exception cref="Exception"> No order with the given id found </exception>
-    public IEnumerable<OrderItem> GetOrderItems(int orderId)
+    public IEnumerable<OrderItem?> GetOrderItems(int orderId)
     {
-        List<OrderItem> list = new List<OrderItem>();
+        List<OrderItem?> list = new List<OrderItem?>();
 
         foreach (OrderItem item in DataSource.OrderItemList)
         {
@@ -106,5 +105,6 @@ internal class DalOrderItem : IOrderItem
         if (list.Count() == 0) throw new ItemNotFound("No order found");
         return list;
     }
+
 }
 

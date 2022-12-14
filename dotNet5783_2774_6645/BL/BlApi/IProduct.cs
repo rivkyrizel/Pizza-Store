@@ -3,14 +3,14 @@
 namespace BlApi;
 public interface IProduct
 {
-    public IEnumerable<ProductForList> GetProductList();
-    public IEnumerable<ProductItem> GetProductItem();
+    public IEnumerable<ProductForList?> GetProductList();
+    public IEnumerable<ProductItem?> GetProductItem();
     public Product GetProductForCustomer(int id);
     public Product GetProductForManager(int id);
     public void AddProduct(Product p);
     public void DeleteProduct(int id);
     public void UpdateProduct(Product p);
-    public IEnumerable<ProductItem> GetListProductByCategory(eCategory e);
+    public IEnumerable<ProductItem?> GetListProductByCategory(eCategory e);
 
 }
 

@@ -6,8 +6,8 @@ public static class DataSource
 {
     static readonly Random rand = new Random();
     internal static List<Product> ProductList=new List<Product>();
-    internal static List<Order> OrderList=new List<Order>();
-    internal static List<OrderItem> OrderItemList=new List<OrderItem>();
+    internal static List<Order?> OrderList=new List<Order?>();
+    internal static List<OrderItem?> OrderItemList=new List<OrderItem?>();
     static DataSource()
     {
         sInitialize();
@@ -20,8 +20,8 @@ public static class DataSource
         private static int orderID = 500000;
         public static int OrderID { get { return orderID++; } }
 
-        private static int orderItemID = 500000;
-        public static int OrderItemID { get { return orderID++; } }
+        private static int orderItemID = 600000;
+        public static int OrderItemID { get { return orderItemID++; } }
     }
 
     private static void createProductList()
@@ -97,10 +97,10 @@ public static class DataSource
                 int itemAmount = (int)rand.NextInt64(1, 9);
                 OrderItem orderItem = new OrderItem();
                 orderItem.ID = Config.OrderItemID;
-                orderItem.OrderID = OrderList[orderIdx].ID;
+                orderItem.OrderID = ((Order)OrderList[orderIdx]).ID;
                 orderItem.Amount = itemAmount;
-                orderItem.Price = ProductList[productIdx].Price;
-                orderItem.ProductID = ProductList[productIdx].ID;
+                orderItem.Price = ((Product)ProductList[productIdx]).Price;
+                orderItem.ProductID = ((Product)ProductList[productIdx]).ID;
                 OrderItemList.Add(orderItem);
             }
         }

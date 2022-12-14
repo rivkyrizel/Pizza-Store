@@ -47,7 +47,7 @@ internal class DalProduct:IProduct
     {
         for (int i = 0; i < DataSource.ProductList.Count; i++)
         {
-            if (p.ID == DataSource.ProductList[i].ID)
+            if (p.ID == ((Product)DataSource.ProductList[i]).ID)
             {
                 DataSource.ProductList[i] = p;
                 return;
@@ -60,9 +60,9 @@ internal class DalProduct:IProduct
     /// returns all products
     /// </summary>
     /// <returns> all products in system </returns>
-    public IEnumerable<Product> GetList()
+    public IEnumerable<Product>? GetList(Func<Product, bool>? func = null)
     {
-        return DataSource.ProductList;
+      return (func ==null ? DataSource.ProductList : DataSource.ProductList.Where(func).ToList());
     }
 
     /// <summary>
@@ -81,17 +81,5 @@ internal class DalProduct:IProduct
         throw new ItemNotFound("error product not found");
     }
 
-    public IEnumerable<Product> GetListProductByCategory(eCategory e)
-    {
-        List<Product> l = new();
-        foreach (DO.Product product in DataSource.ProductList)
-        {
-            if ((int)(object)product.Category == (int)(object)e)
-            {
-                l.Add(product);
-            }
-        }
-        return l;
-    }
 }
 

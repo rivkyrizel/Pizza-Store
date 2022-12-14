@@ -49,9 +49,9 @@ internal class DalOrder : IOrder
     {
         for (int i = 0; i < DataSource.OrderList.Count; i++)
         {
-            if (o.ID == DataSource.OrderList[i].ID)
+            if (o.ID == ((Order)DataSource.OrderList[i]).ID)
             {
-                DataSource.OrderList[i]= o;
+                DataSource.OrderList[i] = o;
                 return;
             }
         }
@@ -62,9 +62,9 @@ internal class DalOrder : IOrder
     /// returns all orders
     /// </summary>
     /// <returns> all orders in system </returns>
-    public IEnumerable<Order> GetList()
+    public IEnumerable<Order>? GetList(Func<Order, bool>? func = null)
     {
-        return DataSource.OrderList;
+        return (IEnumerable<Order>)DataSource.OrderList;
     }
 
 

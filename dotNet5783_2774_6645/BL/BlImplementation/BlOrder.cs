@@ -37,8 +37,8 @@ internal class BlOrder : IOrder
     }
     private BO.Order castDOtoBO(DO.Order oDO)
     {
-        double? totalprice = 0;
-        IEnumerable<DO.OrderItem> listOrderItem = Dal.OrderItem.GetOrderItems(oDO.ID);
+        double totalprice = 0;
+        IEnumerable<DO.OrderItem?> listOrderItem = Dal.OrderItem.GetOrderItems(oDO.ID);
         BO.Order oBO = new();
         oBO.ID = oDO.ID;
         oBO.PaymentDate = oDO.OrderDate;
@@ -48,7 +48,7 @@ internal class BlOrder : IOrder
         oBO.CustomerName = oDO.CustomerName;
         oBO.DeliveryDate = oDO.DeliveryDate;
         foreach (DO.OrderItem item in listOrderItem)
-            totalprice += Dal.Product.Get((int)item.ProductID).Price * item.Amount;
+            totalprice += Dal.Product.Get(item.ProductID).Price * item.Amount;
         oBO.TotalPrice = totalprice;
         if (oDO.ShipDate == DateTime.MinValue)
             oBO.Status = (BO.OrderStatus)0;
@@ -60,9 +60,9 @@ internal class BlOrder : IOrder
     }
     private BO.OrderForList castDOtoBOOrderForList(DO.Order oDO)
     {
-        double? totalprice = 0;
+        double totalprice = 0;
         BO.OrderForList oBO = new();
-        IEnumerable<DO.OrderItem> listOrderItem = Dal.OrderItem.GetOrderItems(oDO.ID);
+        IEnumerable<DO.OrderItem?> listOrderItem =Dal.OrderItem.GetOrderItems(oDO.ID);
         oBO.ID = oDO.ID;
         oBO.CustomerName = oDO.CustomerName;
         oBO.AmountOfItems = listOrderItem.Count();
@@ -70,7 +70,7 @@ internal class BlOrder : IOrder
         else if (oDO.DeliveryDate == DateTime.MinValue) oBO.Status = (BO.OrderStatus)1;
         else oBO.Status = (BO.OrderStatus)2;
         foreach (DO.OrderItem item in listOrderItem)
-            totalprice += Dal.Product.Get((int)item.ProductID).Price * item.Amount;
+            totalprice += Dal.Product.Get(item.ProductID).Price * item.Amount;
         oBO.TotalPrice = totalprice;
         return oBO;
     }
@@ -79,9 +79,9 @@ internal class BlOrder : IOrder
     /// gets list of all orders
     /// </summary>
     /// <returns> list of orders </returns>
-    public IEnumerable<BO.OrderForList> OrderList()
+    public IEnumerable<BO.OrderForList?> OrderList()
     {
-        IEnumerable<DO.Order> DOlist = Dal.Order.GetList();
+        IEnumerable<DO.Order?> DOlist = (IEnumerable<DO.Order?>)Dal.Order.GetList();
         List<BO.OrderForList> BOlist = new();
         foreach (DO.Order item in DOlist)
         {
@@ -153,13 +153,13 @@ internal class BlOrder : IOrder
         try
         {
             bool foundInOrder = false;
-            double? totalPrice = 0;
+            double totalPrice = 0;
             BO.Order order = castDOtoBO(Dal.Order.Get(updateOrder.ID));
             List<BO.OrderItem> list=new();
             if (updateOrder.Status == (BO.OrderStatus)0)
             {
 
-                IEnumerable<DO.OrderItem> oList = Dal.OrderItem.GetOrderItems(updateOrder.ID);
+                IEnumerable<DO.OrderItem?> oList =Dal.OrderItem.GetOrderItems(updateOrder.ID);
                 //foreach (DO.OrderItem item in oList)
                 //{
                 //    BO.OrderItem newOrder = new();
@@ -170,7 +170,7 @@ internal class BlOrder : IOrder
                 //}
                 foreach (BO.OrderItem item in updateOrder.Items)
                 {
-                    DO.Product p = Dal.Product.Get((int)item.ProductId);
+                    DO.Product p = Dal.Product.Get(item.ProductId);
                     item.Name = p.Name;
                     item.Price = p.Price;
                     item.TotalPrice = p.Price * item.Amount;
@@ -192,7 +192,7 @@ internal class BlOrder : IOrder
 
                     }
                 }
-                IEnumerable<DO.OrderItem> oUpdateList = Dal.OrderItem.GetOrderItems(updateOrder.ID);
+                IEnumerable<DO.OrderItem?> oUpdateList =Dal.OrderItem.GetOrderItems(updateOrder.ID);
                 foreach (DO.OrderItem item in oUpdateList)
                 {
                     totalPrice += Dal.Product.Get((int)item.ProductID).Price * item.Amount;

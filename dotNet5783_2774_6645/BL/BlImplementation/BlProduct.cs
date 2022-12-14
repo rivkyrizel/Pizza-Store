@@ -181,7 +181,7 @@ internal class BlProduct : IProduct
 
     public IEnumerable<ProductItem> GetListProductByCategory(BO.eCategory e)
     {
-        IEnumerable<DO.Product> ls = dal.Product.GetListProductByCategory((DO.eCategory)e);
+        IEnumerable<DO.Product> ls = (IEnumerable<DO.Product>)dal.Product.GetList(p=> (BO.eCategory)p.Category == e);
         List<ProductItem> l = new();
         foreach (DO.Product product in ls)
         {
