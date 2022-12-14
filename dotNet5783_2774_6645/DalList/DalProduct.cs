@@ -60,9 +60,10 @@ internal class DalProduct:IProduct
     /// returns all products
     /// </summary>
     /// <returns> all products in system </returns>
-    public IEnumerable<Product>? GetList(Func<Product, bool>? func = null)
+    public IEnumerable<Product> GetList(Func<Product, bool>? func = null)
     {
-      return (func ==null ? DataSource.ProductList : DataSource.ProductList.Where(func).ToList());
+        IEnumerable<Product> p = (IEnumerable<Product>)DataSource.ProductList;
+        return (func ==null ? p : p.Where(func));
     }
 
     /// <summary>
@@ -71,15 +72,10 @@ internal class DalProduct:IProduct
     /// <param name="id">id of specific product</param>
     /// <returns>  product details of given id</returns>
     /// <exception cref="ItemNotFound">no product with requested id found</exception>
-    public Product Get(int id)
+    public Product Get(Func<Product, bool> func)
     {
-        foreach (Product item in DataSource.ProductList)
-        {
-            if (id == item.ID)
-                return item;
-        }
-        throw new ItemNotFound("error product not found");
+        IEnumerable<Product> p = (IEnumerable<Product>)DataSource.ProductList;
+        return p.Where(func) != null ? p.Where(func).First() : throw new ItemNotFound("order Item not found");
     }
-
 }
 

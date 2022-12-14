@@ -110,7 +110,7 @@ internal class BlProduct : IProduct
         try
         {
             if (id > 0)
-                return castDOToBO(dal.Product.Get(id));
+                return castDOToBO(dal.Product.Get(p=>p.ID==id));
 
             throw new BlInvalideData();
         }

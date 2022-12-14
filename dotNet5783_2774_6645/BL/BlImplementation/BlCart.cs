@@ -59,7 +59,7 @@ internal class BlCart : ICart
     {
         try
         {
-            DO.Product p = dal.Product.Get(productId);
+            DO.Product p = dal.Product.Get(p=>p.ID == productId);
             if (p.InStock > 1)
             {
                 if (cart.Items != null)
@@ -114,7 +114,7 @@ internal class BlCart : ICart
         {
             foreach (BO.OrderItem item in cart.Items)
             {
-                DO.Product p = dal.Product.Get((int)item.ProductId);
+                DO.Product p = dal.Product.Get(p => p.ID == item.ProductId);
                 if (p.InStock < item.Amount)
                     throw new BlOutOfStockException();
                 if (item.Amount < 0)
@@ -140,7 +140,7 @@ internal class BlCart : ICart
                 oItem.OrderID = orderId;
                 dal.OrderItem.Add(oItem);
 
-                DO.Product product = dal.Product.Get((int)oItem.ProductID);
+                DO.Product product = dal.Product.Get(p => p.ID == oItem.ProductID);
                 product.InStock = product.InStock - oItem.Amount;
                 dal.Product.Update(product);
             }
@@ -163,7 +163,7 @@ internal class BlCart : ICart
     {
         try
         {
-            DO.Product p = dal.Product.Get(productId);
+            DO.Product p = dal.Product.Get(p => p.ID == productId);
             foreach (BO.OrderItem item in cart.Items)
             {
                 if (item.ProductId == productId)

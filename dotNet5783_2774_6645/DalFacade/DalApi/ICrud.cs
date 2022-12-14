@@ -6,7 +6,7 @@ public interface ICrud<T>
     public void Delete(int id);
     public void Update(T t);
     public IEnumerable<T>? GetList(Func<T?,bool>? func=null);
-    public T Get(int id);
+    public T? Get(Func<T?, bool> func);
 
 }
 

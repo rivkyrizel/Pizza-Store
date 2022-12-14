@@ -17,6 +17,7 @@ internal class DalOrder : IOrder
         o.ID = DataSource.Config.OrderID;
         DataSource.OrderList.Add(o);
         return o.ID;
+
     }
 
     /// <summary>
@@ -64,7 +65,8 @@ internal class DalOrder : IOrder
     /// <returns> all orders in system </returns>
     public IEnumerable<Order>? GetList(Func<Order, bool>? func = null)
     {
-        return (IEnumerable<Order>)DataSource.OrderList;
+        IEnumerable<Order> i = (IEnumerable<Order>)DataSource.OrderList;
+        return (func == null ? i : i.Where(func));
     }
 
 
@@ -76,13 +78,10 @@ internal class DalOrder : IOrder
     /// <exception cref="Exception"> no order with requested id found </exception>
 
 
-    public Order Get(int id)
+    public Order Get(Func<Order, bool> func)
     {
-        foreach (Order item in DataSource.OrderList)
-
-            if (id == item.ID) return item;
-
-        throw new ItemNotFound("order not found");
+        IEnumerable<Order> o = (IEnumerable<Order>)DataSource.OrderList;
+        return o.Where(func)!=null ? o.Where(func).First() : throw new ItemNotFound("order not found");
     }
 }
 

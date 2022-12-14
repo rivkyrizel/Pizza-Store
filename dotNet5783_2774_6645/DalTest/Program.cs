@@ -170,7 +170,7 @@ public class Program
         Console.WriteLine("|    ID     |   NAME  |  EMAIL   | ADRESS |        ORDER DATE       |        SHIP DATE      |      DELIVERY DATE    |");
         Console.WriteLine("|___________|_________|__________|________|_________________________|_______________________|_______________________|");
         Console.WriteLine("|           |         |          |        |                         |                       |                       |");
-        Console.WriteLine(DalList.Order.Get(id));
+        Console.WriteLine(DalList.Order.Get(p => p.ID == id));
     }
 
     private static void displayOrderList()
@@ -236,7 +236,7 @@ public class Program
         Console.WriteLine("|    ID    |       NAME       | CATEGORY | PRICE | IN STOCK |");
         Console.WriteLine("|__________|__________________|__________|_______|__________|");
         Console.WriteLine("|          |                  |          |       |          |");
-        Console.WriteLine(DalList.Product.Get(id));
+        Console.WriteLine(DalList.Product.Get(p=>p.ID==id));
     }
 
     private static void displayProductList()
@@ -298,7 +298,7 @@ public class Program
     {
         Console.WriteLine("enter order id:");
         int.TryParse(Console.ReadLine(), out int id);
-        IEnumerable<OrderItem> orderItems = DalList.OrderItem.GetOrderItems(id);
+        IEnumerable<OrderItem> orderItems = DalList.OrderItem.GetList(o => o.ID == id);
         Console.WriteLine("| PRODUCT ID |  ORDER ID  |   PRICE   |  AMOUNT  |");
         Console.WriteLine("|____________|____________|___________|__________|");
         Console.WriteLine("|            |            |           |          |");
@@ -324,7 +324,7 @@ public class Program
         Console.WriteLine("| PRODUCT ID |  ORDER ID  |   PRICE   |  AMOUNT  |");
         Console.WriteLine("|____________|____________|___________|__________|");
         Console.WriteLine("|            |            |           |          |");
-        Console.WriteLine(DalList.OrderItem.Get(Id));
+        Console.WriteLine(DalList.OrderItem.Get(o => o.ID == Id));
     }
 
     private static void updateOrderItem()

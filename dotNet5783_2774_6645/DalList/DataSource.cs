@@ -5,9 +5,9 @@ namespace Dal;
 public static class DataSource
 {
     static readonly Random rand = new Random();
-    internal static List<Product> ProductList=new List<Product>();
-    internal static List<Order?> OrderList=new List<Order?>();
-    internal static List<OrderItem?> OrderItemList=new List<OrderItem?>();
+    internal static List<Product> ProductList = new List<Product>();
+    internal static List<Order> OrderList = new List<Order>();
+    internal static List<OrderItem> OrderItemList = new List<OrderItem>();
     static DataSource()
     {
         sInitialize();
@@ -28,7 +28,7 @@ public static class DataSource
     {
 
 
-        (string, eCategory)[] products = { ("  Ravioli  ", (eCategory)1), ("   Pizza   ", (eCategory)0), (" Sandwich  ", (eCategory)3), ("Ice coffee ", (eCategory)4), ("  Coffee   ", (eCategory)4), ("   Baguet  ", (eCategory)3), ("Greek Salad", (eCategory)2), (" XL pizza  ", (eCategory)0), ("Basic Salad", (eCategory)2), (" Coca Cola ", (eCategory)4) };
+        (string, eCategory)[] products = { ("  Ravioli  ", (eCategory)1), ("   Pizza   ", (eCategory)0), (" Sandwich  ", (eCategory)3), ("Ice coffee ", (eCategory)4), ("  Coffee   ", (eCategory)4), ("   Baguet  ", (eCategory)3), ("Greek Salad", (eCategory)4), (" XL pizza  ", (eCategory)0), ("Basic Salad", (eCategory)3), (" Coca Cola ", (eCategory)4) };
         for (int i = 0; i < 10; i++)
         {
             Product product = new Product();
@@ -49,7 +49,7 @@ public static class DataSource
 
         for (int i = 0; i < 20; i++)
         {
-            
+
             Order order = new Order();
             int numberForName = (int)rand.NextInt64(CustomerName.Length);
             int numberForAdress = (int)rand.NextInt64(CustomerAdress.Length);
@@ -89,18 +89,18 @@ public static class DataSource
     {
         for (int i = 0; i < 40; i++)
         {
-            int orderAmount = (int)rand.NextInt64(1, 20);
+            int orderAmount = (int)rand.NextInt64(1, 5);
             int orderIdx = i % 20;
             for (int j = 0; j < orderAmount; j++)
             {
-                int productIdx = i % 10;
+                int productIdx = (int)rand.NextInt64(1, 10);
                 int itemAmount = (int)rand.NextInt64(1, 9);
                 OrderItem orderItem = new OrderItem();
                 orderItem.ID = Config.OrderItemID;
-                orderItem.OrderID = ((Order)OrderList[orderIdx]).ID;
+                orderItem.OrderID = OrderList[orderIdx].ID;
                 orderItem.Amount = itemAmount;
-                orderItem.Price = ((Product)ProductList[productIdx]).Price;
-                orderItem.ProductID = ((Product)ProductList[productIdx]).ID;
+                orderItem.Price = ProductList[productIdx].Price;
+                orderItem.ProductID = ProductList[productIdx].ID;
                 OrderItemList.Add(orderItem);
             }
         }
@@ -113,4 +113,6 @@ public static class DataSource
         createOrderItemList();
     }
 }
+
+
 

@@ -62,10 +62,12 @@ internal class DalOrderItem : IOrderItem
     /// returns all ordered items
     /// </summary>
     /// <returns> All ordered items </returns>
-    public IEnumerable<OrderItem>? GetList(Func<OrderItem, bool>? func=null)
+    public IEnumerable<OrderItem>? GetList(Func<OrderItem, bool>? func = null)
     {
-        return (IEnumerable<OrderItem>)DataSource.OrderItemList;
+        IEnumerable<OrderItem> i = DataSource.OrderItemList;
+        return func==null?i: i.Where(func).ToList();
     }
+
     /// <summary>
     /// returns details of specific ordered item by ID
     /// </summary>
@@ -73,38 +75,12 @@ internal class DalOrderItem : IOrderItem
     /// <param name="productId"> Id of product </param>
     /// <returns> Details of ordered item </returns>
     /// <exception cref="Exception"> no order </exception>
-    public OrderItem Get(int id)
+    public OrderItem Get(Func<OrderItem, bool> func)
     {
-        foreach (OrderItem item in DataSource.OrderItemList)
-
-            if (id == item.ID)
-                return item;
-
-        throw new ItemNotFound(" requested item  not found ");
+        IEnumerable<OrderItem> o = (IEnumerable<OrderItem>)DataSource.OrderItemList;
+        return o.Where(func) != null ? o.Where(func).First() : throw new ItemNotFound("order Item not found");
     }
 
-
-    /// <summary>
-    ///  returns all items in specified order
-    /// </summary>
-    /// <param name="orderId"></param>
-    /// <returns> List of items in requested order </returns>
-    /// <exception cref="Exception"> No order with the given id found </exception>
-    public IEnumerable<OrderItem?> GetOrderItems(int orderId)
-    {
-        List<OrderItem?> list = new List<OrderItem?>();
-
-        foreach (OrderItem item in DataSource.OrderItemList)
-        {
-            if (orderId == item.OrderID)
-            {
-                list.Add(item);
-            }
-        }
-
-        if (list.Count() == 0) throw new ItemNotFound("No order found");
-        return list;
-    }
 
 }
 
