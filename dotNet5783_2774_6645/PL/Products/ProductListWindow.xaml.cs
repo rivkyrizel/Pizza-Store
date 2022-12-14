@@ -13,6 +13,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Navigation;
+using System.Windows.Media.Animation;
 
 namespace PL.BoEntities
 {
@@ -22,6 +24,7 @@ namespace PL.BoEntities
     public partial class ProductListWindow : Window
     {
         IBl bl;
+      
         public ProductListWindow(IBl Bl)
         {
             bl = Bl;
@@ -33,7 +36,7 @@ namespace PL.BoEntities
         private void AttributeSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             object s = AttributeSelector.SelectedItem;
-            ProductsListview.ItemsSource = bl.product.GetListProductByCategory((BO.eCategory)s);
+            ProductsListview.ItemsSource = bl.product.GetProductList((BO.eCategory)s);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -49,6 +52,11 @@ namespace PL.BoEntities
         private void ProductsListview_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             new ProductWindow(bl, false, ((BO.ProductForList)ProductsListview.SelectedItems[0]).ID).Show();
+        }
+
+        private void BtnBack_Click(object sender, RoutedEventArgs e)
+        {
+            ProductsListview.ItemsSource = bl.product.GetProductList();
         }
     }
 }

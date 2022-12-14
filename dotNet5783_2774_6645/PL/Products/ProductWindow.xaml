@@ -18,5 +18,11 @@
         <Button Name="BtnAdd" Content="Add" HorizontalAlignment="Left" Margin="154,312,0,0" VerticalAlignment="Top" Click="Button_Click"/>
         <Button Content="Update" Name="BtnUpdate" HorizontalAlignment="Left" Margin="237,312,0,0" VerticalAlignment="Top" Click="BtnUpdate_Click"/>
         <Button Content="Delete" Name="BtnDelete" HorizontalAlignment="Left" Margin="328,312,0,0" VerticalAlignment="Top" Click="BtnDelete_Click"/>
+        <Button Content="➜" Name="BtnReturn" 
+                HorizontalAlignment="Left" Margin="687,0,0,369" VerticalAlignment="Bottom" Height="49" Width="83" FontSize="36" BorderBrush="#00707070" Click="BtnReturn_Click">
+            <Button.Background>
+                <ImageBrush/>
+            </Button.Background>
+        </Button>
     </Grid>
 </Window>

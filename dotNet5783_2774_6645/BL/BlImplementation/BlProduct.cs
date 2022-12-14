@@ -58,8 +58,10 @@ internal class BlProduct : IProduct
     /// <param name="p"> new product </param>
     public void AddProduct(BO.Product p)
     {
-        if (p.Name != "" && p.Price > 0 && p.InStock > 0)
+        if (p.Name != "" && p.Price > 0 && p.InStock > 0 && p.Category != null)
             dal.Product.Add(castBOToDO(p));
+        else
+            throw new BlNullValueException();
     }
 
     /// <summary>
@@ -110,7 +112,7 @@ internal class BlProduct : IProduct
         try
         {
             if (id > 0)
-                return castDOToBO(dal.Product.Get(p=>p.ID==id));
+                return castDOToBO(dal.Product.Get(p => p.ID == id));
 
             throw new BlInvalideData();
         }
@@ -125,9 +127,12 @@ internal class BlProduct : IProduct
     /// gets list of products for manager 
     /// </summary>
     /// <returns> list of products </returns>
-    public IEnumerable<BO.ProductForList> GetProductList()
+    public IEnumerable<BO.ProductForList> GetProductList(BO.eCategory? e = null)
     {
-        IEnumerable<DO.Product> DOlist = dal.Product.GetList();
+        IEnumerable<DO.Product> DOlist;
+        if (e != null) DOlist = dal.Product.GetList(p => (int)(object)p.Category == (int)(object)e);
+        else DOlist = dal.Product.GetList();
+
         List<BO.ProductForList> BOlist = new();
         foreach (DO.Product item in DOlist)
         {
@@ -181,7 +186,7 @@ internal class BlProduct : IProduct
 
     public IEnumerable<ProductItem> GetListProductByCategory(BO.eCategory e)
     {
-        IEnumerable<DO.Product> ls = (IEnumerable<DO.Product>)dal.Product.GetList(p=> (BO.eCategory)p.Category == e);
+        IEnumerable<DO.Product> ls = (IEnumerable<DO.Product>)dal.Product.GetList(p => (BO.eCategory)p.Category == e);
         List<ProductItem> l = new();
         foreach (DO.Product product in ls)
         {

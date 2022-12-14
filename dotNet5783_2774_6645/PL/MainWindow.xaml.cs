@@ -32,7 +32,9 @@ namespace PL
 
         private void displayProductListWindow_Click(object sender, RoutedEventArgs e)
         {
+           
             new ProductListWindow(bl).Show();
+            Close();
         }
     }
 }

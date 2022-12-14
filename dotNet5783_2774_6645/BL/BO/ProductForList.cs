@@ -8,6 +8,6 @@ public class ProductForList
 
     public override string ToString() =>
     $@"|  {ID}  |   {Name}    |  {Category}  |  {Price}   |
- -------------------------------------------------";
+ ----------------------------------------------";
 }
 

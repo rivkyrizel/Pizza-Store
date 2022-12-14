@@ -141,6 +141,7 @@ internal class BlOrder : IOrder
         }
     }
 
+
     /// <summary>
     /// update details of order for manager
     /// </summary>
@@ -158,7 +159,6 @@ internal class BlOrder : IOrder
             List<BO.OrderItem> list=new();
             if (updateOrder.Status == (BO.OrderStatus)0)
             {
-
                 IEnumerable<DO.OrderItem> oList =Dal.OrderItem.GetList(o=>o.ID==updateOrder.ID);
                 //foreach (DO.OrderItem item in oList)
                 //{
@@ -213,6 +213,7 @@ internal class BlOrder : IOrder
             throw new BlIdNotFound(e);
         }
     }
+
 
     /// <summary>
     /// updates shipped date in order to current date

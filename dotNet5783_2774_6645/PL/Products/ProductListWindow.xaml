@@ -6,30 +6,58 @@
         xmlns:local="clr-namespace:PL.BoEntities"
         mc:Ignorable="d"
         Title="ProductListWindow" Height="640" Width="800">
+
+
     <Grid Name="MainGrid">
+
+
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="5*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
-VerticalAlignment="Stretch" Width="auto">
-            <Grid.ColumnDefinitions>
+
+        <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto">
+            <Grid.ColumnDefinitions >
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
-            <ComboBox Grid.Column="1" Margin="68,75,51,104" Name="AttributeSelector" SelectionChanged="AttributeSelector_SelectionChanged"/>
+
+            <ComboBox Grid.Column="2" Margin="100,32,16,31" Text="f" Name="AttributeSelector" SelectionChanged="AttributeSelector_SelectionChanged" Grid.ColumnSpan="2"/>
+            <Label Content="Category:" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" FontFamily="Anivers" Grid.Column="1"/>
+            <Button Content="⭮"  Name="BtnBack" HorizontalAlignment="Center" VerticalAlignment="Center" Height="53" Width="60" FontSize="36" RenderTransformOrigin="0.5,0.5" Background="#00DDDDDD" BorderBrush="#01707070" Click="BtnBack_Click" FontWeight="Bold">
+                <Button.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="-1"/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="-89.639"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Button.RenderTransform>
+            </Button>
         </Grid>
-        <ListView Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" x:Name="ProductsListview" SelectionChanged="ProductsListview_SelectionChanged" MouseDoubleClick="ProductsListview_MouseDoubleClick" >
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn/>
+
+
+        <ListView   Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" x:Name="ProductsListview" SelectionChanged="ProductsListview_SelectionChanged" MouseDoubleClick="ProductsListview_MouseDoubleClick" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="White" Foreground="#FF041F65" >
+            <ListView.View >
+                <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Employee Information" >
+
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=ID}"   Header="ID" Width="100"/>
+
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Name}" Header="Name" Width="100"/>
+
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Category}" Header="category" Width="100"/>
+
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Price}" Header="Price" Width="100"/>
+
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="Add Product" HorizontalAlignment="Center" Margin="0,60,0,0" Grid.Row="2" VerticalAlignment="Top" Height="44" Width="96" Click="Button_Click"/>
+
+
+        <Button Name="BtnAddProduct" Content="Add Product" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Height="44" Width="96" Click="Button_Click"/>
 
     </Grid>
 
