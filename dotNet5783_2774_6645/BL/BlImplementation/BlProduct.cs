@@ -6,7 +6,7 @@ namespace BlImplementation;
 internal class BlProduct : IProduct
 
 {
-    private DalApi.IDal dal = new Dal.DalList();
+    private DalApi.IDal dal = new DalApi.Factory.Get();
 
     private BO.Product castDOToBO(DO.Product pDO)
     {

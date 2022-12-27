@@ -5,7 +5,7 @@ namespace BlImplementation;
 
 internal class BlOrder : IOrder
 {
-    private DalApi.IDal Dal = new Dal.DalList();
+    private DalApi.IDal Dal = new  DalApi.Factory.Get();
 
     /// <summary>
     ///  converts from BO object to DO object

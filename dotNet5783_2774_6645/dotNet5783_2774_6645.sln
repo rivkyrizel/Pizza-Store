@@ -25,6 +25,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlTest", "BlTest\BlTest.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PL", "PL\PL.csproj", "{06F3B601-6549-44DC-9033-58A526869A7C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{75E84B8A-5616-4B42-B93A-5291DD0C315D}"
+	ProjectSection(SolutionItems) = preProject
+		..\xml\dal-config.xml = ..\xml\dal-config.xml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +76,7 @@ Global
 		{E0744F5D-5B84-4CEA-A0B6-CA8433B5769B} = {B6B19CB9-A662-4945-8B6D-F001858339F8}
 		{86573879-059F-4F51-A671-7B97FB06F369} = {B6B19CB9-A662-4945-8B6D-F001858339F8}
 		{06F3B601-6549-44DC-9033-58A526869A7C} = {B6B19CB9-A662-4945-8B6D-F001858339F8}
+		{75E84B8A-5616-4B42-B93A-5291DD0C315D} = {B6B19CB9-A662-4945-8B6D-F001858339F8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3DE8861A-0EDE-4CAF-8EF1-7085BF970A32}

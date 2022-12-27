@@ -14,7 +14,6 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using PL.BoEntities;
 using BlApi;
-using BlImplementation;
 
 namespace PL
 {
@@ -27,7 +26,7 @@ namespace PL
         public MainWindow()
         {
             InitializeComponent();
-            bl = new Bl();
+            bl = new BlApi.Factory.Get();
         }
 
         private void displayProductListWindow_Click(object sender, RoutedEventArgs e)

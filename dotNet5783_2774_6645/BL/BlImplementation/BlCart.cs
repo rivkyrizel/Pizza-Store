@@ -1,12 +1,11 @@
 ﻿using BlApi;
-using Dal;
 
 namespace BlImplementation;
 
 internal class BlCart : ICart
 {
 
-    private DalApi.IDal dal = new Dal.DalList();
+    private DalApi.IDal dal = new DalApi.Factory.Get();
 
     /// <summary>
     /// checks if email is valid
