@@ -41,7 +41,7 @@ internal class BlCart : ICart
         DO.OrderItem doItem = new DO.OrderItem();
         doItem.ID = (int)boItem.ID;
         doItem.Price = (double)boItem.Price;
-        doItem.ProductID = (int)boItem.ProductId;
+        doItem.ProductID = (int)boItem.ProductID;
         doItem.Amount = (int)boItem.Amount;
         return doItem;
     }
@@ -63,7 +63,7 @@ internal class BlCart : ICart
             {
                 if (cart.Items != null)
                     foreach (BO.OrderItem item in cart.Items)
-                        if (item.ProductId == productId)
+                        if (item.ProductID == productId)
                         {
                             item.Amount += 1;
                             item.TotalPrice += p.Price;
@@ -71,10 +71,7 @@ internal class BlCart : ICart
                         }
 
 
-                BO.OrderItem oItem = new BO.OrderItem();
-                oItem.Name = p.Name;
-                oItem.ProductId = p.ID;
-                oItem.Price = p.Price;
+                BO.OrderItem oItem = BlUtils.castDoToBo<BO.OrderItem, DO.Product>(p);
                 oItem.Amount = 1;
                 if (cart.Items != null)
                     cart.Items = cart.Items.Append(oItem);
@@ -113,7 +110,7 @@ internal class BlCart : ICart
         {
             foreach (BO.OrderItem item in cart.Items)
             {
-                DO.Product p = dal.Product.Get(p => p.ID == item.ProductId);
+                DO.Product p = dal.Product.Get(p => p.ID == item.ProductID);
                 if (p.Amount < item.Amount)
                     throw new BlOutOfStockException();
                 if (item.Amount < 0)
@@ -165,7 +162,7 @@ internal class BlCart : ICart
             DO.Product p = dal.Product.Get(p => p.ID == productId);
             foreach (BO.OrderItem item in cart.Items)
             {
-                if (item.ProductId == productId)
+                if (item.ProductID == productId)
                 {
                     if (item.Amount > newAmount)
                     {

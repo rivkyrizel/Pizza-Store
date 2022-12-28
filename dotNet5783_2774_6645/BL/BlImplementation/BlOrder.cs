@@ -15,13 +15,8 @@ internal class BlOrder : IOrder
     /// <returns> DO OredrItem object </returns>
     private DO.OrderItem castBOtoDO(BO.OrderItem boItem, int order = 0)
     {
-        //DO.OrderItem doItem = BlUtils.castDoToBo<DO.OrderItem, BO.OrderItem>(boItem);
-        DO.OrderItem doItem = new();
-        doItem.ID = (int)boItem.ID;
-        doItem.Price = (double)boItem.Price;
-        doItem.ProductID = (int)boItem.ProductId;
+        DO.OrderItem doItem = BlUtils.castDoToBo<DO.OrderItem, BO.OrderItem>(boItem);
         doItem.OrderID = order;
-        doItem.Amount = (int)boItem.Amount;
         return doItem;
     }
 
@@ -43,15 +38,15 @@ internal class BlOrder : IOrder
 
     private DO.Order castBOOrdertDO(BO.Order oBo)
     {
-        //DO.Order o = BlUtils.castDoToBo<DO.Order, BO.Order>(oBo);
-        DO.Order o = new();
-        o.CustomerAddress = oBo.CustomerAddress;
-        o.CustomerEmail = oBo.CustomerEmail;
-        o.CustomerName = oBo.CustomerName;
-        o.DeliveryDate = (DateTime)oBo.DeliveryDate;
-        o.ID = oBo.ID;
-        o.OrderDate = (DateTime)oBo.OrderDate;
-        o.ShipDate = (DateTime)oBo.ShipDate;
+        DO.Order o = BlUtils.castDoToBo<DO.Order, BO.Order>(oBo);
+       // DO.Order o = new();
+       // o.CustomerAddress = oBo.CustomerAddress;
+       // o.CustomerEmail = oBo.CustomerEmail;
+        //o.CustomerName = oBo.CustomerName;
+       // o.DeliveryDate = (DateTime)oBo.DeliveryDate;
+       // o.ID = oBo.ID;
+       // o.OrderDate = (DateTime)oBo.OrderDate;
+//o.ShipDate = (DateTime)oBo.ShipDate;
         return o;
     }
 
@@ -160,7 +155,7 @@ internal class BlOrder : IOrder
                 IEnumerable<DO.OrderItem> oList = Dal.OrderItem.GetList(o => o.OrderID == updateOrder.ID);
                 foreach (BO.OrderItem item in updateOrder.Items)
                 {
-                    DO.Product p = Dal.Product.Get(o => o.ID == item.ProductId);
+                    DO.Product p = Dal.Product.Get(o => o.ID == item.ProductID);
                     item.Name = p.Name;
                     item.Price = p.Price;
                     item.TotalPrice = p.Price * item.Amount;
@@ -175,7 +170,7 @@ internal class BlOrder : IOrder
                             Dal.OrderItem.Delete(oItem.OrderID);
                             foundInOrder = true;
                         }
-                        if (item.ProductId == oItem.ProductID)
+                        if (item.ProductID == oItem.ProductID)
                         {
                             DO.OrderItem o = castBOtoDO(item);
                             o.OrderID = updateOrder.ID;

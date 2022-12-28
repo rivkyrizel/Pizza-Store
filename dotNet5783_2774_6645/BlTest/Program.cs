@@ -390,7 +390,7 @@ public class Program
             {
                 Console.WriteLine("enter product ID:");
                 int.TryParse(Console.ReadLine(), out int productId);
-                oItem.ProductId = productId;
+                oItem.ProductID = productId;
                 Console.WriteLine("enter new amount:");
                 int.TryParse(Console.ReadLine(), out int amount);
                 oItem.Amount = amount;

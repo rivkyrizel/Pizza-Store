@@ -7,24 +7,23 @@ internal class BlProduct : IProduct
 {
     private DalApi.IDal dal = DalApi.Factory.Get();
 
-    private BO.Product castDOToBO(DO.Product pDO)
-    {
-        BO.Product pBO = BlUtils.castDoToBo<BO.Product, DO.Product>(pDO);
-        pBO.Category = (BO.eCategory)pDO.Category;
-        return pBO;
-    }
-
-  
-
     private DO.Product castBOToDO(BO.Product pBO)
     {
-        DO.Product pDO = new DO.Product();
+        //DO.Product pDO = BlUtils.castDoToBo<DO.Product, BO.Product>(pBO);
+        DO.Product pDO = new();
         pDO.ID = pBO.ID;
         pDO.Name = pBO.Name;
         pDO.Price = (double)pBO.Price;
         pDO.Category = (DO.eCategory)pBO.Category;
         pDO.Amount = (int)pBO.InStock;
         return pDO;
+    }
+
+    private BO.Product castDOToBO(DO.Product pDO)
+    {
+        BO.Product pBO = BlUtils.castDoToBo<BO.Product, DO.Product>(pDO);
+        pBO.Category = (BO.eCategory)pDO.Category;
+        return pBO;
     }
 
     private BO.ProductForList castDOtoBOpForList(DO.Product pDO)
@@ -97,6 +96,7 @@ internal class BlProduct : IProduct
     {
         return Get(id);
     }
+
     private BO.Product Get(int id)
     {
         try
