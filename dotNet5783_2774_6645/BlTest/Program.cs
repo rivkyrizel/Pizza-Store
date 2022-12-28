@@ -386,6 +386,7 @@ public class Program
             BO.OrderItem oItem = new();
             int choice = 0;
             do
+            
             {
                 Console.WriteLine("enter product ID:");
                 int.TryParse(Console.ReadLine(), out int productId);

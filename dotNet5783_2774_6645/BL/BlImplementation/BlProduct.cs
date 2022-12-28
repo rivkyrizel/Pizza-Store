@@ -1,23 +1,20 @@
 ﻿using BlApi;
-using BO;
 
 namespace BlImplementation;
 
 internal class BlProduct : IProduct
 
 {
-    private DalApi.IDal dal = new DalApi.Factory.Get();
+    private DalApi.IDal dal = DalApi.Factory.Get();
 
     private BO.Product castDOToBO(DO.Product pDO)
     {
-        BO.Product pBO = new BO.Product();
-        pBO.ID = pDO.ID;
-        pBO.Name = pDO.Name;
-        pBO.Price = pDO.Price;
+        BO.Product pBO = BlUtils.castDoToBo<BO.Product, DO.Product>(pDO);
         pBO.Category = (BO.eCategory)pDO.Category;
-        pBO.InStock = pDO.InStock;
         return pBO;
     }
+
+  
 
     private DO.Product castBOToDO(BO.Product pBO)
     {
@@ -26,29 +23,22 @@ internal class BlProduct : IProduct
         pDO.Name = pBO.Name;
         pDO.Price = (double)pBO.Price;
         pDO.Category = (DO.eCategory)pBO.Category;
-        pDO.InStock = (int)pBO.InStock;
+        pDO.Amount = (int)pBO.InStock;
         return pDO;
     }
 
     private BO.ProductForList castDOtoBOpForList(DO.Product pDO)
     {
-        BO.ProductForList pBO = new();
-        pBO.ID = pDO.ID;
-        pBO.Name = pDO.Name;
-        pBO.Price = pDO.Price;
+        BO.ProductForList pBO = BlUtils.castDoToBo<BO.ProductForList, DO.Product>(pDO);
         pBO.Category = (BO.eCategory)pDO.Category;
         return pBO;
     }
 
     private BO.ProductItem castDOtoBOpItem(DO.Product pDO)
     {
-        BO.ProductItem pBO = new();
-        pBO.ID = pDO.ID;
-        pBO.Name = pDO.Name;
-        pBO.Price = pDO.Price;
+        BO.ProductItem pBO = BlUtils.castDoToBo<BO.ProductItem, DO.Product>(pDO);
         pBO.Category = (BO.eCategory)pDO.Category;
-        pBO.Amount = pDO.InStock;
-        pBO.InStock = Convert.ToBoolean(pDO.InStock);
+        pBO.InStock = Convert.ToBoolean(pDO.Amount);
         return pBO;
     }
 
@@ -184,7 +174,7 @@ internal class BlProduct : IProduct
         }
     }
 
-    public IEnumerable<ProductItem> GetListProductByCategory(BO.eCategory e)
+/*    public IEnumerable<BO.ProductItem> GetListProductByCategory(BO.eCategory e)
     {
         IEnumerable<DO.Product> ls = (IEnumerable<DO.Product>)dal.Product.GetList(p => (BO.eCategory)p.Category == e);
         List<ProductItem> l = new();
@@ -194,6 +184,6 @@ internal class BlProduct : IProduct
             l.Add(item);
         }
         return l;
-    }
+    }*/
 }
 

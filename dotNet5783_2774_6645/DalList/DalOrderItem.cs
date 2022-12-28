@@ -46,12 +46,11 @@ internal class DalOrderItem : IOrderItem
 
     public void Update(OrderItem o)
     {
-        foreach (OrderItem item in DataSource.OrderItemList)
+        for (int i = 0; i < DataSource.OrderItemList.Count; i++)
         {
-            if (item.ID == o.ID)
+            if (o.ID == DataSource.OrderItemList[i].ID)
             {
-                OrderItem newO = item;
-                newO = o;
+                DataSource.OrderItemList[i] = o;
                 return;
             }
         }

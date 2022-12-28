@@ -1,20 +1,22 @@
 ﻿using BlApi;
 using BO;
+using System.Reflection;
 
 namespace BlImplementation;
 
 internal class BlOrder : IOrder
 {
-    private DalApi.IDal Dal = new  DalApi.Factory.Get();
+    private DalApi.IDal Dal = DalApi.Factory.Get();
 
     /// <summary>
     ///  converts from BO object to DO object
     /// </summary>
     /// <param name="boItem"></param>
     /// <returns> DO OredrItem object </returns>
-    private DO.OrderItem castBOtoDO(BO.OrderItem boItem, int order=0)
+    private DO.OrderItem castBOtoDO(BO.OrderItem boItem, int order = 0)
     {
-        DO.OrderItem doItem = new DO.OrderItem();
+        //DO.OrderItem doItem = BlUtils.castDoToBo<DO.OrderItem, BO.OrderItem>(boItem);
+        DO.OrderItem doItem = new();
         doItem.ID = (int)boItem.ID;
         doItem.Price = (double)boItem.Price;
         doItem.ProductID = (int)boItem.ProductId;
@@ -23,55 +25,50 @@ internal class BlOrder : IOrder
         return doItem;
     }
 
+    private double calculateTotalPrice(int id)
+    {
+        IEnumerable<DO.OrderItem> listOrderItem = Dal.OrderItem.GetList(o => o.OrderID==id);
+        double totalprice = 0;
+        foreach (DO.OrderItem item in listOrderItem)
+            totalprice += Dal.Product.Get(o => o.ID == item.ProductID).Price * item.Amount;
+        return totalprice;
+    }
+
+    private int findOrderStatus(DO.Order oDO)
+    {
+        if (oDO.ShipDate == DateTime.MinValue) return 0;
+        else if (oDO.DeliveryDate == DateTime.MinValue) return 1;
+        return 2;
+    }
+
     private DO.Order castBOOrdertDO(BO.Order oBo)
     {
+        //DO.Order o = BlUtils.castDoToBo<DO.Order, BO.Order>(oBo);
         DO.Order o = new();
-        o.CustomerAdress = oBo.CustomerAddress;
+        o.CustomerAddress = oBo.CustomerAddress;
         o.CustomerEmail = oBo.CustomerEmail;
         o.CustomerName = oBo.CustomerName;
         o.DeliveryDate = (DateTime)oBo.DeliveryDate;
         o.ID = oBo.ID;
-        o.OrderDate = (DateTime)oBo.PaymentDate;
+        o.OrderDate = (DateTime)oBo.OrderDate;
         o.ShipDate = (DateTime)oBo.ShipDate;
         return o;
     }
+
     private BO.Order castDOtoBO(DO.Order oDO)
     {
-        double totalprice = 0;
-        IEnumerable<DO.OrderItem> listOrderItem = Dal.OrderItem.GetList(o=>o.OrderID==oDO.ID);
-        BO.Order oBO = new();
-        oBO.ID = oDO.ID;
-        oBO.PaymentDate = oDO.OrderDate;
-        oBO.ShipDate = oDO.ShipDate;
-        oBO.CustomerAddress = oDO.CustomerAdress;
-        oBO.CustomerEmail = oDO.CustomerEmail;
-        oBO.CustomerName = oDO.CustomerName;
-        oBO.DeliveryDate = oDO.DeliveryDate;
-        foreach (DO.OrderItem item in listOrderItem)
-            totalprice += Dal.Product.Get(o=>o.ID==item.ProductID).Price * item.Amount;
-        oBO.TotalPrice = totalprice;
-        if (oDO.ShipDate == DateTime.MinValue)
-            oBO.Status = (BO.OrderStatus)0;
-        else if (oDO.DeliveryDate == DateTime.MinValue)
-            oBO.Status = (BO.OrderStatus)1;
-        else
-            oBO.Status = (BO.OrderStatus)2;
+        BO.Order oBO = BlUtils.castDoToBo<BO.Order, DO.Order>(oDO);
+        oBO.TotalPrice = calculateTotalPrice(oDO.ID);
+        oBO.Status = (BO.OrderStatus)findOrderStatus(oDO);
         return oBO;
     }
     private BO.OrderForList castDOtoBOOrderForList(DO.Order oDO)
     {
-        double totalprice = 0;
-        BO.OrderForList oBO = new();
-        IEnumerable<DO.OrderItem> listOrderItem =Dal.OrderItem.GetList(o=>o.OrderID==oDO.ID);
-        oBO.ID = oDO.ID;
-        oBO.CustomerName = oDO.CustomerName;
+        BO.OrderForList oBO = BlUtils.castDoToBo<BO.OrderForList, DO.Order>(oDO);
+        IEnumerable<DO.OrderItem> listOrderItem = Dal.OrderItem.GetList(o => o.OrderID==oDO.ID);
         oBO.AmountOfItems = listOrderItem.Count();
-        if (oDO.ShipDate == DateTime.MinValue) oBO.Status = (BO.OrderStatus)0;
-        else if (oDO.DeliveryDate == DateTime.MinValue) oBO.Status = (BO.OrderStatus)1;
-        else oBO.Status = (BO.OrderStatus)2;
-        foreach (DO.OrderItem item in listOrderItem)
-            totalprice += Dal.Product.Get(o => o.ID == item.ProductID).Price * item.Amount;
-        oBO.TotalPrice = totalprice;
+        oBO.Status = (BO.OrderStatus)findOrderStatus(oDO);
+        oBO.TotalPrice = calculateTotalPrice(oDO.ID);
         return oBO;
     }
 
@@ -156,56 +153,52 @@ internal class BlOrder : IOrder
             bool foundInOrder = false;
             double totalPrice = 0;
             BO.Order order = castDOtoBO(Dal.Order.Get(o => o.ID == updateOrder.ID));
-            List<BO.OrderItem> list=new();
-            if (updateOrder.Status == (BO.OrderStatus)0)
+
+            List<BO.OrderItem> list = new();
+            if (order.Status == (BO.OrderStatus)0)
             {
-                IEnumerable<DO.OrderItem> oList =Dal.OrderItem.GetList(o=>o.ID==updateOrder.ID);
-                //foreach (DO.OrderItem item in oList)
-                //{
-                //    BO.OrderItem newOrder = new();
-                //    newOrder.ProductId = item.ProductID;
-                //    newOrder.Amount = item.Amount;
-                //    newOrder.ID = item.OrderID;
-                //    updateOrder.Items.Append(newOrder);
-                //}
+                IEnumerable<DO.OrderItem> oList = Dal.OrderItem.GetList(o => o.OrderID == updateOrder.ID);
                 foreach (BO.OrderItem item in updateOrder.Items)
                 {
                     DO.Product p = Dal.Product.Get(o => o.ID == item.ProductId);
                     item.Name = p.Name;
                     item.Price = p.Price;
                     item.TotalPrice = p.Price * item.Amount;
-                    if (item.Amount > p.InStock)
+                    if (item.Amount > p.Amount)
                         throw new BlInvalidAmount();
                     if (item.Amount < 0)
                         throw new BlNegativeAmountException();
                     foreach (DO.OrderItem oItem in oList)
                     {
+                        if (oItem.Amount == 0)
+                        {
+                            Dal.OrderItem.Delete(oItem.OrderID);
+                            foundInOrder = true;
+                        }
                         if (item.ProductId == oItem.ProductID)
                         {
-                            Dal.OrderItem.Update(castBOtoDO(item));
+                            DO.OrderItem o = castBOtoDO(item);
+                            o.OrderID = updateOrder.ID;
+                            o.ID = oItem.ID;
+                            Dal.OrderItem.Update(o);
                             foundInOrder = true;
                         }
                     }
                     if (!foundInOrder)
                     {
-                        Dal.OrderItem.Add(castBOtoDO(item));
+                        DO.OrderItem o = castBOtoDO(item);
+                        o.OrderID = updateOrder.ID;
+                        Dal.OrderItem.Add(o);
 
                     }
                 }
-                IEnumerable<DO.OrderItem> oUpdateList =Dal.OrderItem.GetList(o=>o.ID==updateOrder.ID);
+                IEnumerable<DO.OrderItem> oUpdateList = Dal.OrderItem.GetList(o => o.OrderID==updateOrder.ID);
                 foreach (DO.OrderItem item in oUpdateList)
                 {
                     totalPrice += Dal.Product.Get(o => o.ID == item.ProductID).Price * item.Amount;
                 }
-                updateOrder.TotalPrice += totalPrice;
-                updateOrder.CustomerAddress = order.CustomerAddress;
-                updateOrder.CustomerEmail = order.CustomerEmail;
-                updateOrder.CustomerName = order.CustomerName;
-                updateOrder.DeliveryDate = order.DeliveryDate;
-                updateOrder.PaymentDate = order.PaymentDate;
-                updateOrder.ShipDate = order.ShipDate;
-                updateOrder.Status = order.Status;
-                Dal.Order.Update(castBOOrdertDO(updateOrder));
+                order.TotalPrice = totalPrice;
+                Dal.Order.Update(castBOOrdertDO(order));
             }
         }
         catch (DalApi.ItemNotFound e)

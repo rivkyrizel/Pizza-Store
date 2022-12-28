@@ -1,5 +1,4 @@
-﻿using static BO.OrderStatus;
-namespace BO;
+﻿namespace BO;
 
 public class OrderForList
 {

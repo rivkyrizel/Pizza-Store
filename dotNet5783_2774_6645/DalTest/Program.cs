@@ -7,7 +7,7 @@ namespace DalTest;
 
 public class Program
 {
-    public static IDal DalList = new DalList();
+    public static IDal DalList = DalApi.Factory.Get();
     static void Main()
     {
 
@@ -148,7 +148,7 @@ public class Program
         Console.WriteLine("enter email:");
         newOrder.CustomerEmail = Console.ReadLine();
         Console.WriteLine("enter adress:");
-        newOrder.CustomerAdress = Console.ReadLine();
+        newOrder.CustomerAddress = Console.ReadLine();
         newOrder.OrderDate = DateTime.MinValue;
         TimeSpan ShipDate = TimeSpan.FromDays(2);
         TimeSpan deliveryDate = TimeSpan.FromDays(20);
@@ -219,7 +219,7 @@ public class Program
         newProduct.Category = (eCategory)category;
         Console.WriteLine("enter amount in stock:");
         int.TryParse(Console.ReadLine(), out int inStock);
-        newProduct.InStock = inStock;
+        newProduct.Amount = inStock;
         return newProduct;
 
     }

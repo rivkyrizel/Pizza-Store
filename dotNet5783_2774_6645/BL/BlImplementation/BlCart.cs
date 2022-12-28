@@ -5,7 +5,7 @@ namespace BlImplementation;
 internal class BlCart : ICart
 {
 
-    private DalApi.IDal dal = new DalApi.Factory.Get();
+    private DalApi.IDal dal = DalApi.Factory.Get();
 
     /// <summary>
     /// checks if email is valid
@@ -59,7 +59,7 @@ internal class BlCart : ICart
         try
         {
             DO.Product p = dal.Product.Get(p=>p.ID == productId);
-            if (p.InStock > 1)
+            if (p.Amount > 1)
             {
                 if (cart.Items != null)
                     foreach (BO.OrderItem item in cart.Items)
@@ -114,7 +114,7 @@ internal class BlCart : ICart
             foreach (BO.OrderItem item in cart.Items)
             {
                 DO.Product p = dal.Product.Get(p => p.ID == item.ProductId);
-                if (p.InStock < item.Amount)
+                if (p.Amount < item.Amount)
                     throw new BlOutOfStockException();
                 if (item.Amount < 0)
                     throw new BlNegativeAmountException();
@@ -125,7 +125,7 @@ internal class BlCart : ICart
                 throw new BlInvalidEmailException();
 
             DO.Order order = new DO.Order();
-            order.CustomerAdress = cart.CustomerAddress;
+            order.CustomerAddress = cart.CustomerAddress;
             order.CustomerEmail = cart.CustomerEmail;
             order.CustomerName = cart.CustomerName;
             order.DeliveryDate = DateTime.MinValue;
@@ -140,7 +140,7 @@ internal class BlCart : ICart
                 dal.OrderItem.Add(oItem);
 
                 DO.Product product = dal.Product.Get(p => p.ID == oItem.ProductID);
-                product.InStock = product.InStock - oItem.Amount;
+                product.Amount = product.Amount - oItem.Amount;
                 dal.Product.Update(product);
             }
         }
@@ -174,7 +174,7 @@ internal class BlCart : ICart
                     }
                     else if (item.Amount < newAmount)
                     {
-                        if (p.InStock >= newAmount)
+                        if (p.Amount >= newAmount)
                         {
                             item.Amount = newAmount;
                             item.TotalPrice += p.Price * newAmount;

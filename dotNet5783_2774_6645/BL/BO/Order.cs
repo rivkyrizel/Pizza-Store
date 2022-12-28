@@ -6,7 +6,7 @@ public class Order
     public string? CustomerName { set; get; }
     public string? CustomerEmail { set; get; }
     public string? CustomerAddress { set; get; }
-    public DateTime? PaymentDate { set; get; }
+    public DateTime? OrderDate { set; get; }
     public OrderStatus? Status { set; get; }
     public DateTime? ShipDate { set; get; }
     public DateTime? DeliveryDate { set; get; }
@@ -14,7 +14,7 @@ public class Order
     public double TotalPrice { set; get; }
 
     public override string ToString() =>
-    $@"|  {ID}   |   {CustomerName}   |    {CustomerEmail}   |   {CustomerAddress}  |   {PaymentDate}   |  {ShipDate}  |  {DeliveryDate}  |{Status}|     {TotalPrice}     |
+    $@"|  {ID}   |   {CustomerName}   |    {CustomerEmail}   |   {CustomerAddress}  |   {OrderDate}   |  {ShipDate}  |  {DeliveryDate}  |{Status}|     {TotalPrice}     |
  ------------------------------------------------------------------------------------------------------------------------------------------------------";
 }
 

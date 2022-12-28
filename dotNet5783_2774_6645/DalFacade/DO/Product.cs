@@ -6,10 +6,10 @@ public struct Product
     public string? Name { get; set; }
     public double Price { get; set; }
     public eCategory? Category { get; set; }
-    public int InStock { get; set; }
+    public int Amount { get; set; }
 
     public override string ToString() => 
-        $@"|  {ID}  |   {Name}    |  {Category}  |  {Price}   |   {InStock}   |
+        $@"|  {ID}  |   {Name}    |  {Category}  |  {Price}   |   {Amount}   |
  -----------------------------------------------------------";
 
 }

@@ -37,7 +37,7 @@ public static class DataSource
             product.Category = products[i].Item2;
             product.Price = numberForPrice;
             product.ID = Config.ProductID;
-            product.InStock = (int)rand.NextInt64(1000, 5000);
+            product.Amount = (int)rand.NextInt64(1000, 5000);
             ProductList.Add(product);
         }
     }
@@ -56,7 +56,7 @@ public static class DataSource
             int numberForEmail = (int)rand.NextInt64(CustomerEmail.Length);
             order.ID = Config.OrderID;
             order.CustomerName = CustomerName[numberForName];
-            order.CustomerAdress = CustomerAdress[numberForAdress];
+            order.CustomerAddress = CustomerAdress[numberForAdress];
             order.CustomerEmail = CustomerEmail[numberForEmail];
 
             Random ran = new Random();

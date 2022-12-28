@@ -26,7 +26,7 @@ namespace PL
         public MainWindow()
         {
             InitializeComponent();
-            bl = new BlApi.Factory.Get();
+            bl = BlApi.Factory.Get;
         }
 
         private void displayProductListWindow_Click(object sender, RoutedEventArgs e)
