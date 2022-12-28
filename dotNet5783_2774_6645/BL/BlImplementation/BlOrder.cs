@@ -36,20 +36,6 @@ internal class BlOrder : IOrder
         return 2;
     }
 
-    private DO.Order castBOOrdertDO(BO.Order oBo)
-    {
-        DO.Order o = BlUtils.castDoToBo<DO.Order, BO.Order>(oBo);
-       // DO.Order o = new();
-       // o.CustomerAddress = oBo.CustomerAddress;
-       // o.CustomerEmail = oBo.CustomerEmail;
-        //o.CustomerName = oBo.CustomerName;
-       // o.DeliveryDate = (DateTime)oBo.DeliveryDate;
-       // o.ID = oBo.ID;
-       // o.OrderDate = (DateTime)oBo.OrderDate;
-//o.ShipDate = (DateTime)oBo.ShipDate;
-        return o;
-    }
-
     private BO.Order castDOtoBO(DO.Order oDO)
     {
         BO.Order oBO = BlUtils.castDoToBo<BO.Order, DO.Order>(oDO);
@@ -193,7 +179,7 @@ internal class BlOrder : IOrder
                     totalPrice += Dal.Product.Get(o => o.ID == item.ProductID).Price * item.Amount;
                 }
                 order.TotalPrice = totalPrice;
-                Dal.Order.Update(castBOOrdertDO(order));
+                Dal.Order.Update(BlUtils.castDoToBo<DO.Order, BO.Order>(order));
             }
         }
         catch (DalApi.ItemNotFound e)
