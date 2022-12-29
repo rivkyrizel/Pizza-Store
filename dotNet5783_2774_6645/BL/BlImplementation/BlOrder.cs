@@ -15,7 +15,7 @@ internal class BlOrder : IOrder
     /// <returns> DO OredrItem object </returns>
     private DO.OrderItem castBOtoDO(BO.OrderItem boItem, int order = 0)
     {
-        DO.OrderItem doItem = BlUtils.castDoToBo<DO.OrderItem, BO.OrderItem>(boItem);
+        DO.OrderItem doItem = BlUtils.cast<DO.OrderItem, BO.OrderItem>(boItem);
         doItem.OrderID = order;
         return doItem;
     }
@@ -31,21 +31,21 @@ internal class BlOrder : IOrder
 
     private int findOrderStatus(DO.Order oDO)
     {
-        if (oDO.ShipDate == DateTime.MinValue) return 0;
-        else if (oDO.DeliveryDate == DateTime.MinValue) return 1;
+        if (oDO.ShipDate == null) return 0;
+        else if (oDO.DeliveryDate == null) return 1;
         return 2;
     }
 
     private BO.Order castDOtoBO(DO.Order oDO)
     {
-        BO.Order oBO = BlUtils.castDoToBo<BO.Order, DO.Order>(oDO);
+        BO.Order oBO = BlUtils.cast<BO.Order, DO.Order>(oDO);
         oBO.TotalPrice = calculateTotalPrice(oDO.ID);
         oBO.Status = (BO.OrderStatus)findOrderStatus(oDO);
         return oBO;
     }
     private BO.OrderForList castDOtoBOOrderForList(DO.Order oDO)
     {
-        BO.OrderForList oBO = BlUtils.castDoToBo<BO.OrderForList, DO.Order>(oDO);
+        BO.OrderForList oBO = BlUtils.cast<BO.OrderForList, DO.Order>(oDO);
         IEnumerable<DO.OrderItem> listOrderItem = Dal.OrderItem.GetList(o => o.OrderID==oDO.ID);
         oBO.AmountOfItems = listOrderItem.Count();
         oBO.Status = (BO.OrderStatus)findOrderStatus(oDO);
@@ -102,7 +102,7 @@ internal class BlOrder : IOrder
         try
         {
             DO.Order oDO = Dal.Order.Get(o => o.ID == orderId);
-            if (oDO.ShipDate != DateTime.MinValue && oDO.DeliveryDate == DateTime.MinValue)
+            if (oDO.ShipDate != null && oDO.DeliveryDate == null)
             {
                 oDO.DeliveryDate = DateTime.Now;
                 BO.Order oBO = castDOtoBO(oDO);
@@ -134,8 +134,8 @@ internal class BlOrder : IOrder
             bool foundInOrder = false;
             double totalPrice = 0;
             BO.Order order = castDOtoBO(Dal.Order.Get(o => o.ID == updateOrder.ID));
-
             List<BO.OrderItem> list = new();
+
             if (order.Status == (BO.OrderStatus)0)
             {
                 IEnumerable<DO.OrderItem> oList = Dal.OrderItem.GetList(o => o.OrderID == updateOrder.ID);
@@ -179,7 +179,7 @@ internal class BlOrder : IOrder
                     totalPrice += Dal.Product.Get(o => o.ID == item.ProductID).Price * item.Amount;
                 }
                 order.TotalPrice = totalPrice;
-                Dal.Order.Update(BlUtils.castDoToBo<DO.Order, BO.Order>(order));
+                Dal.Order.Update(BlUtils.cast<DO.Order, BO.Order>(order));
             }
         }
         catch (DalApi.ItemNotFound e)
@@ -201,7 +201,7 @@ internal class BlOrder : IOrder
         try
         {
             DO.Order oDO = Dal.Order.Get(o => o.ID == orderId);
-            if (oDO.ShipDate == DateTime.MinValue)
+            if (oDO.ShipDate == null)
             {
                 oDO.ShipDate = DateTime.Now;
                 BO.Order oBO = castDOtoBO(oDO);
@@ -226,11 +226,11 @@ internal class BlOrder : IOrder
             orderTracking.ID = orderId;
             orderTracking.TrackList.Add((order.OrderDate, OrderStatus._____Confirmed_____));
             orderTracking.Status = OrderStatus._____Confirmed_____;
-            if (order.ShipDate > DateTime.MinValue)
+            if (order.ShipDate != null)
             {
                 orderTracking.TrackList.Add((order.ShipDate, OrderStatus._______Sent________));
                 orderTracking.Status = OrderStatus._______Sent________;
-                if (order.DeliveryDate > DateTime.MinValue)
+                if (order.DeliveryDate != null)
                 {
                     orderTracking.TrackList.Add((order.DeliveryDate, OrderStatus.DeliveredToCustomer));
                     orderTracking.Status = OrderStatus.DeliveredToCustomer;

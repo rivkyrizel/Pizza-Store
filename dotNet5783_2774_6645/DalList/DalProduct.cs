@@ -75,7 +75,7 @@ internal class DalProduct:IProduct
     public Product Get(Func<Product, bool> func)
     {
         IEnumerable<Product> p = (IEnumerable<Product>)DataSource.ProductList;
-        return p.Where(func) != null ? p.Where(func).First() : throw new ItemNotFound("order Item not found");
+        return p.Where(func) != null ? p.Where(func).FirstOrDefault() : throw new ItemNotFound("order Item not found");
     }
 }
 

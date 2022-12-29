@@ -1,4 +1,5 @@
 ﻿using BlApi;
+using System.Text.RegularExpressions;
 
 namespace BlImplementation;
 
@@ -14,38 +15,15 @@ internal class BlCart : ICart
     /// <returns> true or false </returns>
     private bool IsValidEmail(string email)
     {
-        var trimmedEmail = email.Trim();
+        Regex regex = new Regex(@"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$");
+        return regex.IsMatch(email);
 
-        if (trimmedEmail.EndsWith("."))
-        {
-            return false; // suggested by @TK-421
-        }
-        try
-        {
-            var addr = new System.Net.Mail.MailAddress(email);
-            return addr.Address == trimmedEmail;
-        }
-        catch
-        {
-            return false;
-        }
     }
 
-    /// <summary>
-    ///  converts from BO object to DO object
-    /// </summary>
-    /// <param name="boItem"></param>
-    /// <returns> DO OredrItem object </returns>
-    private DO.OrderItem castBOtoDO(BO.OrderItem boItem)
+    private void btnValidate_Click(object sender, EventArgs e)
     {
-        DO.OrderItem doItem = new DO.OrderItem();
-        doItem.ID = (int)boItem.ID;
-        doItem.Price = (double)boItem.Price;
-        doItem.ProductID = (int)boItem.ProductID;
-        doItem.Amount = (int)boItem.Amount;
-        return doItem;
+       
     }
-
     /// <summary>
     ///  adds new item to cart
     /// </summary>
@@ -71,7 +49,8 @@ internal class BlCart : ICart
                         }
 
 
-                BO.OrderItem oItem = BlUtils.castDoToBo<BO.OrderItem, DO.Product>(p);
+                BO.OrderItem oItem = BlUtils.cast<BO.OrderItem, DO.Product>(p);
+                oItem.ProductID = p.ID;
                 oItem.Amount = 1;
                 if (cart.Items != null)
                     cart.Items = cart.Items.Append(oItem);
@@ -121,21 +100,15 @@ internal class BlCart : ICart
             if (!IsValidEmail(cart.CustomerEmail))
                 throw new BlInvalidEmailException();
 
-            DO.Order order = new DO.Order();
-            order.CustomerAddress = cart.CustomerAddress;
-            order.CustomerEmail = cart.CustomerEmail;
-            order.CustomerName = cart.CustomerName;
-            order.DeliveryDate = DateTime.MinValue;
-            order.ShipDate = DateTime.MinValue;
+            DO.Order order = BlUtils.cast<DO.Order, BO.Cart>(cart);
             order.OrderDate = DateTime.Now;
             int orderId = dal.Order.Add(order);
 
             foreach (BO.OrderItem item in cart.Items)
             {
-                DO.OrderItem oItem = castBOtoDO(item);
+                DO.OrderItem oItem = BlUtils.cast<DO.OrderItem, BO.OrderItem>(item);
                 oItem.OrderID = orderId;
                 dal.OrderItem.Add(oItem);
-
                 DO.Product product = dal.Product.Get(p => p.ID == oItem.ProductID);
                 product.Amount = product.Amount - oItem.Amount;
                 dal.Product.Update(product);

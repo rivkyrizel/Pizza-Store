@@ -430,7 +430,7 @@ public class Program
         string s = "0";
         do
         {
-            Console.WriteLine("enter: \n a to add to cart \n b to update amount of item \n c to confirm order");
+            Console.WriteLine("enter: \n a to add to cart \n b to update amount of item \n c to confirm order \n  0 to return main menu");
 
             s = Console.ReadLine();
             switch (s)
