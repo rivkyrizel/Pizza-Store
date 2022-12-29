@@ -25,16 +25,8 @@ internal class DalOrderItem : IOrderItem
     /// <exception cref="Exception"> No such product in given order </exception>
     public void Delete(int id)
     {
-        foreach (OrderItem item in DataSource.OrderItemList)
-        {
-            if (id == item.ID)
-            {
-                DataSource.OrderItemList.Remove(item);
-                return;
-            }
-        }
-
-        throw new ItemNotFound("couldn't delete item");
+        if (!DataSource.OrderItemList.Remove(DataSource.OrderItemList.Find(o => o.ID == id)))
+            throw new ItemNotFound("error can't delete order item");
     }
 
 
@@ -46,15 +38,11 @@ internal class DalOrderItem : IOrderItem
 
     public void Update(OrderItem o)
     {
-        for (int i = 0; i < DataSource.OrderItemList.Count; i++)
-        {
-            if (o.ID == DataSource.OrderItemList[i].ID)
-            {
-                DataSource.OrderItemList[i] = o;
-                return;
-            }
-        }
-        throw new ItemNotFound("could not update ordered item ");
+      
+        int idx = DataSource.OrderItemList.FindIndex(pr => pr.ID == o.ID);
+        if (idx >= 0) DataSource.OrderItemList[idx] = o;
+        else
+            throw new ItemNotFound("could not update order item");
     }
 
     /// <summary>

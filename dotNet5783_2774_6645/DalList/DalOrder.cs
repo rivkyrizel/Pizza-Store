@@ -1,5 +1,5 @@
-﻿using DO;
-using DalApi;
+﻿using DalApi;
+using DO;
 
 namespace Dal;
 
@@ -27,16 +27,8 @@ internal class DalOrder : IOrder
     /// <exception cref="Exception"> No order found with the given id </exception>
     public void Delete(int id)
     {
-        foreach (Order item in DataSource.OrderList)
-        {
-            if (id == item.ID)
-            {
-                DataSource.OrderList.Remove(item);
-                return;
-            }
-        }
-        throw new ItemNotFound("could not delete order");
-
+        if (!DataSource.OrderList.Remove(DataSource.OrderList.Find(o => o.ID == id)))
+            throw new ItemNotFound("could not delete order");
     }
 
     /// <summary>
@@ -48,15 +40,10 @@ internal class DalOrder : IOrder
 
     public void Update(Order o)
     {
-        for (int i = 0; i < DataSource.OrderList.Count; i++)
-        {
-            if (o.ID == ((Order)DataSource.OrderList[i]).ID)
-            {
-                DataSource.OrderList[i] = o;
-                return;
-            }
-        }
-        throw new ItemNotFound(" could not update order ");
+        int idx = DataSource.OrderList.FindIndex(pr => pr.ID == o.ID);
+        if (idx >= 0) DataSource.OrderList[idx] = o;
+        else
+            throw new ItemNotFound("could not update order");
     }
 
     /// <summary>
@@ -81,7 +68,7 @@ internal class DalOrder : IOrder
     public Order Get(Func<Order, bool> func)
     {
         IEnumerable<Order> o = (IEnumerable<Order>)DataSource.OrderList;
-        return o.Where(func)!=null ? o.Where(func).First() : throw new ItemNotFound("order not found");
+        return o.Where(func) != null ? o.Where(func).First() : throw new ItemNotFound("order not found");
     }
 }
 

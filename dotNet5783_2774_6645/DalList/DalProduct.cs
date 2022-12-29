@@ -1,9 +1,9 @@
-﻿using DO;
-using DalApi;
+﻿using DalApi;
+using DO;
 
 namespace Dal;
 
-internal class DalProduct:IProduct
+internal class DalProduct : IProduct
 {
 
     /// <summary>
@@ -25,17 +25,10 @@ internal class DalProduct:IProduct
     /// <exception cref="Exception"> No product found with the given id </exception>
     public void Delete(int id)
     {
-        foreach(Product item in DataSource.ProductList)
-        {
-            if (id == item.ID)
-            {
-                DataSource.ProductList.Remove(item);
-                return;
-            }
-
-        }
-        throw new ItemNotFound("error can't delete product");
+        if (!DataSource.ProductList.Remove(DataSource.ProductList.Find(p => p.ID == id)))
+            throw new ItemNotFound("error can't delete product");
     }
+
 
     /// <summary>
     /// Updates an product
@@ -45,15 +38,10 @@ internal class DalProduct:IProduct
 
     public void Update(Product p)
     {
-        for (int i = 0; i < DataSource.ProductList.Count; i++)
-        {
-            if (p.ID == ((Product)DataSource.ProductList[i]).ID)
-            {
-                DataSource.ProductList[i] = p;
-                return;
-            }
-        }
-        throw new ItemNotFound("could not update product");
+        int idx = DataSource.ProductList.FindIndex(pr => pr.ID == p.ID);
+        if (idx>=0) DataSource.ProductList[idx] = p;
+        else
+            throw new ItemNotFound("could not update product");
     }
 
     /// <summary>
@@ -63,7 +51,7 @@ internal class DalProduct:IProduct
     public IEnumerable<Product> GetList(Func<Product, bool>? func = null)
     {
         IEnumerable<Product> p = (IEnumerable<Product>)DataSource.ProductList;
-        return (func ==null ? p : p.Where(func));
+        return (func == null ? p : p.Where(func));
     }
 
     /// <summary>

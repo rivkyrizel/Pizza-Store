@@ -1,12 +1,23 @@
 ﻿using DalApi;
-
+using DO;
 namespace Dal;
-internal sealed class DalList:IDal
+
+sealed internal class DalList : IDal
 {
-    public IProduct Product => new DalProduct();
+    private static Lazy<DalList> instance = new Lazy<DalList>(() => new DalList());
+    public static DalList Instance { get => GetInstance(); }
+    private DalList() { }
+    public static DalList GetInstance()
+    {
+        lock (instance)
+        {
+            if (instance == null)
+                instance = new Lazy<DalList>(() => new DalList());
+            return instance.Value;
+        }
+    }
     public IOrder Order => new DalOrder();
     public IOrderItem OrderItem => new DalOrderItem();
-    public static IDal Instance { get; } = new DalList();
-    private DalList() { }
+    public IProduct Product => new DalProduct();
 }
 
