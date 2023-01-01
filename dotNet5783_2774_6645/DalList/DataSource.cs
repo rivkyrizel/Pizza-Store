@@ -75,12 +75,12 @@ public static class DataSource
                     order.DeliveryDate = order.ShipDate + spanShipDelivery;
                 }
                 else
-                    order.DeliveryDate = DateTime.MinValue;
+                    order.DeliveryDate = null;
             }
             else
             {
-                order.ShipDate = DateTime.MinValue;
-                order.DeliveryDate = DateTime.MinValue;
+                order.ShipDate = null;
+                order.DeliveryDate = null;
             }
             OrderList.Add(order);
         }

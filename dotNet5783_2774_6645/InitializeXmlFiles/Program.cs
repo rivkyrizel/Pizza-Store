@@ -11,7 +11,7 @@ public class Program
         //using reflection (call static constructor)
         Type staticClassInfo = typeof(Dal.DataSource);
         var staticClassConstructorInfo = staticClassInfo.TypeInitializer;
-        staticClassConstructorInfo.Invoke(null, null);
+        staticClassConstructorInfo?.Invoke(null, null);
 
         List<Product> PrdouctList = DataSource.ProductList;
         List<Order> OrderList = DataSource.OrderList;
