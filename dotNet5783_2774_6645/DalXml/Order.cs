@@ -8,8 +8,8 @@ using System.Xml.Serialization;
 
 public class Order : IOrder
 {
+    XElement? root = XDocument.Load(@"..\..\..\..\..\xml\Order.xml").Root;
 
-    
     public int Add(DO.Order order)
     {
         XElement? rootConfig = XDocument.Load(@"..\..\..\..\..\xml\config.xml").Root;
@@ -26,7 +26,6 @@ public class Order : IOrder
                         new XElement("OrderDate", order.OrderDate),
                         new XElement("ShipDate", order.ShipDate),
                         new XElement("DeliveryDate", order.DeliveryDate));
-        XElement? root = XDocument.Load(@"..\..\..\..\..\xml\Order.xml").Root;
         root?.Add(o);
         root?.Save(@"..\..\..\..\..\xml\Order.xml");
         return orderID;
@@ -41,12 +40,27 @@ public class Order : IOrder
 
     public DO.Order Get(Func<DO.Order, bool> func)
     {
-        XElement? root = XDocument.Load(@"..\..\..\..\..\xml\Order.xml").Root;
-      IEnumerable<XElement> ie=  root.Elements("Order");
-      IEnumerable<int> i =  ie.Select(i=> int.Parse(i.Element("ID").Value.ToString()));
-        throw new Exception("hii");
-    }
+        IEnumerable<XElement> ie = root.Elements("Order");
+        DO.Order d = new();
+        IEnumerable<DO.Order> i = from v in ie.Elements()
+                                  select (
+                                          from element in v.Elements()
+                                          select new
+                                          {
+                                              
+                                          }
+                                          );
+          //select (d.GetType().GetProperty(element.ToString()).SetValue(d, element.Value)));
 
+        throw new Exception("hii");
+
+
+    }
+    private XElement func2(DO.Order d, XElement element)
+    {
+        d.GetType().GetProperty(element.ToString()).SetValue(d, element.Value);
+        return element;
+    }
     public IEnumerable<DO.Order>? GetList(Func<DO.Order, bool>? func = null)
     {
         throw new NotImplementedException();
@@ -54,7 +68,6 @@ public class Order : IOrder
 
     public void Update(DO.Order order)
     {
-        XElement? root = XDocument.Load(@"..\..\..\..\..\xml\Order.xml").Root;
         XElement? o = new("Order",
                         new XElement("ID", order.ID),
                         new XElement("CustomerName", order.CustomerName),
@@ -63,7 +76,7 @@ public class Order : IOrder
                         new XElement("OrderDate", order.OrderDate),
                         new XElement("ShipDate", order.ShipDate),
                         new XElement("DeliveryDate", order.DeliveryDate));
-        root?.Elements("Order")?.Where(p => int.Parse(p.Element("ID").Value.ToString()) == order.ID)?.FirstOrDefault()?.ReplaceWith(o);
+        root?.Elements("Order")?.Where(o => int.Parse(o.Element("ID").Value.ToString()) == order.ID)?.FirstOrDefault()?.ReplaceWith(o);
         root?.Save(@"..\..\..\..\..\xml\Order.xml");
     }
 }
