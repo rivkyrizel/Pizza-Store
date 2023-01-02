@@ -10,12 +10,15 @@ sealed public class DalXml : IDal
    public DalXml()
     {
         DO.Order d = new();
-        d.CustomerAddress = "444";
-        d.CustomerEmail = "444";
-        d.CustomerName = "444";
+        d.CustomerAddress = "000";
+        d.CustomerEmail = "000";
+        d.CustomerName = "000";
         d.DeliveryDate = null;
         d.OrderDate = DateTime.Now;
         d.ShipDate = null;
-        Order.Add(d);
+        d.ID = 500001;
+        //  Order.Add(d);
+        //Order.Get(o=>o.ID==55);
+        Order.Update(d);
     }
 }

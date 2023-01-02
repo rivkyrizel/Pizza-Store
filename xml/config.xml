@@ -1,12 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <config>
-	<orderID>
-		500020
-	</orderID>
-	<orderItemID>
+  <orderID>500022</orderID>
+  <orderItemID>
 		600090
 	</orderItemID>
-	<ProductID>
+  <ProductID>
 		100010
 	</ProductID>
 </config>

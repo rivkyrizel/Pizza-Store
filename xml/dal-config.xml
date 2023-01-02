@@ -1,9 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <config>
-	<dal>xml</dal>
-	<dal-packages>
-		<list>DalList</list>
-		<xml>DalXml</xml>
-	</dal-packages>
-	<Product>Product</Product>
+  <orderID>500021</orderID>
+  <orderItemID>
+		600090
+	</orderItemID>
+  <ProductID>
+		100010
+	</ProductID>
 </config>

@@ -16,8 +16,8 @@ public class Order : IOrder
         XElement? id = rootConfig?.Element("orderID");
         int orderID = Convert.ToInt32(id?.Value);
         orderID++;
-        id.Value = orderID.ToString();
-        rootConfig?.Save(@"..\..\..\..\..\xml\dal-config.xml");
+        id?.SetValue(orderID.ToString());
+        rootConfig?.Save(@"..\..\..\..\..\xml\config.xml");
         XElement o = new("Order",
                         new XElement("ID", orderID),
                         new XElement("CustomerName", order.CustomerName),
@@ -35,22 +35,16 @@ public class Order : IOrder
     public void Delete(int id)
     {
         XElement? root = XDocument.Load(@"..\..\..\..\..\xml\Order.xml").Root;
-        root.Descendants("order").Where(o => int.Parse(o.Attribute("ID").Value) == id).Remove();
-        /*StreamReader reader = new StreamReader("../../xml/Order.xml");
-        XmlSerializer serializer = new XmlSerializer(typeof(DO.Order));
-        StreamWriter writer = new StreamWriter("../../xml/Order.xml");
-        List<DO.Order> list = (List<DO.Order>)serializer.Deserialize(reader);
-        DO.Order order=list.Where(o=>o.ID==id).FirstOrDefault();
-        list.Remove(order);
-        serializer.Serialize(writer, list);
-        writer.Close();
-        reader.Close();*/
-
+        root?.Elements("Order").Where(o => int.Parse(o.Element("ID").Value.ToString()) == id).Remove();
+        root?.Save(@"..\..\..\..\..\xml\Order.xml");
     }
 
     public DO.Order Get(Func<DO.Order, bool> func)
     {
-        throw new NotImplementedException();
+        XElement? root = XDocument.Load(@"..\..\..\..\..\xml\Order.xml").Root;
+      IEnumerable<XElement> ie=  root.Elements("Order");
+      IEnumerable<int> i =  ie.Select(i=> int.Parse(i.Element("ID").Value.ToString()));
+        throw new Exception("hii");
     }
 
     public IEnumerable<DO.Order>? GetList(Func<DO.Order, bool>? func = null)
@@ -58,9 +52,19 @@ public class Order : IOrder
         throw new NotImplementedException();
     }
 
-    public void Update(DO.Order t)
+    public void Update(DO.Order order)
     {
-        throw new NotImplementedException();
+        XElement? root = XDocument.Load(@"..\..\..\..\..\xml\Order.xml").Root;
+        XElement? o = new("Order",
+                        new XElement("ID", order.ID),
+                        new XElement("CustomerName", order.CustomerName),
+                        new XElement("CustomerEmail", order.CustomerEmail),
+                        new XElement("CustomerAddress", order.CustomerAddress),
+                        new XElement("OrderDate", order.OrderDate),
+                        new XElement("ShipDate", order.ShipDate),
+                        new XElement("DeliveryDate", order.DeliveryDate));
+        root?.Elements("Order")?.Where(p => int.Parse(p.Element("ID").Value.ToString()) == order.ID)?.FirstOrDefault()?.ReplaceWith(o);
+        root?.Save(@"..\..\..\..\..\xml\Order.xml");
     }
 }
 
