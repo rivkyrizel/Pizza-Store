@@ -70,80 +70,8 @@
 		<Category>Drinks</Category>
 		<Amount>2456</Amount>
 	</Product>
-</ArrayOfProduct><?xml version="1.0" encoding="utf-8"?>
-<ArrayOfProduct xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 	<Product>
-		<ID>100000</ID>
-		<Name>  Ravioli  </Name>
-		<Price>71</Price>
-		<Category>Pasta_</Category>
-		<Amount>1278</Amount>
-	</Product>
-	<Product>
-		<ID>100001</ID>
-		<Name>   Pizza   </Name>
-		<Price>80</Price>
-		<Category>Pizza_</Category>
-		<Amount>1841</Amount>
-	</Product>
-	<Product>
-		<ID>100002</ID>
-		<Name> Sandwich  </Name>
-		<Price>80</Price>
-		<Category>Bagels</Category>
-		<Amount>3564</Amount>
-	</Product>
-	<Product>
-		<ID>100003</ID>
-		<Name>Ice coffee </Name>
-		<Price>13</Price>
-		<Category>Drinks</Category>
-		<Amount>1359</Amount>
-	</Product>
-	<Product>
-		<ID>100004</ID>
-		<Name>  Coffee   </Name>
-		<Price>26</Price>
-		<Category>Drinks</Category>
-		<Amount>3508</Amount>
-	</Product>
-	<Product>
-		<ID>100005</ID>
-		<Name>   Baguet  </Name>
-		<Price>65</Price>
-		<Category>Bagels</Category>
-		<Amount>3140</Amount>
-	</Product>
-	<Product>
-		<ID>100006</ID>
-		<Name>Greek Salad</Name>
-		<Price>16</Price>
-		<Category>Salads</Category>
-		<Amount>3949</Amount>
-	</Product>
-	<Product>
-		<ID>100007</ID>
-		<Name> XL pizza  </Name>
-		<Price>83</Price>
-		<Category>Pizza_</Category>
-		<Amount>1948</Amount>
-	</Product>
-	<Product>
-		<ID>100008</ID>
-		<Name>Basic Salad</Name>
-		<Price>96</Price>
-		<Category>Salads</Category>
-		<Amount>1064</Amount>
-	</Product>
-	<Product>
-		<ID>100009</ID>
-		<Name> Coca Cola </Name>
-		<Price>26</Price>
-		<Category>Drinks</Category>
-		<Amount>2456</Amount>
-	</Product>
-	<Product>
-		<ID>100030</ID>
+		<ID>100010</ID>
 		<Name>000</Name>
 		<Price>53</Price>
 		<Category>Pasta_</Category>

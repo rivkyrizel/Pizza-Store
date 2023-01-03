@@ -11,12 +11,15 @@ internal class Product : IProduct
     public int Add(DO.Product product)
     {
         XmlSerializer ser = new XmlSerializer(typeof(List<DO.Product>));
-        FileStream file = new(@"..\..\..\..\..\xml\Product.xml",FileMode.OpenOrCreate, FileAccess.ReadWrite);
-    //  StreamWriter w = new StreamWriter(@"..\..\..\..\..\xml\Product.xml");
-        List<DO.Product>? lst = (List<DO.Product>?)ser.Deserialize(file);
+        //FileStream file = new(@"..\..\..\..\..\xml\Product.xml",FileMode.OpenOrCreate, FileAccess.ReadWrite);
+        StreamReader r = new(@"..\..\..\..\..\xml\Product.xml");
+        List<DO.Product>? lst = (List<DO.Product>?)ser.Deserialize(r);
+        product.ID= lst.Last().ID+1;//???????????????????
         lst?.Add(product);
-        ser.Serialize(file, lst);
-        file.Close();
+        r.Close();
+        StreamWriter w = new(@"..\..\..\..\..\xml\Product.xml");
+        ser.Serialize(w, lst);
+        w.Close();
         return product.ID;
     }
 
