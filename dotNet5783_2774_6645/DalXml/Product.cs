@@ -8,25 +8,30 @@ using System.Xml.Serialization;
 
 internal class Product : IProduct
 {
+    public XmlRootAttribute xRoot()
+    {
+        XmlRootAttribute xRoot = new XmlRootAttribute();
+        xRoot.ElementName = "ArrayOfOrderItem";
+        xRoot.IsNullable = true;
+        return xRoot;
+    }
     public int Add(DO.Product product)
     {
-        XmlSerializer ser = new XmlSerializer(typeof(List<DO.Product>));
-        FileStream file = new(@"..\..\..\..\..\xml\Product.xml",FileMode.Open, FileAccess.ReadWrite);
-        //StreamReader r = new(@"..\..\..\..\..\xml\Product.xml");
-        List<DO.Product>? lst = (List<DO.Product>?)ser.Deserialize(file);
-        product.ID= lst.Last().ID+1;//???????????????????
+        XmlSerializer ser = new XmlSerializer(typeof(List<DO.Product>), xRoot());
+        StreamReader r = new(@"..\..\..\..\..\xml\Product.xml");
+        List<DO.Product>? lst = (List<DO.Product>?)ser.Deserialize(r);
+        product.ID= lst.Last().ID+1;
         lst?.Add(product);
-       // r.Close();
-       // StreamWriter w = new(@"..\..\..\..\..\xml\Product.xml");
-        ser.Serialize(file, lst);
-        file.Close();
+        r.Close();
+        StreamWriter w = new(@"..\..\..\..\..\xml\Product.xml");
+        ser.Serialize(w, lst);
+        w.Close();
         return product.ID;
     }
 
     public void Delete(int id)
     {
-        XmlSerializer ser = new XmlSerializer(typeof(List<DO.Product>));
-        //FileStream file = new(@"..\..\..\..\..\xml\Product.xml",FileMode.OpenOrCreate, FileAccess.ReadWrite);
+        XmlSerializer ser = new XmlSerializer(typeof(List<DO.Product>), xRoot());
         StreamReader r = new(@"..\..\..\..\..\xml\Product.xml");
         List<DO.Product>? lst = (List<DO.Product>?)ser.Deserialize(r);
         lst?.Remove(lst.Where(p => p.ID == id).FirstOrDefault());
@@ -38,7 +43,7 @@ internal class Product : IProduct
 
     public DO.Product Get(Func<DO.Product, bool> func)
     {
-        XmlSerializer ser = new XmlSerializer(typeof(List<DO.Product>));
+        XmlSerializer ser = new XmlSerializer(typeof(List<DO.Product>), xRoot());
         StreamReader r = new(@"..\..\..\..\..\xml\Product.xml");
         List<DO.Product>? lst = (List<DO.Product>?)ser.Deserialize(r);
         r.Close();
@@ -47,7 +52,7 @@ internal class Product : IProduct
 
     public IEnumerable<DO.Product>? GetList(Func<DO.Product, bool>? func = null)
     {
-        XmlSerializer ser = new XmlSerializer(typeof(List<DO.Product>));
+        XmlSerializer ser = new XmlSerializer(typeof(List<DO.Product>), xRoot());
         StreamReader r = new(@"..\..\..\..\..\xml\Product.xml");
         List<DO.Product>? lst = (List<DO.Product>?)ser.Deserialize(r);
         r.Close();
@@ -56,7 +61,7 @@ internal class Product : IProduct
 
     public void Update(DO.Product p)
     {
-        XmlSerializer ser = new XmlSerializer(typeof(List<DO.Product>));
+        XmlSerializer ser = new XmlSerializer(typeof(List<DO.Product>), xRoot());
         StreamReader readFile = new(@"..\..\..\..\..\xml\Product.xml");
         List<DO.Product>? lst = (List<DO.Product>?)ser.Deserialize(readFile);
         int idx = lst.FindIndex(pr => pr.ID == p.ID);
