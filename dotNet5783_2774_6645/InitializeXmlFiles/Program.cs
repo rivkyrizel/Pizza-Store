@@ -17,17 +17,17 @@ public class Program
         List<Order> OrderList = DataSource.OrderList;
         List<OrderItem> OrderItemList = DataSource.OrderItemList;
 
-        StreamWriter wProduct = new(@"C:\Users\ריזל רבקה\source\repos\dotNet5783_2774_66450\xml\Product.xml");
+        StreamWriter wProduct = new(@"..\..\..\..\..\xml\Product.xml");
         XmlSerializer serProduct = new(typeof(List<Product>));
         serProduct.Serialize(wProduct, PrdouctList);
         wProduct.Close();
 
-        StreamWriter wOrder = new(@"C:\Users\ריזל רבקה\source\repos\dotNet5783_2774_66450\xml\Order.xml");
+        StreamWriter wOrder = new(@"..\..\..\..\..\xml\Order.xml");
         XmlSerializer serOrder = new(typeof(List<Order>));
         serOrder.Serialize(wOrder, OrderList);
         wOrder.Close();
 
-        StreamWriter wOrderItem = new(@"C:\Users\ריזל רבקה\source\repos\dotNet5783_2774_66450\xml\OrderItem.xml");
+        StreamWriter wOrderItem = new(@"..\..\..\..\..\xml\OrderItem.xml");
         XmlSerializer serOrderItem = new(typeof(List<OrderItem>));
         serOrderItem.Serialize(wOrderItem, OrderItemList);
         wOrderItem.Close();
