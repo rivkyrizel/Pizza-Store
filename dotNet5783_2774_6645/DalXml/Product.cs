@@ -11,36 +11,62 @@ internal class Product : IProduct
     public int Add(DO.Product product)
     {
         XmlSerializer ser = new XmlSerializer(typeof(List<DO.Product>));
-        //FileStream file = new(@"..\..\..\..\..\xml\Product.xml",FileMode.OpenOrCreate, FileAccess.ReadWrite);
-        StreamReader r = new(@"..\..\..\..\..\xml\Product.xml");
-        List<DO.Product>? lst = (List<DO.Product>?)ser.Deserialize(r);
+        FileStream file = new(@"..\..\..\..\..\xml\Product.xml",FileMode.Open, FileAccess.ReadWrite);
+        //StreamReader r = new(@"..\..\..\..\..\xml\Product.xml");
+        List<DO.Product>? lst = (List<DO.Product>?)ser.Deserialize(file);
         product.ID= lst.Last().ID+1;//???????????????????
         lst?.Add(product);
-        r.Close();
-        StreamWriter w = new(@"..\..\..\..\..\xml\Product.xml");
-        ser.Serialize(w, lst);
-        w.Close();
+       // r.Close();
+       // StreamWriter w = new(@"..\..\..\..\..\xml\Product.xml");
+        ser.Serialize(file, lst);
+        file.Close();
         return product.ID;
     }
 
     public void Delete(int id)
     {
-        throw new NotImplementedException();
+        XmlSerializer ser = new XmlSerializer(typeof(List<DO.Product>));
+        //FileStream file = new(@"..\..\..\..\..\xml\Product.xml",FileMode.OpenOrCreate, FileAccess.ReadWrite);
+        StreamReader r = new(@"..\..\..\..\..\xml\Product.xml");
+        List<DO.Product>? lst = (List<DO.Product>?)ser.Deserialize(r);
+        lst?.Remove(lst.Where(p => p.ID == id).FirstOrDefault());
+        r.Close();
+        StreamWriter w = new(@"..\..\..\..\..\xml\Product.xml");
+        ser.Serialize(w, lst);
+        w.Close();
     }
 
     public DO.Product Get(Func<DO.Product, bool> func)
     {
-        throw new NotImplementedException();
+        XmlSerializer ser = new XmlSerializer(typeof(List<DO.Product>));
+        StreamReader r = new(@"..\..\..\..\..\xml\Product.xml");
+        List<DO.Product>? lst = (List<DO.Product>?)ser.Deserialize(r);
+        r.Close();
+        return lst?.Where(func) != null ? lst.Where(func).First() : throw new ItemNotFound("product not found");
     }
 
     public IEnumerable<DO.Product>? GetList(Func<DO.Product, bool>? func = null)
     {
-        throw new NotImplementedException();
+        XmlSerializer ser = new XmlSerializer(typeof(List<DO.Product>));
+        StreamReader r = new(@"..\..\..\..\..\xml\Product.xml");
+        List<DO.Product>? lst = (List<DO.Product>?)ser.Deserialize(r);
+        r.Close();
+        return (func == null ? lst : lst?.Where(func));
     }
 
-    public void Update(DO.Product t)
+    public void Update(DO.Product p)
     {
-        throw new NotImplementedException();
+        XmlSerializer ser = new XmlSerializer(typeof(List<DO.Product>));
+        StreamReader readFile = new(@"..\..\..\..\..\xml\Product.xml");
+        List<DO.Product>? lst = (List<DO.Product>?)ser.Deserialize(readFile);
+        int idx = lst.FindIndex(pr => pr.ID == p.ID);
+        if (idx >= 0) lst[idx] = p;
+        else
+            throw new ItemNotFound("could not update product");
+        readFile.Close();
+        StreamWriter writeFile = new(@"..\..\..\..\..\xml\Product.xml");
+        ser.Serialize(writeFile, lst);
+        writeFile.Close();
     }
 }
 
