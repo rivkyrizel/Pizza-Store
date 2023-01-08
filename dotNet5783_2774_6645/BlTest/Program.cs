@@ -86,8 +86,7 @@ public class Program
         Console.WriteLine("|    ID    |       NAME       | CATEGORY | PRICE |");
         Console.WriteLine("|__________|__________________|__________|_______|");
         Console.WriteLine("|          |                  |          |       |");
-        foreach (ProductForList? item in productList)
-            Console.WriteLine(item);
+        productList.ToList().ForEach(product => Console.WriteLine(product));
     }
 
     /// <summary>
@@ -99,8 +98,7 @@ public class Program
         Console.WriteLine("|    ID    |       NAME       | CATEGORY | PRICE |   AMOUNT  |   IN STOCK |");
         Console.WriteLine("|__________|__________________|__________|_______|___________|____________|");
         Console.WriteLine("|          |                  |          |       |           |            |");
-        foreach (ProductItem? item in productList)
-            Console.WriteLine(item);
+        productList.ToList().ForEach(product => Console.WriteLine(product));
     }
 
     /// <summary>
@@ -277,7 +275,7 @@ public class Program
         {
             Console.WriteLine("enter id:");
             int.TryParse(Console.ReadLine(), out int id);
-            Console.WriteLine( BL.order.OrderTracking(id));
+            Console.WriteLine(BL.order.OrderTracking(id));
         }
         catch (BlIdNotFound e)
         {
@@ -297,8 +295,7 @@ public class Program
         Console.WriteLine("|    ID     |   NAME  |           STATUS         | AMOUNT |TOTAL PRICE|");
         Console.WriteLine("|___________|_________|__________________________|________|___________|");
         Console.WriteLine("|           |         |                          |        |           |");
-        foreach (OrderForList? item in orderList)
-            Console.WriteLine(item);
+        orderList.ToList().ForEach(o => Console.WriteLine(o));
 
     }
 
@@ -386,7 +383,7 @@ public class Program
             BO.OrderItem oItem = new();
             int choice = 0;
             do
-            
+
             {
                 Console.WriteLine("enter product ID:");
                 int.TryParse(Console.ReadLine(), out int productId);

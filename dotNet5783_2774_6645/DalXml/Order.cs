@@ -9,13 +9,14 @@ using System.Xml.Serialization;
 
 public class Order : IOrder
 {
-   static string orderSrc = @"..\..\xml\Order.xml";
-   static string configSrc = @"..\..\xml\config.xml";
+    static readonly string orderSrc = @"..\..\xml\Order.xml";
+    static readonly string configSrc = @"..\..\xml\config.xml";
+
     XElement? root = XDocument.Load(orderSrc).Root;
 
     private List<DO.Order> createList()
     {
-        IEnumerable<XElement>? rootXelement = root?.Elements("Order")??throw new XMLFileNullExeption();
+        IEnumerable<XElement>? rootXelement = root?.Elements("Order") ?? throw new XMLFileNullExeption();
         object orderObj = new DO.Order();
         List<DO.Order> list = new();
 
@@ -24,7 +25,7 @@ public class Order : IOrder
             xmlOrder.Elements().ToList().ForEach(element => initializeXelement(orderObj, element));
             list.Add((DO.Order)orderObj);
         }
-        
+
         return list;
     }
 
@@ -37,12 +38,13 @@ public class Order : IOrder
 
     private void initializeXelement(object orderObj, XElement xmlElement)
     {
+        PropertyInfo? property = orderObj?.GetType()?.GetProperty(xmlElement.Name.ToString());
         if (xmlElement.Name.ToString() != "ID" && xmlElement.Name.ToString().EndsWith("Date"))
-            orderObj?.GetType()?.GetProperty(xmlElement.Name.ToString())?.SetValue(orderObj, xmlElement.Value);
+            property?.SetValue(orderObj, xmlElement.Value);
         else if (xmlElement.Name.ToString() == "ID")
-            orderObj?.GetType()?.GetProperty(xmlElement.Name.ToString())?.SetValue(orderObj, int.Parse(xmlElement.Value));
+            property?.SetValue(orderObj, int.Parse(xmlElement.Value));
         else if (xmlElement.Value != "")
-            orderObj?.GetType()?.GetProperty(xmlElement.Name.ToString())?.SetValue(orderObj, DateTime.Parse(xmlElement.Value));
+            property?.SetValue(orderObj, DateTime.Parse(xmlElement.Value));
 
     }
     public int Add(DO.Order order)
@@ -52,7 +54,6 @@ public class Order : IOrder
         order.ID = Convert.ToInt32(id?.Value) + 1;
         id?.SetValue(order.ID.ToString());
         rootConfig?.Save(configSrc);
-       
         root?.Add(convertToXelement(order));
         root?.Save(orderSrc);
         return order.ID;
@@ -61,7 +62,7 @@ public class Order : IOrder
     public void Delete(int id)
     {
         XElement? root = XDocument.Load(orderSrc).Root;
-        root?.Elements("Order").Where(o => int.Parse(o.Element("ID")?.Value.ToString()??"0") == id).Remove();
+        root?.Elements("Order").Where(o => int.Parse(o.Element("ID")?.Value.ToString() ?? "0") == id).Remove();
         root?.Save(orderSrc);
     }
 
@@ -82,7 +83,7 @@ public class Order : IOrder
     public void Update(DO.Order order)
     {
         XElement xmlOrder = convertToXelement(order);
-        root?.Elements("Order")?.Where(o => int.Parse(o.Element("ID")?.Value.ToString()??"0") == order.ID)?.FirstOrDefault()?.ReplaceWith(xmlOrder);
+        root?.Elements("Order")?.Where(o => int.Parse(o.Element("ID")?.Value.ToString() ?? "0") == order.ID)?.FirstOrDefault()?.ReplaceWith(xmlOrder);
         root?.Save(orderSrc);
     }
 }
