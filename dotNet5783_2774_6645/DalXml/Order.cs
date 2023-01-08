@@ -47,15 +47,13 @@ public class Order : IOrder
     {
         XElement? rootConfig = XDocument.Load(@"..\..\..\..\..\xml\config.xml").Root;
         XElement? id = rootConfig?.Element("orderID");
-        int orderID = Convert.ToInt32(id?.Value) + 1;
-        id?.SetValue(orderID.ToString());
+        order.ID = Convert.ToInt32(id?.Value) + 1;
+        id?.SetValue(order.ID.ToString());
         rootConfig?.Save(@"..\..\..\..\..\xml\config.xml");
-        order.ID = orderID;
-
-     
+       
         root?.Add(convertToXelement(order));
         root?.Save(@"..\..\xml\Order.xml");
-        return orderID;
+        return order.ID;
     }
 
     public void Delete(int id)

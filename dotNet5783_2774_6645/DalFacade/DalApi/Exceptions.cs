@@ -8,3 +8,10 @@ public class DuplicateValue:Exception
 {
     public DuplicateValue(string message) : base(message) {}
 }
+
+public class XMLFileNullExeption : Exception
+{
+    public override string Message =>
+                    "XML file is empty";
+
+}
