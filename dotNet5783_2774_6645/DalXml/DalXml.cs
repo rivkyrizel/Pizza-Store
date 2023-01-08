@@ -1,23 +1,27 @@
-﻿namespace Dal;
-using DalApi;
+﻿using DalApi;
 using DO;
+using System.Xml.Linq;
+
+namespace Dal;
 
 sealed public class DalXml : IDal
 {
-    public IProduct Product { get ; } = new Dal.Product();
-    public IOrder Order { get ; } = new Dal.Order();
+    static private Lazy<DalXml>? instance = null;
+    public static IDal Instance { get => GetInstance(); }
+
+    public IProduct Product { get; } = new Dal.Product();
+    public IOrder Order { get; } = new Dal.Order();
     public IOrderItem OrderItem { get; } = new Dal.OrderItem();
-   public DalXml()
+
+    private DalXml() { }
+    public static DalXml GetInstance()
     {
-        //DO.OrderItem d= new();
-        //d.OrderID = 500001;
-        //d.Price = 100;
-        //d.Amount = 100;
-        //d.ProductID = 100001;
-        //d.ID = 600001;
-        //OrderItem.Update(d);
-        // OrderItem.Delete(600001);
-        OrderItem.GetList();
+        lock (instance ??= new Lazy<DalXml>(() => new DalXml()))
+        {
+
+
+            return instance.Value;
+        }
 
     }
 }
