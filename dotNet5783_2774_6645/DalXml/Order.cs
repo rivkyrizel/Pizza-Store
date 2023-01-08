@@ -9,18 +9,20 @@ using System.Xml.Serialization;
 
 public class Order : IOrder
 {
-    XElement? root = XDocument.Load(@"..\..\..\..\..\xml\Order.xml").Root;
+   static string orderSrc = @"..\..\xml\Order.xml";
+   static string configSrc = @"..\..\xml\config.xml";
+    XElement? root = XDocument.Load(orderSrc).Root;
 
     private List<DO.Order> createList()
     {
-        IEnumerable<XElement>? ie = root?.Elements("Order")??throw new XMLFileNullExeption();
-        object dd = new DO.Order();
+        IEnumerable<XElement>? rootXelement = root?.Elements("Order")??throw new XMLFileNullExeption();
+        object orderObj = new DO.Order();
         List<DO.Order> list = new();
 
-        foreach (XElement o in ie)
+        foreach (XElement xmlOrder in rootXelement)
         {
-            o.Elements().ToList().ForEach(mx => initializeXelement(dd, mx));
-            list.Add((DO.Order)dd);
+            xmlOrder.Elements().ToList().ForEach(element => initializeXelement(orderObj, element));
+            list.Add((DO.Order)orderObj);
         }
         
         return list;
@@ -28,39 +30,39 @@ public class Order : IOrder
 
     private XElement convertToXelement(DO.Order order)
     {
-        XElement orderXelemnt = new XElement("Order");
-        order.GetType().GetProperties().ToList().ForEach(p => orderXelemnt.Add(new XElement(p.Name.ToString(), p.GetValue(order, null))));
-        return orderXelemnt;
+        XElement xmlOrder = new XElement("Order");
+        order.GetType().GetProperties().ToList().ForEach(p => xmlOrder.Add(new XElement(p.Name.ToString(), p.GetValue(order, null))));
+        return xmlOrder;
     }
 
-    private void initializeXelement(object d, XElement element)
+    private void initializeXelement(object orderObj, XElement xmlElement)
     {
-        if (element.Name.ToString() != "ID" && element.Name.ToString().EndsWith("Date"))
-            d?.GetType()?.GetProperty(element.Name.ToString())?.SetValue(d, element.Value);
-        else if (element.Name.ToString() == "ID")
-            d?.GetType()?.GetProperty(element.Name.ToString())?.SetValue(d, int.Parse(element.Value));
-        else if (element.Value != "")
-            d?.GetType()?.GetProperty(element.Name.ToString())?.SetValue(d, DateTime.Parse(element.Value));
+        if (xmlElement.Name.ToString() != "ID" && xmlElement.Name.ToString().EndsWith("Date"))
+            orderObj?.GetType()?.GetProperty(xmlElement.Name.ToString())?.SetValue(orderObj, xmlElement.Value);
+        else if (xmlElement.Name.ToString() == "ID")
+            orderObj?.GetType()?.GetProperty(xmlElement.Name.ToString())?.SetValue(orderObj, int.Parse(xmlElement.Value));
+        else if (xmlElement.Value != "")
+            orderObj?.GetType()?.GetProperty(xmlElement.Name.ToString())?.SetValue(orderObj, DateTime.Parse(xmlElement.Value));
 
     }
     public int Add(DO.Order order)
     {
-        XElement? rootConfig = XDocument.Load(@"..\..\..\..\..\xml\config.xml").Root;
+        XElement? rootConfig = XDocument.Load(configSrc).Root;
         XElement? id = rootConfig?.Element("orderID");
         order.ID = Convert.ToInt32(id?.Value) + 1;
         id?.SetValue(order.ID.ToString());
-        rootConfig?.Save(@"..\..\..\..\..\xml\config.xml");
+        rootConfig?.Save(configSrc);
        
         root?.Add(convertToXelement(order));
-        root?.Save(@"..\..\xml\Order.xml");
+        root?.Save(orderSrc);
         return order.ID;
     }
 
     public void Delete(int id)
     {
-        XElement? root = XDocument.Load(@"..\..\xml\Order.xml").Root;
+        XElement? root = XDocument.Load(orderSrc).Root;
         root?.Elements("Order").Where(o => int.Parse(o.Element("ID")?.Value.ToString()??"0") == id).Remove();
-        root?.Save(@"..\..\xml\Order.xml");
+        root?.Save(orderSrc);
     }
 
     public DO.Order Get(Func<DO.Order, bool> func)
@@ -79,9 +81,9 @@ public class Order : IOrder
 
     public void Update(DO.Order order)
     {
-        XElement o = convertToXelement(order);
-        root?.Elements("Order")?.Where(o => int.Parse(o.Element("ID")?.Value.ToString()??"0") == order.ID)?.FirstOrDefault()?.ReplaceWith(o);
-        root?.Save(@"..\..\xml\Order.xml");
+        XElement xmlOrder = convertToXelement(order);
+        root?.Elements("Order")?.Where(o => int.Parse(o.Element("ID")?.Value.ToString()??"0") == order.ID)?.FirstOrDefault()?.ReplaceWith(xmlOrder);
+        root?.Save(orderSrc);
     }
 }
 

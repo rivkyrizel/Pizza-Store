@@ -7,6 +7,7 @@ using System.Xml.Serialization;
 
 internal class OrderItem : IOrderItem
 {
+    static string orderItemSrc = @"..\..\xml\OrderItem.xml";
     public XmlRootAttribute xRoot()
     {
         XmlRootAttribute xRoot = new XmlRootAttribute();
@@ -18,12 +19,12 @@ internal class OrderItem : IOrderItem
     public int Add(DO.OrderItem orderItem)
     {
         XmlSerializer ser = new XmlSerializer(typeof(List<DO.OrderItem>), xRoot());
-        StreamReader r = new(@"..\..\xml\OrderItem.xml");
+        StreamReader r = new(orderItemSrc);
         List<DO.OrderItem>? lst = (List<DO.OrderItem>?)ser.Deserialize(r)??throw new XMLFileNullExeption();
         orderItem.ID = lst.Last().ID + 1;
         lst?.Add(orderItem);
         r.Close();
-        StreamWriter w = new(@"..\..\xml\OrderItem.xml");
+        StreamWriter w = new(orderItemSrc);
         ser.Serialize(w, lst);
         w.Close();
         return orderItem.ID;
@@ -32,11 +33,11 @@ internal class OrderItem : IOrderItem
     public void Delete(int id)
     {
         XmlSerializer ser = new XmlSerializer(typeof(List<DO.OrderItem>), xRoot());
-        StreamReader r = new(@"..\..\xml\OrderItem.xml");
+        StreamReader r = new(orderItemSrc);
         List<DO.OrderItem>? lst = (List<DO.OrderItem>?)ser.Deserialize(r);
         lst?.Remove(lst.Where(o => o.ID == id).FirstOrDefault());
         r.Close();
-        StreamWriter w = new(@"..\..\xml\OrderItem.xml");
+        StreamWriter w = new(orderItemSrc);
         ser.Serialize(w, lst);
         w.Close();
     }
@@ -44,7 +45,7 @@ internal class OrderItem : IOrderItem
     public DO.OrderItem Get(Func<DO.OrderItem, bool> func)
     {
         XmlSerializer ser = new XmlSerializer(typeof(List<DO.OrderItem>), xRoot());
-        StreamReader r = new(@"..\..\xml\OrderItem.xml");
+        StreamReader r = new(orderItemSrc);
         List<DO.OrderItem>? lst = (List<DO.OrderItem>?)ser.Deserialize(r);
         r.Close();
         return lst?.Where(func) != null ? lst.Where(func).First() : throw new ItemNotFound("product not found");
@@ -53,7 +54,7 @@ internal class OrderItem : IOrderItem
     public IEnumerable<DO.OrderItem>? GetList(Func<DO.OrderItem, bool>? func = null)
     {
         XmlSerializer ser = new XmlSerializer(typeof(List<DO.OrderItem>), xRoot());
-        StreamReader r = new(@"..\..\xml\OrderItem.xml");
+        StreamReader r = new(orderItemSrc);
         List<DO.OrderItem>? lst = (List<DO.OrderItem>?)ser.Deserialize(r);
         r.Close();
         return (func == null ? lst : lst?.Where(func));
@@ -62,14 +63,14 @@ internal class OrderItem : IOrderItem
     public void Update(DO.OrderItem o)
     {
         XmlSerializer ser = new XmlSerializer(typeof(List<DO.OrderItem>), xRoot());
-        StreamReader readFile = new(@"..\..\xml\OrderItem.xml");
+        StreamReader readFile = new(orderItemSrc);
         List<DO.OrderItem>? lst = (List<DO.OrderItem>?)ser.Deserialize(readFile)??throw new XMLFileNullExeption();
         int idx = lst.FindIndex(pr => pr.ID == o.ID);
         if (idx >= 0) lst[idx] = o;
         else
             throw new ItemNotFound("could not update Order Item");
         readFile.Close();
-        StreamWriter writeFile = new(@"..\..\xml\OrderItem.xml");
+        StreamWriter writeFile = new(orderItemSrc);
         ser.Serialize(writeFile, lst);
         writeFile.Close();
     }
