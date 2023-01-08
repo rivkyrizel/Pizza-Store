@@ -77,6 +77,12 @@ public class BlInvalidAmount : Exception
 
 }
 
+public class BlNoPropertiesInObject : Exception
+{
+    public override string Message =>
+                    "No properties found in object";
+
+}
 
 
 
