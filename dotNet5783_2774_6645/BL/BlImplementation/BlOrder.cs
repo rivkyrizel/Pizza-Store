@@ -6,7 +6,7 @@ namespace BlImplementation;
 
 internal class BlOrder : IOrder
 {
-    private DalApi.IDal Dal = DalApi.Factory.Get();
+    private DalApi.IDal Dal = DalApi.Factory.Get()??throw new BlNullValueException();
 
     /// <summary>
     ///  converts from BO object to DO object
@@ -22,7 +22,7 @@ internal class BlOrder : IOrder
 
     private double calculateTotalPrice(int id)
     {
-        IEnumerable<DO.OrderItem> listOrderItem = Dal.OrderItem.GetList(o => o.OrderID==id);
+        IEnumerable<DO.OrderItem> listOrderItem = Dal?.OrderItem.GetList(o => o.OrderID==id)?? throw new BlNullValueException();
         double totalprice = 0;
         foreach (DO.OrderItem item in listOrderItem)
             totalprice += Dal.Product.Get(o => o.ID == item.ProductID).Price * item.Amount;
@@ -46,7 +46,7 @@ internal class BlOrder : IOrder
     private BO.OrderForList castDOtoBOOrderForList(DO.Order oDO)
     {
         BO.OrderForList oBO = BlUtils.cast<BO.OrderForList, DO.Order>(oDO);
-        IEnumerable<DO.OrderItem> listOrderItem = Dal.OrderItem.GetList(o => o.OrderID==oDO.ID);
+        IEnumerable<DO.OrderItem> listOrderItem = Dal.OrderItem.GetList(o => o.OrderID==oDO.ID)??throw new BlNullValueException();
         oBO.AmountOfItems = listOrderItem.Count();
         oBO.Status = (BO.OrderStatus)findOrderStatus(oDO);
         oBO.TotalPrice = calculateTotalPrice(oDO.ID);
@@ -59,7 +59,7 @@ internal class BlOrder : IOrder
     /// <returns> list of orders </returns>
     public IEnumerable<BO.OrderForList?> OrderList()
     {
-        IEnumerable<DO.Order> DOlist = (IEnumerable<DO.Order>)Dal.Order.GetList();
+        IEnumerable<DO.Order> DOlist = Dal.Order.GetList() ?? throw new BlNullValueException();
         List<BO.OrderForList> BOlist = new();
         foreach (DO.Order item in DOlist)
         {
@@ -138,10 +138,11 @@ internal class BlOrder : IOrder
 
             if (order.Status == (BO.OrderStatus)0)
             {
-                IEnumerable<DO.OrderItem> oList = Dal.OrderItem.GetList(o => o.OrderID == updateOrder.ID);
-                foreach (BO.OrderItem item in updateOrder.Items)
+                IEnumerable<DO.OrderItem> oList = Dal.OrderItem.GetList(o => o.OrderID == updateOrder.ID) ?? throw new BlNullValueException();
+                foreach (BO.OrderItem? item in updateOrder.Items ?? throw new BlNullValueException())
                 {
-                    DO.Product p = Dal.Product.Get(o => o.ID == item.ProductID);
+           
+                    DO.Product p = Dal.Product.Get(o => o.ID == item?.ProductID);
                     item.Name = p.Name;
                     item.Price = p.Price;
                     item.TotalPrice = p.Price * item.Amount;
@@ -173,7 +174,7 @@ internal class BlOrder : IOrder
 
                     }
                 }
-                IEnumerable<DO.OrderItem> oUpdateList = Dal.OrderItem.GetList(o => o.OrderID==updateOrder.ID);
+                IEnumerable<DO.OrderItem> oUpdateList = Dal.OrderItem.GetList(o => o.OrderID==updateOrder.ID) ?? throw new BlNullValueException();
                 foreach (DO.OrderItem item in oUpdateList)
                 {
                     totalPrice += Dal.Product.Get(o => o.ID == item.ProductID).Price * item.Amount;
@@ -224,15 +225,15 @@ internal class BlOrder : IOrder
             DO.Order order = Dal.Order.Get(o => o.ID == orderId);
             BO.OrderTracking orderTracking = new();
             orderTracking.ID = orderId;
-            orderTracking.TrackList.Add((order.OrderDate, OrderStatus._____Confirmed_____));
+            orderTracking.TrackList?.Add((order.OrderDate, OrderStatus._____Confirmed_____));
             orderTracking.Status = OrderStatus._____Confirmed_____;
             if (order.ShipDate != null)
             {
-                orderTracking.TrackList.Add((order.ShipDate, OrderStatus._______Sent________));
+                orderTracking.TrackList?.Add((order.ShipDate, OrderStatus._______Sent________));
                 orderTracking.Status = OrderStatus._______Sent________;
                 if (order.DeliveryDate != null)
                 {
-                    orderTracking.TrackList.Add((order.DeliveryDate, OrderStatus.DeliveredToCustomer));
+                    orderTracking.TrackList?.Add((order.DeliveryDate, OrderStatus.DeliveredToCustomer));
                     orderTracking.Status = OrderStatus.DeliveredToCustomer;
                 }
             }

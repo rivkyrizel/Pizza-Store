@@ -22,7 +22,7 @@ namespace PL
     /// </summary>
     public partial class MainWindow : Window
     {
-        IBl bl;
+        IBl? bl;
         public MainWindow()
         {
             InitializeComponent();
@@ -32,7 +32,7 @@ namespace PL
         private void displayProductListWindow_Click(object sender, RoutedEventArgs e)
         {
            
-            new ProductListWindow(bl).Show();
+            new ProductListWindow(bl??throw new PlNullObjectException()).Show();
             Close();
         }
     }

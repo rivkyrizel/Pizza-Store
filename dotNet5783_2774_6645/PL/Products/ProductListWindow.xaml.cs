@@ -50,7 +50,7 @@ namespace PL.BoEntities
 
         private void ProductsListview_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            new ProductWindow(bl, false, ((BO.ProductForList)ProductsListview.SelectedItems[0]).ID).Show();
+            new ProductWindow(bl, false, ((BO.ProductForList?)ProductsListview.SelectedItems[0])?.ID??throw new PlNullObjectException()).Show();
         }
 
         private void BtnBack_Click(object sender, RoutedEventArgs e)

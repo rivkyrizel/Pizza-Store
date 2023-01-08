@@ -7,13 +7,13 @@ namespace DalTest;
 
 public class Program
 {
-    public static IDal DalList = DalApi.Factory.Get();
+    public static IDal DalList = DalApi.Factory.Get()??throw new nullValueException();
     static void Main()
     {
 
         //using reflection (call static constructor)
         Type staticClassInfo = typeof(Dal.DataSource);
-        var staticClassConstructorInfo = staticClassInfo.TypeInitializer;
+        var staticClassConstructorInfo = staticClassInfo.TypeInitializer ?? throw new nullValueException();
         staticClassConstructorInfo.Invoke(null, null);
 
         int choice = 0;
@@ -48,7 +48,7 @@ public class Program
     }
     private static void CRUDOrder()
     {
-        string s = "0";
+        string? s = "0";
         do
         {
             Console.WriteLine("enter: \n a to add order \n b to display orders by id \n c to display list of orders \n d to update order \n e to erase order from list \n 0 to return main menu");
@@ -76,7 +76,7 @@ public class Program
     }
     private static void CRUDOrderItem()
     {
-        string s = "0";
+        string? s = "0";
         do
         {
             Console.WriteLine("enter: \n a to add order item \n b to display order items by order id \n c to display list of all ordered items \n d to display ordered item by product id and order id \n e to update orders item \n f to erase order item from list \n 0 to return main menu");
@@ -109,7 +109,7 @@ public class Program
     private static void CRUDProduct()
     {
 
-        string s = "0";
+        string? s = "0";
         do
         {
             Console.WriteLine("enter: \n a to add product \n b to display product by id \n c to display list of products \n d to update product \n e to erase product from list \n 0 to return main menu");
@@ -175,11 +175,11 @@ public class Program
 
     private static void displayOrderList()
     {
-        IEnumerable<Order> orderList = DalList.Order.GetList();
+        IEnumerable<Order>? orderList = DalList.Order.GetList();
         Console.WriteLine("|    ID     |   NAME  |  EMAIL   | ADRESS |        ORDER DATE       |        SHIP DATE      |      DELIVERY DATE    |");
         Console.WriteLine("|___________|_________|__________|________|_________________________|_______________________|_______________________|");
         Console.WriteLine("|           |         |          |        |                         |                       |                       |");
-        foreach (Order item in orderList)
+        foreach (Order item in orderList ?? throw new nullValueException())
             Console.WriteLine(item);
 
     }
@@ -241,11 +241,11 @@ public class Program
 
     private static void displayProductList()
     {
-        IEnumerable<Product> productList = DalList.Product.GetList();
+        IEnumerable<Product>? productList = DalList.Product.GetList();
         Console.WriteLine("|    ID    |       NAME       | CATEGORY | PRICE | IN STOCK |");
         Console.WriteLine("|__________|__________________|__________|_______|__________|");
         Console.WriteLine("|          |                  |          |       |          |");
-        foreach (Product item in productList)
+        foreach (Product item in productList ?? throw new nullValueException())
             Console.WriteLine(item);
     }
 
@@ -298,7 +298,7 @@ public class Program
     {
         Console.WriteLine("enter order id:");
         int.TryParse(Console.ReadLine(), out int id);
-        IEnumerable<OrderItem> orderItems = DalList.OrderItem.GetList(o => o.ID == id);
+        IEnumerable<OrderItem> orderItems = DalList.OrderItem.GetList(o => o.ID == id) ?? throw new nullValueException();
         Console.WriteLine("| PRODUCT ID |  ORDER ID  |   PRICE   |  AMOUNT  |");
         Console.WriteLine("|____________|____________|___________|__________|");
         Console.WriteLine("|            |            |           |          |");
@@ -309,7 +309,7 @@ public class Program
 
     private static void displayAllItems()
     {
-        IEnumerable<OrderItem> orderList = DalList.OrderItem.GetList();
+        IEnumerable<OrderItem> orderList = DalList.OrderItem.GetList() ?? throw new nullValueException();
         Console.WriteLine("| PRODUCT ID |  ORDER ID  |   PRICE   |  AMOUNT  |");
         Console.WriteLine("|____________|____________|___________|__________|");
         Console.WriteLine("|            |            |           |          |");

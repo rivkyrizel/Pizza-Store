@@ -44,7 +44,7 @@ public class Program
     private static void CRUDProduct()
     {
 
-        string s = "0";
+        string? s = "0";
         do
         {
             Console.WriteLine("enter: \n a to get product for manager \n b to get product to customer \n c to get product by id to customer  \n d to get product by id to manager  \n e to add product \n f to erase product from list \n g  to update product\n  0 to return main menu");
@@ -82,11 +82,11 @@ public class Program
     /// </summary>
     private static void getProductList()
     {
-        IEnumerable<ProductForList> productList = BL.product.GetProductList();
+        IEnumerable<ProductForList?> productList = BL.product.GetProductList();
         Console.WriteLine("|    ID    |       NAME       | CATEGORY | PRICE |");
         Console.WriteLine("|__________|__________________|__________|_______|");
         Console.WriteLine("|          |                  |          |       |");
-        foreach (ProductForList item in productList)
+        foreach (ProductForList? item in productList)
             Console.WriteLine(item);
     }
 
@@ -95,11 +95,11 @@ public class Program
     /// </summary>
     private static void getProductItem()
     {
-        IEnumerable<ProductItem> productList = BL.product.GetProductItem();
+        IEnumerable<ProductItem?> productList = BL.product.GetProductItem();
         Console.WriteLine("|    ID    |       NAME       | CATEGORY | PRICE |   AMOUNT  |   IN STOCK |");
         Console.WriteLine("|__________|__________________|__________|_______|___________|____________|");
         Console.WriteLine("|          |                  |          |       |           |            |");
-        foreach (ProductItem item in productList)
+        foreach (ProductItem? item in productList)
             Console.WriteLine(item);
     }
 
@@ -241,7 +241,7 @@ public class Program
     /// </summary>
     private static void CRUDOrder()
     {
-        string s = "0";
+        string? s = "0";
         do
         {
             Console.WriteLine("enter: \n a to get order for manager \n b to display orders by id \n c to update shiped date \n d to update dalivery date \n e to update order \n g to order tracking \n 0 to return main menu");
@@ -293,11 +293,11 @@ public class Program
     /// </summary>
     private static void displayOrderList()
     {
-        IEnumerable<OrderForList> orderList = BL.order.OrderList();
+        IEnumerable<OrderForList?> orderList = BL.order.OrderList();
         Console.WriteLine("|    ID     |   NAME  |           STATUS         | AMOUNT |TOTAL PRICE|");
         Console.WriteLine("|___________|_________|__________________________|________|___________|");
         Console.WriteLine("|           |         |                          |        |           |");
-        foreach (OrderForList item in orderList)
+        foreach (OrderForList? item in orderList)
             Console.WriteLine(item);
 
     }
@@ -427,7 +427,7 @@ public class Program
     /// </summary>
     private static void CRUDCart()
     {
-        string s = "0";
+        string? s = "0";
         do
         {
             Console.WriteLine("enter: \n a to add to cart \n b to update amount of item \n c to confirm order \n  0 to return main menu");
@@ -478,11 +478,11 @@ public class Program
         try
         {
             Console.WriteLine("enter name:");
-            string name = Console.ReadLine();
+            string? name = Console.ReadLine();
             Console.WriteLine("enter email:");
-            string email = Console.ReadLine();
+            string? email = Console.ReadLine();
             Console.WriteLine("enter address:");
-            string address = Console.ReadLine();
+            string? address = Console.ReadLine();
             cart.CustomerAddress = address;
             cart.CustomerEmail = email;
             cart.CustomerName = name;

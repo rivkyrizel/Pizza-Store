@@ -14,7 +14,7 @@ public class Program
         staticClassConstructorInfo?.Invoke(null, null);
 
         List<Product> PrdouctList = DataSource.ProductList;
-        List<Order> OrderList = DataSource.OrderList;
+        List<DO.Order> OrderList = DataSource.OrderList;
         List<OrderItem> OrderItemList = DataSource.OrderItemList;
 
         StreamWriter wProduct = new(@"..\..\..\..\..\xml\Product.xml");
@@ -23,7 +23,7 @@ public class Program
         wProduct.Close();
 
         StreamWriter wOrder = new(@"..\..\..\..\..\xml\Order.xml");
-        XmlSerializer serOrder = new(typeof(List<Order>));
+        XmlSerializer serOrder = new(typeof(List<DO.Order>));
         serOrder.Serialize(wOrder, OrderList);
         wOrder.Close();
 

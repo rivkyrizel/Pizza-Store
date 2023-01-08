@@ -13,7 +13,7 @@ public class Order : IOrder
 
     private List<DO.Order> createList()
     {
-        IEnumerable<XElement>? ie = root?.Elements("Order")??throw new Exception("the xml file is empty");
+        IEnumerable<XElement>? ie = root?.Elements("Order")??throw new XMLFileNullExeption();
         object dd = new DO.Order();
         List<DO.Order> list = new();
 
@@ -22,7 +22,7 @@ public class Order : IOrder
             o.Elements().ToList().ForEach(mx => initializeXelement(dd, mx));
             list.Add((DO.Order)dd);
         }
-
+        
         return list;
     }
 

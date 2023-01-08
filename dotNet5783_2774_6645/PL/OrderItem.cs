@@ -4,6 +4,8 @@ using DalApi;
 using DO;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Xml.Serialization;
 
 internal class OrderItem : IOrderItem
@@ -20,7 +22,7 @@ internal class OrderItem : IOrderItem
     {
         XmlSerializer ser = new XmlSerializer(typeof(List<DO.OrderItem>), xRoot());
         StreamReader r = new(@"..\..\..\..\..\xml\OrderItem.xml");
-        List<DO.OrderItem>? lst = (List<DO.OrderItem>?)ser.Deserialize(r);
+        List<DO.OrderItem>? lst = (List<DO.OrderItem>?)ser.Deserialize(r) ?? throw new nullValueException();
         orderItem.ID = lst.Last().ID + 1;
         lst?.Add(orderItem);
         r.Close();
@@ -64,7 +66,7 @@ internal class OrderItem : IOrderItem
     {
         XmlSerializer ser = new XmlSerializer(typeof(List<DO.OrderItem>), xRoot());
         StreamReader readFile = new(@"..\..\..\..\..\xml\OrderItem.xml");
-        List<DO.OrderItem>? lst = (List<DO.OrderItem>?)ser.Deserialize(readFile);
+        List<DO.OrderItem>? lst = (List<DO.OrderItem>?)ser.Deserialize(readFile) ?? throw new nullValueException();
         int idx = lst.FindIndex(pr => pr.ID == o.ID);
         if (idx >= 0) lst[idx] = o;
         else

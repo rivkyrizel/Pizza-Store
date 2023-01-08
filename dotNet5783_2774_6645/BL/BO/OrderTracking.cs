@@ -1,4 +1,6 @@
-﻿namespace BO;
+﻿using BlApi;
+
+namespace BO;
 
 public class OrderTracking
 {
@@ -8,7 +10,8 @@ public class OrderTracking
     public override string ToString()
     {
         string toString = $@"ID: {ID} "+"\n";
-        foreach ((DateTime, OrderStatus) item in TrackList)
+
+        foreach ((DateTime?, OrderStatus?) item in TrackList ?? throw new BlNullValueException())
         {
             toString += item.Item1 + " " + item.Item2 + "\n";
         }
