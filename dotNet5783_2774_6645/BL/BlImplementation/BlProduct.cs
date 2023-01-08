@@ -1,4 +1,5 @@
 ﻿using BlApi;
+using System.Reflection;
 
 namespace BlImplementation;
 
@@ -17,8 +18,17 @@ internal class BlProduct : IProduct
 
     private BO.Product castDOToBO(DO.Product pDO)
     {
+
         BO.Product pBO = BlUtils.cast<BO.Product, DO.Product>(pDO);
         pBO.Category = (BO.eCategory?)pDO.Category;
+        return pBO;
+    }
+    private  BO.Product c(DO.Product p)
+    {
+        BO.Product pBO = BlUtils.cast<BO.Product, DO.Product>(p);
+        Type? t = Type.GetType("DO.Product"); 
+        PropertyInfo ? pr = t?.GetProperty("Category");
+        pr?.SetValue(pBO, (BO.eCategory?)pr.GetValue(pBO, null));
         return pBO;
     }
 
@@ -98,7 +108,7 @@ internal class BlProduct : IProduct
         try
         {
             if (id > 0)
-                return castDOToBO(dal.Product.Get(p => p.ID == id));
+                return c(dal.Product.Get(p => p.ID == id));
 
             throw new BlInvalideData();
         }

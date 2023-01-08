@@ -20,9 +20,26 @@ internal class BlOrder : IOrder
         return doItem;
     }
 
+    private BO.Order castDOtoBO(DO.Order oDO)
+    {
+        BO.Order oBO = BlUtils.cast<BO.Order, DO.Order>(oDO);
+        oBO.TotalPrice = calculateTotalPrice(oDO.ID);
+        oBO.Status = (BO.OrderStatus)findOrderStatus(oDO);
+        return oBO;
+    }
+    private BO.OrderForList castDOtoBOOrderForList(DO.Order oDO)
+    {
+        BO.OrderForList oBO = BlUtils.cast<BO.OrderForList, DO.Order>(oDO);
+        IEnumerable<DO.OrderItem> listOrderItem = Dal.OrderItem.GetList(o => o.OrderID==oDO.ID)??throw new BlNullValueException();
+        oBO.AmountOfItems = listOrderItem.Count();
+        oBO.TotalPrice = calculateTotalPrice(oDO.ID);
+        oBO.Status = (BO.OrderStatus)findOrderStatus(oDO);
+        return oBO;
+    }
+
     private double calculateTotalPrice(int id)
     {
-        IEnumerable<DO.OrderItem> listOrderItem = Dal?.OrderItem.GetList(o => o.OrderID==id)?? throw new BlNullValueException();
+        IEnumerable<DO.OrderItem> listOrderItem = Dal?.OrderItem.GetList(o => o.OrderID == id) ?? throw new BlNullValueException();
         double totalprice = 0;
         foreach (DO.OrderItem item in listOrderItem)
             totalprice += Dal.Product.Get(o => o.ID == item.ProductID).Price * item.Amount;
@@ -36,22 +53,6 @@ internal class BlOrder : IOrder
         return 2;
     }
 
-    private BO.Order castDOtoBO(DO.Order oDO)
-    {
-        BO.Order oBO = BlUtils.cast<BO.Order, DO.Order>(oDO);
-        oBO.TotalPrice = calculateTotalPrice(oDO.ID);
-        oBO.Status = (BO.OrderStatus)findOrderStatus(oDO);
-        return oBO;
-    }
-    private BO.OrderForList castDOtoBOOrderForList(DO.Order oDO)
-    {
-        BO.OrderForList oBO = BlUtils.cast<BO.OrderForList, DO.Order>(oDO);
-        IEnumerable<DO.OrderItem> listOrderItem = Dal.OrderItem.GetList(o => o.OrderID==oDO.ID)??throw new BlNullValueException();
-        oBO.AmountOfItems = listOrderItem.Count();
-        oBO.Status = (BO.OrderStatus)findOrderStatus(oDO);
-        oBO.TotalPrice = calculateTotalPrice(oDO.ID);
-        return oBO;
-    }
 
     /// <summary>
     /// gets list of all orders
