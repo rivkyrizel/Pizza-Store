@@ -1,7 +1,7 @@
-﻿namespace DalApi;
+﻿
 using System.Reflection;
 using static DalApi.DalConfig;
-
+namespace DalApi;
 public static class Factory
 {
     public static IDal? Get()
@@ -11,13 +11,13 @@ public static class Factory
         string dal = s_dalPackages[dalType]
            ?? throw new DalConfigException($"Package for {dalType} is not found in packages list");
 
-        try
+       // try
         {
-            Assembly.Load(dal ?? throw new DalConfigException($"Package {dal} is null"));
+            Assembly.Load("DalXml" ?? throw new DalConfigException($"Package {dal} is null"));
         }
-        catch (Exception)
+        //catch (Exception)
         {
-            throw new DalConfigException($"Failed to load {dal}.dll package");
+          //  throw new DalConfigException($"Failed to load {dal}.dll package");
         }
 
         Type? type = Type.GetType($"Dal.{dal}, {dal}")

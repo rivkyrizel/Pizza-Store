@@ -10,14 +10,12 @@
 		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
 		<UseCommonOutputDirectory>true</UseCommonOutputDirectory>
 		<RootNamespace>Dal</RootNamespace>
-		<BaseOutputPath>$(SolutionDir)\bin\</BaseOutputPath>
 		<OutputPath>$(SolutionDir)\bin\</OutputPath>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
 		<UseCommonOutputDirectory>true</UseCommonOutputDirectory>
 
-		<RootNamespace>Dal</RootNamespace>
-		<BaseOutputPath>$(SolutionDir)\bin\</BaseOutputPath>
+		
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -25,3 +23,4 @@
 	</ItemGroup>
 
 </Project>
+

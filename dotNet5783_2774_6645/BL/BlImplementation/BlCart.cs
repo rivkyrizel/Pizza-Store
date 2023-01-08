@@ -6,7 +6,7 @@ namespace BlImplementation;
 internal class BlCart : ICart
 {
 
-    private DalApi.IDal dal = DalApi.Factory.Get();
+    private DalApi.IDal? dal = DalApi.Factory.Get();
 
     /// <summary>
     /// checks if email is valid
@@ -36,12 +36,12 @@ internal class BlCart : ICart
     {
         try
         {
-            DO.Product p = dal.Product.Get(p=>p.ID == productId);
+            DO.Product p = dal?.Product.Get(p=>p.ID == productId) ?? throw new Exception();
             if (p.Amount > 1)
             {
                 if (cart.Items != null)
-                    foreach (BO.OrderItem item in cart.Items)
-                        if (item.ProductID == productId)
+                    foreach (BO.OrderItem? item in cart.Items)
+                        if (item?.ProductID == productId)
                         {
                             item.Amount += 1;
                             item.TotalPrice += p.Price;
@@ -87,26 +87,26 @@ internal class BlCart : ICart
     {
         try
         {
-            foreach (BO.OrderItem item in cart.Items)
+            foreach (BO.OrderItem? item in cart?.Items??throw new Exception())
             {
-                DO.Product p = dal.Product.Get(p => p.ID == item.ProductID);
-                if (p.Amount < item.Amount)
+                DO.Product p = dal?.Product.Get(p => p.ID == item?.ProductID) ?? throw new Exception();
+                if (p.Amount < item?.Amount)
                     throw new BlOutOfStockException();
-                if (item.Amount < 0)
+                if (item?.Amount < 0)
                     throw new BlNegativeAmountException();
             }
             if (cart.CustomerName == "" || cart.CustomerEmail == "" || cart.CustomerAddress == "")
                 throw new BlNullValueException();
-            if (!IsValidEmail(cart.CustomerEmail))
+            if (!IsValidEmail(cart?.CustomerEmail??throw new Exception()))
                 throw new BlInvalidEmailException();
 
             DO.Order order = BlUtils.cast<DO.Order, BO.Cart>(cart);
             order.OrderDate = DateTime.Now;
-            int orderId = dal.Order.Add(order);
+            int orderId = dal?.Order.Add(order)?? throw new Exception();
 
-            foreach (BO.OrderItem item in cart.Items)
+            foreach (BO.OrderItem? item in cart?.Items ?? throw new Exception())
             {
-                DO.OrderItem oItem = BlUtils.cast<DO.OrderItem, BO.OrderItem>(item);
+                DO.OrderItem oItem = BlUtils.cast<DO.OrderItem, BO.OrderItem>(item??throw new Exception());
                 oItem.OrderID = orderId;
                 dal.OrderItem.Add(oItem);
                 DO.Product product = dal.Product.Get(p => p.ID == oItem.ProductID);
@@ -132,10 +132,10 @@ internal class BlCart : ICart
     {
         try
         {
-            DO.Product p = dal.Product.Get(p => p.ID == productId);
-            foreach (BO.OrderItem item in cart.Items)
+            DO.Product p = dal?.Product.Get(p => p.ID == productId)??throw new Exception();
+            foreach (BO.OrderItem? item in cart?.Items ?? throw new Exception())
             {
-                if (item.ProductID == productId)
+                if (item?.ProductID == productId)
                 {
                     if (item.Amount > newAmount)
                     {
