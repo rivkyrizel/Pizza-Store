@@ -19,7 +19,7 @@ internal class OrderItem : IOrderItem
     {
         XmlSerializer ser = new XmlSerializer(typeof(List<DO.OrderItem>), xRoot());
         StreamReader r = new(@"..\..\xml\OrderItem.xml");
-        List<DO.OrderItem>? lst = (List<DO.OrderItem>?)ser.Deserialize(r)??throw new Exception();
+        List<DO.OrderItem>? lst = (List<DO.OrderItem>?)ser.Deserialize(r)??throw new Exception("The xml file is empty");
         orderItem.ID = lst.Last().ID + 1;
         lst?.Add(orderItem);
         r.Close();

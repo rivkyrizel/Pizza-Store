@@ -6,7 +6,7 @@ namespace BlImplementation;
 internal class BlCart : ICart
 {
 
-    private DalApi.IDal? dal = DalApi.Factory.Get();
+    private DalApi.IDal dal = DalApi.Factory.Get()??throw new Exception("dal api not found");
 
     /// <summary>
     /// checks if email is valid
@@ -36,7 +36,7 @@ internal class BlCart : ICart
     {
         try
         {
-            DO.Product p = dal?.Product.Get(p=>p.ID == productId) ?? throw new Exception();
+            DO.Product p = dal.Product.Get(p=>p.ID == productId);
             if (p.Amount > 1)
             {
                 if (cart.Items != null)
@@ -83,13 +83,13 @@ internal class BlCart : ICart
     /// <exception cref="BlNullValueException"> user details missing </exception>
     /// <exception cref="BlInvalidEmailException"> invalid email </exception>
     /// <exception cref="BlIdNotFound"> id does not exist </exception>
-    public void confirmOrder(BO.Cart cart)
+    public void confirmOrder(BO.Cart? cart)
     {
         try
         {
-            foreach (BO.OrderItem? item in cart?.Items??throw new Exception())
+            foreach (BO.OrderItem? item in cart?.Items??throw new BlNullValueException())
             {
-                DO.Product p = dal?.Product.Get(p => p.ID == item?.ProductID) ?? throw new Exception();
+                DO.Product p = dal.Product.Get(p => p.ID == item?.ProductID);
                 if (p.Amount < item?.Amount)
                     throw new BlOutOfStockException();
                 if (item?.Amount < 0)
@@ -97,16 +97,16 @@ internal class BlCart : ICart
             }
             if (cart.CustomerName == "" || cart.CustomerEmail == "" || cart.CustomerAddress == "")
                 throw new BlNullValueException();
-            if (!IsValidEmail(cart?.CustomerEmail??throw new Exception()))
+            if (!IsValidEmail(cart?.CustomerEmail??throw new BlNullValueException()))
                 throw new BlInvalidEmailException();
 
             DO.Order order = BlUtils.cast<DO.Order, BO.Cart>(cart);
             order.OrderDate = DateTime.Now;
-            int orderId = dal?.Order.Add(order)?? throw new Exception();
+            int orderId = dal.Order.Add(order) ;
 
-            foreach (BO.OrderItem? item in cart?.Items ?? throw new Exception())
+            foreach (BO.OrderItem? item in cart.Items)
             {
-                DO.OrderItem oItem = BlUtils.cast<DO.OrderItem, BO.OrderItem>(item??throw new Exception());
+                DO.OrderItem oItem = BlUtils.cast<DO.OrderItem, BO.OrderItem>(item??throw new BlNullValueException());
                 oItem.OrderID = orderId;
                 dal.OrderItem.Add(oItem);
                 DO.Product product = dal.Product.Get(p => p.ID == oItem.ProductID);
@@ -128,12 +128,13 @@ internal class BlCart : ICart
     /// <param name="newAmount"> the new amount to update in the order </param>
     /// <returns> updated cart </returns>
     /// <exception cref="BlIdNotFound"> id of product is invalid </exception>
-    public BO.Cart updateAmount(BO.Cart cart, int productId, int newAmount)
+    public BO.Cart updateAmount(BO.Cart? cart, int productId, int newAmount)
     {
         try
         {
-            DO.Product p = dal?.Product.Get(p => p.ID == productId)??throw new Exception();
-            foreach (BO.OrderItem? item in cart?.Items ?? throw new Exception())
+            DO.Product p = dal.Product.Get(p => p.ID == productId);
+            foreach (BO.OrderItem? item in cart?.Items ?? throw new BlNullValueException())
+
             {
                 if (item?.ProductID == productId)
                 {
