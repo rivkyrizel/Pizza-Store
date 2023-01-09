@@ -6,7 +6,7 @@ namespace BlImplementation;
 internal class BlProduct : IProduct
 
 {
-    private DalApi.IDal dal = DalApi.Factory.Get()?? throw new BlNullValueException();
+    private DalApi.IDal dal = DalApi.Factory.Get() ?? throw new BlNullValueException();
 
     private DO.Product castBOToDO(BO.Product pBO)
     {
@@ -38,6 +38,14 @@ internal class BlProduct : IProduct
         pBO.Category = (BO.eCategory?)pDO.Category;
         return pBO;
     }
+    private BO.Product c<T>(T p)
+    {
+        BO.Product pBO = BlUtils.cast<BO.Product, DO.Product>(p);
+        Type? t = Type.GetType("T");
+        PropertyInfo? pr = t?.GetProperty("Category");
+        pr?.SetValue(pBO, (BO.eCategory?)pr.GetValue(pBO, null));
+        return pBO;
+    }
 
     private BO.ProductItem castDOtoBOpItem(DO.Product pDO)
     {
@@ -67,13 +75,11 @@ internal class BlProduct : IProduct
     /// <exception cref="BlIdNotFound">  no product with id found </exception>
     public void DeleteProduct(int id)
     {
-        IEnumerable<DO.OrderItem> orderItems = dal.OrderItem.GetList() ?? throw new BlNullValueException();
-
-        foreach (DO.OrderItem item in orderItems)
-            if (item.ProductID == id)
-                throw new BlProductFoundInOrders();
         try
         {
+            IEnumerable<DO.OrderItem> orderItems = dal.OrderItem.GetList() ?? throw new BlNullValueException();
+
+            if (orderItems.ToList().Exists(i => i.ProductID == id)) throw new BlProductFoundInOrders();
             dal.Product.Delete(id);
         }
         catch (DalApi.ItemNotFound e)
@@ -129,11 +135,8 @@ internal class BlProduct : IProduct
         if (e != null) DOlist = dal.Product.GetList(p => (int?)(object?)p.Category == (int)(object)e) ?? throw new BlNullValueException();
         else DOlist = dal.Product.GetList() ?? throw new BlNullValueException();
 
-        List<BO.ProductForList> BOlist = new();
-        foreach (DO.Product item in DOlist)
-        {
-            BOlist.Add(castDOtoBOpForList(item));
-        }
+        IEnumerable<BO.ProductForList> BOlist = from item in DOlist
+                                                select castDOtoBOpForList(item);
         return BOlist;
     }
 
@@ -144,11 +147,8 @@ internal class BlProduct : IProduct
     public IEnumerable<BO.ProductItem> GetProductItem()
     {
         IEnumerable<DO.Product> DOlist = dal.Product.GetList() ?? throw new BlNullValueException();
-        List<BO.ProductItem> BOlist = new();
-        foreach (DO.Product item in DOlist)
-        {
-            BOlist.Add(castDOtoBOpItem(item));
-        }
+        IEnumerable<BO.ProductItem> BOlist = from item in DOlist
+                                             select castDOtoBOpItem(item);
         return BOlist;
     }
 
@@ -179,17 +179,6 @@ internal class BlProduct : IProduct
             throw new BlIdNotFound(e);
         }
     }
-
-    /*    public IEnumerable<BO.ProductItem> GetListProductByCategory(BO.eCategory e)
-        {
-            IEnumerable<DO.Product> ls = (IEnumerable<DO.Product>)dal.Product.GetList(p => (BO.eCategory)p.Category == e);
-            List<ProductItem> l = new();
-            foreach (DO.Product product in ls)
-            {
-                ProductItem item = castDOtoBOpItem(product);
-                l.Add(item);
-            }
-            return l;
-        }*/
 }
+
 

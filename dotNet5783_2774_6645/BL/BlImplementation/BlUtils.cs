@@ -10,11 +10,11 @@ internal static class BlUtils
         object s = new S();
         foreach (PropertyInfo prop in t?.GetType().GetProperties() ?? throw new BlNoPropertiesInObject())
         {
-            PropertyInfo type = s?.GetType().GetProperty(prop.Name) ?? throw new BlNoPropertiesInObject();
+            PropertyInfo? type = s?.GetType().GetProperty(prop.Name);
             if (type == null || type.Name == "Category")
                 continue;
             var value = t?.GetType()?.GetProperty(prop.Name)?.GetValue(t, null) ?? throw new BlNoPropertiesInObject();
-
+            type.SetValue(s, value);
         }
         return (S)s;
     }

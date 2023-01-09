@@ -6,7 +6,7 @@ namespace BlImplementation;
 
 internal class BlOrder : IOrder
 {
-    private DalApi.IDal Dal = DalApi.Factory.Get()??throw new BlNullValueException();
+    private DalApi.IDal Dal = DalApi.Factory.Get() ?? throw new BlNullValueException();
 
     /// <summary>
     ///  converts from BO object to DO object
@@ -40,9 +40,8 @@ internal class BlOrder : IOrder
     private double calculateTotalPrice(int id)
     {
         IEnumerable<DO.OrderItem> listOrderItem = Dal?.OrderItem.GetList(o => o.OrderID == id) ?? throw new BlNullValueException();
-        double totalprice = 0;
-        foreach (DO.OrderItem item in listOrderItem)
-            totalprice += Dal.Product.Get(o => o.ID == item.ProductID).Price * item.Amount;
+        var totalprice = (from product in listOrderItem
+                          select product.Price * product.Amount).Sum();
         return totalprice;
     }
 
@@ -53,6 +52,22 @@ internal class BlOrder : IOrder
         return 2;
     }
 
+    private BO.Order castDOtoBO(DO.Order oDO)
+    {
+        BO.Order oBO = BlUtils.cast<BO.Order, DO.Order>(oDO);
+        oBO.TotalPrice = calculateTotalPrice(oDO.ID);
+        oBO.Status = (BO.OrderStatus)findOrderStatus(oDO);
+        return oBO;
+    }
+    private BO.OrderForList castDOtoBOOrderForList(DO.Order oDO)
+    {
+        BO.OrderForList oBO = BlUtils.cast<BO.OrderForList, DO.Order>(oDO);
+        IEnumerable<DO.OrderItem> listOrderItem = Dal.OrderItem.GetList(o => o.OrderID == oDO.ID) ?? throw new BlNullValueException();
+        oBO.AmountOfItems = listOrderItem.Count();
+        oBO.Status = (BO.OrderStatus)findOrderStatus(oDO);
+        oBO.TotalPrice = calculateTotalPrice(oDO.ID);
+        return oBO;
+    }
 
     /// <summary>
     /// gets list of all orders
@@ -61,12 +76,9 @@ internal class BlOrder : IOrder
     public IEnumerable<BO.OrderForList?> OrderList()
     {
         IEnumerable<DO.Order> DOlist = Dal.Order.GetList() ?? throw new BlNullValueException();
-        List<BO.OrderForList> BOlist = new();
-        foreach (DO.Order item in DOlist)
-        {
-            BOlist.Add(castDOtoBOOrderForList(item));
-        }
-        return BOlist;
+        IEnumerable<BO.OrderForList> BoList = from item in DOlist
+                                             select castDOtoBOOrderForList(item);
+        return BoList;
     }
 
     /// <summary>
@@ -142,7 +154,7 @@ internal class BlOrder : IOrder
                 IEnumerable<DO.OrderItem> oList = Dal.OrderItem.GetList(o => o.OrderID == updateOrder.ID) ?? throw new BlNullValueException();
                 foreach (BO.OrderItem? item in updateOrder.Items ?? throw new BlNullValueException())
                 {
-           
+
                     DO.Product p = Dal.Product.Get(o => o.ID == item?.ProductID);
                     item.Name = p.Name;
                     item.Price = p.Price;
@@ -175,11 +187,8 @@ internal class BlOrder : IOrder
 
                     }
                 }
-                IEnumerable<DO.OrderItem> oUpdateList = Dal.OrderItem.GetList(o => o.OrderID==updateOrder.ID) ?? throw new BlNullValueException();
-                foreach (DO.OrderItem item in oUpdateList)
-                {
-                    totalPrice += Dal.Product.Get(o => o.ID == item.ProductID).Price * item.Amount;
-                }
+                IEnumerable<DO.OrderItem> oUpdateList = Dal.OrderItem.GetList(o => o.OrderID == updateOrder.ID) ?? throw new BlNullValueException();
+                totalPrice = calculateTotalPrice(updateOrder.ID);
                 order.TotalPrice = totalPrice;
                 Dal.Order.Update(BlUtils.cast<DO.Order, BO.Order>(order));
             }
