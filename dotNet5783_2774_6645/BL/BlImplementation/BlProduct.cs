@@ -1,4 +1,5 @@
 ﻿using BlApi;
+using System.Reflection;
 
 namespace BlImplementation;
 
@@ -26,6 +27,14 @@ internal class BlProduct : IProduct
     {
         BO.ProductForList pBO = BlUtils.cast<BO.ProductForList, DO.Product>(pDO);
         pBO.Category = (BO.eCategory?)pDO.Category;
+        return pBO;
+    }
+    private BO.Product c<T>(T p)
+    {
+        BO.Product pBO = BlUtils.cast<BO.Product, DO.Product>(p);
+        Type? t = Type.GetType("T");
+        PropertyInfo? pr = t?.GetProperty("Category");
+        pr?.SetValue(pBO, (BO.eCategory?)pr.GetValue(pBO, null));
         return pBO;
     }
 
@@ -60,15 +69,8 @@ internal class BlProduct : IProduct
         try
         {
             IEnumerable<DO.OrderItem> orderItems = dal.OrderItem.GetList() ?? throw new BlNullValueException();
-            /*    var a = from item in orderItems
-                        where item.ProductID == id
-                        select throw new BlProductFoundInOrders();*/
+
             if (orderItems.ToList().Exists(i => i.ProductID == id)) throw new BlProductFoundInOrders();
-            //foreach (DO.OrderItem item in orderItems)
-            //    if (item.ProductID == id)
-            //        throw new BlProductFoundInOrders();
-
-
             dal.Product.Delete(id);
         }
         catch (DalApi.ItemNotFound e)
@@ -103,7 +105,7 @@ internal class BlProduct : IProduct
         try
         {
             if (id > 0)
-                return castDOToBO(dal.Product.Get(p => p.ID == id));
+                return c(dal.Product.Get(p => p.ID == id));
 
             throw new BlInvalideData();
         }
