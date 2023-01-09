@@ -16,44 +16,49 @@ internal class BlProduct : IProduct
         return pDO;
     }
 
-    private BO.Product castDOToBO(DO.Product pDO)
-    {
+    /*   private BO.Product castDOToBO(DO.Product pDO)
+       {
 
-        BO.Product pBO = BlUtils.cast<BO.Product, DO.Product>(pDO);
-        pBO.Category = (BO.eCategory?)pDO.Category;
-        return pBO;
-    }
-    private  BO.Product c(DO.Product p)
+           BO.Product pBO = BlUtils.cast<BO.Product, DO.Product>(pDO);
+           pBO.Category = (BO.eCategory?)pDO.Category;
+           return pBO;
+       }*/
+    private S castProduct<S, T>(T t) where S : new()
     {
-        BO.Product pBO = BlUtils.cast<BO.Product, DO.Product>(p);
-        Type? t = Type.GetType("DO.Product"); 
-        PropertyInfo ? pr = t?.GetProperty("Category");
-        pr?.SetValue(pBO, (BO.eCategory?)pr.GetValue(pBO, null));
-        return pBO;
-    }
-
-    private BO.ProductForList castDOtoBOpForList(DO.Product pDO)
-    {
-        BO.ProductForList pBO = BlUtils.cast<BO.ProductForList, DO.Product>(pDO);
-        pBO.Category = (BO.eCategory?)pDO.Category;
-        return pBO;
-    }
-    private BO.Product c<T>(T p)
-    {
-        BO.Product pBO = BlUtils.cast<BO.Product, DO.Product>(p);
-        Type? t = Type.GetType("T");
-        PropertyInfo? pr = t?.GetProperty("Category");
-        pr?.SetValue(pBO, (BO.eCategory?)pr.GetValue(pBO, null));
-        return pBO;
+        S s = BlUtils.cast<S, T>(t);
+        var value = t?.GetType().GetProperty("Category")?.GetValue(t, null);
+        s?.GetType().GetProperty("Category")?.SetValue(s, (BO.eCategory?)(int)value);
+        switch (s?.GetType().Name)
+        {
+            case "Product":
+                var val1 = t?.GetType()?.GetProperty("Amount")?.GetValue(t, null);
+                s?.GetType().GetProperty("InStock")?.SetValue(s, val1);
+                break;
+            case "ProductItem":
+                var val2 = t?.GetType()?.GetProperty("Amount")?.GetValue(t, null);
+                s?.GetType().GetProperty("InStock")?.SetValue(s, ((int)val2 > 0) ? true : false);
+                break;
+            default:
+                break;
+        }
+        return s;
     }
 
-    private BO.ProductItem castDOtoBOpItem(DO.Product pDO)
+    //private BO.ProductForList castDOtoBOpForList(DO.Product pDO)
+    //{
+    //    BO.ProductForList pBO = BlUtils.cast<BO.ProductForList, DO.Product>(pDO);
+    //    pBO.Category = (BO.eCategory?)pDO.Category;
+    //    return pBO;
+    //}
+
+
+/*    private BO.ProductItem castDOtoBOpItem(DO.Product pDO)
     {
         BO.ProductItem pBO = BlUtils.cast<BO.ProductItem, DO.Product>(pDO);
         pBO.Category = (BO.eCategory?)pDO.Category;
         pBO.InStock = Convert.ToBoolean(pDO.Amount);
         return pBO;
-    }
+    }*/
 
     /// <summary>
     /// Adds new product
@@ -114,7 +119,7 @@ internal class BlProduct : IProduct
         try
         {
             if (id > 0)
-                return c(dal.Product.Get(p => p.ID == id));
+                return castProduct<BO.Product, DO.Product>(dal.Product.Get(p => p.ID == id));
 
             throw new BlInvalideData();
         }
@@ -136,7 +141,7 @@ internal class BlProduct : IProduct
         else DOlist = dal.Product.GetList() ?? throw new BlNullValueException();
 
         IEnumerable<BO.ProductForList> BOlist = from item in DOlist
-                                                select castDOtoBOpForList(item);
+                                                select castProduct<BO.ProductForList, DO.Product>(item);
         return BOlist;
     }
 
@@ -148,7 +153,7 @@ internal class BlProduct : IProduct
     {
         IEnumerable<DO.Product> DOlist = dal.Product.GetList() ?? throw new BlNullValueException();
         IEnumerable<BO.ProductItem> BOlist = from item in DOlist
-                                             select castDOtoBOpItem(item);
+                                             select castProduct<BO.ProductItem, DO.Product>(item);
         return BOlist;
     }
 

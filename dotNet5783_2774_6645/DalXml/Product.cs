@@ -21,7 +21,7 @@ internal class Product : IProduct
         XmlSerializer ser = new XmlSerializer(typeof(List<DO.Product>), xRoot());
         StreamReader r = new(productSrc);
         List<DO.Product>? lst = (List<DO.Product>?)ser.Deserialize(r);
-        product.ID= lst?.Last().ID+1??throw new XMLFileNullExeption();
+        product.ID = lst?.Last().ID + 1 ?? throw new XMLFileNullExeption();
         lst?.Add(product);
         r.Close();
         StreamWriter w = new(productSrc);
@@ -64,7 +64,7 @@ internal class Product : IProduct
     {
         XmlSerializer ser = new XmlSerializer(typeof(List<DO.Product>), xRoot());
         StreamReader readFile = new(productSrc);
-        List<DO.Product>? lst = (List<DO.Product>?)ser.Deserialize(readFile)?? throw new XMLFileNullExeption();
+        List<DO.Product>? lst = (List<DO.Product>?)ser.Deserialize(readFile) ?? throw new XMLFileNullExeption();
         int idx = lst.FindIndex(pr => pr.ID == p.ID);
         if (idx >= 0) lst[idx] = p;
         else

@@ -17,13 +17,8 @@ internal class BlCart : ICart
     {
         Regex regex = new Regex(@"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$");
         return regex.IsMatch(email);
-
     }
 
-    private void btnValidate_Click(object sender, EventArgs e)
-    {
-       
-    }
     /// <summary>
     ///  adds new item to cart
     /// </summary>
@@ -87,15 +82,14 @@ internal class BlCart : ICart
     {
         try
         {
-            foreach (BO.OrderItem? item in cart?.Items??throw new BlNullValueException())
+
+            cart?.Items?.ToList().ForEach(i =>
             {
-                DO.Product p = dal.Product.Get(p => p.ID == item?.ProductID);
-                if (p.Amount < item?.Amount)
-                    throw new BlOutOfStockException();
-                if (item?.Amount < 0)
-                    throw new BlNegativeAmountException();
-            }
-            if (cart.CustomerName == "" || cart.CustomerEmail == "" || cart.CustomerAddress == "")
+                if (dal.Product.Get(p => p.ID == i?.ProductID).Amount < i?.Amount) throw new BlOutOfStockException();
+                else if (i?.Amount < 0) throw new BlNegativeAmountException();
+            });
+
+            if (cart?.CustomerName == "" || cart?.CustomerEmail == "" || cart?.CustomerAddress == "")
                 throw new BlNullValueException();
             if (!IsValidEmail(cart?.CustomerEmail??throw new BlNullValueException()))
                 throw new BlInvalidEmailException();
@@ -104,7 +98,7 @@ internal class BlCart : ICart
             order.OrderDate = DateTime.Now;
             int orderId = dal.Order.Add(order) ;
 
-            foreach (BO.OrderItem? item in cart.Items)
+            foreach (BO.OrderItem? item in cart.Items??throw new BlNullValueException())
             {
                 DO.OrderItem oItem = BlUtils.cast<DO.OrderItem, BO.OrderItem>(item??throw new BlNullValueException());
                 oItem.OrderID = orderId;

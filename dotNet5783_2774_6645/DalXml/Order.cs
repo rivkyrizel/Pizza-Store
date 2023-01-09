@@ -1,21 +1,19 @@
 ﻿namespace Dal;
 using DalApi;
-using DO;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Xml.Linq;
-using System.Xml.Serialization;
 
 public class Order : IOrder
 {
     static readonly string orderSrc = @"..\..\xml\Order.xml";
     static readonly string configSrc = @"..\..\xml\config.xml";
 
-    XElement? root = XDocument.Load(orderSrc).Root;
 
     private List<DO.Order> createList()
     {
+        XElement? root = XDocument.Load(orderSrc).Root;
         IEnumerable<XElement>? rootXelement = root?.Elements("Order") ?? throw new XMLFileNullExeption();
         object orderObj = new DO.Order();
         List<DO.Order> list = new();
@@ -49,6 +47,7 @@ public class Order : IOrder
     }
     public int Add(DO.Order order)
     {
+        XElement? root = XDocument.Load(orderSrc).Root;
         XElement? rootConfig = XDocument.Load(configSrc).Root;
         XElement? id = rootConfig?.Element("orderID");
         order.ID = Convert.ToInt32(id?.Value) + 1;
@@ -82,6 +81,7 @@ public class Order : IOrder
 
     public void Update(DO.Order order)
     {
+        XElement? root = XDocument.Load(orderSrc).Root;
         XElement xmlOrder = convertToXelement(order);
         root?.Elements("Order")?.Where(o => int.Parse(o.Element("ID")?.Value.ToString() ?? "0") == order.ID)?.FirstOrDefault()?.ReplaceWith(xmlOrder);
         root?.Save(orderSrc);
