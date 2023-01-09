@@ -16,18 +16,12 @@ internal class BlProduct : IProduct
         return pDO;
     }
 
-    /*   private BO.Product castDOToBO(DO.Product pDO)
-       {
-
-           BO.Product pBO = BlUtils.cast<BO.Product, DO.Product>(pDO);
-           pBO.Category = (BO.eCategory?)pDO.Category;
-           return pBO;
-       }*/
     private S castProduct<S, T>(T t) where S : new()
     {
         S s = BlUtils.cast<S, T>(t);
-        var value = t?.GetType().GetProperty("Category")?.GetValue(t, null);
+        var value = t?.GetType().GetProperty("Category")?.GetValue(t, null) ?? throw new BlNullValueException();
         s?.GetType().GetProperty("Category")?.SetValue(s, (BO.eCategory?)(int)value);
+
         switch (s?.GetType().Name)
         {
             case "Product":
@@ -35,7 +29,7 @@ internal class BlProduct : IProduct
                 s?.GetType().GetProperty("InStock")?.SetValue(s, val1);
                 break;
             case "ProductItem":
-                var val2 = t?.GetType()?.GetProperty("Amount")?.GetValue(t, null);
+                var val2 = t?.GetType()?.GetProperty("Amount")?.GetValue(t, null) ?? throw new BlNullValueException();
                 s?.GetType().GetProperty("InStock")?.SetValue(s, ((int)val2 > 0) ? true : false);
                 break;
             default:
@@ -44,21 +38,6 @@ internal class BlProduct : IProduct
         return s;
     }
 
-    //private BO.ProductForList castDOtoBOpForList(DO.Product pDO)
-    //{
-    //    BO.ProductForList pBO = BlUtils.cast<BO.ProductForList, DO.Product>(pDO);
-    //    pBO.Category = (BO.eCategory?)pDO.Category;
-    //    return pBO;
-    //}
-
-
-/*    private BO.ProductItem castDOtoBOpItem(DO.Product pDO)
-    {
-        BO.ProductItem pBO = BlUtils.cast<BO.ProductItem, DO.Product>(pDO);
-        pBO.Category = (BO.eCategory?)pDO.Category;
-        pBO.InStock = Convert.ToBoolean(pDO.Amount);
-        return pBO;
-    }*/
 
     /// <summary>
     /// Adds new product
@@ -137,7 +116,7 @@ internal class BlProduct : IProduct
     public IEnumerable<BO.ProductForList> GetProductList(BO.eCategory? e = null)
     {
         IEnumerable<DO.Product> DOlist;
-        if (e != null) DOlist = dal.Product.GetList(p => (int?)(object?)p.Category == (int)(object)e) ?? throw new BlNullValueException();
+        if (e != null) DOlist = dal.Product.GetList(p => (int)(object)p.Category == (int)(object)e) ?? throw new BlNullValueException();
         else DOlist = dal.Product.GetList() ?? throw new BlNullValueException();
 
         IEnumerable<BO.ProductForList> BOlist = from item in DOlist

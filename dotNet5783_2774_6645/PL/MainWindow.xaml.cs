@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using PL.BoEntities;
+using PL.Products;
 using BlApi;
 
 namespace PL
@@ -32,7 +32,7 @@ namespace PL
         private void displayProductListWindow_Click(object sender, RoutedEventArgs e)
         {
            
-            new ProductListWindow(bl??throw new PlNullObjectException()).Show();
+            new AdminWindow(bl??throw new PlNullObjectException()).Show();
             Close();
         }
     }

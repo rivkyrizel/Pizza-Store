@@ -20,6 +20,15 @@ internal class BlOrder : IOrder
         return doItem;
     }
 
+    private BO.OrderItem castDoOitemtoBoOitem(DO.OrderItem doItem)
+    {
+        BO.OrderItem boItem = BlUtils.cast< BO.OrderItem,DO.OrderItem > (doItem);
+        DO.Product p = Dal.Product.Get(p => p.ID == boItem.ProductID);
+        boItem.Name= p.Name;
+        boItem.TotalPrice = boItem.Price * boItem.Amount;
+        return boItem;
+    }
+
     private BO.Order castDOtoBO(DO.Order oDO)
     {
         BO.Order oBO = BlUtils.cast<BO.Order, DO.Order>(oDO);
@@ -78,7 +87,12 @@ internal class BlOrder : IOrder
         {
             if (orderId < 0) throw new BlInvalideData();
             DO.Order o = Dal.Order.Get(o => o.ID == orderId);
-            return castDOtoBO(o);
+            BO.Order b= castDOtoBO(o);
+            IEnumerable<DO.OrderItem> n = Dal.OrderItem.GetList(o=>o.OrderID==b.ID)??throw new BlNullValueException();
+            IEnumerable<BO.OrderItem> a = from item in n
+                    select castDoOitemtoBoOitem(item);
+            b.Items= a;
+            return b;
         }
         catch (DalApi.ItemNotFound e)
         {

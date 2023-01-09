@@ -127,27 +127,29 @@ internal class BlCart : ICart
         try
         {
             DO.Product p = dal.Product.Get(p => p.ID == productId);
+
+            var v=from item in cart?.Items
+                  where item?.ProductID == productId
+                  select item;
+        /*    var b = from n in v
+                    where n.Amount > newAmount
+                    let pr = n.TotalPrice - p.Price * (n.Amount - newAmount)
+                    select new
+                    {
+                        TotalPrice = pr,
+                    }
+*/
+
             foreach (BO.OrderItem? item in cart?.Items ?? throw new BlNullValueException())
 
             {
-                if (item?.ProductID == productId)
+                if (item?.ProductID == productId&& p.Amount + item.Amount >= newAmount)
                 {
-                    if (item.Amount > newAmount)
-                    {
-                        item.TotalPrice -= p.Price * (item.Amount - newAmount);
-                        item.Amount = newAmount;
-                    }
-                    else if (item.Amount < newAmount)
-                    {
-                        if (p.Amount >= newAmount)
-                        {
                             item.Amount = newAmount;
-                            item.TotalPrice += p.Price * newAmount;
-                        }
-                    }
-                    else if (newAmount == 0)
+                            item.TotalPrice = p.Price * newAmount;
+                    if (newAmount == 0)
                     {
-                        cart.Items = cart.Items.Where(i => i != item);
+                        cart.Items.ToList().Remove(item);
                         break;
                     }
                 }

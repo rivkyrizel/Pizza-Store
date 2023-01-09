@@ -14,125 +14,124 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace PL.BoEntities
+namespace PL.Products;
+
+/// <summary>
+/// Interaction logic for ProductWindow.xaml
+/// </summary>
+public partial class ProductWindow : Window
 {
-    /// <summary>
-    /// Interaction logic for ProductWindow.xaml
-    /// </summary>
-    public partial class ProductWindow : Window
+    IBl bl;
+
+    int productID;
+
+    public ProductWindow(IBl Bl, bool add = true, int id = 0)
     {
-        IBl bl;
+        InitializeComponent();
+        bl = Bl;
+        SelectCategory.ItemsSource = Enum.GetValues(typeof(BO.eCategory));
+        productID = id;
 
-        int productID;
+        if (add) createAddWindow();
+        else createUpdateWindow();
 
-        public ProductWindow(IBl Bl, bool add = true, int id = 0)
+    }
+
+    private void createAddWindow()
+    {
+        BtnDelete.Visibility = Visibility.Hidden;
+        BtnUpdate.Visibility = Visibility.Hidden;
+    }
+
+    private void createUpdateWindow()
+    {
+        BO.Product p = bl.product.GetProductForManager(productID);
+        TxtAmount.Text = p.InStock.ToString();
+        TxtName.Text = p.Name;
+        TxtPrice.Text = p.Price.ToString();
+        SelectCategory.Text = p.Category.ToString();
+        BtnAdd.Visibility = Visibility.Hidden;
+    }
+
+    private void Button_Click(object sender, RoutedEventArgs e)
+    {
+        try
         {
-            InitializeComponent();
-            bl = Bl;
-            SelectCategory.ItemsSource = Enum.GetValues(typeof(BO.eCategory));
-            productID = id;
-
-            if (add) createAddWindow();
-            else createUpdateWindow();
-
+            BO.Product p = new();
+            p.Name = TxtName.Text;
+            int.TryParse(TxtAmount.Text, out int a);
+            p.InStock = a;
+            int.TryParse(TxtPrice.Text, out int b);
+            p.Price = b;
+            object s = SelectCategory.SelectedItem;
+            if (s == null) p.Category = null;
+            else p.Category = (BO.eCategory)s;
+            bl.product.AddProduct(p);
+            Close();
         }
-
-        private void createAddWindow()
+        catch (BlIdNotFound ex)
         {
-            BtnDelete.Visibility = Visibility.Hidden;
-            BtnUpdate.Visibility = Visibility.Hidden;
+            MessageBox.Show(ex.Message + ex.InnerException);
         }
-
-        private void createUpdateWindow()
+        catch (BlNullValueException ex)
         {
-            BO.Product p = bl.product.GetProductForManager(productID);
-            TxtAmount.Text = p.InStock.ToString();
-            TxtName.Text = p.Name;
-            TxtPrice.Text = p.Price.ToString();
-            SelectCategory.Text = p.Category.ToString();
-            BtnAdd.Visibility = Visibility.Hidden;
+            MessageBox.Show(ex.Message);
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+        catch (BlInvalideData ex)
         {
-            try
-            {
-                BO.Product p = new();
-                p.Name = TxtName.Text;
-                int.TryParse(TxtAmount.Text, out int a);
-                p.InStock = a;
-                int.TryParse(TxtPrice.Text, out int b);
-                p.Price = b;
-                object s = SelectCategory.SelectedItem;
-                if (s == null) p.Category = null;
-                else p.Category = (BO.eCategory)s;
-                bl.product.AddProduct(p);
-                Close();
-            }
-            catch (BlIdNotFound ex)
-            {
-                MessageBox.Show(ex.Message + ex.InnerException);
-            }
-            catch (BlNullValueException ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            catch (BlInvalideData ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            MessageBox.Show(ex.Message);
         }
+    }
 
-        private void BtnUpdate_Click(object sender, RoutedEventArgs e)
+    private void BtnUpdate_Click(object sender, RoutedEventArgs e)
+    {
+        try
         {
-            try
-            {
-                BO.Product p = new();
-                p.Name = TxtName.Text;
-                int.TryParse(TxtAmount.Text, out int a);
-                p.InStock = a;
-                int.TryParse(TxtPrice.Text, out int b);
-                p.Price = b;
-                p.ID = productID;
-                object s = SelectCategory.SelectedItem;
-                p.Category = (BO.eCategory)s;
-                bl.product.UpdateProduct(p);
-                Close();
-            }
-            catch (BlIdNotFound ex)
-            {
-                MessageBox.Show(ex.Message + ex.InnerException);
-            }
-            catch (BlNullValueException ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            catch (BlInvalideData ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            BO.Product p = new();
+            p.Name = TxtName.Text;
+            int.TryParse(TxtAmount.Text, out int a);
+            p.InStock = a;
+            int.TryParse(TxtPrice.Text, out int b);
+            p.Price = b;
+            p.ID = productID;
+            object s = SelectCategory.SelectedItem;
+            p.Category = (BO.eCategory)s;
+            bl.product.UpdateProduct(p);
+            Close();
         }
+        catch (BlIdNotFound ex)
+        {
+            MessageBox.Show(ex.Message + ex.InnerException);
+        }
+        catch (BlNullValueException ex)
+        {
+            MessageBox.Show(ex.Message);
+        }
+        catch (BlInvalideData ex)
+        {
+            MessageBox.Show(ex.Message);
+        }
+    }
 
-        private void BtnDelete_Click(object sender, RoutedEventArgs e)
+    private void BtnDelete_Click(object sender, RoutedEventArgs e)
+    {
+        try
         {
-            try
-            {
-                bl.product.DeleteProduct(productID);
-                Close();
-            }
-            catch (BlProductFoundInOrders ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            catch (BlIdNotFound ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            bl.product.DeleteProduct(productID);
+            Close();
         }
+        catch (BlProductFoundInOrders ex)
+        {
+            MessageBox.Show(ex.Message);
+        }
+        catch (BlIdNotFound ex)
+        {
+            MessageBox.Show(ex.Message);
+        }
+    }
 
-        private void BtnReturn_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
+    private void BtnReturn_Click(object sender, RoutedEventArgs e)
+    {
+        this.Close();
     }
 }

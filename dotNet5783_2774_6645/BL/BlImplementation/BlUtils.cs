@@ -13,7 +13,7 @@ internal static class BlUtils
             PropertyInfo? type = s?.GetType().GetProperty(prop.Name);
             if (type == null || type.Name == "Category")
                 continue;
-            var value = t?.GetType()?.GetProperty(prop.Name)?.GetValue(t, null) ?? throw new BlNoPropertiesInObject();
+            var value = t?.GetType()?.GetProperty(prop.Name)?.GetValue(t, null);
             type.SetValue(s, value);
         }
         return (S)s;
