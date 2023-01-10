@@ -133,31 +133,7 @@ internal class BlCart : ICart
                 cart?.Items?.ToList().Add(v.First());
             }
 
-
-            /*    var b = from n in v
-                        where n.Amount > newAmount
-                        let pr = n.TotalPrice - p.Price * (n.Amount - newAmount)
-                        select new
-                        {
-                            TotalPrice = pr,
-                        }
-    */
-            /*
-                        foreach (BO.OrderItem? item in cart?.Items ?? throw new BlNullValueException())
-
-                        {
-                            if (item?.ProductID == productId && p.Amount + item.Amount >= newAmount)
-                            {
-                                item.Amount = newAmount;
-                                item.TotalPrice = p.Price * newAmount;
-                                if (newAmount == 0)
-                                {
-                                    cart.Items.ToList().Remove(item);
-                                    break;
-                                }
-                            }
-                        }*/
-            return cart;
+            return cart ?? throw new BlNullValueException();
         }
 
         catch (DalApi.ItemNotFound e)

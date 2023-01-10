@@ -43,6 +43,8 @@ public class Order : IOrder
             property?.SetValue(orderObj, int.Parse(xmlElement.Value));
         else if (xmlElement.Value != "")
             property?.SetValue(orderObj, DateTime.Parse(xmlElement.Value));
+        else
+            property?.SetValue(orderObj, null);
 
     }
     public int Add(DO.Order order)
