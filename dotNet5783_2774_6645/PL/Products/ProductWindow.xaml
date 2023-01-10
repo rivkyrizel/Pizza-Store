@@ -8,12 +8,12 @@
         Title="ProductWindow" Height="450" Width="800">
     <Grid>
         <Label Name="LblName" Content="name" FontSize="18" HorizontalAlignment="Left" Height="30" Margin="36,57,0,0" VerticalAlignment="Top" Width="55" Background="White"/>
-        <TextBox Name="TxtName"  HorizontalAlignment="Left" Height="30" Margin="127,57,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="190" />
+        <TextBox Name="TxtName"  HorizontalAlignment="Left" Height="30" Margin="127,57,0,0" TextWrapping="Wrap" Text="{Binding Path=Name}" VerticalAlignment="Top" Width="190" />
         <Label Name="LblPrice" FontSize="18" Content="price" HorizontalAlignment="Left" Height="36" Margin="36,105,0,0" VerticalAlignment="Top" Width="55"/>
-        <TextBox Name="TxtPrice" HorizontalAlignment="Left" Margin="127,105,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="190" Height="31"/>
+        <TextBox Name="TxtPrice" HorizontalAlignment="Left" Margin="127,105,0,0" TextWrapping="Wrap" Text="{Binding Path=Price}" VerticalAlignment="Top" Width="190" Height="31"/>
         <Label Name="LblAmount" FontSize="18" Content="amount" HorizontalAlignment="Left" Height="36" Margin="36,193,0,0" VerticalAlignment="Top" Width="79"/>
-        <TextBox Name="TxtAmount" HorizontalAlignment="Left" Margin="127,0,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="190" Height="30"/>
-        <ComboBox Name="SelectCategory"  HorizontalAlignment="Left" Margin="127,155,0,0" VerticalAlignment="Top" Width="120"/>
+        <TextBox Name="TxtAmount" HorizontalAlignment="Left" Margin="127,0,0,0" TextWrapping="Wrap" Text="{Binding Path=InStock}" VerticalAlignment="Center" Width="190" Height="30"/>
+        <ComboBox Name="SelectCategory" Text="{Binding Path=Category}" HorizontalAlignment="Left" Margin="127,155,0,0" VerticalAlignment="Top" Width="120"/>
         <Label Name="LblCategory" FontSize="18"  Content="category" HorizontalAlignment="Left" Margin="36,147,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.44,-0.266"/>
         <Button Name="BtnAdd" Content="Add" HorizontalAlignment="Left" Margin="88,297,0,0" VerticalAlignment="Top" Click="Button_Click" Height="35" Width="72"/>
         <Button Content="Update" Name="BtnUpdate" HorizontalAlignment="Left" Margin="200,297,0,0" VerticalAlignment="Top" Click="BtnUpdate_Click" Height="35" Width="72"/>
@@ -24,5 +24,6 @@
                 <ImageBrush/>
             </Button.Background>
         </Button>
+        <Button Name="addToCartBtn" Content="add to cart" HorizontalAlignment="Left" Height="54" Margin="581,120,0,0" Visibility="Hidden" VerticalAlignment="Top" Width="93"/>
     </Grid>
 </Window>

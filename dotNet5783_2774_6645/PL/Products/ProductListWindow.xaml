@@ -46,7 +46,7 @@
 
                     <GridViewColumn DisplayMemberBinding="{Binding Path=ID}"   Header="ID" Width="100"/>
 
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Name }" Header="Name" Width="100"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Name}" Header="Name" Width="100"/>
 
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Category}" Header="category" Width="100"/>
 

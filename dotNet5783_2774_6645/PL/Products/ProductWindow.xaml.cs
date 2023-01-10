@@ -25,16 +25,29 @@ public partial class ProductWindow : Window
 
     int productID;
 
-    public ProductWindow(IBl Bl, bool add = true, int id = 0)
+    public ProductWindow(IBl Bl, string a, int id = 0)
     {
         InitializeComponent();
         bl = Bl;
         SelectCategory.ItemsSource = Enum.GetValues(typeof(BO.eCategory));
         productID = id;
 
-        if (add) createAddWindow();
-        else createUpdateWindow();
+        if (a == "add") createAddWindow();
+        else if (a == "update") createUpdateWindow();
+        else createShowWindow();
+    }
 
+    private void createShowWindow()
+    {
+        BO.Product p = bl.product.GetProductForManager(productID);
+        DataContext = p;
+        BtnAdd.Visibility = Visibility.Hidden;
+        BtnDelete.Visibility = Visibility.Hidden;
+        BtnUpdate.Visibility = Visibility.Hidden;
+        addToCartBtn.Visibility = Visibility.Visible;
+        TxtAmount.IsReadOnly = true;
+        TxtName.IsReadOnly = true;
+        TxtPrice.IsReadOnly = true;
     }
 
     private void createAddWindow()
@@ -46,10 +59,7 @@ public partial class ProductWindow : Window
     private void createUpdateWindow()
     {
         BO.Product p = bl.product.GetProductForManager(productID);
-        TxtAmount.Text = p.InStock.ToString();
-        TxtName.Text = p.Name;
-        TxtPrice.Text = p.Price.ToString();
-        SelectCategory.Text = p.Category.ToString();
+        DataContext = p;
         BtnAdd.Visibility = Visibility.Hidden;
     }
 

@@ -25,11 +25,11 @@
         <Button Name="updateDliveryBtn" Visibility="Hidden" Content="update delivery date" Margin="161,263,489,130" Click="updateDliveryBtn_Click"/>
         <Button Name="updateShipedBtn" Visibility="Hidden" Content="update Shiped date" Margin="423,263,227,130" Click="updateShipedBtn_Click"/>
         <Label Name="DeliverdLbl" Visibility="Hidden" Content="Order deliverd to customer" FontSize="20" HorizontalAlignment="Left" Margin="251,326,0,0" VerticalAlignment="Top" Height="46" Width="262"/>
-        <ListView x:Name="listViewOrderItems"  Margin="386,57,114,187" Width="320">
+        <ListView x:Name="listViewOrderItems"  Margin="427,12,10,217">
             <ListView.View>
                 <GridView AllowsColumnReorder="true"  >
-                    <GridViewColumn x:Name="gvcProductID" DisplayMemberBinding="{Binding Path=ProductID}" Width="60" Header="Prod ID"/>
-                    <GridViewColumn x:Name="gvcProductName" DisplayMemberBinding="{Binding Path=Name}" Width="60" Header="Prod Name"/>
+                    <GridViewColumn x:Name="gvcProductID" DisplayMemberBinding="{Binding Path=ProductID}" Width="60" Header="ID"/>
+                    <GridViewColumn x:Name="gvcProductName" DisplayMemberBinding="{Binding Path=Name}" Width="80" Header="Name"/>
                     <GridViewColumn x:Name="gvcPrice" DisplayMemberBinding="{Binding Path=Price}" Width="60" Header="Price"/>
                     <GridViewColumn x:Name="gvcAmount" DisplayMemberBinding="{Binding Path=Amount}" Width="60" Header="Amount"/>
                     <GridViewColumn x:Name="gvcTotalPrice" DisplayMemberBinding="{Binding Path=TotalPrice}" Width="60" Header="Total Price"/>

@@ -23,28 +23,39 @@ namespace PL.Products;
 public partial class ProductListWindow : Window
 {
     IBl bl;
-  
-    public ProductListWindow(IBl Bl)
+    bool admin;
+
+
+    public ProductListWindow(IBl Bl, bool Admin=true)
     {
         bl = Bl;
+        admin = Admin;
         InitializeComponent();
-        AttributeSelector.ItemsSource = Enum.GetValues(typeof(BO.eCategory));
+        List<string> list = Enum.GetNames(typeof(BO.eCategory)).ToList();
+        list.Insert(0, "all categories");
+        AttributeSelector.ItemsSource = list;
         ProductsListview.ItemsSource = bl.product.GetProductList();
+        if (!admin)
+            BtnAddProduct.Visibility = Visibility.Hidden;
     }
 
-    private void AttributeSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    private void AttributeSelector_SelectionChanged(object? sender, SelectionChangedEventArgs e)
     {
         object s = AttributeSelector.SelectedItem;
-        ProductsListview.ItemsSource = bl.product.GetProductList((BO.eCategory)s);
+        if (s== "all categories") ProductsListview.ItemsSource = bl.product.GetProductList();
+        else ProductsListview.ItemsSource = bl.product.GetProductList((BO.eCategory)Enum.Parse(typeof(BO.eCategory),s.ToString()));
     }
 
     private void Button_Click(object sender, RoutedEventArgs e)
     {
-        new ProductWindow(bl).Show();
+        new ProductWindow(bl,"add").Show();
     }
     private void ProductsListview_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
-        new ProductWindow(bl, false, ((BO.ProductForList?)ProductsListview.SelectedItems[0])?.ID??throw new PlNullObjectException()).Show();
+        if (admin)
+            new ProductWindow(bl, "update", ((BO.ProductForList?)ProductsListview.SelectedItems[0])?.ID ?? throw new PlNullObjectException()).Show();
+        else
+            new ProductWindow(bl, "show", ((BO.ProductForList?)ProductsListview.SelectedItems[0])?.ID ?? throw new PlNullObjectException()).Show();
     }
 
     private void BtnBack_Click(object sender, RoutedEventArgs e)

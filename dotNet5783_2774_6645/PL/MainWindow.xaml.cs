@@ -35,5 +35,10 @@ namespace PL
             new AdminWindow(bl??throw new PlNullObjectException()).Show();
             Close();
         }
+
+        private void AddOrderBtn_Click(object sender, RoutedEventArgs e)
+        {
+            new ProductListWindow(bl, false).Show();
+        }
     }
 }
