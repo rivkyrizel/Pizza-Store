@@ -7,6 +7,7 @@ public class Program
     public static IBl BL = new Bl();
     public static Cart cart = new();
 
+
     //=========================================== MAIN ===================================================
 
 
@@ -465,6 +466,10 @@ public class Program
         {
             Console.WriteLine(e.Message);
         }
+        catch (BlItemAlreadyInCart e)
+        {
+            Console.WriteLine(e.Message);
+        }
     }
 
     /// <summary>
@@ -526,7 +531,11 @@ public class Program
         {
             Console.WriteLine(e.Message + e.InnerException);
         }
-    }
+        catch (NoEntitiesFound e)
+        {
+            Console.WriteLine(e.Message + e.InnerException);
+        }
 
+    }
 }
 

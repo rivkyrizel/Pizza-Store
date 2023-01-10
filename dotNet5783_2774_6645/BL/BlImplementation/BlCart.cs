@@ -6,7 +6,7 @@ namespace BlImplementation;
 internal class BlCart : ICart
 {
 
-    private DalApi.IDal dal = DalApi.Factory.Get()??throw new Exception("dal api not found");
+    private DalApi.IDal dal = DalApi.Factory.Get() ?? throw new Exception("dal api not found");
 
     /// <summary>
     /// checks if email is valid
@@ -31,33 +31,23 @@ internal class BlCart : ICart
     {
         try
         {
-            DO.Product p = dal.Product.Get(p=>p.ID == productId);
-            if (p.Amount > 1)
+            DO.Product p = dal.Product.Get(p => p.ID == productId);
+            if (p.Amount < 1) throw new BlOutOfStockException();
+
+            if (cart.Items == null)
             {
-                if (cart.Items != null)
-                    foreach (BO.OrderItem? item in cart.Items)
-                        if (item?.ProductID == productId)
-                        {
-                            item.Amount += 1;
-                            item.TotalPrice += p.Price;
-                            return cart;
-                        }
-
-
-                BO.OrderItem oItem = BlUtils.cast<BO.OrderItem, DO.Product>(p);
-                oItem.ProductID = p.ID;
-                oItem.Amount = 1;
-                if (cart.Items != null)
-                    cart.Items = cart.Items.Append(oItem);
-                else
-                {
-                    List<BO.OrderItem> items = new List<BO.OrderItem>();
-                    items.Add(oItem);
-                    cart.Items = items;
-                }
-                return cart;
+                List<BO.OrderItem> items = new List<BO.OrderItem>();
+                cart.Items = items;
             }
-            throw new BlOutOfStockException();
+
+            if (cart.Items.ToList().Exists(i => i?.ProductID == productId)) throw new BlItemAlreadyInCart();
+
+            BO.OrderItem oItem = BlUtils.cast<BO.OrderItem, DO.Product>(p);
+            oItem.ProductID = p.ID;
+            oItem.Amount = 1;
+            oItem.TotalPrice = oItem.Price;
+            cart.Items = cart.Items.Append(oItem);
+            return cart;
 
         }
         catch (DalApi.ItemNotFound e)
@@ -91,16 +81,16 @@ internal class BlCart : ICart
 
             if (cart?.CustomerName == "" || cart?.CustomerEmail == "" || cart?.CustomerAddress == "")
                 throw new BlNullValueException();
-            if (!IsValidEmail(cart?.CustomerEmail??throw new BlNullValueException()))
+            if (!IsValidEmail(cart?.CustomerEmail ?? throw new BlNullValueException()))
                 throw new BlInvalidEmailException();
 
             DO.Order order = BlUtils.cast<DO.Order, BO.Cart>(cart);
             order.OrderDate = DateTime.Now;
-            int orderId = dal.Order.Add(order) ;
+            int orderId = dal.Order.Add(order);
 
-            foreach (BO.OrderItem? item in cart.Items??throw new BlNullValueException())
+            foreach (BO.OrderItem? item in cart.Items ?? throw new BlNullValueException())
             {
-                DO.OrderItem oItem = BlUtils.cast<DO.OrderItem, BO.OrderItem>(item??throw new BlNullValueException());
+                DO.OrderItem oItem = BlUtils.cast<DO.OrderItem, BO.OrderItem>(item ?? throw new BlNullValueException());
                 oItem.OrderID = orderId;
                 dal.OrderItem.Add(oItem);
                 DO.Product product = dal.Product.Get(p => p.ID == oItem.ProductID);
@@ -128,32 +118,45 @@ internal class BlCart : ICart
         {
             DO.Product p = dal.Product.Get(p => p.ID == productId);
 
-            var v=from item in cart?.Items
-                  where item?.ProductID == productId
-                  select item;
-        /*    var b = from n in v
-                    where n.Amount > newAmount
-                    let pr = n.TotalPrice - p.Price * (n.Amount - newAmount)
-                    select new
-                    {
-                        TotalPrice = pr,
-                    }
-*/
+            var v = from item in cart?.Items
+                    where item?.ProductID == productId
+                    select item;
 
-            foreach (BO.OrderItem? item in cart?.Items ?? throw new BlNullValueException())
+            if (v.FirstOrDefault() == null) throw new NoEntitiesFound();
+            if (v.First().Amount + p.Amount < newAmount) throw new BlInvalidAmount();
 
+            cart?.Items?.ToList().Remove(v.FirstOrDefault());
+            if (!newAmount.Equals(0))
             {
-                if (item?.ProductID == productId&& p.Amount + item.Amount >= newAmount)
-                {
-                            item.Amount = newAmount;
-                            item.TotalPrice = p.Price * newAmount;
-                    if (newAmount == 0)
-                    {
-                        cart.Items.ToList().Remove(item);
-                        break;
-                    }
-                }
+                v.First().Amount = newAmount;
+                v.First().TotalPrice = p.Price * newAmount;
+                cart?.Items?.ToList().Add(v.First());
             }
+
+
+            /*    var b = from n in v
+                        where n.Amount > newAmount
+                        let pr = n.TotalPrice - p.Price * (n.Amount - newAmount)
+                        select new
+                        {
+                            TotalPrice = pr,
+                        }
+    */
+            /*
+                        foreach (BO.OrderItem? item in cart?.Items ?? throw new BlNullValueException())
+
+                        {
+                            if (item?.ProductID == productId && p.Amount + item.Amount >= newAmount)
+                            {
+                                item.Amount = newAmount;
+                                item.TotalPrice = p.Price * newAmount;
+                                if (newAmount == 0)
+                                {
+                                    cart.Items.ToList().Remove(item);
+                                    break;
+                                }
+                            }
+                        }*/
             return cart;
         }
 

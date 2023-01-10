@@ -18,10 +18,6 @@ public class BlIdAlreadyExist : Exception
 
 public class NoEntitiesFound : Exception
 {
-    public NoEntitiesFound(string message) : base(message)
-    {
-
-    }
     public override string Message => "No entities found";
 }
 
@@ -81,6 +77,13 @@ public class BlNoPropertiesInObject : Exception
 {
     public override string Message =>
                     "No properties found in object";
+
+}
+
+public class BlItemAlreadyInCart : Exception
+{
+    public override string Message =>
+                    "item already in cart";
 
 }
 

@@ -171,22 +171,4 @@
     <ShipDate xsi:nil="true" />
     <DeliveryDate xsi:nil="true" />
   </Order>
-  <Order>
-    <ID>500022</ID>
-    <CustomerName />
-    <CustomerEmail />
-    <CustomerAddress />
-    <OrderDate />
-    <ShipDate />
-    <DeliveryDate />
-  </Order>
-  <Order>
-    <ID>500023</ID>
-    <CustomerName />
-    <CustomerEmail />
-    <CustomerAddress />
-    <OrderDate />
-    <ShipDate />
-    <DeliveryDate />
-  </Order>
 </ArrayOfOrder>
