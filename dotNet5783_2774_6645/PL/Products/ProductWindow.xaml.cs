@@ -24,11 +24,12 @@ public partial class ProductWindow : Window
     IBl bl;
 
     int productID;
-
-    public ProductWindow(IBl Bl, string a, int id = 0)
+    BO.Cart? cart;
+    public ProductWindow(IBl Bl, string a, int id = 0, BO.Cart? Cart=null)
     {
         InitializeComponent();
         bl = Bl;
+        cart = Cart;
         SelectCategory.ItemsSource = Enum.GetValues(typeof(BO.eCategory));
         productID = id;
 
@@ -142,6 +143,12 @@ public partial class ProductWindow : Window
 
     private void BtnReturn_Click(object sender, RoutedEventArgs e)
     {
-        this.Close();
+        Close();
+    }
+
+    private void addToCartBtn_Click(object sender, RoutedEventArgs e)
+    {
+        cart = bl.Cart.AddToCart(cart, productID);
+        Close();
     }
 }

@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using PL.Products;
 using BlApi;
+using PL.Orders;
 
 namespace PL
 {
@@ -23,6 +24,7 @@ namespace PL
     public partial class MainWindow : Window
     {
         IBl? bl;
+        BO.Cart? cart=new();
         public MainWindow()
         {
             InitializeComponent();
@@ -38,7 +40,12 @@ namespace PL
 
         private void AddOrderBtn_Click(object sender, RoutedEventArgs e)
         {
-            new ProductListWindow(bl, false).Show();
+            new ProductListWindow(bl, false, cart).Show();
+        }
+
+        private void OrderTrackingBtn_Click(object sender, RoutedEventArgs e)
+        {
+            new OrderTrackingWindow(bl).Show();
         }
     }
 }

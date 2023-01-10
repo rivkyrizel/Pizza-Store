@@ -24,6 +24,6 @@
                 <ImageBrush/>
             </Button.Background>
         </Button>
-        <Button Name="addToCartBtn" Content="add to cart" HorizontalAlignment="Left" Height="54" Margin="581,120,0,0" Visibility="Hidden" VerticalAlignment="Top" Width="93"/>
+        <Button Name="addToCartBtn" Content="add to cart" HorizontalAlignment="Left" Height="54" Margin="581,120,0,0" Visibility="Hidden" VerticalAlignment="Top" Width="93" Click="addToCartBtn_Click"/>
     </Grid>
 </Window>

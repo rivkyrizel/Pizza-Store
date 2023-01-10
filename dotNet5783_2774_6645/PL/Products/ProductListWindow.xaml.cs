@@ -24,11 +24,12 @@ public partial class ProductListWindow : Window
 {
     IBl bl;
     bool admin;
+    BO.Cart? cart;
 
-
-    public ProductListWindow(IBl Bl, bool Admin=true)
+    public ProductListWindow(IBl Bl, bool Admin=true, BO.Cart? Cart=null)
     {
         bl = Bl;
+        cart=Cart;
         admin = Admin;
         InitializeComponent();
         List<string> list = Enum.GetNames(typeof(BO.eCategory)).ToList();
@@ -36,7 +37,10 @@ public partial class ProductListWindow : Window
         AttributeSelector.ItemsSource = list;
         ProductsListview.ItemsSource = bl.product.GetProductList();
         if (!admin)
+        {
             BtnAddProduct.Visibility = Visibility.Hidden;
+            confirmOrderBtn.Visibility = Visibility.Visible;
+        }
     }
 
     private void AttributeSelector_SelectionChanged(object? sender, SelectionChangedEventArgs e)
@@ -55,11 +59,17 @@ public partial class ProductListWindow : Window
         if (admin)
             new ProductWindow(bl, "update", ((BO.ProductForList?)ProductsListview.SelectedItems[0])?.ID ?? throw new PlNullObjectException()).Show();
         else
-            new ProductWindow(bl, "show", ((BO.ProductForList?)ProductsListview.SelectedItems[0])?.ID ?? throw new PlNullObjectException()).Show();
+            new ProductWindow(bl, "show", ((BO.ProductForList?)ProductsListview.SelectedItems[0])?.ID ?? throw new PlNullObjectException(), cart).Show();
     }
 
     private void BtnBack_Click(object sender, RoutedEventArgs e)
     {
         ProductsListview.ItemsSource = bl.product.GetProductList();
+    }
+
+    private void confirmOrderBtn_Click(object sender, RoutedEventArgs e)
+    {
+        new userDetails(bl, cart).Show();
+        Close();
     }
 }

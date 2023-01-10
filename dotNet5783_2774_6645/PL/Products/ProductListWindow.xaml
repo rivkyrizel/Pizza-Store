@@ -58,6 +58,7 @@
 
 
         <Button Name="BtnAddProduct" Content="Add Product" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Height="44" Width="96" Click="Button_Click"/>
+        <Button Content="confirm order" Name="confirmOrderBtn" HorizontalAlignment="Left" Height="44" Margin="347,0,0,0" Grid.Row="2" VerticalAlignment="Center" Width="101" Click="confirmOrderBtn_Click" Visibility="Hidden"/>
 
     </Grid>
 
