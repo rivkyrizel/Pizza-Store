@@ -14,7 +14,7 @@ namespace PL.PO
         public void update(BO.Product p)
         {
             Name = p.Name;
-            Price =4444;
+            Price = p.Price;
             InStock = p.InStock;
             Category = p.Category;
         }
@@ -39,7 +39,7 @@ namespace PL.PO
         public int InStock
         {
             get { return (int)GetValue(InStockProperty); }
-            set { SetValue(InStockProperty, value); }
+            set { SetValue(PriceProperty, value); }
         }
         public BO.eCategory? Category
         {
