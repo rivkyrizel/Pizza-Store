@@ -22,7 +22,7 @@ namespace PL.Products;
 /// </summary>
 public partial class ProductListWindow : Window
 {
-    IBl bl;
+    IBl? bl;
     bool admin;
     bool add;
     BO.Cart? cart;

@@ -161,7 +161,6 @@ internal class BlProduct : IProduct
             if (p.Name != "" && p.Price > 0 && p.InStock > 0)
             {
                 dal.Product.Update(castBOToDO(p));
-                updtedObjectAction += func;
                 updtedObjectAction?.Invoke(p);
                 return;
             }

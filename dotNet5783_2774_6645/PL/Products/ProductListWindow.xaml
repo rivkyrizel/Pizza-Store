@@ -44,13 +44,13 @@
             <ListView.View >
                 <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Employee Information" >
 
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=ID}"   Header="ID" Width="100"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=ID, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"   Header="ID" Width="100"/>
 
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Name}" Header="Name" Width="100"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Name, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" Header="Name" Width="100"/>
 
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Category}" Header="category" Width="100"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Category, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" Header="category" Width="100"/>
 
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Price}" Header="Price" Width="100"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Price, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" Header="Price" Width="100"/>
 
                 </GridView>
             </ListView.View>

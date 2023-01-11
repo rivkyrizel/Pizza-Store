@@ -32,7 +32,6 @@ public partial class ProductWindow : Window
     {
         currentProduct = new Product(p,bl);
         DataContext = currentProduct;
-
     }
     public ProductWindow(IBl Bl, string a, int id = 0, BO.Cart? Cart=null)
     {
@@ -119,7 +118,7 @@ public partial class ProductWindow : Window
             p.Category = (BO.eCategory)s;
             bl.product.UpdateProduct(p);
             currentProduct.update(p);
-           // Close();
+            Close();
         }
         catch (BlIdNotFound ex)
         {
