@@ -4,16 +4,24 @@ using System.Reflection;
 namespace BlImplementation;
 
 internal class BlProduct : IProduct
-
 {
+
+    public Action<BO.Product> updtedObjectAction { get; set; }  
     private DalApi.IDal dal = DalApi.Factory.Get() ?? throw new BlNullValueException();
 
+
+    
     private DO.Product castBOToDO(BO.Product pBO)
     {
+       
         DO.Product pDO = BlUtils.cast<DO.Product, BO.Product>(pBO);
         pDO.Category = (DO.eCategory?)pBO.Category;
         pDO.Amount = (int)pBO.InStock;
         return pDO;
+    }
+    private void func(BO.Product b)
+    {
+        if (1 == 1) ;
     }
 
     private S castProduct<S, T>(T t) where S : new()
@@ -153,6 +161,8 @@ internal class BlProduct : IProduct
             if (p.Name != "" && p.Price > 0 && p.InStock > 0)
             {
                 dal.Product.Update(castBOToDO(p));
+                updtedObjectAction += func;
+                updtedObjectAction?.Invoke(p);
                 return;
             }
 

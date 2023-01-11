@@ -21,7 +21,7 @@ namespace PL.Orders
     public partial class OrderTrackingWindow : Window
     {
         IBl bl;
-        public OrderTrackingWindow(IBl Bl)
+        public OrderTrackingWindow(IBl? Bl)
         {
             bl = Bl;
             InitializeComponent();

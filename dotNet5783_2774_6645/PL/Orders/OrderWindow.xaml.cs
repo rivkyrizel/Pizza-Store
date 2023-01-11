@@ -1,4 +1,5 @@
 ﻿using BlApi;
+using PL.Products;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -57,5 +58,7 @@ namespace PL.Orders
             updateShipedBtn.Visibility = Visibility.Hidden;
             updateDliveryBtn.Visibility = Visibility.Visible;
         }
+
+   
     }
 }

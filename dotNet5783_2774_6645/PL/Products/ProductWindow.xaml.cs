@@ -13,7 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-
+using PL.PO;
 namespace PL.Products;
 
 /// <summary>
@@ -22,9 +22,18 @@ namespace PL.Products;
 public partial class ProductWindow : Window
 {
     IBl bl;
-
+    BO.Product p;
     int productID;
     BO.Cart? cart;
+    private Product currentProduct;  
+
+
+    private void initializeDataContext()
+    {
+        currentProduct = new Product(p,bl);
+        DataContext = currentProduct;
+
+    }
     public ProductWindow(IBl Bl, string a, int id = 0, BO.Cart? Cart=null)
     {
         InitializeComponent();
@@ -36,12 +45,13 @@ public partial class ProductWindow : Window
         if (a == "add") createAddWindow();
         else if (a == "update") createUpdateWindow();
         else createShowWindow();
+        initializeDataContext();
     }
 
     private void createShowWindow()
     {
         BO.Product p = bl.product.GetProductForManager(productID);
-        DataContext = p;
+       // DataContext = p;
         BtnAdd.Visibility = Visibility.Hidden;
         BtnDelete.Visibility = Visibility.Hidden;
         BtnUpdate.Visibility = Visibility.Hidden;
@@ -59,8 +69,8 @@ public partial class ProductWindow : Window
 
     private void createUpdateWindow()
     {
-        BO.Product p = bl.product.GetProductForManager(productID);
-        DataContext = p;
+         p = bl.product.GetProductForManager(productID);
+       // DataContext = p;
         BtnAdd.Visibility = Visibility.Hidden;
     }
 
@@ -108,7 +118,8 @@ public partial class ProductWindow : Window
             object s = SelectCategory.SelectedItem;
             p.Category = (BO.eCategory)s;
             bl.product.UpdateProduct(p);
-            Close();
+            currentProduct.update(p);
+           // Close();
         }
         catch (BlIdNotFound ex)
         {
@@ -150,5 +161,10 @@ public partial class ProductWindow : Window
     {
         cart = bl.Cart.AddToCart(cart, productID);
         Close();
+    }
+
+    private void Button_Click_1(object sender, RoutedEventArgs e)
+    {
+        currentProduct.Name = "newName";
     }
 }

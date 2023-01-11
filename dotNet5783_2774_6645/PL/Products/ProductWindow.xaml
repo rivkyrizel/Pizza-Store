@@ -8,7 +8,7 @@
         Title="ProductWindow" Height="450" Width="800">
     <Grid>
         <Label Name="LblName" Content="name" FontSize="18" HorizontalAlignment="Left" Height="30" Margin="36,57,0,0" VerticalAlignment="Top" Width="55" Background="White"/>
-        <TextBox Name="TxtName"  HorizontalAlignment="Left" Height="30" Margin="127,57,0,0" TextWrapping="Wrap" Text="{Binding Path=Name}" VerticalAlignment="Top" Width="190" />
+        <TextBox Name="TxtName"  HorizontalAlignment="Left" Height="30" Margin="127,57,0,0" TextWrapping="Wrap" Text="{Binding Path=Name, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" VerticalAlignment="Top" Width="190" />
         <Label Name="LblPrice" FontSize="18" Content="price" HorizontalAlignment="Left" Height="36" Margin="36,105,0,0" VerticalAlignment="Top" Width="55"/>
         <TextBox Name="TxtPrice" HorizontalAlignment="Left" Margin="127,105,0,0" TextWrapping="Wrap" Text="{Binding Path=Price}" VerticalAlignment="Top" Width="190" Height="31"/>
         <Label Name="LblAmount" FontSize="18" Content="amount" HorizontalAlignment="Left" Height="36" Margin="36,193,0,0" VerticalAlignment="Top" Width="79"/>
@@ -25,5 +25,6 @@
             </Button.Background>
         </Button>
         <Button Name="addToCartBtn" Content="add to cart" HorizontalAlignment="Left" Height="54" Margin="581,120,0,0" Visibility="Hidden" VerticalAlignment="Top" Width="93" Click="addToCartBtn_Click"/>
+        <Button Content="Button" HorizontalAlignment="Left" Height="28" Margin="160,252,0,0" VerticalAlignment="Top" Width="87" Click="Button_Click_1"/>
     </Grid>
 </Window>

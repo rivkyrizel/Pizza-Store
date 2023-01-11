@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="OrderListWindow" Height="450" Width="800">
     <Grid>
-        <ListView Name="OrderListView" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="OrderListView_SelectionChanged" MouseDoubleClick="OrderListView_MouseDoubleClick">
+        <ListView Name="OrderListView" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="OrderListView_SelectionChanged" MouseDoubleClick="OrderListView_MouseDoubleClick" Margin="124,44,130,-17">
             <ListView.View>
                 <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Employee Information" >
 
@@ -17,7 +17,7 @@
 
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Status}" Header="category" Width="150"/>
 
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=AmountOfItems}" Header="Price" Width="100"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=AmountOfItems}" Header="Amount" Width="100"/>
                     
                     <GridViewColumn DisplayMemberBinding="{Binding Path=TotalPrice}" Header="Price" Width="100"/>
 

@@ -24,13 +24,15 @@ public partial class ProductListWindow : Window
 {
     IBl bl;
     bool admin;
+    bool add;
     BO.Cart? cart;
 
-    public ProductListWindow(IBl Bl, bool Admin=true, BO.Cart? Cart=null)
+    public ProductListWindow(IBl? Bl, bool Admin = true, bool Add = false, BO.Cart? Cart = null)
     {
         bl = Bl;
-        cart=Cart;
+        cart = Cart;
         admin = Admin;
+        add = Add;
         InitializeComponent();
         List<string> list = Enum.GetNames(typeof(BO.eCategory)).ToList();
         list.Insert(0, "all categories");
@@ -43,23 +45,21 @@ public partial class ProductListWindow : Window
         }
     }
 
-    private void AttributeSelector_SelectionChanged(object? sender, SelectionChangedEventArgs e)
+    private void AttributeSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         object s = AttributeSelector.SelectedItem;
-        if (s== "all categories") ProductsListview.ItemsSource = bl.product.GetProductList();
-        else ProductsListview.ItemsSource = bl.product.GetProductList((BO.eCategory)Enum.Parse(typeof(BO.eCategory),s.ToString()));
+        if (s.Equals("all categories")) ProductsListview.ItemsSource = bl.product.GetProductList();
+        else ProductsListview.ItemsSource = bl.product.GetProductList((BO.eCategory)Enum.Parse(typeof(BO.eCategory), s.ToString()));
     }
 
     private void Button_Click(object sender, RoutedEventArgs e)
     {
-        new ProductWindow(bl,"add").Show();
+        new ProductWindow(bl, "add").Show();
     }
     private void ProductsListview_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
-        if (admin)
-            new ProductWindow(bl, "update", ((BO.ProductForList?)ProductsListview.SelectedItems[0])?.ID ?? throw new PlNullObjectException()).Show();
-        else
-            new ProductWindow(bl, "show", ((BO.ProductForList?)ProductsListview.SelectedItems[0])?.ID ?? throw new PlNullObjectException(), cart).Show();
+        string state = admin ? "update" : "show";
+        new ProductWindow(bl, state, ((BO.ProductForList?)ProductsListview.SelectedItems[0])?.ID ?? throw new PlNullObjectException(),cart).Show();
     }
 
     private void BtnBack_Click(object sender, RoutedEventArgs e)
