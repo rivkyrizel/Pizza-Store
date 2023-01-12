@@ -42,15 +42,18 @@ public partial class ProductWindow : Window
         productID = id;
 
         if (a == "add") createAddWindow();
-        else if (a == "update") createUpdateWindow();
+        else if (a == "update")
+        {
+            initializeDataContext();
+            createUpdateWindow();
+        }
         else createShowWindow();
-        initializeDataContext();
     }
 
     private void createShowWindow()
     {
-        BO.Product p = bl.product.GetProductForManager(productID);
-       // DataContext = p;
+        PO.Product p = new(bl.product.GetProductForManager(productID),bl);
+        p.update(bl.product.GetProductForManager(productID));
         BtnAdd.Visibility = Visibility.Hidden;
         BtnDelete.Visibility = Visibility.Hidden;
         BtnUpdate.Visibility = Visibility.Hidden;

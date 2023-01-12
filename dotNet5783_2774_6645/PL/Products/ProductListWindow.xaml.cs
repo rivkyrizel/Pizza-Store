@@ -14,8 +14,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Navigation;
 using System.Windows.Media.Animation;
-
+using PL.Carts;
 namespace PL.Products;
+
 
 /// <summary>
 /// Interaction logic for ProductListWindow.xaml
@@ -37,11 +38,11 @@ public partial class ProductListWindow : Window
         List<string> list = Enum.GetNames(typeof(BO.eCategory)).ToList();
         list.Insert(0, "all categories");
         AttributeSelector.ItemsSource = list;
-        ProductsListview.ItemsSource = bl.product.GetProductList();
+        ProductsListview.ItemsSource = bl?.product.GetProductList();
         if (!admin)
         {
             BtnAddProduct.Visibility = Visibility.Hidden;
-            confirmOrderBtn.Visibility = Visibility.Visible;
+            viewCartBtn.Visibility = Visibility.Visible;
         }
     }
 
@@ -67,9 +68,9 @@ public partial class ProductListWindow : Window
         ProductsListview.ItemsSource = bl.product.GetProductList();
     }
 
-    private void confirmOrderBtn_Click(object sender, RoutedEventArgs e)
+    private void viewCartBtn_Click(object sender, RoutedEventArgs e)
     {
-        new userDetails(bl, cart).Show();
-        Close();
+       new CartWindow(bl,cart).Show();
     }
+
 }

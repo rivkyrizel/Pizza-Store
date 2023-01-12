@@ -14,17 +14,23 @@ namespace PL.PO
         public void update(BO.Product p)
         {
             Name = p.Name;
-            Price = p.Price;
-            InStock = p.InStock;
+            Price = 100;
+            InStock = 3000;
             Category = p.Category;
         }
         public Product(BO.Product p, BlApi.IBl bl)
         {
             update(p);
-            bl.product.updtedObjectAction += update;
+            /*     bl.product.updtedObjectAction = update;*/
+            BlImplementation.BlProduct a =new BlImplementation.BlProduct(update);
+           // bl.product.updtedObjectAction += update;
         }
 
-     
+        public Product()
+        {}
+
+
+
 
         public string? Name {
             get { return (string)GetValue(NameProperty); } 
@@ -46,6 +52,11 @@ namespace PL.PO
             get { return (BO.eCategory)GetValue(CategoryProperty); }
             set { SetValue(CategoryProperty, value); }
         }
+        public List<PO.Product> ProductAsSender
+        {
+            get { return (List<PO.Product>)GetValue(ProductAsSenderProperty); }
+            set { SetValue(ProductAsSenderProperty, value); }
+        }
 
 
 
@@ -53,6 +64,7 @@ namespace PL.PO
         public static readonly DependencyProperty PriceProperty = DependencyProperty.Register("Price", typeof(object), typeof(Product), new UIPropertyMetadata(0));
         public static readonly DependencyProperty InStockProperty = DependencyProperty.Register("InStock", typeof(object), typeof(Product), new UIPropertyMetadata(0));
         public static readonly DependencyProperty CategoryProperty = DependencyProperty.Register("Category", typeof(object), typeof(Product), new UIPropertyMetadata(0));
+        public static readonly DependencyProperty ProductAsSenderProperty = DependencyProperty.Register("ProductAsSender", typeof(object), typeof(Product), new UIPropertyMetadata(0));
     }
 }
 

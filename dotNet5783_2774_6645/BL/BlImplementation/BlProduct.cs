@@ -1,12 +1,21 @@
 ﻿using BlApi;
+using BO;
 using System.Reflection;
 
 namespace BlImplementation;
 
-internal class BlProduct : IProduct
+public class BlProduct : IProduct
 {
 
-    public Action<BO.Product> updtedObjectAction { get; set; }  
+    public Action<BO.Product>? updtedObjectAction { get; set; }
+
+    public BlProduct(Action<Product>? action)
+    {
+        this.updtedObjectAction += action;
+    }
+    public BlProduct()
+    { }
+
     private DalApi.IDal dal = DalApi.Factory.Get() ?? throw new BlNullValueException();
 
 
@@ -161,7 +170,7 @@ internal class BlProduct : IProduct
             if (p.Name != "" && p.Price > 0 && p.InStock > 0)
             {
                 dal.Product.Update(castBOToDO(p));
-                updtedObjectAction?.Invoke(p);
+            //    updtedObjectAction?.Invoke(p);
                 return;
             }
 

@@ -40,7 +40,7 @@
         </Grid>
 
 
-        <ListView   Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" x:Name="ProductsListview" MouseDoubleClick="ProductsListview_MouseDoubleClick" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="White" Foreground="#FF041F65" >
+        <ListView   Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" ItemsSource="{Binding ProductAsSender}" x:Name="ProductsListview" MouseDoubleClick="ProductsListview_MouseDoubleClick" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="White" Foreground="#FF041F65" >
             <ListView.View >
                 <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Employee Information" >
 
@@ -58,7 +58,7 @@
 
 
         <Button Name="BtnAddProduct" Content="Add Product" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Height="44" Width="96" Click="Button_Click"/>
-        <Button Content="confirm order" Name="confirmOrderBtn" HorizontalAlignment="Left" Height="44" Margin="347,0,0,0" Grid.Row="2" VerticalAlignment="Center" Width="101" Click="confirmOrderBtn_Click" Visibility="Hidden"/>
+        <Button Content="view cart" Name="viewCartBtn" HorizontalAlignment="Left" Height="44" Margin="347,0,0,0" Grid.Row="2" VerticalAlignment="Center" Width="101" Click="viewCartBtn_Click" Visibility="Hidden"/>
 
     </Grid>
 
