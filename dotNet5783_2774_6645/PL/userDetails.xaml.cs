@@ -22,11 +22,11 @@ namespace PL
     {
         BO.Cart cart;
         IBl bl;
-        public userDetails(IBl Bl,BO.Cart Cart)
+        public userDetails(IBl Bl,BO.Cart? Cart )
         {
             bl = Bl;
             InitializeComponent();
-            cart = Cart;
+            cart = Cart??throw new PlNullObjectException();
         }
 
         private void saveBtn_Click(object sender, RoutedEventArgs e)

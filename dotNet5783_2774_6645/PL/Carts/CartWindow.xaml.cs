@@ -23,15 +23,15 @@ namespace PL.Carts
     /// </summary>
     public partial class CartWindow : Window
     {
-        IBl? bl;
-        BO.Cart? cart;
+        IBl bl;
+        BO.Cart cart;
         int updatedAmount;
-        public CartWindow(IBl Bl,BO.Cart Cart)
+        public CartWindow(IBl Bl,BO.Cart? Cart)
         {
             InitializeComponent();
-            ProductsItemListview.ItemsSource = Cart.Items;
+            ProductsItemListview.ItemsSource = Cart?.Items;
             bl = Bl;
-            cart = Cart;
+            cart = Cart??throw new PlNullObjectException();
         }
 
         private void confirmOrderBtn_Click(object sender, RoutedEventArgs e)
@@ -41,8 +41,8 @@ namespace PL.Carts
 
         private void addProductAmountBtn_Click(object sender, RoutedEventArgs e)
         {
-           updatedAmount = cart.Items.ToList().Find(p => p.ProductID == ((BO.ProductItem)ProductsItemListview.SelectedItems[0]).ID).Amount;
-            updateAmountTxt.Text = updatedAmount.ToString();
+           updatedAmount = cart.Items.ToList().Find(p => p.ProductID == ((BO.ProductItem?)ProductsItemListview.SelectedItems[0]).ID).Amount;
+            //updateAmountTxt.Text = updatedAmount.ToString();
         }
         private void decreaseProductBtn_Click(object sender, RoutedEventArgs e)
         {

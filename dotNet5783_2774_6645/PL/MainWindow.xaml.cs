@@ -23,8 +23,9 @@ namespace PL
     /// </summary>
     public partial class MainWindow : Window
     {
-        IBl? bl;
+        IBl bl;
         BO.Cart? cart=new();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -34,7 +35,7 @@ namespace PL
         private void displayProductListWindow_Click(object sender, RoutedEventArgs e)
         {
            
-            new AdminWindow(bl??throw new PlNullObjectException()).Show();
+            new AdminWindow(bl).Show();
             Close();
         }
 

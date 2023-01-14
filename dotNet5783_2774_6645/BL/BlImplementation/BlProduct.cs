@@ -7,14 +7,9 @@ namespace BlImplementation;
 public class BlProduct : IProduct
 {
 
-    public Action<BO.Product>? updtedObjectAction { get; set; }
+   // public Action<BO.Product>? updtedObjectAction { get; set; }
 
-    public BlProduct(Action<Product>? action)
-    {
-        this.updtedObjectAction += action;
-    }
-    public BlProduct()
-    { }
+ 
 
     private DalApi.IDal dal = DalApi.Factory.Get() ?? throw new BlNullValueException();
 
@@ -27,10 +22,6 @@ public class BlProduct : IProduct
         pDO.Category = (DO.eCategory?)pBO.Category;
         pDO.Amount = (int)pBO.InStock;
         return pDO;
-    }
-    private void func(BO.Product b)
-    {
-        if (1 == 1) ;
     }
 
     private S castProduct<S, T>(T t) where S : new()
@@ -170,7 +161,6 @@ public class BlProduct : IProduct
             if (p.Name != "" && p.Price > 0 && p.InStock > 0)
             {
                 dal.Product.Update(castBOToDO(p));
-            //    updtedObjectAction?.Invoke(p);
                 return;
             }
 

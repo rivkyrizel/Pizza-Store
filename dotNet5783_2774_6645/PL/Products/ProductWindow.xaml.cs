@@ -25,13 +25,20 @@ public partial class ProductWindow : Window
     BO.Product p;
     int productID;
     BO.Cart? cart;
-    private Product currentProduct;  
+    private PO.Product currentProduct;
 
+    private void cast(BO.Product p)
+    {
+        currentProduct.Name =p.Name;
+        currentProduct.Price = p.Price;
+        currentProduct.Category= p.Category;
+        currentProduct.InStock = p.InStock;
+    }
 
     private void initializeDataContext()
     {
-        currentProduct = new Product(p,bl);
-        DataContext = currentProduct;
+        currentProduct = new Product();
+        GridData.DataContext = currentProduct;
     }
     public ProductWindow(IBl Bl, string a, int id = 0, BO.Cart? Cart=null)
     {
@@ -52,8 +59,7 @@ public partial class ProductWindow : Window
 
     private void createShowWindow()
     {
-        PO.Product p = new(bl.product.GetProductForManager(productID),bl);
-        p.update(bl.product.GetProductForManager(productID));
+        bl.product.GetProductForManager(productID);
         BtnAdd.Visibility = Visibility.Hidden;
         BtnDelete.Visibility = Visibility.Hidden;
         BtnUpdate.Visibility = Visibility.Hidden;
@@ -72,8 +78,8 @@ public partial class ProductWindow : Window
     private void createUpdateWindow()
     {
          p = bl.product.GetProductForManager(productID);
-       // DataContext = p;
-        BtnAdd.Visibility = Visibility.Hidden;
+         cast(p);
+         BtnAdd.Visibility = Visibility.Hidden;
     }
 
     private void Button_Click(object sender, RoutedEventArgs e)
@@ -89,7 +95,7 @@ public partial class ProductWindow : Window
             object s = SelectCategory.SelectedItem;
             if (s == null) p.Category = null;
             else p.Category = (BO.eCategory)s;
-            bl.product.AddProduct(p);
+            bl?.product.AddProduct(p);
             Close();
         }
         catch (BlIdNotFound ex)
@@ -120,7 +126,8 @@ public partial class ProductWindow : Window
             object s = SelectCategory.SelectedItem;
             p.Category = (BO.eCategory)s;
             bl.product.UpdateProduct(p);
-            currentProduct.update(p);
+            cast(p);
+             // DataContext = currentProduct;
             Close();
         }
         catch (BlIdNotFound ex)
@@ -141,7 +148,7 @@ public partial class ProductWindow : Window
     {
         try
         {
-            bl.product.DeleteProduct(productID);
+            bl?.product.DeleteProduct(productID);
             Close();
         }
         catch (BlProductFoundInOrders ex)
@@ -161,12 +168,8 @@ public partial class ProductWindow : Window
 
     private void addToCartBtn_Click(object sender, RoutedEventArgs e)
     {
-        cart = bl.Cart.AddToCart(cart, productID);
+        cart = bl?.Cart.AddToCart(cart, productID);
         Close();
     }
 
-    private void Button_Click_1(object sender, RoutedEventArgs e)
-    {
-        currentProduct.Name = "newName";
-    }
 }

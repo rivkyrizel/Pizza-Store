@@ -15,6 +15,10 @@ using System.Windows.Shapes;
 using System.Windows.Navigation;
 using System.Windows.Media.Animation;
 using PL.Carts;
+using System.Collections;
+using BO;
+using System.Collections.ObjectModel;
+
 namespace PL.Products;
 
 
@@ -23,12 +27,13 @@ namespace PL.Products;
 /// </summary>
 public partial class ProductListWindow : Window
 {
-    IBl? bl;
+    IBl bl;
     bool admin;
     bool add;
     BO.Cart? cart;
+    ObservableCollection<PO.Product> products;
 
-    public ProductListWindow(IBl? Bl, bool Admin = true, bool Add = false, BO.Cart? Cart = null)
+    public ProductListWindow(IBl Bl, bool Admin = true, bool Add = false, BO.Cart? Cart = null)
     {
         bl = Bl;
         cart = Cart;
@@ -38,7 +43,9 @@ public partial class ProductListWindow : Window
         List<string> list = Enum.GetNames(typeof(BO.eCategory)).ToList();
         list.Insert(0, "all categories");
         AttributeSelector.ItemsSource = list;
-        ProductsListview.ItemsSource = bl?.product.GetProductList();
+        products = new ObservableCollection<PO.Product>();
+        cast(bl.product.GetProductList());
+        ProductsListview.ItemsSource = products;
         if (!admin)
         {
             BtnAddProduct.Visibility = Visibility.Hidden;
@@ -46,11 +53,26 @@ public partial class ProductListWindow : Window
         }
     }
 
+    private void cast(IEnumerable<ProductForList?> enumerable)
+    {
+        foreach (var item in products.ToList())
+            products.Remove(item);
+        foreach(var i in enumerable)
+        {
+            PO.Product p = new();
+            p.ID = i.ID;
+            p.Category = i.Category;
+            p.Price = i.Price;
+            p.Name = i.Name;
+            products.Add(p);
+        }
+    }
+
     private void AttributeSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         object s = AttributeSelector.SelectedItem;
-        if (s.Equals("all categories")) ProductsListview.ItemsSource = bl.product.GetProductList();
-        else ProductsListview.ItemsSource = bl.product.GetProductList((BO.eCategory)Enum.Parse(typeof(BO.eCategory), s.ToString()));
+        if (s.Equals("all categories")) ProductsListview.ItemsSource=bl.product.GetProductList();
+        else ProductsListview.ItemsSource=bl.product.GetProductList((BO.eCategory)Enum.Parse(typeof(BO.eCategory),s.ToString()));
     }
 
     private void Button_Click(object sender, RoutedEventArgs e)
@@ -60,12 +82,13 @@ public partial class ProductListWindow : Window
     private void ProductsListview_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
         string state = admin ? "update" : "show";
-        new ProductWindow(bl, state, ((BO.ProductForList?)ProductsListview.SelectedItems[0])?.ID ?? throw new PlNullObjectException(),cart).Show();
+        new ProductWindow(bl, state, ((PO.Product?)ProductsListview.SelectedItems[0])?.ID ?? throw new PlNullObjectException(),cart).Show();
+
     }
 
     private void BtnBack_Click(object sender, RoutedEventArgs e)
     {
-        ProductsListview.ItemsSource = bl.product.GetProductList();
+       ProductsListview.ItemsSource= bl.product.GetProductList();
     }
 
     private void viewCartBtn_Click(object sender, RoutedEventArgs e)

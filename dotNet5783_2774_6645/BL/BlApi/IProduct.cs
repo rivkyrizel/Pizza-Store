@@ -3,7 +3,7 @@
 namespace BlApi;
 public interface IProduct
 {
-    public Action<BO.Product> updtedObjectAction { get; set; }
+   // public Action<BO.Product> updtedObjectAction { get; set; }
     public IEnumerable<ProductForList?> GetProductList(BO.eCategory? e=null);
     public IEnumerable<ProductItem?> GetProductItem();
     public Product GetProductForCustomer(int id);
