@@ -1,1 +1,80 @@
-<?xml version="1.0" encoding="utf-8"?><ArrayOfProduct xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><Product><ID>100000</ID><Name>bbb</Name><Price>22</Price><Category>Pasta_</Category><Amount>4930</Amount></Product><Product><ID>100001</ID><Name>nnn</Name><Price>10</Price><Category>Salads</Category><Amount>22</Amount></Product><Product><ID>100002</ID><Name>rrr</Name><Price>33</Price><Category>Pasta_</Category><Amount>33</Amount></Product><Product><ID>100003</ID><Name>ccc</Name><Price>22</Price><Category>Pasta_</Category><Amount>22</Amount></Product><Product><ID>100004</ID><Name>111</Name><Price>2</Price><Category>Bagels</Category><Amount>2</Amount></Product><Product><ID>100005</ID><Name>coffe</Name><Price>200</Price><Category>Pasta_</Category><Amount>2000</Amount></Product><Product><ID>100006</ID><Name>hhh</Name><Price>33</Price><Category>Bagels</Category><Amount>22</Amount></Product><Product><ID>100007</ID><Name>a1</Name><Price>1</Price><Category>Bagels</Category><Amount>1</Amount></Product><Product><ID>100008</ID><Name>a111111111111</Name><Price>1111111111</Price><Category>Pasta_</Category><Amount>111111</Amount></Product><Product><ID>100009</ID><Name>ccc</Name><Price>150</Price><Category>Pasta_</Category><Amount>111</Amount></Product><Product><ID>100010</ID><Name>yyyy</Name><Price>56</Price><Category>Salads</Category><Amount>44</Amount></Product><Product><ID>100011</ID><Name>ggg</Name><Price>53</Price><Category>Salads</Category><Amount>22</Amount></Product><Product><ID>100012</ID><Name>aaa</Name><Price>11</Price><Category>Pasta_</Category><Amount>11</Amount></Product><Product><ID>100013</ID><Name>zz</Name><Price>11</Price><Category>Salads</Category><Amount>11</Amount></Product></ArrayOfProduct>
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfProduct xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Product>
+    <ID>100000</ID>
+    <Name>  Ravioli  </Name>
+    <Price>37</Price>
+    <Category>Pasta_</Category>
+    <Amount>1586</Amount>
+  </Product>
+  <Product>
+    <ID>100001</ID>
+    <Name>   Pizza   </Name>
+    <Price>54</Price>
+    <Category>Pizza_</Category>
+    <Amount>4710</Amount>
+  </Product>
+  <Product>
+    <ID>100002</ID>
+    <Name> Sandwich  </Name>
+    <Price>75</Price>
+    <Category>Bagels</Category>
+    <Amount>4882</Amount>
+  </Product>
+  <Product>
+    <ID>100003</ID>
+    <Name>Ice coffee </Name>
+    <Price>19</Price>
+    <Category>Drinks</Category>
+    <Amount>3262</Amount>
+  </Product>
+  <Product>
+    <ID>100004</ID>
+    <Name>  Coffee   </Name>
+    <Price>58</Price>
+    <Category>Drinks</Category>
+    <Amount>4228</Amount>
+  </Product>
+  <Product>
+    <ID>100005</ID>
+    <Name>   Baguet  </Name>
+    <Price>10</Price>
+    <Category>Bagels</Category>
+    <Amount>2144</Amount>
+  </Product>
+  <Product>
+    <ID>100006</ID>
+    <Name>Greek Salad</Name>
+    <Price>47</Price>
+    <Category>Salads</Category>
+    <Amount>1134</Amount>
+  </Product>
+  <Product>
+    <ID>100007</ID>
+    <Name> XL pizza  </Name>
+    <Price>11</Price>
+    <Category>Pizza_</Category>
+    <Amount>3384</Amount>
+  </Product>
+  <Product>
+    <ID>100008</ID>
+    <Name>Basic Salad</Name>
+    <Price>33</Price>
+    <Category>Salads</Category>
+    <Amount>4621</Amount>
+  </Product>
+  <Product>
+    <ID>100009</ID>
+    <Name> Coca Cola </Name>
+    <Price>94</Price>
+    <Category>Drinks</Category>
+    <Amount>2447</Amount>
+  </Product>
+  <Product>
+    <ID>100010</ID>
+    <Name>eee</Name>
+    <Price>50</Price>
+    <Category>Pasta_</Category>
+    <Amount>50</Amount>
+  </Product>
+</ArrayOfProduct>

@@ -51,10 +51,10 @@ public class BlProduct : IProduct
     /// Adds new product
     /// </summary>
     /// <param name="p"> new product </param>
-    public void AddProduct(BO.Product p)
+    public int AddProduct(BO.Product p)
     {
         if (p.Name != "" && p.Price > 0 && p.InStock > 0 && p.Category != null)
-            dal.Product.Add(castBOToDO(p));
+          return dal.Product.Add(castBOToDO(p));
         else
             throw new BlNullValueException();
     }
