@@ -33,10 +33,10 @@ public partial class ProductListWindow : Window
     BO.Cart? cart;
    private ObservableCollection<PO.Product> products { get; set; }
 
-    public ProductListWindow(IBl Bl, bool Admin = true, bool Add = false, BO.Cart? Cart = null)
+    public ProductListWindow(IBl Bl, bool Admin = true, bool Add = false)
     {
         bl = Bl;
-        cart = Cart;
+        cart = new();
         admin = Admin;
         add = Add;
         InitializeComponent();

@@ -37,7 +37,7 @@
   </Product>
   <Product>
     <ID>100005</ID>
-    <Name>   Baguet  </Name>
+    <Name>222</Name>
     <Price>10</Price>
     <Category>Bagels</Category>
     <Amount>2144</Amount>
@@ -76,5 +76,12 @@
     <Price>50</Price>
     <Category>Pasta_</Category>
     <Amount>50</Amount>
+  </Product>
+  <Product>
+    <ID>100011</ID>
+    <Name>aaa</Name>
+    <Price>56</Price>
+    <Category>Pasta_</Category>
+    <Amount>32</Amount>
   </Product>
 </ArrayOfProduct>
