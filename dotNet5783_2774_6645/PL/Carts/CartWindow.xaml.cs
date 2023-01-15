@@ -1,8 +1,11 @@
 ﻿using BlApi;
 using BlImplementation;
 using BO;
+using PL.PO;
+using PL;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,29 +27,57 @@ namespace PL.Carts
     public partial class CartWindow : Window
     {
         IBl bl;
-        BO.Cart cart;
+        BO.Cart BOcart;
+        PO.Cart cart;
         int updatedAmount;
+       
         public CartWindow(IBl Bl,BO.Cart? Cart)
         {
             InitializeComponent();
-            ProductsItemListview.ItemsSource = Cart?.Items;
+            cart=new();
+            cart.Items = castBOtoPO(Cart.Items);
+            ProductsItemListview.ItemsSource = cart.Items;
             bl = Bl;
-            cart = Cart??throw new PlNullObjectException();
+            BOcart = Cart??throw new PlNullObjectException();
         }
+
+        private ObservableCollection<PO.OrderItem> castBOtoPO(IEnumerable<BO.OrderItem> i)
+        {
+            ObservableCollection<PO.OrderItem> orderItemList = new();
+            foreach(var item in i)
+            {
+                orderItemList.Add(PLUtils.cast<PO.OrderItem, BO.OrderItem>(item));
+            }
+            return orderItemList;
+        }
+
+  
+
 
         private void confirmOrderBtn_Click(object sender, RoutedEventArgs e)
         {
-            new userDetails(bl, cart).Show();
+            new userDetails(bl, BOcart).Show();
         }
 
         private void addProductAmountBtn_Click(object sender, RoutedEventArgs e)
         {
-           updatedAmount = cart.Items.ToList().Find(p => p.ProductID == ((BO.ProductItem?)ProductsItemListview.SelectedItems[0]).ID).Amount;
-            //updateAmountTxt.Text = updatedAmount.ToString();
+           ((PO.OrderItem)((Button)sender).DataContext).Amount++;
+            int id = ((PO.OrderItem)((Button)sender).DataContext).ProductID;
+            PO.OrderItem? p = cart.Items.ToList().Find(p => p.ProductID == id);
+            p.TotalPrice = p.Price * p.Amount;
+
         }
         private void decreaseProductBtn_Click(object sender, RoutedEventArgs e)
         {
+            ((PO.OrderItem)((Button)sender).DataContext).Amount--;
+            int id = ((PO.OrderItem)((Button)sender).DataContext).ProductID;
+            PO.OrderItem? p = cart.Items.ToList().Find(p => p.ProductID == id);
+            p.TotalPrice = p.Price * p.Amount;
         }
 
+        private void updateAmountTxt_Click(object sender, RoutedEventArgs e)
+        {
+            bl.Cart.updateAmount(PLUtils.cast<BO.Cart, PO.Cart>(cart), ((PO.OrderItem)((Button)sender).DataContext).ProductID, ((PO.OrderItem)((Button)sender).DataContext).Amount);
+        }
     }
 }

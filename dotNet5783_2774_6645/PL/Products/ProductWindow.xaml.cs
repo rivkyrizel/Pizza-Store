@@ -14,6 +14,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using PL.PO;
+using System.Collections.ObjectModel;
+
 namespace PL.Products;
 
 /// <summary>
@@ -22,44 +24,47 @@ namespace PL.Products;
 public partial class ProductWindow : Window
 {
     IBl bl;
-    BO.Product p;
+    BO.Product? p;
     int productID;
     BO.Cart? cart;
-    private PO.Product currentProduct;
+    PO.Product currentProduct;
+    private ObservableCollection<PO.Product> products { get; set; }
 
     private void cast(BO.Product p)
     {
-        currentProduct.Name =p.Name;
+        currentProduct.Name = p.Name;
         currentProduct.Price = p.Price;
-        currentProduct.Category= p.Category;
+        currentProduct.Category = p.Category;
         currentProduct.InStock = p.InStock;
+        currentProduct.ID = p.ID;
     }
+
 
     private void initializeDataContext()
     {
         currentProduct = new Product();
         GridData.DataContext = currentProduct;
     }
-    public ProductWindow(IBl Bl, string a, int id = 0, BO.Cart? Cart=null)
+    public ProductWindow(IBl Bl, string a, ObservableCollection<PO.Product> Products, int id = 0, BO.Cart? Cart = null)
     {
         InitializeComponent();
         bl = Bl;
         cart = Cart;
+        products = Products;
         SelectCategory.ItemsSource = Enum.GetValues(typeof(BO.eCategory));
         productID = id;
+        currentProduct = new();
+        initializeDataContext();
 
         if (a == "add") createAddWindow();
         else if (a == "update")
-        {
-            initializeDataContext();
             createUpdateWindow();
-        }
         else createShowWindow();
     }
 
     private void createShowWindow()
     {
-        bl.product.GetProductForManager(productID);
+        cast(bl.product.GetProductForManager(productID));
         BtnAdd.Visibility = Visibility.Hidden;
         BtnDelete.Visibility = Visibility.Hidden;
         BtnUpdate.Visibility = Visibility.Hidden;
@@ -77,9 +82,9 @@ public partial class ProductWindow : Window
 
     private void createUpdateWindow()
     {
-         p = bl.product.GetProductForManager(productID);
-         cast(p);
-         BtnAdd.Visibility = Visibility.Hidden;
+        p = bl.product.GetProductForManager(productID);
+        cast(p);
+        BtnAdd.Visibility = Visibility.Hidden;
     }
 
     private void Button_Click(object sender, RoutedEventArgs e)
@@ -95,7 +100,11 @@ public partial class ProductWindow : Window
             object s = SelectCategory.SelectedItem;
             if (s == null) p.Category = null;
             else p.Category = (BO.eCategory)s;
-            bl?.product.AddProduct(p);
+            int id = bl.product.AddProduct(p);
+            cast(p);
+            products.Remove(products.ToList().Find(po => p.ID == po.ID));
+            currentProduct.ID = id;
+            products.Add(currentProduct);
             Close();
         }
         catch (BlIdNotFound ex)
@@ -127,7 +136,9 @@ public partial class ProductWindow : Window
             p.Category = (BO.eCategory)s;
             bl.product.UpdateProduct(p);
             cast(p);
-             // DataContext = currentProduct;
+            int idx = products.ToList().FindIndex(po => p.ID == po.ID);
+            products.RemoveAt(idx);
+            products.Insert(idx, currentProduct);
             Close();
         }
         catch (BlIdNotFound ex)

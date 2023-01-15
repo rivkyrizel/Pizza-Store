@@ -17,7 +17,7 @@
 
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Price, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" Header="Price" Width="100"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Amount, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" Header="Amount" Width="100"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=TotalPrice, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" Header="TotalPrice" Width="100"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=TotalPrice , Mode=TwoWay, UpdateSourceTrigger=LostFocus}" Header="TotalPrice" Width="100"/>
                     <GridViewColumn Header="Update Amount" Width="100" >
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
@@ -28,7 +28,7 @@
                                         <ColumnDefinition   Width="*"/>
                                     </Grid.ColumnDefinitions>
                                     <Button Grid.Column="0" x:Name="decreaseProductBtn"  Content="-" Height="20" Width="15" Margin="10,3,0,0" Click="decreaseProductBtn_Click" />
-                                    <TextBox Grid.Column="1" Height="23"  TextWrapping="Wrap" Width="22" Name="updatedAmount" Margin="5,3,0,0" />
+                                    <TextBox Grid.Column="1" Height="23"  TextWrapping="Wrap" Width="22" Name="updatedAmount" Margin="5,3,0,0" Text="{Binding Path=Amount, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"/>
                                     <Button Grid.Column="2" x:Name="addProductAmountBtn" Content="+" Width="15" Margin="5,3,0,0" VerticalAlignment="Top" Click="addProductAmountBtn_Click" />
                                 </Grid>
                             </DataTemplate>
@@ -38,7 +38,7 @@
                     <GridViewColumn Header="TotalPrice" Width="100">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Grid.Column="0" Content="update amount" Name="updateAmountTxt" Height="20" Margin="0,-6,0,0"/>
+                                <Button Grid.Column="0" Content="update amount" Name="updateAmountTxt" Height="20" Margin="0,-6,0,0" Click="updateAmountTxt_Click"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
