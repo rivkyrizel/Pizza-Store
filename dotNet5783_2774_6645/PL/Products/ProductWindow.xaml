@@ -4,7 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Products"
+        xmlns:localy="clr-namespace:PL.PO"
         mc:Ignorable="d"
+        DataContext="{Binding  currentProduct, RelativeSource={RelativeSource Mode=Self} }" 
         Title="ProductWindow" Height="450" Width="800">
     <Grid Name="GridData">
         <Label Name="LblName" Content="name" FontSize="18" HorizontalAlignment="Left" Height="30" Margin="36,57,0,0" VerticalAlignment="Top" Width="55" Background="White"/>
@@ -15,9 +17,9 @@
         <TextBox Name="TxtAmount" HorizontalAlignment="Left" Margin="127,0,0,0" TextWrapping="Wrap" Text="{Binding Path=InStock, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" VerticalAlignment="Center" Width="190" Height="30"/>
         <ComboBox Name="SelectCategory" Text="{Binding Path=Category, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" HorizontalAlignment="Left" Margin="127,155,0,0" VerticalAlignment="Top" Width="120"/>
         <Label Name="LblCategory" FontSize="18"  Content="category" HorizontalAlignment="Left" Margin="36,147,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.44,-0.266"/>
-        <Button Name="BtnAdd" Content="Add" HorizontalAlignment="Left" Margin="88,297,0,0" VerticalAlignment="Top" Click="Button_Click" Height="35" Width="72"/>
-        <Button Content="Update" Name="BtnUpdate" HorizontalAlignment="Left" Margin="200,297,0,0" VerticalAlignment="Top" Click="BtnUpdate_Click" Height="35" Width="72"/>
-        <Button Content="Delete" Name="BtnDelete" HorizontalAlignment="Left" Margin="307,297,0,0" VerticalAlignment="Top" Click="BtnDelete_Click" Height="35" Width="72"/>
+        <Button Name="BtnAdd" Content="Add" Visibility="{Binding ID , Mode=OneTime, Converter={StaticResource ZeroToVisible}}" HorizontalAlignment="Left" Margin="88,297,0,0" VerticalAlignment="Top" Click="Button_Click" Height="35" Width="72"/>
+        <Button Content="Update" Name="BtnUpdate" Visibility="{Binding ID , Mode=OneTime, Converter={StaticResource ZeroToHidden}}" HorizontalAlignment="Left" Margin="200,297,0,0" VerticalAlignment="Top" Click="BtnUpdate_Click" Height="35" Width="72"/>
+        <Button Content="Delete" Name="BtnDelete" Visibility="{Binding ID , Mode=OneTime, Converter={StaticResource ZeroToHidden}}" HorizontalAlignment="Left" Margin="307,297,0,0" VerticalAlignment="Top" Click="BtnDelete_Click" Height="35" Width="72"/>
         <Button Content="➜" Name="BtnReturn" 
                 HorizontalAlignment="Left" Margin="687,0,0,369" VerticalAlignment="Bottom" Height="49" Width="83" FontSize="36" BorderBrush="#00707070" Click="BtnReturn_Click">
             <Button.Background>

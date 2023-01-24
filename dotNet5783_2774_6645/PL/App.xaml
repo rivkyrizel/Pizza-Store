@@ -1,9 +1,12 @@
 ﻿<Application x:Class="PL.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:PL"
+             xmlns:localy="clr-namespace:PL"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <localy:ShowToVisible x:Key="ShowToVisible"/>
+        <localy:ZeroToHidden x:Key="ZeroToHidden"/>
+        <localy:ZeroToVisible x:Key="ZeroToVisible"/>
+        <localy:StringUpdateToHidden x:Key="StringUpdateToHidden"/>
     </Application.Resources>
 </Application>

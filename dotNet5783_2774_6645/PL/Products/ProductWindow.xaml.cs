@@ -24,27 +24,28 @@ namespace PL.Products;
 public partial class ProductWindow : Window
 {
     IBl bl;
-    BO.Product? p;
     int productID;
     BO.Cart? cart;
     PO.Product currentProduct;
     private ObservableCollection<PO.Product> products { get; set; }
 
-    private void cast(BO.Product p)
+    private BO.Product cast(PO.Product POp)
     {
-        currentProduct.Name = p.Name;
-        currentProduct.Price = p.Price;
-        currentProduct.Category = p.Category;
-        currentProduct.InStock = p.InStock;
-        currentProduct.ID = p.ID;
+        BO.Product b = new();
+        b.Category = POp.Category;
+        b.ID = POp.ID;
+        b.Name = POp.Name;
+        b.InStock = POp.InStock;
+        b.Price = POp.Price;
+        return b;
     }
 
 
     private void initializeDataContext()
     {
-        currentProduct = new Product();
         GridData.DataContext = currentProduct;
     }
+
     public ProductWindow(IBl Bl, string a, ObservableCollection<PO.Product> Products, int id = 0, BO.Cart? Cart = null)
     {
         InitializeComponent();
@@ -53,57 +54,26 @@ public partial class ProductWindow : Window
         products = Products;
         SelectCategory.ItemsSource = Enum.GetValues(typeof(BO.eCategory));
         productID = id;
-        currentProduct = new();
+        currentProduct = id == 0 ? new() : new(bl.product.GetProductForManager(productID));
         initializeDataContext();
-
-        if (a == "add") createAddWindow();
-        else if (a == "update")
-            createUpdateWindow();
-        else createShowWindow();
+         if(a=="show") createShowWindow();
     }
 
     private void createShowWindow()
     {
-        cast(bl.product.GetProductForManager(productID));
-        BtnAdd.Visibility = Visibility.Hidden;
-        BtnDelete.Visibility = Visibility.Hidden;
-        BtnUpdate.Visibility = Visibility.Hidden;
         addToCartBtn.Visibility = Visibility.Visible;
         TxtAmount.IsReadOnly = true;
         TxtName.IsReadOnly = true;
         TxtPrice.IsReadOnly = true;
     }
 
-    private void createAddWindow()
-    {
-        BtnDelete.Visibility = Visibility.Hidden;
-        BtnUpdate.Visibility = Visibility.Hidden;
-    }
-
-    private void createUpdateWindow()
-    {
-        p = bl.product.GetProductForManager(productID);
-        cast(p);
-        BtnAdd.Visibility = Visibility.Hidden;
-    }
 
     private void Button_Click(object sender, RoutedEventArgs e)
     {
         try
         {
-            BO.Product p = new();
-            p.Name = TxtName.Text;
-            int.TryParse(TxtAmount.Text, out int a);
-            p.InStock = a;
-            int.TryParse(TxtPrice.Text, out int b);
-            p.Price = b;
-            object s = SelectCategory.SelectedItem;
-            if (s == null) p.Category = null;
-            else p.Category = (BO.eCategory)s;
-            int id = bl.product.AddProduct(p);
-            cast(p);
-            products.Remove(products.ToList().Find(po => p.ID == po.ID));
-            currentProduct.ID = id;
+            products.Remove(products.ToList().Find(po => productID == po.ID));
+            currentProduct.ID = bl.product.AddProduct(cast(currentProduct));
             products.Add(currentProduct);
             Close();
         }
@@ -125,20 +95,10 @@ public partial class ProductWindow : Window
     {
         try
         {
-            BO.Product p = new();
-            p.Name = TxtName.Text;
-            int.TryParse(TxtAmount.Text, out int a);
-            p.InStock = a;
-            int.TryParse(TxtPrice.Text, out int b);
-            p.Price = b;
-            p.ID = productID;
-            object s = SelectCategory.SelectedItem;
-            p.Category = (BO.eCategory)s;
-            bl.product.UpdateProduct(p);
-            cast(p);
-            int idx = products.ToList().FindIndex(po => p.ID == po.ID);
+            int idx = products.ToList().FindIndex(po => productID == po.ID);
             products.RemoveAt(idx);
             products.Insert(idx, currentProduct);
+            bl.product.UpdateProduct(cast(currentProduct));
             Close();
         }
         catch (BlIdNotFound ex)
@@ -160,6 +120,7 @@ public partial class ProductWindow : Window
         try
         {
             bl?.product.DeleteProduct(productID);
+            products.Remove(products.ToList().Find(po => productID == po.ID));
             Close();
         }
         catch (BlProductFoundInOrders ex)

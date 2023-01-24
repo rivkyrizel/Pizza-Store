@@ -20,13 +20,14 @@ namespace PL.PO
         }
 
 
-        public string? Name {
-            get { return (string)GetValue(NameProperty); } 
-            set { SetValue(NameProperty, value); }        
+        public string? Name
+        {
+            get { return (string)GetValue(NameProperty); }
+            set { SetValue(NameProperty, value); }
         }
         public double Price
         {
-            get { return (int)GetValue(PriceProperty); }
+            get { return (double)GetValue(PriceProperty); }
             set { SetValue(PriceProperty, value); }
         }
 
@@ -40,13 +41,24 @@ namespace PL.PO
             get { return (BO.eCategory)GetValue(CategoryProperty); }
             set { SetValue(CategoryProperty, value); }
         }
+        public Product() { }
 
 
-        public static readonly DependencyProperty IDProperty  = DependencyProperty.Register("ID", typeof(int), typeof(Product));
-        public static readonly DependencyProperty NameProperty  = DependencyProperty.Register("Name", typeof(string), typeof(Product), new UIPropertyMetadata(""));
-        public static readonly DependencyProperty PriceProperty = DependencyProperty.Register("Price", typeof(object), typeof(Product), new UIPropertyMetadata(0));
-        public static readonly DependencyProperty InStockProperty = DependencyProperty.Register("InStock", typeof(object), typeof(Product), new UIPropertyMetadata(0));
-        public static readonly DependencyProperty CategoryProperty = DependencyProperty.Register("Category", typeof(object), typeof(Product), new UIPropertyMetadata(null));
+        public Product(BO.Product p)
+        {
+            Name = p.Name;
+            Price = p.Price;
+            Category = p.Category;
+            InStock = p.InStock;
+            ID = p.ID;
+
+        }
+
+        public static readonly DependencyProperty IDProperty = DependencyProperty.Register("ID", typeof(int), typeof(Product));
+        public static readonly DependencyProperty NameProperty = DependencyProperty.Register("Name", typeof(string), typeof(Product), new UIPropertyMetadata(""));
+        public static readonly DependencyProperty PriceProperty = DependencyProperty.Register("Price", typeof(double), typeof(Product));
+        public static readonly DependencyProperty InStockProperty = DependencyProperty.Register("InStock", typeof(int), typeof(Product), new UIPropertyMetadata(0));
+        public static readonly DependencyProperty CategoryProperty = DependencyProperty.Register("Category", typeof(BO.eCategory), typeof(Product), new UIPropertyMetadata(null));
     }
 }
 
