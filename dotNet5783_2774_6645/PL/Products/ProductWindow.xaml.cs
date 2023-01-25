@@ -27,6 +27,7 @@ public partial class ProductWindow : Window
     int productID;
     BO.Cart? cart;
     PO.Product currentProduct;
+    string active;
     private ObservableCollection<PO.Product> products { get; set; }
 
     private BO.Product cast(PO.Product POp)
@@ -43,7 +44,7 @@ public partial class ProductWindow : Window
 
     private void initializeDataContext()
     {
-        GridData.DataContext = currentProduct;
+        GridData.DataContext = this;
     }
 
     public ProductWindow(IBl Bl, string a, ObservableCollection<PO.Product> Products, int id = 0, BO.Cart? Cart = null)
@@ -55,6 +56,7 @@ public partial class ProductWindow : Window
         SelectCategory.ItemsSource = Enum.GetValues(typeof(BO.eCategory));
         productID = id;
         currentProduct = id == 0 ? new() : new(bl.product.GetProductForManager(productID));
+        active = a;
         initializeDataContext();
          if(a=="show") createShowWindow();
     }
