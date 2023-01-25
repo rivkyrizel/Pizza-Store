@@ -23,11 +23,11 @@ public class ZeroToVisible : IValueConverter
     }
 }
 
-public class ShowToVisible : IValueConverter
+public class ShowOrUpdateToHidden : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        return (string)value == "show" ? "Visible" : "Hidden";
+        return (string)value == "show"|| (string)value == "update" ?   "Hidden" : "Visible";
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -36,6 +36,19 @@ public class ShowToVisible : IValueConverter
     }
 }
 
+
+public class AddOrShowToHidden : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        return (string)value == "show" || (string)value == "add" ? "Hidden" : "Visible";
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}
 
 public class ZeroToHidden : IValueConverter
 {
@@ -50,11 +63,11 @@ public class ZeroToHidden : IValueConverter
     }
 }
 
-public class StringUpdateToHidden : IValueConverter
+public class ShowToVisible : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        return (string)value == "update" ? "Visible" : "Hidden";
+        return (string)value == "show" ? "Visible" : "Hidden";
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -63,6 +76,72 @@ public class StringUpdateToHidden : IValueConverter
     }
 }
 
+public class ShowToTrue : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        return (string)value == "show" ? true : false;
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}
+
+
+public class TrueToVisible : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        return (bool)value == true ? "Visible" : "Hidden";
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}
+
+
+public class TrueToHidden : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        return (bool)value == false ? "Visible" : "Hidden";
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}
+
+public class ShipedToVisible : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        return (BO.OrderStatus)value == 0 ? "Visible" : "Hidden";
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}
+
+public class DeliveryToVisible : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        return (BO.OrderStatus)value == (BO.OrderStatus)1 ? "Visible" : "Hidden";
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}
 
 
 

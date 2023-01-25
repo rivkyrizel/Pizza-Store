@@ -31,6 +31,7 @@ public partial class ProductListWindow : Window
     bool admin;
     bool add;
     BO.Cart? cart;
+    List<string> lst { get; set; }  
    private ObservableCollection<PO.Product> products { get; set; }
 
     public ProductListWindow(IBl Bl, bool Admin = true, bool Add = false)
@@ -43,14 +44,10 @@ public partial class ProductListWindow : Window
         products= new ObservableCollection<PO.Product>();
         List<string> list = Enum.GetNames(typeof(BO.eCategory)).ToList();
         list.Insert(0, "all categories");
-        AttributeSelector.ItemsSource = list;
+        lst = list;
         cast(bl.product.GetProductList());
         ProductsListview.ItemsSource = products;
-        if (!admin)
-        {
-            BtnAddProduct.Visibility = Visibility.Hidden;
-            viewCartBtn.Visibility = Visibility.Visible;
-        }
+        prodListbtns.DataContext = new {admin = Admin};
     }
 
     public void cast(IEnumerable<ProductForList?> enumerable)
@@ -83,11 +80,6 @@ public partial class ProductListWindow : Window
         string state = admin ? "update" : "show";
         new ProductWindow(bl, state, products,((PO.Product?)ProductsListview.SelectedItems[0])?.ID ?? throw new PlNullObjectException(), cart).Show();
 
-    }
-
-    private void BtnBack_Click(object sender, RoutedEventArgs e)
-    {
-        cast(bl.product.GetProductList());
     }
 
     private void viewCartBtn_Click(object sender, RoutedEventArgs e)

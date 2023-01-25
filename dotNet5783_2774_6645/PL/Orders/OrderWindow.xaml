@@ -22,8 +22,8 @@
         <TextBlock x:Name="txtOrderShipDate" Text="{Binding Path=ShipDate, Mode=TwoWay}" HorizontalAlignment="Left" Margin="251,191,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Height="30"/>
         <Label x:Name="lblOrderShipDate" Content="ship date:" HorizontalAlignment="Left" Margin="62,198,0,0" VerticalAlignment="Top" Height="30" RenderTransformOrigin="0.282,1.065"/>
         <TextBlock x:Name="txtOrderDeliveryDate" Text="{Binding Path=DeliveryDate, Mode=TwoWay}" HorizontalAlignment="Left" Margin="251,217,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Height="30"/>
-        <Button Name="updateDliveryBtn" Visibility="Hidden" Content="update delivery date" Margin="161,263,489,130" Click="updateDliveryBtn_Click"/>
-        <Button Name="updateShipedBtn" Visibility="Hidden" Content="update Shiped date" Margin="423,263,227,130" Click="updateShipedBtn_Click"/>
+        <Button Name="updateDliveryBtn" Visibility="{Binding Status, Mode=OneTime, Converter={StaticResource DeliveryToVisible}}" Content="update delivery date" Margin="161,263,489,130" Click="updateDliveryBtn_Click"/>
+        <Button Name="updateShipedBtn" Content="update Shiped date" Margin="423,263,227,130" Click="updateShipedBtn_Click" Visibility="{Binding Status, Mode=OneTime, Converter={StaticResource ShipedToVisible}}" />
         <Label Name="DeliverdLbl" Visibility="Hidden" Content="Order deliverd to customer" FontSize="20" HorizontalAlignment="Left" Margin="251,326,0,0" VerticalAlignment="Top" Height="46" Width="262"/>
         <ListView x:Name="listViewOrderItems"  Margin="427,12,10,217">
             <ListView.View>

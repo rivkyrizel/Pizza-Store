@@ -4,9 +4,15 @@
              xmlns:localy="clr-namespace:PL"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <localy:ShowToVisible x:Key="ShowToVisible"/>
+        <localy:ShowOrUpdateToHidden x:Key="ShowOrUpdateToHidden"/>
         <localy:ZeroToHidden x:Key="ZeroToHidden"/>
         <localy:ZeroToVisible x:Key="ZeroToVisible"/>
-        <localy:StringUpdateToHidden x:Key="StringUpdateToHidden"/>
+        <localy:AddOrShowToHidden x:Key="AddOrShowToHidden"/>
+        <localy:ShowToVisible x:Key="ShowToVisible"/>
+        <localy:ShowToTrue x:Key="ShowToTrue"/>
+        <localy:TrueToVisible x:Key="TrueToVisible"/>
+        <localy:TrueToHidden x:Key="TrueToHidden"/>
+        <localy:ShipedToVisible x:Key="ShipedToVisible"/>
+        <localy:DeliveryToVisible x:Key="DeliveryToVisible"/>
     </Application.Resources>
 </Application>

@@ -3,10 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PL.Products"
         mc:Ignorable="d"
-        Title="ProductListWindow" Height="640" Width="800">
-
+         Title="ProductListWindow" Height="640" Width="800">
+   
 
     <Grid Name="MainGrid">
 
@@ -27,20 +26,10 @@
 
             <ComboBox Grid.Column="2" Margin="100,32,16,31" Text="f" Name="AttributeSelector" SelectionChanged="AttributeSelector_SelectionChanged" Grid.ColumnSpan="2"/>
             <Label Content="Category:" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" FontFamily="Anivers" Grid.Column="1"/>
-            <Button Content="⭮"  Name="BtnBack" HorizontalAlignment="Center" VerticalAlignment="Center" Height="53" Width="60" FontSize="36" RenderTransformOrigin="0.5,0.5" Background="#00DDDDDD" BorderBrush="#01707070" Click="BtnBack_Click" FontWeight="Bold">
-                <Button.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform ScaleX="-1"/>
-                        <SkewTransform/>
-                        <RotateTransform Angle="-89.639"/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </Button.RenderTransform>
-            </Button>
         </Grid>
 
 
-        <ListView   Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" ItemsSource="{Binding ProductAsSender}" x:Name="ProductsListview" MouseDoubleClick="ProductsListview_MouseDoubleClick" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="White" Foreground="#FF041F65" >
+        <ListView   Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" ItemsSource="{Binding lst}" x:Name="ProductsListview" MouseDoubleClick="ProductsListview_MouseDoubleClick" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="White" Foreground="#FF041F65" >
             <ListView.View >
                 <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Employee Information" >
 
@@ -55,10 +44,11 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        <Grid Name="prodListbtns">
 
-
-        <Button Name="BtnAddProduct" Content="Add Product" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Height="44" Width="96" Click="Button_Click"/>
-        <Button Content="view cart" Name="viewCartBtn" HorizontalAlignment="Left" Height="44" Margin="347,0,0,0" Grid.Row="2" VerticalAlignment="Center" Width="101" Click="viewCartBtn_Click" Visibility="Hidden"/>
+            <Button Name="BtnAddProduct" Content="Add Product" HorizontalAlignment="Left" VerticalAlignment="Top" Height="44" Width="96" Click="Button_Click" Visibility="{Binding admin, Mode=OneTime, Converter={StaticResource TrueToVisible}}" Margin="17,17,0,0"/>
+            <Button Content="view cart" Name="viewCartBtn" HorizontalAlignment="Left" Height="44" Margin="18,19,0,0" VerticalAlignment="Top" Width="101" Click="viewCartBtn_Click" Visibility="{Binding admin, Mode=OneTime, Converter={StaticResource TrueToHidden}}"/>
+        </Grid>
 
     </Grid>
 

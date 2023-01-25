@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ArrayOfOrder xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Order>
     <ID>500000</ID>
@@ -42,8 +42,8 @@
     <CustomerEmail>iii</CustomerEmail>
     <CustomerAddress>fff</CustomerAddress>
     <OrderDate>2021-02-25T00:00:00</OrderDate>
-    <ShipDate xsi:nil="true" />
-    <DeliveryDate xsi:nil="true" />
+    <ShipDate>2023-01-25T17:14:22.8740906+02:00</ShipDate>
+    <DeliveryDate>2023-01-25T17:14:29.4978093+02:00</DeliveryDate>
   </Order>
   <Order>
     <ID>500005</ID>
@@ -61,7 +61,7 @@
     <CustomerAddress>eee</CustomerAddress>
     <OrderDate>2019-10-22T00:00:00</OrderDate>
     <ShipDate>2019-10-27T00:00:00</ShipDate>
-    <DeliveryDate xsi:nil="true" />
+    <DeliveryDate>2023-01-25T17:15:19.1373062+02:00</DeliveryDate>
   </Order>
   <Order>
     <ID>500007</ID>
@@ -96,8 +96,8 @@
     <CustomerEmail>hhh</CustomerEmail>
     <CustomerAddress>ddd</CustomerAddress>
     <OrderDate>2017-04-07T00:00:00</OrderDate>
-    <ShipDate xsi:nil="true" />
-    <DeliveryDate xsi:nil="true" />
+    <ShipDate>2023-01-25T17:15:26.2251366+02:00</ShipDate>
+    <DeliveryDate />
   </Order>
   <Order>
     <ID>500011</ID>

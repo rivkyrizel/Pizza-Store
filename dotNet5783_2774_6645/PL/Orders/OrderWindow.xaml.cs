@@ -31,34 +31,16 @@ namespace PL.Orders
             DataContext = bOrder;
             InitializeComponent();
             listViewOrderItems.ItemsSource = bOrder?.Items;
-            if (bOrder.Status == 0)
-            {
-                updateShipedBtn.Visibility = Visibility.Visible;
-            }
-            else if (bOrder.Status == (BO.OrderStatus)1)
-            {
-                updateDliveryBtn.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                DeliverdLbl.Visibility = Visibility.Visible;
-            }
         }
 
         private void updateDliveryBtn_Click(object sender, RoutedEventArgs e)
         {
             bl.order.UpdateDeliveryOrder(orderId);
-            updateDliveryBtn.Visibility = Visibility.Hidden;
-            DeliverdLbl.Visibility = Visibility.Visible;
         }
 
         private void updateShipedBtn_Click(object sender, RoutedEventArgs e)
         {
             bl.order.UpdateShipedOrder(orderId);
-            updateShipedBtn.Visibility = Visibility.Hidden;
-            updateDliveryBtn.Visibility = Visibility.Visible;
         }
-
-   
     }
 }

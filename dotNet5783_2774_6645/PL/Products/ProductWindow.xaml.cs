@@ -27,10 +27,10 @@ public partial class ProductWindow : Window
     int productID;
     BO.Cart? cart;
     PO.Product currentProduct;
-    string active;
     private ObservableCollection<PO.Product> products { get; set; }
 
-    private BO.Product cast(PO.Product POp)
+
+private BO.Product cast(PO.Product POp)
     {
         BO.Product b = new();
         b.Category = POp.Category;
@@ -44,26 +44,26 @@ public partial class ProductWindow : Window
 
     private void initializeDataContext()
     {
-        GridData.DataContext = this;
+        GridData.DataContext = currentProduct;
     }
 
-    public ProductWindow(IBl Bl, string a, ObservableCollection<PO.Product> Products, int id = 0, BO.Cart? Cart = null)
+    public ProductWindow(IBl Bl, string active, ObservableCollection<PO.Product> Products, int id = 0, BO.Cart? Cart = null)
     {
         InitializeComponent();
+        gridBtn.DataContext= new { act = active };
+        p.DataContext = new { act1 = active };
         bl = Bl;
         cart = Cart;
         products = Products;
         SelectCategory.ItemsSource = Enum.GetValues(typeof(BO.eCategory));
         productID = id;
         currentProduct = id == 0 ? new() : new(bl.product.GetProductForManager(productID));
-        active = a;
         initializeDataContext();
-         if(a=="show") createShowWindow();
+        if (active == "show") createShowWindow();
     }
 
     private void createShowWindow()
     {
-        addToCartBtn.Visibility = Visibility.Visible;
         TxtAmount.IsReadOnly = true;
         TxtName.IsReadOnly = true;
         TxtPrice.IsReadOnly = true;

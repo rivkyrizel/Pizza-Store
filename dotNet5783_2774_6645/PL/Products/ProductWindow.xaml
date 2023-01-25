@@ -6,45 +6,51 @@
         xmlns:local="clr-namespace:PL.Products"
         xmlns:localy="clr-namespace:PL.PO"
         mc:Ignorable="d"
-        DataContext="{Binding  currentProduct, RelativeSource={RelativeSource Mode=Self}}" 
+       
         Title="ProductWindow" Height="450" Width="800">
-    <Grid Name="GridData" RenderTransformOrigin="0.538,0.394">
-        <Label 
+    <Grid Name="p">
+        <Grid Name="GridData" RenderTransformOrigin="0.538,0.394">
+            <Label 
             Name="LblName" Content="name" FontSize="18" HorizontalAlignment="Left" Height="30" Margin="36,57,0,0" VerticalAlignment="Top" Width="55" Background="White">
-        </Label>
-        <TextBox Name="TxtName"  HorizontalAlignment="Left" Height="30" Margin="127,57,0,0" TextWrapping="Wrap" Text="{Binding Path=Name, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" VerticalAlignment="Top" Width="190">
-        </TextBox>
-        <Label 
+            </Label>
+            <TextBox Name="TxtName"  HorizontalAlignment="Left" Height="30" Margin="127,57,0,0" TextWrapping="Wrap" Text="{Binding Path=Name, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" VerticalAlignment="Top" Width="190">
+            </TextBox>
+            <Label 
             Name="LblPrice" FontSize="18" Content="price" HorizontalAlignment="Left" Height="36" Margin="36,105,0,0" VerticalAlignment="Top" Width="55">
-        </Label>
-        <TextBox 
+            </Label>
+            <TextBox 
             Name="TxtPrice" HorizontalAlignment="Left" Margin="127,105,0,0" TextWrapping="Wrap" Text="{Binding Path=Price, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" VerticalAlignment="Top" Width="190" Height="31">
-        </TextBox>
-        <Label 
+            </TextBox>
+            <Label 
             Name="LblAmount" FontSize="18" Content="amount" HorizontalAlignment="Left" Height="36" Margin="36,193,0,0" VerticalAlignment="Top" Width="79"/>
-        <TextBox 
+            <TextBox 
             Name="TxtAmount" HorizontalAlignment="Left" Margin="127,0,0,0" TextWrapping="Wrap" Text="{Binding Path=InStock, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" VerticalAlignment="Center" Width="190" Height="30">
-        </TextBox>
-        <ComboBox 
+            </TextBox>
+            <ComboBox 
             Name="SelectCategory" Text="{Binding Path=Category, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" HorizontalAlignment="Left" Margin="127,155,0,0" VerticalAlignment="Top" Width="120">
-        </ComboBox>
-        <Label 
+            </ComboBox>
+            <Label 
             Name="LblCategory" FontSize="18"  Content="category" HorizontalAlignment="Left" Margin="36,147,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.44,-0.266">
-        </Label>
-        <Button 
-            Name="BtnAdd" Content="Add" Visibility="{Binding ID , Mode=OneTime, Converter={StaticResource ZeroToVisible}}" HorizontalAlignment="Left" Margin="88,297,0,0" VerticalAlignment="Top" Click="Button_Click" Height="35" Width="72">
-        </Button>
-        <Button 
-            Content="Update" Name="BtnUpdate" Visibility="{Binding ID , Mode=OneTime, Converter={StaticResource ZeroToHidden}}" HorizontalAlignment="Left" Margin="200,297,0,0" VerticalAlignment="Top" Click="BtnUpdate_Click" Height="35" Width="72">
-        </Button>
-        <Button 
-            Content="Delete" Name="BtnDelete" Visibility="{Binding ID , Mode=OneTime, Converter={StaticResource ZeroToHidden}}" HorizontalAlignment="Left" Margin="307,297,0,0" VerticalAlignment="Top" Click="BtnDelete_Click" Height="35" Width="72">
-        </Button>
-        <Button 
+            </Label>
+
+
+            <Button 
             Content="➜" Name="BtnReturn"   HorizontalAlignment="Left" Margin="687,0,0,369" VerticalAlignment="Bottom" Height="49" Width="83" FontSize="36" BorderBrush="#00707070" Click="BtnReturn_Click">
-        </Button>
-        <Button 
-            Name="addToCartBtn" Content="add to cart" HorizontalAlignment="Left" Height="54" Margin="581,120,0,0" Visibility="Hidden" VerticalAlignment="Top" Width="93" Click="addToCartBtn_Click">
-        </Button>
+            </Button>
+        </Grid>
+        <Grid x:Name="gridBtn">
+            <Button 
+            Name="BtnAdd" Content="Add" Visibility="{Binding act, Mode=OneTime, Converter={StaticResource ShowOrUpdateToHidden}}" HorizontalAlignment="Left" Margin="88,297,0,0" VerticalAlignment="Top" Click="Button_Click" Height="35" Width="72">
+            </Button>
+            <Button 
+            Content="Update" Name="BtnUpdate" Visibility="{Binding act , Mode=OneTime, Converter={StaticResource AddOrShowToHidden}}" HorizontalAlignment="Left" Margin="200,297,0,0" VerticalAlignment="Top" Click="BtnUpdate_Click" Height="35" Width="72">
+            </Button>
+            <Button 
+            Content="Delete" Name="BtnDelete" Visibility="{Binding act , Mode=OneTime, Converter={StaticResource AddOrShowToHidden}}" HorizontalAlignment="Left" Margin="307,297,0,0" VerticalAlignment="Top" Click="BtnDelete_Click" Height="35" Width="72">
+            </Button>
+            <Button 
+            Name="addToCartBtn" Content="add to cart" HorizontalAlignment="Left" Height="54" Margin="581,120,0,0" Visibility="{Binding act , Mode=OneTime, Converter={StaticResource ShowToVisible}}" VerticalAlignment="Top" Width="93" Click="addToCartBtn_Click">
+            </Button>
+        </Grid>
     </Grid>
 </Window>
