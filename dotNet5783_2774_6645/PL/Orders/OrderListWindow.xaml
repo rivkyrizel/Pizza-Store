@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="OrderListWindow" Height="450" Width="800">
     <Grid>
-        <ListView Name="OrderListView" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="OrderListView_SelectionChanged" MouseDoubleClick="OrderListView_MouseDoubleClick" Margin="124,44,130,-17">
+        <ListView Name="OrderListView" d:ItemsSource="{d:SampleData ItemCount=5}" MouseDoubleClick="OrderListView_MouseDoubleClick" Margin="124,44,130,-17">
             <ListView.View>
                 <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Employee Information" >
 
