@@ -118,6 +118,11 @@ internal class BlCart : ICart
     {
         try
         {
+
+            BO.Cart newCart = cart;//??????
+            List<BO.OrderItem?> x = cart?.Items.ToList();//??
+            newCart.Items = x;//??
+
             DO.Product p = dal.Product.Get(p => p.ID == productId);
 
             var orderItem = from item in cart?.Items
