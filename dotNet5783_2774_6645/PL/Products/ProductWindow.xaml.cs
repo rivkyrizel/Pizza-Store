@@ -13,7 +13,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using PL.PO;
 using System.Collections.ObjectModel;
 
 namespace PL.Products;
@@ -25,12 +24,12 @@ public partial class ProductWindow : Window
 {
     IBl bl;
     int productID;
-    BO.Cart? cart;
+    PO.Cart? cart;
     PO.Product currentProduct;
     private ObservableCollection<PO.Product> products { get; set; }
 
 
-private BO.Product cast(PO.Product POp)
+private BO.Product cast1(PO.Product POp)
     {
         BO.Product b = new();
         b.Category = POp.Category;
@@ -47,7 +46,7 @@ private BO.Product cast(PO.Product POp)
         GridData.DataContext = currentProduct;
     }
 
-    public ProductWindow(IBl Bl, string active, ObservableCollection<PO.Product> Products, int id = 0, BO.Cart? Cart = null)
+    public ProductWindow(IBl Bl, string active, ObservableCollection<PO.Product> Products,ref PO.Cart Cart, int id = 0)
     {
         InitializeComponent();
         gridBtn.DataContext= new { act = active };
@@ -75,7 +74,7 @@ private BO.Product cast(PO.Product POp)
         try
         {
             products.Remove(products.ToList().Find(po => productID == po.ID));
-            currentProduct.ID = bl.product.AddProduct(cast(currentProduct));
+            currentProduct.ID = bl.product.AddProduct(cast1(currentProduct));
             products.Add(currentProduct);
             Close();
         }
@@ -100,7 +99,7 @@ private BO.Product cast(PO.Product POp)
             int idx = products.ToList().FindIndex(po => productID == po.ID);
             products.RemoveAt(idx);
             products.Insert(idx, currentProduct);
-            bl.product.UpdateProduct(cast(currentProduct));
+            bl.product.UpdateProduct(cast1(currentProduct));
             Close();
         }
         catch (BlIdNotFound ex)
@@ -142,7 +141,8 @@ private BO.Product cast(PO.Product POp)
 
     private void addToCartBtn_Click(object sender, RoutedEventArgs e)
     {
-        cart = bl?.Cart.AddToCart(cart, productID);
+        BO.Cart b = PLUtils.cast<BO.Cart, PO.Cart>(cart);
+        cart = PLUtils.cast<PO.Cart, BO.Cart>(bl.Cart.AddToCart(b, productID));
         Close();
     }
 

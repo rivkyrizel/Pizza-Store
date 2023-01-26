@@ -20,13 +20,13 @@ namespace PL
     /// </summary>
     public partial class userDetails : Window
     {
-        BO.Cart cart;
+        PO.Cart cart;
         IBl bl;
-        public userDetails(IBl Bl,BO.Cart? Cart )
+        public userDetails(IBl Bl,PO.Cart Cart )
         {
             bl = Bl;
             InitializeComponent();
-            cart = Cart??throw new PlNullObjectException();
+            cart = Cart;
         }
 
         private void saveBtn_Click(object sender, RoutedEventArgs e)
@@ -35,7 +35,7 @@ namespace PL
             cart.CustomerName = NameTxt.Text;
             cart.CustomerEmail = EmailTxt.Text;
             cart.CustomerAddress = AddressTxt.Text;
-            bl.Cart.confirmOrder(cart);
+            bl.Cart.confirmOrder(PLUtils.cast<BO.Cart,PO.Cart>(cart));
             Close();
         }
     }

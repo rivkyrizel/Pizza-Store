@@ -33,13 +33,9 @@ internal class BlCart : ICart
         try
         {
             DO.Product p = dal.Product.Get(p => p.ID == productId);
+            List<BO.OrderItem> items = new List<BO.OrderItem>();
+            items = cart.Items.ToList();
             if (p.Amount < 1) throw new BlOutOfStockException();
-
-            if (cart.Items == null)
-            {
-                List<BO.OrderItem> items = new List<BO.OrderItem>();
-                cart.Items = items;
-            }
 
             if (cart.Items.ToList().Exists(i => i?.ProductID == productId)) throw new BlItemAlreadyInCart();
 
@@ -47,7 +43,8 @@ internal class BlCart : ICart
             oItem.ProductID = p.ID;
             oItem.Amount = 1;
             oItem.TotalPrice = oItem.Price;
-            cart.Items = cart.Items.Append(oItem);
+            items.Add(oItem);
+            cart.Items = items;
             cart.Totalprice = cart.Totalprice + oItem.TotalPrice;
             return cart;
 

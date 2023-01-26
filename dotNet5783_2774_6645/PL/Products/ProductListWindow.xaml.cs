@@ -30,7 +30,7 @@ public partial class ProductListWindow : Window
     IBl bl;
     bool admin;
     bool add;
-    BO.Cart? cart;
+    PO.Cart? cart;
     List<string> lst { get; set; }  
    private ObservableCollection<PO.Product> products { get; set; }
 
@@ -73,12 +73,12 @@ public partial class ProductListWindow : Window
 
     private void Button_Click(object sender, RoutedEventArgs e)
     {
-        new ProductWindow(bl, "add", products).Show();
+        new ProductWindow(bl, "add", products,ref cart).Show();
     }
     private void ProductsListview_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
         string state = admin ? "update" : "show";
-        new ProductWindow(bl, state, products,((PO.Product?)ProductsListview.SelectedItems[0])?.ID ?? throw new PlNullObjectException(), cart).Show();
+        new ProductWindow(bl, state, products, ref cart,((PO.Product?)ProductsListview.SelectedItems[0])?.ID ?? throw new PlNullObjectException()).Show();
 
     }
 
