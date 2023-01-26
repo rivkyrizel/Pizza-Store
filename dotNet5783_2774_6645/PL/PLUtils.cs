@@ -1,6 +1,7 @@
 ﻿using BlApi;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -33,20 +34,20 @@ public class PLUtils
         return (S)s;
     }
 
-    public static List<PO.OrderItem> castBOItemsToPOItems(object l)
+    public static ObservableCollection<PO.OrderItem> castBOItemsToPOItems(object l)
     {
         List<PO.OrderItem> list = new();
         foreach (var item in (IEnumerable<BO.OrderItem>)l)
         {
             list.Add(cast<PO.OrderItem, BO.OrderItem>(item));
         }
-        return list;
+        return new ObservableCollection<PO.OrderItem>(list);
     }
 
     public static List<BO.OrderItem> castPOItemsToBOItems(object l)
     {
         List<BO.OrderItem> list = new();
-        foreach (var item in (IEnumerable<PO.OrderItem>)l)
+        foreach (var item in (ObservableCollection<PO.OrderItem>)l)
         {
             list.Add(cast<BO.OrderItem, PO.OrderItem>(item));
         }
