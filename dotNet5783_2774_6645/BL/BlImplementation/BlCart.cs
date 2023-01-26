@@ -1,4 +1,5 @@
 ﻿using BlApi;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace BlImplementation;
@@ -47,6 +48,7 @@ internal class BlCart : ICart
             oItem.Amount = 1;
             oItem.TotalPrice = oItem.Price;
             cart.Items = cart.Items.Append(oItem);
+            cart.Totalprice = cart.Totalprice + oItem.TotalPrice;
             return cart;
 
         }
@@ -116,21 +118,31 @@ internal class BlCart : ICart
     {
         try
         {
+
+            BO.Cart newCart = cart;//??????
+            List<BO.OrderItem?> x = cart?.Items.ToList();//??
+            newCart.Items = x;//??
+
             DO.Product p = dal.Product.Get(p => p.ID == productId);
 
-            var v = from item in cart?.Items
+            IEnumerable<BO.OrderItem> v = from item in cart?.Items
                     where item?.ProductID == productId
                     select item;
 
             if (v.FirstOrDefault() == null) throw new NoEntitiesFound();
             if (v.First().Amount + p.Amount < newAmount) throw new BlInvalidAmount();
 
-            cart?.Items?.ToList().Remove(v.FirstOrDefault());
+            List<BO.OrderItem?> qq = cart?.Items.ToList();//??
+            qq.Remove(v.First());//??
+            newCart.Items = qq;//??
+            bool? t = cart?.Items?.ToList().Remove(v.First());
+
             if (!newAmount.Equals(0))
             {
                 v.First().Amount = newAmount;
                 v.First().TotalPrice = p.Price * newAmount;
                 cart?.Items?.ToList().Add(v.First());
+                //cart?.Totalprice = (newAmount - v.First().TotalPrice) * p.Price;
             }
 
             return cart ?? throw new BlNullValueException();
