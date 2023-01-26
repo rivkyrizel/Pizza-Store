@@ -2,6 +2,7 @@
 using PL.Products;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,24 +24,28 @@ namespace PL.Orders
     {
         IBl bl;
         int orderId;
-        public OrderWindow(IBl Bl, int id = 0)
+        public OrderWindow(IBl Bl, int id, ObservableCollection<PO.OrderForList>? orders)
         {
             orderId = id;
             bl = Bl;
-            BO.Order bOrder = bl.order.GetOrder(id);
-            DataContext = bOrder;
+            PO.Order pOrder = new(bl.order.GetOrder(id));
+            DataContext = pOrder;
             InitializeComponent();
-            listViewOrderItems.ItemsSource = bOrder?.Items;
+            listViewOrderItems.ItemsSource = pOrder?.Items;
         }
 
         private void updateDliveryBtn_Click(object sender, RoutedEventArgs e)
         {
             bl.order.UpdateDeliveryOrder(orderId);
+            updateDliveryBtn.Visibility = Visibility.Hidden;
+            DeliverdLbl.Visibility = Visibility.Visible;
         }
 
         private void updateShipedBtn_Click(object sender, RoutedEventArgs e)
         {
             bl.order.UpdateShipedOrder(orderId);
+            updateShipedBtn.Visibility = Visibility.Hidden;
+            updateDliveryBtn.Visibility = Visibility.Visible;
         }
     }
 }

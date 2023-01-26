@@ -1,4 +1,5 @@
 ﻿using BlApi;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace BlImplementation;
@@ -47,6 +48,7 @@ internal class BlCart : ICart
             oItem.Amount = 1;
             oItem.TotalPrice = oItem.Price;
             cart.Items = cart.Items.Append(oItem);
+            cart.Totalprice = cart.Totalprice + oItem.TotalPrice;
             return cart;
 
         }
@@ -112,28 +114,38 @@ internal class BlCart : ICart
     /// <param name="newAmount"> the new amount to update in the order </param>
     /// <returns> updated cart </returns>
     /// <exception cref="BlIdNotFound"> id of product is invalid </exception>
-    public BO.Cart updateAmount(BO.Cart? cart, int productId, int newAmount)
+    public BO.Cart updateAmount(BO.Cart cart, int productId, int newAmount)
     {
         try
         {
             DO.Product p = dal.Product.Get(p => p.ID == productId);
 
-            var v = from item in cart?.Items
+            var orderItem = from item in cart?.Items
                     where item?.ProductID == productId
                     select item;
 
-            if (v.FirstOrDefault() == null) throw new NoEntitiesFound();
-            if (v.First().Amount + p.Amount < newAmount) throw new BlInvalidAmount();
+            BO.OrderItem oi = orderItem.FirstOrDefault()??throw new NoEntitiesFound();
+            if (oi.Amount + p.Amount < newAmount) throw new BlInvalidAmount();
 
-            cart?.Items?.ToList().Remove(v.FirstOrDefault());
+            List<BO.OrderItem?> tempList = cart.Items.ToList();
+            tempList.Remove(oi);
+            cart.Items = tempList;
+            cart.Totalprice -= oi.TotalPrice;
+
             if (!newAmount.Equals(0))
             {
-                v.First().Amount = newAmount;
-                v.First().TotalPrice = p.Price * newAmount;
-                cart?.Items?.ToList().Add(v.First());
+                oi.Amount = newAmount;
+                oi.TotalPrice = p.Price * newAmount;
+                if (cart.Items.ToList().Capacity==0)
+                {
+                    List<BO.OrderItem?> lst = new();
+                    lst.Add(oi);
+                    cart.Items = lst;
+                }
+                cart.Items.ToList().Add(oi);
+                cart.Totalprice += oi.TotalPrice;
             }
-
-            return cart ?? throw new BlNullValueException();
+            return cart;
         }
 
         catch (DalApi.ItemNotFound e)

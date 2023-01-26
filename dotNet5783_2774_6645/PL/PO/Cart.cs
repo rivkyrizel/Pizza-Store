@@ -29,12 +29,12 @@ public class Cart : DependencyObject
         get { return (string)GetValue(customerAddressProperty); }
         set { SetValue(customerAddressProperty, value); }
     }
-    public ObservableCollection<PO.OrderItem> Items//a list of the items in the shopping BOcart 
+    public ObservableCollection<PO.OrderItem> Items
     {
         get { return (ObservableCollection<PO.OrderItem>)GetValue(itemsProperty); }
         set { SetValue(itemsProperty, value); }
     }
-    public double TotalPrice//the total price of the shopping BOcart
+    public double TotalPrice
     {
         get { return (double)GetValue(totalPriceProperty); }
         set { SetValue(totalPriceProperty, value); }

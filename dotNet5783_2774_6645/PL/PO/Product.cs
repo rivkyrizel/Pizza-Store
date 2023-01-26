@@ -51,7 +51,6 @@ namespace PL.PO
             Category = p.Category;
             InStock = p.InStock;
             ID = p.ID;
-
         }
 
         public static readonly DependencyProperty IDProperty = DependencyProperty.Register("ID", typeof(int), typeof(Product));

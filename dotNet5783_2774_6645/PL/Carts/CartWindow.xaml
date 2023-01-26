@@ -7,17 +7,17 @@
         mc:Ignorable="d"
         Title="CartWindow" Height="450" Width="800">
     <Grid>
-        <ListView d:ItemsSource="{d:SampleData ItemCount=5}" x:Name="ProductsItemListview" Background="White" Foreground="#FF041F65" Margin="10,0,68,83" >
-            <ListView.View >
+        <ListView d:ItemsSource="{d:SampleData ItemCount=5}" x:Name="ProductsItemListview" ItemsSource="{Binding cart.Items}" Background="White" Foreground="#FF041F65" Margin="10,0,68,83" >
+            <ListView.View  >
                 <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Employee Information" >
 
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=ProductID, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"   Header="ID" Width="100"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding ProductID, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"   Header="ID" Width="100"/>
 
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Name, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" Header="Name" Width="100"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" Header="Name" Width="100"/>
 
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Price, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" Header="Price" Width="100"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Amount, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" Header="Amount" Width="100"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=TotalPrice , Mode=TwoWay, UpdateSourceTrigger=LostFocus}" Header="TotalPrice" Width="100"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Price, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" Header="Price" Width="100"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Amount, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" Header="Amount" Width="100"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding TotalPrice , Mode=TwoWay, UpdateSourceTrigger=LostFocus}" Header="TotalPrice" Width="100"/>
                     <GridViewColumn Header="Update Amount" Width="100" >
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
@@ -38,7 +38,7 @@
                     <GridViewColumn Header="TotalPrice" Width="100">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Grid.Column="0" Content="update amount" Name="updateAmountTxt" Height="20" Margin="0,-6,0,0" Click="updateAmountTxt_Click"/>
+                                <Button Grid.Column="0" Content="delete" Name="updateAmountTxt" Height="20" Margin="0,-6,0,0" Click="deleteBtn_Click"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -47,6 +47,8 @@
             </ListView.View>
         </ListView>
         <Button Content="confirm order" Name="confirmOrderBtn" Margin="265,372,439,10" Click="confirmOrderBtn_Click"/>
+        <Label Content="Total Price" HorizontalAlignment="Left" Height="31" Margin="467,381,0,0" VerticalAlignment="Top" Width="74"/>
+        <TextBox Name="TotalPriceTxt" HorizontalAlignment="Left" Height="33" Margin="549,379,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="131" IsReadOnly="True" Text="{Binding cart.TotalPrice, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"/>
 
 
     </Grid>
