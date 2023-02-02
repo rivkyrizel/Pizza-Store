@@ -5,7 +5,7 @@
     <Name>  Ravioli  </Name>
     <Price>37</Price>
     <Category>Pasta_</Category>
-    <Amount>1586</Amount>
+    <Amount>1579</Amount>
   </Product>
   <Product>
     <ID>100001</ID>
@@ -19,7 +19,7 @@
     <Name> Sandwich  </Name>
     <Price>7</Price>
     <Category>Bagels</Category>
-    <Amount>4882</Amount>
+    <Amount>4881</Amount>
   </Product>
   <Product>
     <ID>100003</ID>
@@ -47,7 +47,7 @@
     <Name>Greek Salad</Name>
     <Price>47</Price>
     <Category>Salads</Category>
-    <Amount>1134</Amount>
+    <Amount>1132</Amount>
   </Product>
   <Product>
     <ID>100007</ID>
@@ -61,7 +61,7 @@
     <Name>Basic Salad</Name>
     <Price>22</Price>
     <Category>Salads</Category>
-    <Amount>4621</Amount>
+    <Amount>4620</Amount>
   </Product>
   <Product>
     <ID>100009</ID>
@@ -75,7 +75,7 @@
     <Name>eee</Name>
     <Price>50</Price>
     <Category>Pasta_</Category>
-    <Amount>50</Amount>
+    <Amount>48</Amount>
   </Product>
   <Product>
     <ID>100011</ID>
@@ -110,6 +110,6 @@
     <Name>hhhh</Name>
     <Price>50</Price>
     <Category>Pasta_</Category>
-    <Amount>1000</Amount>
+    <Amount>999</Amount>
   </Product>
 </ArrayOfProduct>

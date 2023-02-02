@@ -44,8 +44,9 @@ internal class BlCart : ICart
             oItem.Amount = 1;
             oItem.TotalPrice = oItem.Price;
             items.Add(oItem);
+            items.Sort((p1, p2) => p1.ProductID - p2.ProductID);
             cart.Items = items;
-            cart.Totalprice = cart.Totalprice + oItem.TotalPrice;
+            cart.TotalPrice = cart.TotalPrice + oItem.TotalPrice;
             return cart;
 
         }
@@ -132,20 +133,17 @@ internal class BlCart : ICart
             List<BO.OrderItem?> tempList = cart.Items.ToList();
             tempList.Remove(oi);
             cart.Items = tempList;
-            cart.Totalprice -= oi.TotalPrice;
+            cart.TotalPrice -= oi.TotalPrice;
 
             if (!newAmount.Equals(0))
             {
                 oi.Amount = newAmount;
                 oi.TotalPrice = p.Price * newAmount;
-                if (cart.Items.ToList().Capacity==0)
-                {
-                    List<BO.OrderItem?> lst = new();
-                    lst.Add(oi);
-                    cart.Items = lst;
-                }
-                cart.Items.ToList().Add(oi);
-                cart.Totalprice += oi.TotalPrice;
+                List<BO.OrderItem?> lst = cart.Items.ToList();
+                lst.Add(oi);
+                lst.Sort((p1, p2) => p1.ProductID - p2.ProductID);
+                cart.Items = lst;
+                cart.TotalPrice += oi.TotalPrice;
             }
             return cart;
         }

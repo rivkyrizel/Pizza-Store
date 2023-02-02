@@ -24,12 +24,13 @@ public partial class ProductWindow : Window
 {
     IBl bl;
     int productID;
-    PO.Cart? cart;
+    PO.Cart cart;
     PO.Product currentProduct;
+    bool isShow = false;
     private ObservableCollection<PO.Product> products { get; set; }
 
 
-private BO.Product cast1(PO.Product POp)
+    private BO.Product cast1(PO.Product POp)
     {
         BO.Product b = new();
         b.Category = POp.Category;
@@ -40,25 +41,28 @@ private BO.Product cast1(PO.Product POp)
         return b;
     }
 
-
     private void initializeDataContext()
     {
         GridData.DataContext = currentProduct;
     }
 
-    public ProductWindow(IBl Bl, string active, ObservableCollection<PO.Product> Products,ref PO.Cart Cart, int id = 0)
+    public ProductWindow(IBl Bl, string active, ObservableCollection<PO.Product> Products, ref PO.Cart Cart, int id = 0)
     {
         InitializeComponent();
-        gridBtn.DataContext= new { act = active };
-        p.DataContext = new { act1 = active };
+        gridBtn.DataContext = new { act = active };
+
         bl = Bl;
+        //Cart.Items.Add(new PO.OrderItem());
         cart = Cart;
         products = Products;
         SelectCategory.ItemsSource = Enum.GetValues(typeof(BO.eCategory));
         productID = id;
         currentProduct = id == 0 ? new() : new(bl.product.GetProductForManager(productID));
         initializeDataContext();
-        if (active == "show") createShowWindow();
+
+        if (active == "show") isShow = true;
+        var v = new { act1 = active, isShow1 = isShow };
+        p.DataContext = v;
     }
 
     private void createShowWindow()
@@ -142,8 +146,13 @@ private BO.Product cast1(PO.Product POp)
     private void addToCartBtn_Click(object sender, RoutedEventArgs e)
     {
         BO.Cart b = PLUtils.cast<BO.Cart, PO.Cart>(cart);
-        cart = PLUtils.cast<PO.Cart, BO.Cart>(bl.Cart.AddToCart(b, productID));
+        PO.Cart newCart = PLUtils.cast<PO.Cart, BO.Cart>(bl.Cart.AddToCart(b, productID));
+        cart.Items = newCart.Items;
+        cart.TotalPrice= newCart.TotalPrice;
         Close();
     }
 
 }
+
+
+

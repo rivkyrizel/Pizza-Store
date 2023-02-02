@@ -12,7 +12,7 @@ namespace PL.PO;
 /// <summary>
 /// A PO entity of an item in the order 
 /// (represents a row in the order) 
-/// for a list of items in the shopping cart screen and in the order details screen
+/// for a list of items in the shopping cart_ screen and in the order details screen
 /// </summary>
 public class Order : DependencyObject
 {
@@ -41,19 +41,39 @@ public class Order : DependencyObject
     public DateTime? OrderDate
     {
         get { return (DateTime)GetValue(OrderDateProperty); }
-        set { SetValue(OrderDateProperty, value); }
+        set
+        {
+            if (value.ToString() != "")
+            {
+                SetValue(OrderDateProperty, value);
+            }
+            else { SetValue(OrderDateProperty, null); }
+        }
     }
 
     public DateTime? ShipDate
     {
         get { return (DateTime)GetValue(ShipDateProperty); }
-        set { SetValue(ShipDateProperty, value); }
+        set { 
+            if (value.ToString() != "")
+            {
+                SetValue(ShipDateProperty, value);
+            }
+            else { SetValue(ShipDateProperty, null); }
+             }
     }
 
     public DateTime? DeliveryDate
     {
-        get { return (DateTime)GetValue(DeliveryDateProperty); }
-        set { SetValue(DeliveryDateProperty, value); }
+        get { return (DateTime?)GetValue(DeliveryDateProperty); }
+        set
+        {
+            if (value.ToString() != "")
+            {
+                SetValue(DeliveryDateProperty, value);
+            }
+            else { SetValue(DeliveryDateProperty, null); }
+        }
     }
     public BO.OrderStatus? Status
     {
@@ -76,12 +96,13 @@ public class Order : DependencyObject
     {
         ID = o.ID;
         OrderDate = o.OrderDate;
+        ShipDate= o.ShipDate;
         DeliveryDate = o.DeliveryDate;
         TotalPrice = o.TotalPrice;
         CustomerAddress = o.CustomerAddress;
         CustomerEmail = o.CustomerEmail;
         CustomerName = o.CustomerName;
-        Items = o.Items;//???????????????
+        Items = o.Items;
         Status = o.Status;
     }
 
@@ -93,11 +114,11 @@ public class Order : DependencyObject
 
     public static readonly DependencyProperty CustomerEmailProperty = DependencyProperty.Register("CustomerEmail", typeof(string), typeof(Order));
 
-    public static readonly DependencyProperty OrderDateProperty = DependencyProperty.Register("OrderDate", typeof(DateTime), typeof(Order), new UIPropertyMetadata(null));
+    public static readonly DependencyProperty OrderDateProperty = DependencyProperty.Register("OrderDate", typeof(DateTime?), typeof(Order));
 
-    public static readonly DependencyProperty DeliveryDateProperty = DependencyProperty.Register("DeliveryDate", typeof(DateTime), typeof(Order), new UIPropertyMetadata(null));
+    public static readonly DependencyProperty DeliveryDateProperty = DependencyProperty.Register("DeliveryDate", typeof(DateTime?), typeof(Order));
 
-    public static readonly DependencyProperty ShipDateProperty = DependencyProperty.Register("ShipDate", typeof(DateTime), typeof(Order), new UIPropertyMetadata(null));
+    public static readonly DependencyProperty ShipDateProperty = DependencyProperty.Register("ShipDate", typeof(DateTime?), typeof(Order));
 
     public static readonly DependencyProperty StatusProperty = DependencyProperty.Register("StatusProperty", typeof(BO.OrderStatus), typeof(Order));
 

@@ -19,7 +19,7 @@
             Name="LblPrice" FontSize="18" Content="price" HorizontalAlignment="Left" Height="36" Margin="36,105,0,0" VerticalAlignment="Top" Width="55">
             </Label>
             <TextBox 
-            Name="TxtPrice" HorizontalAlignment="Left" Margin="127,105,0,0" TextWrapping="Wrap" Text="{Binding Path=Price, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" VerticalAlignment="Top" Width="190" Height="31">
+            Name="TxtPrice" IsReadOnly="{Binding isShow1}" HorizontalAlignment="Left" Margin="127,105,0,0" TextWrapping="Wrap" Text="{Binding Path=Price, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" VerticalAlignment="Top" Width="190" Height="31">
             </TextBox>
             <Label 
             Name="LblAmount" FontSize="18" Content="amount" HorizontalAlignment="Left" Height="36" Margin="36,193,0,0" VerticalAlignment="Top" Width="79"/>

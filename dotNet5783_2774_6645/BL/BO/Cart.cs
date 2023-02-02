@@ -6,7 +6,7 @@ public class Cart
     public string? CustomerEmail { set; get; }
     public string? CustomerAddress { set; get; }
     public IEnumerable<OrderItem?>? Items { set; get; }
-    public double Totalprice { set; get; }
+    public double TotalPrice { set; get; }
 }
 
 

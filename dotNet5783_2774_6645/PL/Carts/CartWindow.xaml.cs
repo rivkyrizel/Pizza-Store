@@ -30,25 +30,24 @@ namespace PL.Carts
         public PO.Cart cart { get; set; }
         int updatedAmount;
 
-        private PO.Cart BoToPo(BO.Cart c)
+        private void BoToPo(BO.Cart c)
         {
             cart.CustomerName = c.CustomerName;
             cart.CustomerEmail = c.CustomerEmail;
             cart.CustomerAddress = c.CustomerAddress;
             cart.Items = castBOtoPO(c.Items);
-            cart.TotalPrice = c.Totalprice;
-            return cart;
+            cart.TotalPrice = c.TotalPrice;
         }
 
         public CartWindow(IBl Bl,PO.Cart Cart)
         {
             InitializeComponent();
             cart = Cart;
-/*            cart.Items = castBOtoPO(Cart.Items);
-            cart.TotalPrice = Cart.Totalprice;*/
+            /* cart_.Items = castBOtoPO(Cart.Items);
+            cart_.TotalPrice = Cart.TotalPrice;*/
             DataContext = this;
-            //  ProductsItemListview.ItemsSource = cart.Items;
-            //TotalPriceTxt.DataContext = new { TotalPrice = Cart.Totalprice };
+            //  ProductsItemListview.ItemsSource = cart_.Items;
+            //TotalPriceTxt.DataContext = new { TotalPrice = Cart.TotalPrice };
             bl = Bl;
         }
 
@@ -70,11 +69,11 @@ namespace PL.Carts
         private void addProductAmountBtn_Click(object sender, RoutedEventArgs e)
         {
             //((PO.OrderItem)((Button)sender).DataContext).Amount++;
-            int id = ((PO.OrderItem)((Button)sender).DataContext).ProductID;
+             int id = ((PO.OrderItem)((Button)sender).DataContext).ProductID;
             PO.OrderItem? p = cart.Items.ToList().Find(p => p.ProductID == id);
             //p.TotalPrice = p.Price * p.Amount;
-            //cart.TotalPrice += p.Price;
-            cart = BoToPo(bl.Cart.updateAmount(PLUtils.cast<BO.Cart, PO.Cart>(cart), id, (p.Amount + 1)));
+            //cart_.TotalPrice += p.Price;
+            BoToPo(bl.Cart.updateAmount(PLUtils.cast<BO.Cart, PO.Cart>(cart), id, (p.Amount + 1)));
         }
 
         private void decreaseProductBtn_Click(object sender, RoutedEventArgs e)
@@ -83,13 +82,13 @@ namespace PL.Carts
             int id = ((PO.OrderItem)((Button)sender).DataContext).ProductID;
             PO.OrderItem? p = cart.Items.ToList().Find(p => p.ProductID == id);
             //p.TotalPrice = p.Price * p.Amount;
-            //cart.TotalPrice -= p.Price;
-          cart= BoToPo(bl.Cart.updateAmount(PLUtils.cast<BO.Cart, PO.Cart>(cart), id, (p.Amount - 1)));
+            //cart_.TotalPrice -= p.Price;
+            BoToPo(bl.Cart.updateAmount(PLUtils.cast<BO.Cart, PO.Cart>(cart), id, (p.Amount - 1)));
         }
 
         private void deleteBtn_Click(object sender, RoutedEventArgs e)
         {
-            cart = BoToPo(bl.Cart.updateAmount(PLUtils.cast<BO.Cart, PO.Cart>(cart), ((PO.OrderItem)((Button)sender).DataContext).ProductID, 0));
+         BoToPo(bl.Cart.updateAmount(PLUtils.cast<BO.Cart, PO.Cart>(cart), ((PO.OrderItem)((Button)sender).DataContext).ProductID, 0));
         }
 
     }
