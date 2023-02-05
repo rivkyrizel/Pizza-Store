@@ -14,7 +14,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
-
 namespace PL.Products;
 
 /// <summary>
@@ -26,20 +25,10 @@ public partial class ProductWindow : Window
     int productID;
     PO.Cart cart;
     PO.Product currentProduct;
-    bool isShow = false;
+    public bool isShow { get; set; } = false;
     private ObservableCollection<PO.Product> products { get; set; }
 
 
-    private BO.Product cast1(PO.Product POp)
-    {
-        BO.Product b = new();
-        b.Category = POp.Category;
-        b.ID = POp.ID;
-        b.Name = POp.Name;
-        b.InStock = POp.InStock;
-        b.Price = POp.Price;
-        return b;
-    }
 
     private void initializeDataContext()
     {
@@ -52,7 +41,6 @@ public partial class ProductWindow : Window
         gridBtn.DataContext = new { act = active };
 
         bl = Bl;
-        //Cart.Items.Add(new PO.OrderItem());
         cart = Cart;
         products = Products;
         SelectCategory.ItemsSource = Enum.GetValues(typeof(BO.eCategory));
@@ -61,16 +49,8 @@ public partial class ProductWindow : Window
         initializeDataContext();
 
         if (active == "show") isShow = true;
-        var v = new { act1 = active, isShow1 = isShow };
-        p.DataContext = v;
     }
 
-    private void createShowWindow()
-    {
-        TxtAmount.IsReadOnly = true;
-        TxtName.IsReadOnly = true;
-        TxtPrice.IsReadOnly = true;
-    }
 
 
     private void Button_Click(object sender, RoutedEventArgs e)
@@ -78,7 +58,7 @@ public partial class ProductWindow : Window
         try
         {
             products.Remove(products.ToList().Find(po => productID == po.ID));
-            currentProduct.ID = bl.product.AddProduct(cast1(currentProduct));
+            currentProduct.ID = bl.product.AddProduct(PLUtils.cast<BO.Product, PO.Product>(currentProduct));
             products.Add(currentProduct);
             Close();
         }
@@ -103,7 +83,7 @@ public partial class ProductWindow : Window
             int idx = products.ToList().FindIndex(po => productID == po.ID);
             products.RemoveAt(idx);
             products.Insert(idx, currentProduct);
-            bl.product.UpdateProduct(cast1(currentProduct));
+            bl.product.UpdateProduct(PLUtils.cast<BO.Product, PO.Product>(currentProduct));
             Close();
         }
         catch (BlIdNotFound ex)

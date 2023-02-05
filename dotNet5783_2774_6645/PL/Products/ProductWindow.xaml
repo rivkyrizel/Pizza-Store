@@ -13,21 +13,21 @@
             <Label 
             Name="LblName" Content="name" FontSize="18" HorizontalAlignment="Left" Height="30" Margin="36,57,0,0" VerticalAlignment="Top" Width="55" Background="White">
             </Label>
-            <TextBox Name="TxtName"  HorizontalAlignment="Left" Height="30" Margin="127,57,0,0" TextWrapping="Wrap" Text="{Binding Path=Name, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" VerticalAlignment="Top" Width="190">
+            <TextBox Name="TxtName" IsReadOnly="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, Path=isShow}"  HorizontalAlignment="Left" Height="30" Margin="127,57,0,0" TextWrapping="Wrap" Text="{Binding Path=Name, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" VerticalAlignment="Top" Width="190">
             </TextBox>
             <Label 
             Name="LblPrice" FontSize="18" Content="price" HorizontalAlignment="Left" Height="36" Margin="36,105,0,0" VerticalAlignment="Top" Width="55">
             </Label>
             <TextBox 
-            Name="TxtPrice" IsReadOnly="{Binding isShow1}" HorizontalAlignment="Left" Margin="127,105,0,0" TextWrapping="Wrap" Text="{Binding Path=Price, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" VerticalAlignment="Top" Width="190" Height="31">
+            Name="TxtPrice" IsReadOnly="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, Path=isShow}" HorizontalAlignment="Left" Margin="127,105,0,0" TextWrapping="Wrap" Text="{Binding Path=Price, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" VerticalAlignment="Top" Width="190" Height="31">
             </TextBox>
             <Label 
             Name="LblAmount" FontSize="18" Content="amount" HorizontalAlignment="Left" Height="36" Margin="36,193,0,0" VerticalAlignment="Top" Width="79"/>
             <TextBox 
-            Name="TxtAmount" HorizontalAlignment="Left" Margin="127,0,0,0" TextWrapping="Wrap" Text="{Binding Path=InStock, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" VerticalAlignment="Center" Width="190" Height="30">
+            Name="TxtAmount" IsReadOnly="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, Path=isShow}" HorizontalAlignment="Left" Margin="127,0,0,0" TextWrapping="Wrap" Text="{Binding Path=InStock, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" VerticalAlignment="Center" Width="190" Height="30">
             </TextBox>
             <ComboBox 
-            Name="SelectCategory" Text="{Binding Path=Category, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" HorizontalAlignment="Left" Margin="127,155,0,0" VerticalAlignment="Top" Width="120">
+            Name="SelectCategory" Text="{Binding Path=Category, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" HorizontalAlignment="Left" Margin="127,155,0,0" VerticalAlignment="Top" Width="120" IsEditable ="False">
             </ComboBox>
             <Label 
             Name="LblCategory" FontSize="18"  Content="category" HorizontalAlignment="Left" Margin="36,147,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.44,-0.266">
