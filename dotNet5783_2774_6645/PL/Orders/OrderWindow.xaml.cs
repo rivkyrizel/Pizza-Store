@@ -24,12 +24,16 @@ namespace PL.Orders
     {
         IBl bl;
         int orderId;
-        public OrderWindow(IBl Bl, int id, ObservableCollection<PO.OrderForList>? orders)
+        PO.Order pOrder;
+        ObservableCollection<PO.OrderForList> orders;
+
+        public OrderWindow(IBl Bl, int id, ObservableCollection<PO.OrderForList> o)
         {
             orderId = id;
             bl = Bl;
-            PO.Order pOrder = new(bl.order.GetOrder(id));
+            pOrder = new(bl.order.GetOrder(id));
             DataContext = pOrder;
+            orders = o;
             InitializeComponent();
             listViewOrderItems.ItemsSource = pOrder?.Items;
         }
@@ -37,13 +41,27 @@ namespace PL.Orders
         private void updateDliveryBtn_Click(object sender, RoutedEventArgs e)
         {
             bl.order.UpdateDeliveryOrder(orderId);
+            pOrder.DeliveryDate = bl.order.GetOrder(orderId).DeliveryDate;
+            int idx = orders.ToList().FindIndex(o => orderId == o.ID);
+            PO.OrderForList? order = orders.ToList().Find(o => orderId == o.ID);
+            orders.Remove(order);
+            order.Status = BO.OrderStatus.DeliveredToCustomer;
+            orders.Insert(idx, order);
+            pOrder.Status = BO.OrderStatus.DeliveredToCustomer;
+            updateShipedBtn.Visibility = Visibility.Hidden;
             updateDliveryBtn.Visibility = Visibility.Hidden;
-            DeliverdLbl.Visibility = Visibility.Visible;
         }
 
         private void updateShipedBtn_Click(object sender, RoutedEventArgs e)
         {
             bl.order.UpdateShipedOrder(orderId);
+            int idx = orders.ToList().FindIndex(o => orderId == o.ID);
+            PO.OrderForList? order = orders.ToList().Find(o => orderId == o.ID);
+            orders.Remove(order);
+            order.Status = BO.OrderStatus._______Sent________;
+            orders.Insert(idx, order);
+            pOrder.ShipDate = bl.order.GetOrder(orderId).ShipDate;
+            pOrder.Status = BO.OrderStatus._______Sent________;
             updateShipedBtn.Visibility = Visibility.Hidden;
             updateDliveryBtn.Visibility = Visibility.Visible;
         }

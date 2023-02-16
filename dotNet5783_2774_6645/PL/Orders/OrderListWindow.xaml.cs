@@ -25,8 +25,7 @@ namespace PL.Orders
     {
         IBl bl;
 
-        //??????? BO to PO
-         ObservableCollection<PO.OrderForList?> orders { get; set; } = new();
+         ObservableCollection<PO.OrderForList> orders { get; set; } = new();
 
         
         public OrderListWindow(IBl Bl)

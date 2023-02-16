@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
          Title="ProductListWindow" Height="640" Width="800">
-   
+
 
     <Grid Name="MainGrid">
 
@@ -24,12 +24,12 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
 
-            <ComboBox Grid.Column="2" Margin="100,32,16,31" Text="f" Name="AttributeSelector" SelectionChanged="AttributeSelector_SelectionChanged" Grid.ColumnSpan="2"/>
+            <ComboBox Grid.Column="2" Margin="100,32,16,31" Text="f" Name="AttributeSelector" SelectionChanged="AttributeSelector_SelectionChanged"  Grid.ColumnSpan="2"/>
             <Label Content="Category:" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" FontFamily="Anivers" Grid.Column="1"/>
         </Grid>
 
 
-        <ListView   Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" ItemsSource="{Binding lst}" x:Name="ProductsListview" MouseDoubleClick="ProductsListview_MouseDoubleClick" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="White" Foreground="#FF041F65" >
+        <ListView   Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}"  x:Name="ProductsListview" MouseDoubleClick="ProductsListview_MouseDoubleClick" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="White" Foreground="#FF041F65" >
             <ListView.View >
                 <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Employee Information" >
 
@@ -47,7 +47,7 @@
         <Grid Name="prodListbtns">
 
             <Button Name="BtnAddProduct" Content="Add Product" HorizontalAlignment="Left" VerticalAlignment="Top" Height="44" Width="96" Click="Button_Click" Visibility="{Binding admin, Mode=OneTime, Converter={StaticResource TrueToVisible}}" Margin="17,17,0,0"/>
-            <Button Content="view cart" Name="viewCartBtn" HorizontalAlignment="Left" Height="44" Margin="18,19,0,0" VerticalAlignment="Top" Width="101" Click="viewCartBtn_Click" Visibility="{Binding admin, Mode=OneTime, Converter={StaticResource TrueToHidden}}"/>
+            <Button Content="view cart" Name="viewCartBtn" HorizontalAlignment="Left" Height="46" Margin="17,15,0,0" VerticalAlignment="Top" Width="104" Click="viewCartBtn_Click" Visibility="{Binding admin, Mode=OneTime, Converter={StaticResource TrueToHidden}}" RenderTransformOrigin="0.701,0.487"/>
         </Grid>
 
     </Grid>

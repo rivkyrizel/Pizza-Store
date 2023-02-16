@@ -44,6 +44,8 @@ namespace PL.PO;
         AmountOfItems = o.AmountOfItems;//???????????????
         Status = o.Status;
     }
+    public OrderForList()
+    {}
 
     public static readonly DependencyProperty IDProperty = DependencyProperty.Register("ID", typeof(int), typeof(OrderForList), new UIPropertyMetadata(0));
 

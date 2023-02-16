@@ -30,7 +30,7 @@ public partial class ProductListWindow : Window
     IBl bl;
     bool admin;
     bool add;
-    PO.Cart? cart_;
+    PO.Cart cart_;
     List<string> lst { get; set; }  
    private ObservableCollection<PO.Product> products { get; set; }
 
@@ -40,14 +40,14 @@ public partial class ProductListWindow : Window
         cart_ = new();
         admin = Admin;
         add = Add;
-        InitializeComponent();
-        products= new ObservableCollection<PO.Product>();
         List<string> list = Enum.GetNames(typeof(BO.eCategory)).ToList();
         list.Insert(0, "all categories");
         lst = list;
+        InitializeComponent();
+        products= new ObservableCollection<PO.Product>();
         cast(bl.product.GetProductList());
         ProductsListview.ItemsSource = products;
-        prodListbtns.DataContext = new {admin = Admin};
+        prodListbtns.DataContext = new { admin = Admin };
     }
 
     public void cast(IEnumerable<ProductForList?> enumerable)

@@ -16,10 +16,16 @@ public class PLUtils
         object s = new S();
         foreach (PropertyInfo prop in t?.GetType().GetProperties() ?? throw new BlNoPropertiesInObject())
         {
-            PropertyInfo? type = s.GetType().GetProperty(prop.Name);
-            if (type == null || type.Name == "Category")
+            PropertyInfo type = s.GetType().GetProperty(prop.Name);
+                if (type == null) 
                 continue;
-            var value = t?.GetType().GetProperty(prop.Name).GetValue(t, null);
+            var value = t?.GetType()?.GetProperty(prop.Name)?.GetValue(t, null);
+       /*     if (type.Name == "Category") {
+                if (type.ReflectedType.FullName.StartsWith("BO"))
+                    type.SetValue(s, (BO.eCategory?)value);
+                else  type.SetValue(s, (DO.eCategory?)value);
+                continue;
+            }*/
 
             if (type.Name == "Items") {
 
