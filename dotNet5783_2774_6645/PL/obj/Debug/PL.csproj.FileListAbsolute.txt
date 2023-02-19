@@ -122,3 +122,5 @@ C:\Users\ריזל רבקה\Desktop\dotNet5783_2774_66458\dotNet5783_2774_6645\PL
 C:\Users\ריזל רבקה\Desktop\dotNet5783_2774_66458\dotNet5783_2774_6645\PL\obj\Debug\PL.pdb
 C:\Users\ריזל רבקה\Desktop\dotNet5783_2774_66458\dotNet5783_2774_6645\PL\obj\Debug\PL.genruntimeconfig.cache
 C:\Users\ריזל רבקה\Desktop\dotNet5783_2774_66458\dotNet5783_2774_6645\PL\obj\Debug\ref\PL.dll
+C:\Users\ריזל רבקה\Desktop\dotNet5783_2774_66458\dotNet5783_2774_6645\PL\obj\Debug\Orders\UpdateOrderWindow.g.cs
+C:\Users\ריזל רבקה\Desktop\dotNet5783_2774_66458\dotNet5783_2774_6645\PL\obj\Debug\Orders\UpdateOrderWindow.baml

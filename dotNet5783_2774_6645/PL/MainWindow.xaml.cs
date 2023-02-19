@@ -31,7 +31,7 @@ namespace PL
 
         private void AddOrderBtn_Click(object sender, RoutedEventArgs e)
         {
-            new ProductItemWindow(bl).Show();
+            new ProductItemWindow(bl,new PO.Cart()).Show();
         }
 
         private void OrderTrackingBtn_Click(object sender, RoutedEventArgs e)

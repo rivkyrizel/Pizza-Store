@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 C:\Users\ריזל רבקה\Desktop\dotNet5783_2774_66458\dotNet5783_2774_6645\PL\App.xaml
-10-1634475474
+11100927159
 
-24362935494
+25274284259
 198521348703
-AdminWindow.xaml;Carts\CartWindow.xaml;MainWindow.xaml;Orders\OrderListWindow.xaml;Orders\OrderTrackingWindow.xaml;Orders\OrderWindow.xaml;Products\ProductItemWindow.xaml;Products\ProductListWindow.xaml;Products\ProductWindow.xaml;userDetails.xaml;
+AdminWindow.xaml;Carts\CartWindow.xaml;MainWindow.xaml;Orders\OrderListWindow.xaml;Orders\OrderTrackingWindow.xaml;Orders\OrderWindow.xaml;Orders\UpdateOrderWindow.xaml;Products\ProductItemWindow.xaml;Products\ProductListWindow.xaml;Products\ProductWindow.xaml;userDetails.xaml;
 
 True
 

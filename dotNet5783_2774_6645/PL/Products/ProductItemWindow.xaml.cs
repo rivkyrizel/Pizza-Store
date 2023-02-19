@@ -26,31 +26,30 @@ namespace PL.Products
     {
         IBl bl;
         PO.Cart cart_;
-        List<string> lst { get; set; }
-        private ObservableCollection<PO.Product> products { get; set; } = new();
-        public ProductItemWindow(IBl Bl)
+        public List<string> lst { get; set; }
+        public ObservableCollection<PO.Product> products { get; set; } = new();
+        public ProductItemWindow(IBl Bl, PO.Cart Cart)
         {
             InitializeComponent();
             bl = Bl;
-            cart_ = new();
+            cart_ =Cart;
             lst = Enum.GetNames(typeof(BO.eCategory)).ToList();
             lst.Insert(0, "all categories");
-            cast(bl.product.GetProductList());
-            AttributeSelector.ItemsSource = lst;
-            ProductsListview.ItemsSource = products;
+            cast(bl.product.GetProductItem());
+            DataContext = this;
         }
-        public void cast(IEnumerable<ProductForList?> enumerable)
+        public void cast(IEnumerable<ProductItem?> enumerable)
         {
             products.Clear();
-            enumerable.ToList().ForEach(p => products.Add(PLUtils.cast<PO.Product, BO.ProductForList>(p)));
+            enumerable.ToList().ForEach(p => products.Add(PLUtils.cast<PO.Product, BO.ProductItem>(p)));
         }
 
         private void AttributeSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (AttributeSelector.SelectedItem.Equals("all categories"))
-                cast(bl.product.GetProductList());
+                cast(bl.product.GetProductItem());
             else
-                cast(bl.product.GetProductList((BO.eCategory)Enum.Parse(typeof(BO.eCategory), AttributeSelector.SelectedItem.ToString())));
+                cast(bl.product.GetProductItem((BO.eCategory)Enum.Parse(typeof(BO.eCategory), AttributeSelector.SelectedItem.ToString())));
         }
 
 
@@ -63,6 +62,7 @@ namespace PL.Products
         private void viewCartBtn_Click(object sender, RoutedEventArgs e)
         {
             new CartWindow(bl, cart_).Show();
+            Close();
         }
     }
 }

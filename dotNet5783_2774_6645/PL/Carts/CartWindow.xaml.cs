@@ -1,23 +1,7 @@
 ﻿using BlApi;
-using BlImplementation;
-using BO;
-using PL.PO;
-using PL;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using DO;
+using PL.Products;
 
 namespace PL.Carts
 {
@@ -29,13 +13,14 @@ namespace PL.Carts
     {
         IBl bl;
         public PO.Cart cart { get; set; }
+        public bool isAdmin { get; set; }  
 
-
-        public CartWindow(IBl Bl, PO.Cart Cart)
+        public CartWindow(IBl Bl, PO.Cart Cart , bool admin = false)
         {
             bl = Bl;
             InitializeComponent();
             cart = Cart;
+            isAdmin = admin;
             DataContext = this;
         }
 
@@ -57,5 +42,15 @@ namespace PL.Carts
             PLUtils.castCart(bl.Cart.updateAmount(PLUtils.cast<BO.Cart, PO.Cart>(cart), ((PO.OrderItem)((Button)sender).DataContext).ProductID, 0),cart);
         }
 
+        private void addItemBtn_Click(object sender, RoutedEventArgs e)
+        {
+            new ProductItemWindow(bl,cart).Show();
+            Close();
+        }
+
+        private void updateOrderBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

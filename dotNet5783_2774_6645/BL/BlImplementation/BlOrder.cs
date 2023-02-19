@@ -1,24 +1,14 @@
 ﻿using BlApi;
 using BO;
+using DalApi;
 using System.Reflection;
 
 namespace BlImplementation;
 
-internal class BlOrder : IOrder
+internal class BlOrder : BlApi.IOrder
 {
     private DalApi.IDal Dal = DalApi.Factory.Get() ?? throw new BlNullValueException();
 
-    /// <summary>
-    ///  converts from BO object to DO object
-    /// </summary>
-    /// <param name="boItem"></param>
-    /// <returns> DO OredrItem object </returns>
-    private DO.OrderItem castBOtoDO(BO.OrderItem boItem, int order = 0)
-    {
-        DO.OrderItem doItem = BlUtils.cast<DO.OrderItem, BO.OrderItem>(boItem);
-        doItem.OrderID = order;
-        return doItem;
-    }
 
     private BO.OrderItem castDoOitemtoBoOitem(DO.OrderItem doItem)
     {
@@ -138,62 +128,84 @@ internal class BlOrder : IOrder
     /// <exception cref="BlInvalidAmount">invalid amount</exception>
     /// <exception cref="BlNegativeAmountException">negative amount</exception>
     /// <exception cref="BlIdNotFound">id not found</exception>
-    public void UpdateOrder(BO.Order updateOrder)
+    //public void UpdateOrder(BO.Order updateOrder)
+    //{
+    //    try
+    //    {
+    //        bool foundInOrder = false;
+    //        double totalPrice = 0;
+    //        BO.Order order = castDOtoBO(Dal.Order.Get(o => o.ID == updateOrder.ID));
+    //        List<BO.OrderItem> list = new();
+
+    //        if (order.Status == (BO.OrderStatus)0)
+    //        {
+    //            IEnumerable<DO.OrderItem> oList = Dal.OrderItem.GetList(o => o.OrderID == updateOrder.ID) ?? throw new BlNullValueException();
+    //            foreach (BO.OrderItem? item in updateOrder.Items ?? throw new BlNullValueException())
+    //            {
+
+    //                DO.Product p = Dal.Product.Get(o => o.ID == item?.ProductID);
+    //                item.Name = p.Name;
+    //                item.Price = p.Price;
+    //                item.TotalPrice = p.Price * item.Amount;
+    //                if (item.Amount > p.Amount)
+    //                    throw new BlInvalidAmount();
+    //                if (item.Amount < 0)
+    //                    throw new BlNegativeAmountException();
+    //                foreach (DO.OrderItem oItem in oList)
+    //                {
+    //                    if (oItem.Amount == 0)
+    //                    {
+    //                        Dal.OrderItem.Delete(oItem.OrderID);
+    //                        foundInOrder = true;
+    //                    }
+    //                    else if (item.ProductID == oItem.ProductID)
+    //                    {
+    //                        DO.OrderItem o = castBOtoDO(item);
+    //                        o.OrderID = updateOrder.ID;
+    //                        o.ID = oItem.ID;
+    //                        Dal.OrderItem.Update(o);
+    //                        foundInOrder = true;
+    //                    }
+    //                }
+    //                if (!foundInOrder)
+    //                {
+    //                    DO.OrderItem o = castBOtoDO(item);
+    //                    o.OrderID = updateOrder.ID;
+    //                    Dal.OrderItem.Add(o);
+
+    //                }
+    //            }
+    //            IEnumerable<DO.OrderItem> oUpdateList = Dal.OrderItem.GetList(o => o.OrderID == updateOrder.ID) ?? throw new BlNullValueException();
+    //            totalPrice = calculateTotalPrice(updateOrder.ID);
+    //            order.TotalPrice = totalPrice;
+    //            Dal.Order.Update(BlUtils.cast<DO.Order, BO.Order>(order));
+    //        }
+    //    }
+    //    catch (DalApi.ItemNotFound e)
+    //    {
+    //        throw new BlIdNotFound(e);
+    //    }
+    //}
+
+
+
+    public void UpdateOrder(Order updateOrder)
     {
-        try
+        Dal.OrderItem.GetList(o => o.OrderID == updateOrder.ID)?.ToList().ForEach(oi => Dal.OrderItem.Delete(oi.ID));
+        foreach (var item in updateOrder.Items)
         {
-            bool foundInOrder = false;
-            double totalPrice = 0;
-            BO.Order order = castDOtoBO(Dal.Order.Get(o => o.ID == updateOrder.ID));
-            List<BO.OrderItem> list = new();
+            if (Dal.Product.Get(p => p.ID == item.ProductID).Amount < item?.Amount) throw new BlOutOfStockException();
+            else if (item.Amount < 0) throw new BlNegativeAmountException();
 
-            if (order.Status == (BO.OrderStatus)0)
-            {
-                IEnumerable<DO.OrderItem> oList = Dal.OrderItem.GetList(o => o.OrderID == updateOrder.ID) ?? throw new BlNullValueException();
-                foreach (BO.OrderItem? item in updateOrder.Items ?? throw new BlNullValueException())
-                {
+            if (item.Amount == 0)
+                continue;
 
-                    DO.Product p = Dal.Product.Get(o => o.ID == item?.ProductID);
-                    item.Name = p.Name;
-                    item.Price = p.Price;
-                    item.TotalPrice = p.Price * item.Amount;
-                    if (item.Amount > p.Amount)
-                        throw new BlInvalidAmount();
-                    if (item.Amount < 0)
-                        throw new BlNegativeAmountException();
-                    foreach (DO.OrderItem oItem in oList)
-                    {
-                        if (oItem.Amount == 0)
-                        {
-                            Dal.OrderItem.Delete(oItem.OrderID);
-                            foundInOrder = true;
-                        }
-                        if (item.ProductID == oItem.ProductID)
-                        {
-                            DO.OrderItem o = castBOtoDO(item);
-                            o.OrderID = updateOrder.ID;
-                            o.ID = oItem.ID;
-                            Dal.OrderItem.Update(o);
-                            foundInOrder = true;
-                        }
-                    }
-                    if (!foundInOrder)
-                    {
-                        DO.OrderItem o = castBOtoDO(item);
-                        o.OrderID = updateOrder.ID;
-                        Dal.OrderItem.Add(o);
-
-                    }
-                }
-                IEnumerable<DO.OrderItem> oUpdateList = Dal.OrderItem.GetList(o => o.OrderID == updateOrder.ID) ?? throw new BlNullValueException();
-                totalPrice = calculateTotalPrice(updateOrder.ID);
-                order.TotalPrice = totalPrice;
-                Dal.Order.Update(BlUtils.cast<DO.Order, BO.Order>(order));
-            }
-        }
-        catch (DalApi.ItemNotFound e)
-        {
-            throw new BlIdNotFound(e);
+            DO.OrderItem oItem = BlUtils.cast<DO.OrderItem, BO.OrderItem>(item);
+            oItem.OrderID = updateOrder.ID;
+            Dal.OrderItem.Add(oItem);
+            DO.Product product = Dal.Product.Get(p => p.ID == oItem.ProductID);
+            product.Amount = product.Amount - oItem.Amount;
+            Dal.Product.Update(product);
         }
     }
 

@@ -136,9 +136,11 @@ public class BlProduct : IProduct
     /// gets list of product for user
     /// </summary>
     /// <returns> list of product, type:productitem</returns>
-    public IEnumerable<BO.ProductItem> GetProductItem()
+    public IEnumerable<BO.ProductItem> GetProductItem(BO.eCategory? e = null)
     {
-        IEnumerable<DO.Product> DOlist = dal.Product.GetList() ?? throw new BlNullValueException();
+        IEnumerable<DO.Product> DOlist;
+        if (e != null) DOlist = dal.Product.GetList(p => (int)(object)p.Category == (int)(object)e) ?? throw new BlNullValueException();
+        else DOlist = dal.Product.GetList() ?? throw new BlNullValueException();
         IEnumerable<BO.ProductItem> BOlist = from item in DOlist
                                              select castProduct<BO.ProductItem, DO.Product>(item);
         return BOlist;

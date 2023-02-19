@@ -23,12 +23,12 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
 
-            <ComboBox Grid.Column="2" Margin="100,16,16,16" Text="f" Name="AttributeSelector" SelectionChanged="AttributeSelector_SelectionChanged"  Grid.ColumnSpan="2"/>
+            <ComboBox Grid.Column="2" Margin="100,16,16,16" SelectedIndex="0" Name="AttributeSelector"  ItemsSource="{Binding lst}" SelectionChanged="AttributeSelector_SelectionChanged"  Grid.ColumnSpan="2"/>
             <Label Content="Category:" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" FontFamily="Anivers" Grid.Column="1"/>
         </Grid>
 
 
-        <ListView   Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}"  x:Name="ProductsListview" MouseDoubleClick="ProductsListview_MouseDoubleClick" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="White" Foreground="#FF041F65" >
+        <ListView   Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" ItemsSource="{Binding products}"  x:Name="ProductsListview" MouseDoubleClick="ProductsListview_MouseDoubleClick" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="White" Foreground="#FF041F65" >
             <ListView.View >
                 <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Employee Information" >
 

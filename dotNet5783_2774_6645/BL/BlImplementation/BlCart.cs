@@ -72,17 +72,16 @@ internal class BlCart : ICart
     {
         try
         {
+            if (cart?.CustomerName == "" || cart?.CustomerEmail == "" || cart?.CustomerAddress == "")
+                throw new BlNullValueException();
+            if (!IsValidEmail(cart?.CustomerEmail ?? throw new BlNullValueException()))
+                throw new BlInvalidEmailException();
 
             cart?.Items?.ToList().ForEach(i =>
             {
                 if (dal.Product.Get(p => p.ID == i?.ProductID).Amount < i?.Amount) throw new BlOutOfStockException();
                 else if (i?.Amount < 0) throw new BlNegativeAmountException();
             });
-
-            if (cart?.CustomerName == "" || cart?.CustomerEmail == "" || cart?.CustomerAddress == "")
-                throw new BlNullValueException();
-            if (!IsValidEmail(cart?.CustomerEmail ?? throw new BlNullValueException()))
-                throw new BlInvalidEmailException();
 
             DO.Order order = BlUtils.cast<DO.Order, BO.Cart>(cart);
             order.OrderDate = DateTime.Now;

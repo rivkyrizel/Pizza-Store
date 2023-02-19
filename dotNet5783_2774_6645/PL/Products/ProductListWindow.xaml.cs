@@ -28,8 +28,8 @@ namespace PL.Products;
 public partial class ProductListWindow : Window
 {
     IBl bl;
-    List<string> lst { get; set; }
-    private ObservableCollection<PO.Product> products { get; set; } = new();
+    public List<string> lst { get; set; }
+    public ObservableCollection<PO.Product> products { get; set; } = new();
 
     public ProductListWindow(IBl Bl)
     {
@@ -39,8 +39,7 @@ public partial class ProductListWindow : Window
         lst = Enum.GetNames(typeof(BO.eCategory)).ToList();
         lst.Insert(0, "all categories");
         cast(bl.product.GetProductList());
-        AttributeSelector.ItemsSource= lst;
-        ProductsListview.ItemsSource = products;
+        DataContext = this;
     }
 
     public void cast(IEnumerable<ProductForList?> enumerable)
@@ -65,8 +64,6 @@ public partial class ProductListWindow : Window
     private void ProductsListview_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
         new ProductWindow(bl, "update", products, null,((PO.Product?)ProductsListview.SelectedItems[0])?.ID ?? throw new PlNullObjectException()).Show();
-
     }
-
 
 }

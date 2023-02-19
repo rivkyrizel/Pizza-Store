@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="CartWindow" Height="450" Width="800">
     <Grid>
-        <ListView d:ItemsSource="{d:SampleData ItemCount=5}" x:Name="ProductsItemListview" ItemsSource="{Binding cart.Items}" Background="White" Foreground="#FF041F65" Margin="10,0,68,83" >
+        <ListView d:ItemsSource="{d:SampleData ItemCount=5}" x:Name="ProductsItemListview" ItemsSource="{Binding cart.Items}" Background="White" Foreground="#FF041F65" Margin="50,10,50,92" >
             <ListView.View  >
                 <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Employee Information" >
 
@@ -35,10 +35,10 @@
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
 
-                    <GridViewColumn Header="TotalPrice" Width="100">
+                    <GridViewColumn Width="100">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Grid.Column="0" Content="delete" Name="updateAmountTxt" Height="20" Margin="0,-6,0,0" Click="deleteBtn_Click"/>
+                                <Button Grid.Column="0" Content="delete" Name="updateAmountTxt" Height="20" Margin="15,4,0,0" Click="deleteBtn_Click"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -46,10 +46,11 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="confirm order" Name="confirmOrderBtn" Margin="265,372,439,10" Click="confirmOrderBtn_Click"/>
+        
         <Label Content="Total Price" HorizontalAlignment="Left" Height="31" Margin="467,381,0,0" VerticalAlignment="Top" Width="74"/>
         <TextBox Name="TotalPriceTxt" HorizontalAlignment="Left" Height="33" Margin="549,379,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="131" IsReadOnly="True" Text="{Binding cart.TotalPrice, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"/>
 
-
+        <Button Content="confirm order" Name="confirmOrderBtn" Visibility="{Binding Path=isAdmin, Mode=Default, Converter={StaticResource TrueToHidden}}" Margin="265,372,439,10" Click="confirmOrderBtn_Click"/>
+        <Button Content="Add Item" Name="addItemBtn"  HorizontalAlignment="Left" Height="52" Margin="137,372,0,0" VerticalAlignment="Top" Width="101" Click="addItemBtn_Click" />
     </Grid>
 </Window>

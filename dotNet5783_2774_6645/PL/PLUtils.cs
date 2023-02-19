@@ -1,12 +1,8 @@
 ﻿using BlApi;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PL;
 
@@ -19,7 +15,7 @@ public class PLUtils
         {
             PropertyInfo? type = s.GetType().GetProperty(prop.Name);
 
-            if (type == null) continue;
+            if (type == null|| type.Name=="InStock") continue;
 
             var value = t.GetType().GetProperty(prop.Name)?.GetValue(t, null);
 
@@ -50,6 +46,8 @@ public class PLUtils
                in (ObservableCollection<PO.OrderItem>)POlist
                select cast<BO.OrderItem, PO.OrderItem>(item) ).ToList();
     }
+
+
 
     public static void castCart(BO.Cart boCart,PO.Cart poCart)
     {

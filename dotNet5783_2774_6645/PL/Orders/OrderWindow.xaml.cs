@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
+using PL.Carts;
 
 namespace PL.Orders
 {
@@ -12,10 +13,11 @@ namespace PL.Orders
     {
         IBl bl;
         int orderId;
-        public PO.Order? pOrder { get; set; }
-        ObservableCollection<PO.OrderForList> orders;
+        public PO.Order pOrder { get; set; }
+        public bool isAdmin { get; set; }
+        ObservableCollection<PO.OrderForList>? orders;
 
-        public OrderWindow(IBl Bl, int id, bool admin = true, ObservableCollection<PO.OrderForList?>? o = null)
+        public OrderWindow(IBl Bl, int id, bool admin = true, ObservableCollection<PO.OrderForList>? o = null)
         {
             InitializeComponent();
             orderId = id;
@@ -23,8 +25,8 @@ namespace PL.Orders
             pOrder = new(bl.order.GetOrder(id));
             orders = o;
             listViewOrderItems.ItemsSource = pOrder?.Items;
-            pOrder.Status = admin ? pOrder.Status : BO.OrderStatus.DeliveredToCustomer;
-            DataContext = pOrder;
+            isAdmin = admin;
+            DataContext = this;
         }
 
         private void updateDliveryBtn_Click(object sender, RoutedEventArgs e)
@@ -40,18 +42,27 @@ namespace PL.Orders
             order.Status = BO.OrderStatus.DeliveredToCustomer;
             orders.Insert(idx, order);
             pOrder.Status = BO.OrderStatus.DeliveredToCustomer;
+            Close();
         }
 
         private void updateShipedBtn_Click(object sender, RoutedEventArgs e)
         {
             bl.order.UpdateShipedOrder(orderId);
             int idx = orders.ToList().FindIndex(o => orderId == o.ID);
-            PO.OrderForList? order = orders.ToList().Find(o => orderId == o.ID);
+            PO.OrderForList order = orders.ToList().Find(o => orderId == o.ID) ?? throw new PlNullObjectException();
             orders.Remove(order);
             order.Status = BO.OrderStatus.Sent;
             orders.Insert(idx, order);
             pOrder.Status = BO.OrderStatus.Sent;
             pOrder.ShipDate = bl.order.GetOrder(orderId).ShipDate;
+            Close();
+
+        }
+
+        private void updateOrderBtn_Click(object sender, RoutedEventArgs e)
+        {
+            new UpdateOrderWindow(bl, pOrder).Show();
+            Close();
         }
     }
 }

@@ -40,7 +40,7 @@ public class Order : DependencyObject
     }
     public DateTime? OrderDate
     {
-        get { return (DateTime)GetValue(OrderDateProperty); }
+        get { return (DateTime?)GetValue(OrderDateProperty); }
         set
         {
             if (value.ToString() != "")
@@ -53,7 +53,7 @@ public class Order : DependencyObject
 
     public DateTime? ShipDate
     {
-        get { return (DateTime)GetValue(ShipDateProperty); }
+        get { return (DateTime?)GetValue(ShipDateProperty); }
         set { 
             if (value.ToString() != "")
             {
@@ -118,7 +118,7 @@ public class Order : DependencyObject
 
     public static readonly DependencyProperty DeliveryDateProperty = DependencyProperty.Register("DeliveryDate", typeof(DateTime?), typeof(Order));
 
-    public static readonly DependencyProperty ShipDateProperty = DependencyProperty.Register("ShipDate", typeof(DateTime?), typeof(Order));
+    public static readonly DependencyProperty ShipDateProperty = DependencyProperty.Register("ShipDate", typeof(DateTime?), typeof(Order), new UIPropertyMetadata(null));
 
     public static readonly DependencyProperty StatusProperty = DependencyProperty.Register("StatusProperty", typeof(BO.OrderStatus), typeof(Order));
 
