@@ -27,9 +27,9 @@
                                         <ColumnDefinition   Width="*"/>
                                         <ColumnDefinition   Width="*"/>
                                     </Grid.ColumnDefinitions>
-                                    <Button Grid.Column="0" x:Name="decreaseProductBtn"  Content="-" Height="20" Width="15" Margin="10,3,0,0" Click="decreaseProductBtn_Click" />
+                                    <Button Grid.Column="0" x:Name="decreaseProductBtn"  Content="-" Height="20" Width="15" Margin="10,3,0,0" Click="changeProductAmountBtn_Click" />
                                     <TextBox Grid.Column="1" Height="23"  TextWrapping="Wrap" Width="22" Name="updatedAmount" Margin="5,3,0,0" Text="{Binding Path=Amount, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"/>
-                                    <Button Grid.Column="2" x:Name="addProductAmountBtn" Content="+" Width="15" Margin="5,3,0,0" VerticalAlignment="Top" Click="addProductAmountBtn_Click" />
+                                    <Button Grid.Column="2" x:Name="addProductAmountBtn" Content="+" Width="15" Margin="5,3,0,0" VerticalAlignment="Top" Click="changeProductAmountBtn_Click" />
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>

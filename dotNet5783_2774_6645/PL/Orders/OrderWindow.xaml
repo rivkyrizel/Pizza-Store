@@ -8,24 +8,36 @@
         Title="OrderWindow" Height="450" Width="800">
     <Grid >
         <TextBlock x:Name="txtOrderId" Text="{Binding Path=ID, Mode=TwoWay}" HorizontalAlignment="Left" Margin="251,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="30"/>
-        <Label x:Name="lblOrderId" Content="Id:" HorizontalAlignment="Left" Margin="62,33,0,0" VerticalAlignment="Top" Height="30"/>
+        <Label  x:Name="lblOrderId" Content="Id:" HorizontalAlignment="Left" Margin="62,33,0,0" VerticalAlignment="Top" Height="30"/>
+
         <TextBlock x:Name="txtOrderCustomerName" Text="{Binding Path=CustomerName, Mode=TwoWay}" HorizontalAlignment="Left" Margin="251,57,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="30"/>
         <Label x:Name="lblOrderCustomerName" Content="customer name: " HorizontalAlignment="Left" Margin="62,53,0,0" VerticalAlignment="Top"  RenderTransformOrigin="-0.128,-0.175" Height="30"/>
+
         <TextBlock x:Name="txtOrderCustomerEmail" Text="{Binding Path=CustomerEmail, Mode=TwoWay}" HorizontalAlignment="Left" Margin="251,79,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="30"/>
         <Label x:Name="lblOrderCustomerEmail" Content="customer email:" HorizontalAlignment="Left" Margin="62,84,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.756,-0.04" Height="30"/>
+
         <TextBlock x:Name="txtOrderCustomerAddress" Text="{Binding Path=CustomerAddress, Mode=TwoWay}" HorizontalAlignment="Left" Margin="251,106,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="30"/>
         <Label x:Name="lblOrderCustomerAddress" Content="customer address:" HorizontalAlignment="Left" Margin="62,111,0,0" VerticalAlignment="Top" Height="30"/>
+
         <TextBlock x:Name="txtOrderOrderDate" Text="{Binding Path=OrderDate, Mode=TwoWay}" HorizontalAlignment="Left" Margin="251,136,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Height="30"/>
         <Label x:Name="lblOrderOrderDate" Content="order date:" HorizontalAlignment="Left" Margin="62,138,0,0" VerticalAlignment="Top" Height="30" />
+
         <TextBlock x:Name="txtOrderStatus" Text="{Binding Path=Status, Mode=TwoWay}" HorizontalAlignment="Left" Margin="251,161,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Height="30"/>
         <Label x:Name="lblOrderStatus" Content="status" HorizontalAlignment="Left" Margin="62,168,0,0" VerticalAlignment="Top" Height="30"/>
+
         <TextBlock x:Name="txtOrderShipDate" Text="{Binding Path=ShipDate, Mode=TwoWay}" HorizontalAlignment="Left" Margin="251,199,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Height="30"/>
         <Label x:Name="lblOrderShipDate" Content="ship date:" HorizontalAlignment="Left" Margin="62,199,0,0" VerticalAlignment="Top" Height="30" RenderTransformOrigin="0.282,1.065"/>
+      
         <Label x:Name="lblDeliveryDate" Content="delivery date:" HorizontalAlignment="Left" Margin="62,237,0,0" VerticalAlignment="Top" Height="30" RenderTransformOrigin="0.282,1.065"/>
         <TextBlock x:Name="txtOrderDeliveryDate" Text="{Binding Path=DeliveryDate, Mode=TwoWay}" HorizontalAlignment="Left" Margin="251,237,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Height="30"/>
-        <Button Name="updateDliveryBtn" Visibility="{Binding Status, Mode=OneTime, Converter={StaticResource DeliveryToVisible}}" Content="update delivery date" Margin="306,290,314,82" Click="updateDliveryBtn_Click"/>
-        <Button Name="updateShipedBtn" Content="update Shiped date" Margin="310,292,318,78" Click="updateShipedBtn_Click" Visibility="{Binding Status, Mode=OneTime, Converter={StaticResource ShipedToVisible}}" />
+
+        <Grid>
+            <Button Name="updateDliveryBtn" Visibility="{Binding Status, Mode=Default, Converter={StaticResource DeliveryToVisible}}" Content="update delivery date" Margin="306,290,314,82" Click="updateDliveryBtn_Click"/>
+            <Button Name="updateShipedBtn" Content="update Shiped date" Margin="310,292,318,78" Click="updateShipedBtn_Click" Visibility="{Binding Status, Mode=TwoWay, Converter={StaticResource ShipedToVisible}}" />
+        </Grid>
+        
         <Label Name="DeliverdLbl" Visibility="Hidden" Content="Order deliverd to customer" FontSize="20" HorizontalAlignment="Left" Margin="251,326,0,0" VerticalAlignment="Top" Height="46" Width="262"/>
+       
         <ListView x:Name="listViewOrderItems"  Margin="427,12,10,217">
             <ListView.View>
                 <GridView AllowsColumnReorder="true"  >

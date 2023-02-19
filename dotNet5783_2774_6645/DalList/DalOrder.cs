@@ -68,7 +68,7 @@ internal class DalOrder : IOrder
     public Order Get(Func<Order, bool> func)
     {
         IEnumerable<Order> o = (IEnumerable<Order>)DataSource.OrderList;
-        return o.Where(func) != null ? o.Where(func).First() : throw new ItemNotFound("order not found");
+        return o.Where(func).Count() != 0 ? o.Where(func).First() : throw new ItemNotFound("order not found");
     }
 }
 

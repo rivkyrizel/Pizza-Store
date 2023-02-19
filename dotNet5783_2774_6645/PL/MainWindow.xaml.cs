@@ -4,14 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using PL.Products;
 using BlApi;
 using PL.Orders;
@@ -34,14 +26,12 @@ namespace PL
 
         private void displayProductListWindow_Click(object sender, RoutedEventArgs e)
         {
-           
             new AdminWindow(bl).Show();
-            Close();
         }
 
         private void AddOrderBtn_Click(object sender, RoutedEventArgs e)
         {
-            new ProductListWindow(bl,false,false).Show();
+            new ProductItemWindow(bl).Show();
         }
 
         private void OrderTrackingBtn_Click(object sender, RoutedEventArgs e)

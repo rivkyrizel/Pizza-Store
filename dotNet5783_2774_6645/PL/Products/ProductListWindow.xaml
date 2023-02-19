@@ -46,8 +46,7 @@
         </ListView>
         <Grid Name="prodListbtns">
 
-            <Button Name="BtnAddProduct" Content="Add Product" HorizontalAlignment="Left" VerticalAlignment="Top" Height="44" Width="96" Click="Button_Click" Visibility="{Binding admin, Mode=OneTime, Converter={StaticResource TrueToVisible}}" Margin="17,17,0,0"/>
-            <Button Content="view cart" Name="viewCartBtn" HorizontalAlignment="Left" Height="46" Margin="17,15,0,0" VerticalAlignment="Top" Width="104" Click="viewCartBtn_Click" Visibility="{Binding admin, Mode=OneTime, Converter={StaticResource TrueToHidden}}" RenderTransformOrigin="0.701,0.487"/>
+            <Button Name="BtnAddProduct" Content="Add Product" HorizontalAlignment="Left" VerticalAlignment="Top" Height="44" Width="96" Click="Button_Click"  Margin="17,17,0,0"/>
         </Grid>
 
     </Grid>

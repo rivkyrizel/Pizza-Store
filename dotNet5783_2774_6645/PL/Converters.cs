@@ -121,7 +121,8 @@ public class ShipedToVisible : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        return (BO.OrderStatus)value == 0 ? "Visible" : "Hidden";
+        string h= (BO.OrderStatus)value == 0 ? "Visible" : "Hidden";
+        return h;
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -134,7 +135,8 @@ public class DeliveryToVisible : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        return (BO.OrderStatus)value == (BO.OrderStatus)1 ? "Visible" : "Hidden";
+        string rivky= (BO.OrderStatus)value == (BO.OrderStatus)1 ? "Visible" : "Hidden";
+        return rivky;
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

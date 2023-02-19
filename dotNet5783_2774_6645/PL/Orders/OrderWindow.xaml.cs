@@ -1,19 +1,7 @@
 ﻿using BlApi;
-using PL.Products;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace PL.Orders
 {
@@ -24,32 +12,34 @@ namespace PL.Orders
     {
         IBl bl;
         int orderId;
-        PO.Order pOrder;
+        public PO.Order? pOrder { get; set; }
         ObservableCollection<PO.OrderForList> orders;
 
-        public OrderWindow(IBl Bl, int id, ObservableCollection<PO.OrderForList> o)
+        public OrderWindow(IBl Bl, int id, bool admin = true, ObservableCollection<PO.OrderForList?>? o = null)
         {
+            InitializeComponent();
             orderId = id;
             bl = Bl;
             pOrder = new(bl.order.GetOrder(id));
-            DataContext = pOrder;
             orders = o;
-            InitializeComponent();
             listViewOrderItems.ItemsSource = pOrder?.Items;
+            pOrder.Status = admin ? pOrder.Status : BO.OrderStatus.DeliveredToCustomer;
+            DataContext = pOrder;
         }
 
         private void updateDliveryBtn_Click(object sender, RoutedEventArgs e)
         {
             bl.order.UpdateDeliveryOrder(orderId);
+
             pOrder.DeliveryDate = bl.order.GetOrder(orderId).DeliveryDate;
             int idx = orders.ToList().FindIndex(o => orderId == o.ID);
+
             PO.OrderForList? order = orders.ToList().Find(o => orderId == o.ID);
+
             orders.Remove(order);
             order.Status = BO.OrderStatus.DeliveredToCustomer;
             orders.Insert(idx, order);
             pOrder.Status = BO.OrderStatus.DeliveredToCustomer;
-            updateShipedBtn.Visibility = Visibility.Hidden;
-            updateDliveryBtn.Visibility = Visibility.Hidden;
         }
 
         private void updateShipedBtn_Click(object sender, RoutedEventArgs e)
@@ -58,12 +48,10 @@ namespace PL.Orders
             int idx = orders.ToList().FindIndex(o => orderId == o.ID);
             PO.OrderForList? order = orders.ToList().Find(o => orderId == o.ID);
             orders.Remove(order);
-            order.Status = BO.OrderStatus._______Sent________;
+            order.Status = BO.OrderStatus.Sent;
             orders.Insert(idx, order);
+            pOrder.Status = BO.OrderStatus.Sent;
             pOrder.ShipDate = bl.order.GetOrder(orderId).ShipDate;
-            pOrder.Status = BO.OrderStatus._______Sent________;
-            updateShipedBtn.Visibility = Visibility.Hidden;
-            updateDliveryBtn.Visibility = Visibility.Visible;
         }
     }
 }

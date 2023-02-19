@@ -31,12 +31,22 @@ namespace PL
 
         private void saveBtn_Click(object sender, RoutedEventArgs e)
         {
-           
-            cart.CustomerName = NameTxt.Text;
-            cart.CustomerEmail = EmailTxt.Text;
-            cart.CustomerAddress = AddressTxt.Text;
-            bl.Cart.confirmOrder(PLUtils.cast<BO.Cart,PO.Cart>(cart));
-            Close();
+            try
+            {
+                cart.CustomerName = NameTxt.Text;
+                cart.CustomerEmail = EmailTxt.Text;
+                cart.CustomerAddress = AddressTxt.Text;
+                bl.Cart.confirmOrder(PLUtils.cast<BO.Cart, PO.Cart>(cart));
+                Close();
+            }
+            catch (BlInvalidEmailException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            catch (BlNullValueException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

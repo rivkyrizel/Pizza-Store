@@ -233,12 +233,12 @@ internal class BlOrder : IOrder
             DO.Order order = Dal.Order.Get(o => o.ID == orderId);
             BO.OrderTracking orderTracking = new();
             orderTracking.ID = orderId;
-            orderTracking.TrackList?.Add((order.OrderDate, OrderStatus._____Confirmed_____));
-            orderTracking.Status = OrderStatus._____Confirmed_____;
+            orderTracking.TrackList?.Add((order.OrderDate, OrderStatus.Confirmed));
+            orderTracking.Status = OrderStatus.Confirmed;
             if (order.ShipDate != null)
             {
-                orderTracking.TrackList?.Add((order.ShipDate, OrderStatus._______Sent________));
-                orderTracking.Status = OrderStatus._______Sent________;
+                orderTracking.TrackList?.Add((order.ShipDate, OrderStatus.Sent));
+                orderTracking.Status = OrderStatus.Sent;
                 if (order.DeliveryDate != null)
                 {
                     orderTracking.TrackList?.Add((order.DeliveryDate, OrderStatus.DeliveredToCustomer));

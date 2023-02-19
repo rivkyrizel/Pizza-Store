@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -36,13 +37,14 @@ namespace PL.PO;
         set { SetValue(TotalPriceProperty, value); }
     }
 
-    public OrderForList(BO.OrderForList o)
+    public OrderForList( object obj)
     {
-        ID = o.ID;
-        TotalPrice = o.TotalPrice;
-        CustomerName = o.CustomerName;
-        AmountOfItems = o.AmountOfItems;//???????????????
-        Status = o.Status;
+        BO.OrderForList o= (BO.OrderForList)obj;
+        this.ID = o.ID;
+        this.TotalPrice = o.TotalPrice;
+        this.CustomerName = o.CustomerName;
+        this.AmountOfItems = o.AmountOfItems;//???????????????
+        this.Status = o.Status;
     }
     public OrderForList()
     {}

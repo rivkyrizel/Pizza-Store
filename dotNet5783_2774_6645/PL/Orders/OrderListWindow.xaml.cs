@@ -25,26 +25,23 @@ namespace PL.Orders
     {
         IBl bl;
 
-         ObservableCollection<PO.OrderForList> orders { get; set; } = new();
+        ObservableCollection<PO.OrderForList> orders { get; set; } = new();
 
-        
+
         public OrderListWindow(IBl Bl)
         {
             bl = Bl;
             InitializeComponent();
-           IEnumerable<BO.OrderForList?>? o= bl.order.OrderList();
-            foreach(BO.OrderForList? item in o)
-            {
-                PO.OrderForList order = new(item);
-                orders.Add(order);
-            }
+
+            orders = new ObservableCollection<PO.OrderForList>(from item in bl.order.OrderList()
+                                                               select new PO.OrderForList(item));
             OrderListView.ItemsSource = orders;
         }
 
 
         private void OrderListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            new OrderWindow(bl, ((PO.OrderForList?)OrderListView.SelectedItems[0])?.ID ?? throw new PlNullObjectException(), orders).Show();
+            new OrderWindow(bl, ((PO.OrderForList?)OrderListView.SelectedItems[0])?.ID ?? throw new PlNullObjectException(),true, orders).Show();
         }
     }
 }

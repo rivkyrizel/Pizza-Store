@@ -24,31 +24,24 @@ public partial class ProductWindow : Window
     IBl bl;
     int productID;
     PO.Cart cart;
-    PO.Product currentProduct;
-    public bool isShow { get; set; } = false;
-    private ObservableCollection<PO.Product> products { get; set; }
+   public PO.Product currentProduct { get; set; }
+    public Array categories { get; set; }
+    public string show { get; set; }
+    private ObservableCollection<PO.Product> products { get; set; } = new();
 
-
-
-    private void initializeDataContext()
-    {
-        GridData.DataContext = currentProduct;
-    }
-
-    public ProductWindow(IBl Bl, string active, ObservableCollection<PO.Product> Products, ref PO.Cart Cart, int id = 0)
+    
+    public ProductWindow(IBl Bl, string active, ObservableCollection<PO.Product> Products,  PO.Cart? Cart=null, int id = 0)
     {
         InitializeComponent();
-        gridBtn.DataContext = new { act = active };
 
         bl = Bl;
         cart = Cart;
         products = Products;
-        SelectCategory.ItemsSource = Enum.GetValues(typeof(BO.eCategory));
         productID = id;
+        categories = Enum.GetValues(typeof(BO.eCategory));
         currentProduct = id == 0 ? new() : new(bl.product.GetProductForManager(productID));
-        initializeDataContext();
-
-        if (active == "show") isShow = true;
+        show = active;
+        DataContext = this;
     }
 
 
@@ -80,10 +73,10 @@ public partial class ProductWindow : Window
     {
         try
         {
+            bl.product.UpdateProduct(PLUtils.cast<BO.Product, PO.Product>(currentProduct));
             int idx = products.ToList().FindIndex(po => productID == po.ID);
             products.RemoveAt(idx);
             products.Insert(idx, currentProduct);
-            bl.product.UpdateProduct(PLUtils.cast<BO.Product, PO.Product>(currentProduct));
             Close();
         }
         catch (BlIdNotFound ex)
@@ -105,7 +98,7 @@ public partial class ProductWindow : Window
         try
         {
             bl?.product.DeleteProduct(productID);
-            products.Remove(products.ToList().Find(po => productID == po.ID));
+            products.Remove(products.ToList().Find(po => productID == po.ID));//////????????????
             Close();
         }
         catch (BlProductFoundInOrders ex)
@@ -125,11 +118,23 @@ public partial class ProductWindow : Window
 
     private void addToCartBtn_Click(object sender, RoutedEventArgs e)
     {
-        BO.Cart b = PLUtils.cast<BO.Cart, PO.Cart>(cart);
-        PO.Cart newCart = PLUtils.cast<PO.Cart, BO.Cart>(bl.Cart.AddToCart(b, productID));
-        cart.Items = newCart.Items;
-        cart.TotalPrice= newCart.TotalPrice;
-        Close();
+        try
+        {
+            PLUtils.castCart(bl.Cart.AddToCart(PLUtils.cast<BO.Cart, PO.Cart>(cart), productID), cart);
+            Close();
+        }
+        catch (BlItemAlreadyInCart ex)
+        {
+            MessageBox.Show(ex.Message);
+        }
+        catch (BlOutOfStockException ex)
+        {
+            MessageBox.Show(ex.Message);
+        }
+        catch (BlIdNotFound ex)
+        {
+            MessageBox.Show(ex.Message);
+        }
     }
 
 }

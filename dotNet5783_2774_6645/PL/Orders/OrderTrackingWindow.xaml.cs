@@ -1,6 +1,8 @@
 ﻿using BlApi;
+using DalApi;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,9 +31,37 @@ namespace PL.Orders
 
         private void searchBtn_Click(object sender, RoutedEventArgs e)
         {
-            int orderId = int.Parse(orderIdBtn.Text);
-            BO.OrderTracking oTracking = bl.order.OrderTracking(orderId);
-            orderTrackingTxt.Text = oTracking.ToString();
+            try
+            {
+                int orderId = int.Parse(orderIdBtn.Text);
+                BO.OrderTracking oTracking = bl.order.OrderTracking(orderId);
+                orderTrackingTxt.Text = oTracking.ToString();
+            }
+            catch(BlIdNotFound ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void orderDetailsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                int orderId = int.Parse(orderIdBtn.Text);
+                new OrderWindow(bl, orderId, false).Show();
+            }
+            catch(BlIdNotFound ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

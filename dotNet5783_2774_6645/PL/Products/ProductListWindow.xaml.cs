@@ -28,64 +28,45 @@ namespace PL.Products;
 public partial class ProductListWindow : Window
 {
     IBl bl;
-    bool admin;
-    bool add;
-    PO.Cart cart_;
-    List<string> lst { get; set; }  
-   private ObservableCollection<PO.Product> products { get; set; }
+    List<string> lst { get; set; }
+    private ObservableCollection<PO.Product> products { get; set; } = new();
 
-    public ProductListWindow(IBl Bl, bool Admin = true, bool Add = false)
+    public ProductListWindow(IBl Bl)
     {
-        bl = Bl;
-        cart_ = new();
-        admin = Admin;
-        add = Add;
-        List<string> list = Enum.GetNames(typeof(BO.eCategory)).ToList();
-        list.Insert(0, "all categories");
-        lst = list;
         InitializeComponent();
-        products= new ObservableCollection<PO.Product>();
+
+        bl = Bl;
+        lst = Enum.GetNames(typeof(BO.eCategory)).ToList();
+        lst.Insert(0, "all categories");
         cast(bl.product.GetProductList());
+        AttributeSelector.ItemsSource= lst;
         ProductsListview.ItemsSource = products;
-        prodListbtns.DataContext = new { admin = Admin };
     }
 
     public void cast(IEnumerable<ProductForList?> enumerable)
     {
         products.Clear();
-        foreach (var i in enumerable)
-        {
-            PO.Product p = new();
-            p.ID = i.ID;
-            p.Category = i.Category;
-            p.Price = i.Price;
-            p.Name = i.Name;
-            products.Add(p);
-        }
+        enumerable.ToList().ForEach(p => products.Add(PLUtils.cast<PO.Product, BO.ProductForList>(p)));
     }
 
     private void AttributeSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        object s = AttributeSelector.SelectedItem;
-        if (s.Equals("all categories")) cast(bl.product.GetProductList());
-        else cast(bl.product.GetProductList((BO.eCategory)Enum.Parse(typeof(BO.eCategory), s.ToString())));
+        if (AttributeSelector.SelectedItem.Equals("all categories"))
+            cast(bl.product.GetProductList());
+        else
+            cast(bl.product.GetProductList((BO.eCategory)Enum.Parse(typeof(BO.eCategory), AttributeSelector.SelectedItem.ToString())));
     }
 
     private void Button_Click(object sender, RoutedEventArgs e)
     {
-        new ProductWindow(bl, "add", products, ref cart_).Show();
+        new ProductWindow(bl, "add", products).Show();
     }
 
     private void ProductsListview_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
-        string state = admin ? "update" : "show";
-        new ProductWindow(bl, state, products,ref cart_,((PO.Product?)ProductsListview.SelectedItems[0])?.ID ?? throw new PlNullObjectException()).Show();
-         
+        new ProductWindow(bl, "update", products, null,((PO.Product?)ProductsListview.SelectedItems[0])?.ID ?? throw new PlNullObjectException()).Show();
+
     }
 
-    private void viewCartBtn_Click(object sender, RoutedEventArgs e)
-    {
-        new CartWindow(bl, cart_).Show();
-    }
 
 }
