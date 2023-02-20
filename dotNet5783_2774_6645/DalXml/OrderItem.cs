@@ -1,10 +1,11 @@
-﻿namespace Dal;
+﻿
 using DalApi;
 using DO;
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
+namespace Dal;
 internal class OrderItem : IOrderItem
 {
     static string orderItemSrc = @"..\..\xml\OrderItem.xml";

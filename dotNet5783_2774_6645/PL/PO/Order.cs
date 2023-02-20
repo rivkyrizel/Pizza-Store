@@ -21,6 +21,12 @@ public class Order : DependencyObject
         get { return (int)GetValue(IDProperty); }
         set { SetValue(IDProperty, value); }
     }
+
+    public int? UserID
+    {
+        get { return (int?)GetValue(UserIDProperty); }
+        set { SetValue(UserIDProperty, value); }
+    }
     public string? CustomerName
     {
         get { return (string)GetValue(CustomerNameProperty); }
@@ -107,6 +113,8 @@ public class Order : DependencyObject
     }
 
     public static readonly DependencyProperty IDProperty = DependencyProperty.Register("ID", typeof(int), typeof(Order), new UIPropertyMetadata(0));
+
+    public static readonly DependencyProperty UserIDProperty = DependencyProperty.Register("UserID", typeof(int?), typeof(Order), new UIPropertyMetadata(0));
 
     public static readonly DependencyProperty CustomerNameProperty = DependencyProperty.Register("CustomerName", typeof(string), typeof(Order), new UIPropertyMetadata(""));
 

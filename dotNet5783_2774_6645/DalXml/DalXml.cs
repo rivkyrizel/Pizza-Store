@@ -12,6 +12,9 @@ sealed public class DalXml : IDal
     public IProduct Product { get; } = new Dal.Product();
     public IOrder Order { get; } = new Dal.Order();
     public IOrderItem OrderItem { get; } = new Dal.OrderItem();
+    public IUser User { get; } = new Dal.User();
+
+
 
     private DalXml() { }
     public static DalXml GetInstance()

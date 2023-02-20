@@ -16,6 +16,14 @@ public class Program
         int choice = 0;
         do
         {
+            User user = new User();
+            user.Name = "Rivky";
+            user.Email = "Rizel";
+            user.Address = "AAA";
+            user.Email = "ABC";
+            user.ID = 200000;
+            user.Password = "1234";
+            BL.user.UpdateUser(user);
             Console.WriteLine("enter: \n 1 for product \n 2 for orders \n 3 for cart \n 0 to exit");
             int.TryParse(Console.ReadLine(), out choice);
             switch (choice)

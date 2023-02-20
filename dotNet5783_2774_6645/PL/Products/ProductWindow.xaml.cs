@@ -100,7 +100,7 @@ public partial class ProductWindow : Window
         try
         {
             bl?.product.DeleteProduct(productID);
-            products.Remove(products.ToList().Find(po => productID == po.ID));//////????????????
+            products.Remove(products.ToList().Find(po => productID == po.ID));
             Close();
         }
         catch (BlProductFoundInOrders ex)

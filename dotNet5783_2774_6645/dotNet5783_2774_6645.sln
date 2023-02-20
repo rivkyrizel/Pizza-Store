@@ -27,18 +27,20 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PL", "PL\PL.csproj", "{06F3
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{75E84B8A-5616-4B42-B93A-5291DD0C315D}"
 	ProjectSection(SolutionItems) = preProject
+		..\xml\CartItem.xml = ..\xml\CartItem.xml
 		..\xml\config.xml = ..\xml\config.xml
 		..\xml\dal-config.xml = ..\xml\dal-config.xml
 		..\xml\Order.xml = ..\xml\Order.xml
 		..\xml\OrderItem.xml = ..\xml\OrderItem.xml
 		..\xml\Product.xml = ..\xml\Product.xml
+		..\xml\User.xml = ..\xml\User.xml
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalXml", "DalXml\DalXml.csproj", "{D3A7C2A9-E872-4ED0-8AF0-D0844369618C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InitializeXmlFiles", "InitializeXmlFiles\InitializeXmlFiles.csproj", "{A372B354-EBE0-49A3-B393-26572F395B41}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{4DA83230-A342-48A8-8E62-4D9B9E5DFCD2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{4DA83230-A342-48A8-8E62-4D9B9E5DFCD2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

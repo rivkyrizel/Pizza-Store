@@ -9,5 +9,6 @@ sealed public class Bl : IBl
     public IProduct product =>  new BlProduct();
 
     public IOrder order =>  new BlOrder();
+    public IUser user =>  new BlUser();
 }
 

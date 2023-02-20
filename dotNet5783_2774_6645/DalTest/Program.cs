@@ -7,7 +7,8 @@ namespace DalTest;
 
 public class Program
 {
-    public static IDal DalList = DalApi.Factory.Get()??throw new nullValueException();
+
+    public static IDal Dal = DalApi.Factory.Get() ?? throw new nullValueException();
     static void Main()
     {
 
@@ -19,8 +20,8 @@ public class Program
         int choice = 0;
         do
         {
-            try
-            {
+            //try
+            //{
                 Console.WriteLine("enter: \n 1 for product \n 2 for orders \n 3 for orders items \n 0 to exit");
                 int.TryParse(Console.ReadLine(), out choice);
                 switch (choice)
@@ -34,18 +35,34 @@ public class Program
                     case 3:
                         CRUDOrderItem();
                         break;
+                    case 4:
+                        CrudUser();
+                        break;
                     default:
                         Console.WriteLine("incorrect input");
                         break;
                 }
-        }
+            //}
 
-            catch (Exception e)
-        {
-            Console.WriteLine("{0} Exception caught.", e.Message);
-        }
-    } while (choice != 0);
+            //catch (Exception e)
+            //{
+            //    Console.WriteLine("{0} Exception caught.", e.Message);
+            //}
+        } while (choice != 0);
     }
+
+    private static void CrudUser()
+    { 
+        User user = new User();
+        user.Name = "Rivky";
+        user.Email = "Rizel";
+        user.Address = "AAA";
+        user.Email = "AAA";
+        user.ID = 200000;
+        user.Password = "1234";
+        Dal.User.Add(user);
+    }
+
     private static void CRUDOrder()
     {
         string? s = "0";
@@ -160,7 +177,7 @@ public class Program
     private static void addOrder()
     {
         Order newOrder = createOrder();
-        DalList.Order.Add(newOrder);
+        Dal.Order.Add(newOrder);
     }
 
     private static void displayOrder()
@@ -170,12 +187,12 @@ public class Program
         Console.WriteLine("|    ID     |   NAME  |  EMAIL   | ADRESS |        ORDER DATE       |        SHIP DATE      |      DELIVERY DATE    |");
         Console.WriteLine("|___________|_________|__________|________|_________________________|_______________________|_______________________|");
         Console.WriteLine("|           |         |          |        |                         |                       |                       |");
-        Console.WriteLine(DalList.Order.Get(p => p.ID == id));
+        Console.WriteLine(Dal.Order.Get(p => p.ID == id));
     }
 
     private static void displayOrderList()
     {
-        IEnumerable<Order>? orderList = DalList.Order.GetList();
+        IEnumerable<Order>? orderList = Dal.Order.GetList();
         Console.WriteLine("|    ID     |   NAME  |  EMAIL   | ADRESS |        ORDER DATE       |        SHIP DATE      |      DELIVERY DATE    |");
         Console.WriteLine("|___________|_________|__________|________|_________________________|_______________________|_______________________|");
         Console.WriteLine("|           |         |          |        |                         |                       |                       |");
@@ -191,7 +208,7 @@ public class Program
         Console.WriteLine("enter order ID:");
         int.TryParse(Console.ReadLine(), out id);
         newOrder.ID = id;
-                           DalList.Order.Update(newOrder);
+        Dal.Order.Update(newOrder);
     }
 
     private static void deleteOrder()
@@ -199,7 +216,7 @@ public class Program
         int id;
         Console.WriteLine("enter id:");
         int.TryParse(Console.ReadLine(), out id);
-        DalList.Order.Delete(id);
+        Dal.Order.Delete(id);
     }
 
     /// <summary>
@@ -226,7 +243,7 @@ public class Program
     private static void addProduct()
     {
         Product newProduct = createProduct();
-        DalList.Product.Add(newProduct);
+        Dal.Product.Add(newProduct);
     }
 
     private static void displayProduct()
@@ -236,12 +253,12 @@ public class Program
         Console.WriteLine("|    ID    |       NAME       | CATEGORY | PRICE | IN STOCK |");
         Console.WriteLine("|__________|__________________|__________|_______|__________|");
         Console.WriteLine("|          |                  |          |       |          |");
-        Console.WriteLine(DalList.Product.Get(p=>p.ID==id));
+        Console.WriteLine(Dal.Product.Get(p => p.ID == id));
     }
 
     private static void displayProductList()
     {
-        IEnumerable<Product>? productList = DalList.Product.GetList();
+        IEnumerable<Product>? productList = Dal.Product.GetList();
         Console.WriteLine("|    ID    |       NAME       | CATEGORY | PRICE | IN STOCK |");
         Console.WriteLine("|__________|__________________|__________|_______|__________|");
         Console.WriteLine("|          |                  |          |       |          |");
@@ -255,14 +272,14 @@ public class Program
         Console.WriteLine("enter Product ID");
         int.TryParse(Console.ReadLine(), out int id);
         newProduct.ID = id;
-        DalList.Product.Update(newProduct);
+        Dal.Product.Update(newProduct);
     }
 
     private static void deleteProduct()
     {
         Console.WriteLine("enter id:");
         int.TryParse(Console.ReadLine(), out int id);
-        DalList.Product.Delete(id);
+        Dal.Product.Delete(id);
     }
 
 
@@ -291,14 +308,14 @@ public class Program
     private static void addOrderItem()
     {
         OrderItem newOrderItem = createOrderItem();
-        DalList.OrderItem.Add(newOrderItem);
+        Dal.OrderItem.Add(newOrderItem);
     }
 
     private static void displayOrderItems()
     {
         Console.WriteLine("enter order id:");
         int.TryParse(Console.ReadLine(), out int id);
-        IEnumerable<OrderItem> orderItems = DalList.OrderItem.GetList(o => o.ID == id) ?? throw new nullValueException();
+        IEnumerable<OrderItem> orderItems = Dal.OrderItem.GetList(o => o.ID == id) ?? throw new nullValueException();
         Console.WriteLine("| PRODUCT ID |  ORDER ID  |   PRICE   |  AMOUNT  |");
         Console.WriteLine("|____________|____________|___________|__________|");
         Console.WriteLine("|            |            |           |          |");
@@ -309,7 +326,7 @@ public class Program
 
     private static void displayAllItems()
     {
-        IEnumerable<OrderItem> orderList = DalList.OrderItem.GetList() ?? throw new nullValueException();
+        IEnumerable<OrderItem> orderList = Dal.OrderItem.GetList() ?? throw new nullValueException();
         Console.WriteLine("| PRODUCT ID |  ORDER ID  |   PRICE   |  AMOUNT  |");
         Console.WriteLine("|____________|____________|___________|__________|");
         Console.WriteLine("|            |            |           |          |");
@@ -324,20 +341,20 @@ public class Program
         Console.WriteLine("| PRODUCT ID |  ORDER ID  |   PRICE   |  AMOUNT  |");
         Console.WriteLine("|____________|____________|___________|__________|");
         Console.WriteLine("|            |            |           |          |");
-        Console.WriteLine(DalList.OrderItem.Get(o => o.ID == Id));
+        Console.WriteLine(Dal.OrderItem.Get(o => o.ID == Id));
     }
 
     private static void updateOrderItem()
     {
         OrderItem newOrderItem = createOrderItem();
-        DalList.OrderItem.Update(newOrderItem);
+        Dal.OrderItem.Update(newOrderItem);
     }
 
     private static void deleteOrderItem()
     {
         Console.WriteLine("enter id:");
         int.TryParse(Console.ReadLine(), out int Id);
-        DalList.OrderItem.Delete(Id);
+        Dal.OrderItem.Delete(Id);
     }
 
 }
