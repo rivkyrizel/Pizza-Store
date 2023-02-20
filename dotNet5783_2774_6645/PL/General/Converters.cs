@@ -27,7 +27,7 @@ public class ShowOrUpdateToHidden : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        return (string)value == "show"|| (string)value == "update" ?   "Hidden" : "Visible";
+        return (string)value == "show" || (string)value == "update" ? "Hidden" : "Visible";
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -121,7 +121,7 @@ public class ShipedToVisible : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        return (BO.OrderStatus)value == 0 ? "Visible" : "Hidden";
+        return (OrderStatus)value == 0 ? "Visible" : "Hidden";
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -134,7 +134,7 @@ public class DeliveryToVisible : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        return (BO.OrderStatus)value == (BO.OrderStatus)1 ? "Visible" : "Hidden"; 
+        return (OrderStatus)value == (OrderStatus)1 ? "Visible" : "Hidden";
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

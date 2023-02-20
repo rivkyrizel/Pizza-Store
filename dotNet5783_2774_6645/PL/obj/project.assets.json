@@ -83,23 +83,25 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ריזל רבקה\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\USER\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ריזל רבקה\\Desktop\\dotNet5783_2774_66458\\dotNet5783_2774_6645\\PL\\PL.csproj",
+      "projectUniqueName": "C:\\Users\\USER\\Source\\Repos\\dotNet5783_2774_66453\\dotNet5783_2774_6645\\PL\\PL.csproj",
       "projectName": "PL",
-      "projectPath": "C:\\Users\\ריזל רבקה\\Desktop\\dotNet5783_2774_66458\\dotNet5783_2774_6645\\PL\\PL.csproj",
-      "packagesPath": "C:\\Users\\ריזל רבקה\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ריזל רבקה\\Desktop\\dotNet5783_2774_66458\\dotNet5783_2774_6645\\PL\\obj\\",
+      "projectPath": "C:\\Users\\USER\\Source\\Repos\\dotNet5783_2774_66453\\dotNet5783_2774_6645\\PL\\PL.csproj",
+      "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\USER\\Source\\Repos\\dotNet5783_2774_66453\\dotNet5783_2774_6645\\PL\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\ריזל רבקה\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\USER\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -114,8 +116,8 @@
         "net6.0-windows7.0": {
           "targetAlias": "net6.0-windows",
           "projectReferences": {
-            "C:\\Users\\ריזל רבקה\\Desktop\\dotNet5783_2774_66458\\dotNet5783_2774_6645\\BL\\BL.csproj": {
-              "projectPath": "C:\\Users\\ריזל רבקה\\Desktop\\dotNet5783_2774_66458\\dotNet5783_2774_6645\\BL\\BL.csproj"
+            "C:\\Users\\USER\\Source\\Repos\\dotNet5783_2774_66453\\dotNet5783_2774_6645\\BL\\BL.csproj": {
+              "projectPath": "C:\\Users\\USER\\Source\\Repos\\dotNet5783_2774_66453\\dotNet5783_2774_6645\\BL\\BL.csproj"
             }
           }
         }
@@ -148,7 +150,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
       }
     }
   }

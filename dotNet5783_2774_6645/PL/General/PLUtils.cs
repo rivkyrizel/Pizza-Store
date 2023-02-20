@@ -15,7 +15,7 @@ public class PLUtils
         {
             PropertyInfo? type = s.GetType().GetProperty(prop.Name);
 
-            if (type == null|| type.Name=="InStock") continue;
+            if (type == null) continue;
 
             var value = t.GetType().GetProperty(prop.Name)?.GetValue(t, null);
 

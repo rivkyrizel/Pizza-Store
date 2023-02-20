@@ -52,6 +52,7 @@ namespace PL.Orders
             try
             {
                 int orderId = int.Parse(orderIdBtn.Text);
+                bl.order.GetOrder(orderId);
                 new OrderWindow(bl, orderId, false).Show();
             }
             catch(BlIdNotFound ex)

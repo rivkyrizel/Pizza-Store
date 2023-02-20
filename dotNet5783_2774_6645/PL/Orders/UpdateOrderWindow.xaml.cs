@@ -16,6 +16,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using PL.PO;
 using BO;
+using System.Collections.ObjectModel;
+using PL.General;
 
 namespace PL.Orders
 {
@@ -26,11 +28,13 @@ namespace PL.Orders
     {
         IBl bl;
         public PO.Order poOrder { get; set; }
-        public UpdateOrderWindow(IBl Bl, PO.Order o)
+        ObservableCollection<PO.OrderForList>? orders;
+        public UpdateOrderWindow(IBl Bl, PO.Order o, ObservableCollection<PO.OrderForList>? porders)
         {
             InitializeComponent();
             bl = Bl;
             poOrder = o;
+            orders = porders;
             DataContext = this;
         }
 
@@ -60,18 +64,41 @@ namespace PL.Orders
 
         private void updateOrderBtn_Click(object sender, RoutedEventArgs e)
         {
-            BO.Order o = new();
-            o.Status = poOrder.Status;
-            o.OrderDate = poOrder.OrderDate;
-            o.ShipDate = poOrder.ShipDate;
-            o.CustomerName = poOrder.CustomerName;
-            o.CustomerAddress = poOrder.CustomerAddress;
-            o.CustomerEmail = poOrder.CustomerEmail;
-            o.DeliveryDate = poOrder.DeliveryDate;
-            o.Items = poOrder.Items;
-            o.ID = poOrder.ID;
-            bl.order.UpdateOrder(o);
-            Close();
+            try
+            {
+                BO.Order o = new();
+                o.Status = poOrder.Status;
+                o.OrderDate = poOrder.OrderDate;
+                o.ShipDate = poOrder.ShipDate;
+                o.CustomerName = poOrder.CustomerName;
+                o.CustomerAddress = poOrder.CustomerAddress;
+                o.CustomerEmail = poOrder.CustomerEmail;
+                o.DeliveryDate = poOrder.DeliveryDate;
+                o.Items = poOrder.Items;
+                o.ID = poOrder.ID;
+                int idx = orders.ToList().FindIndex(o => poOrder.ID == o.ID);
+                orders.RemoveAt(idx);
+                PO.OrderForList ol = PLUtils.cast<PO.OrderForList, BO.OrderForList>(PLUtils.cast<BO.OrderForList, PO.Order>(poOrder));
+                ol.AmountOfItems = bl.order.UpdateOrder(o) ?? throw new PlNullObjectException();
+                orders.Insert(idx, ol);
+                Close();
+            }
+            catch (BlInvalidAmount ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            catch (BlNegativeAmountException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            catch (BlIdNotFound ex)
+            {
+                MessageBox.Show(ex.Message + ex.InnerException);
+            }
+            catch (PlNullObjectException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

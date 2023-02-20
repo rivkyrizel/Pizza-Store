@@ -42,3 +42,25 @@ C:\Users\ריזל רבקה\Desktop\dotNet5783_2774_66458\dotNet5783_2774_6645\In
 C:\Users\ריזל רבקה\Desktop\dotNet5783_2774_66458\dotNet5783_2774_6645\InitializeXmlFiles\obj\Debug\net6.0\InitializeXmlFiles.pdb
 C:\Users\ריזל רבקה\Desktop\dotNet5783_2774_66458\dotNet5783_2774_6645\InitializeXmlFiles\obj\Debug\net6.0\InitializeXmlFiles.genruntimeconfig.cache
 C:\Users\ריזל רבקה\Desktop\dotNet5783_2774_66458\dotNet5783_2774_6645\InitializeXmlFiles\obj\Debug\net6.0\ref\InitializeXmlFiles.dll
+C:\Users\USER\Source\Repos\dotNet5783_2774_66453\dotNet5783_2774_6645\InitializeXmlFiles\bin\Debug\net6.0\InitializeXmlFiles.exe
+C:\Users\USER\Source\Repos\dotNet5783_2774_66453\dotNet5783_2774_6645\InitializeXmlFiles\bin\Debug\net6.0\InitializeXmlFiles.deps.json
+C:\Users\USER\Source\Repos\dotNet5783_2774_66453\dotNet5783_2774_6645\InitializeXmlFiles\bin\Debug\net6.0\InitializeXmlFiles.runtimeconfig.json
+C:\Users\USER\Source\Repos\dotNet5783_2774_66453\dotNet5783_2774_6645\InitializeXmlFiles\bin\Debug\net6.0\InitializeXmlFiles.dll
+C:\Users\USER\Source\Repos\dotNet5783_2774_66453\dotNet5783_2774_6645\InitializeXmlFiles\bin\Debug\net6.0\InitializeXmlFiles.pdb
+C:\Users\USER\Source\Repos\dotNet5783_2774_66453\dotNet5783_2774_6645\InitializeXmlFiles\bin\Debug\net6.0\DalFacade.dll
+C:\Users\USER\Source\Repos\dotNet5783_2774_66453\dotNet5783_2774_6645\InitializeXmlFiles\bin\Debug\net6.0\DalList.dll
+C:\Users\USER\Source\Repos\dotNet5783_2774_66453\dotNet5783_2774_6645\InitializeXmlFiles\bin\Debug\net6.0\DalXml.dll
+C:\Users\USER\Source\Repos\dotNet5783_2774_66453\dotNet5783_2774_6645\InitializeXmlFiles\bin\Debug\net6.0\DalFacade.pdb
+C:\Users\USER\Source\Repos\dotNet5783_2774_66453\dotNet5783_2774_6645\InitializeXmlFiles\bin\Debug\net6.0\DalList.pdb
+C:\Users\USER\Source\Repos\dotNet5783_2774_66453\dotNet5783_2774_6645\InitializeXmlFiles\bin\Debug\net6.0\DalXml.pdb
+C:\Users\USER\Source\Repos\dotNet5783_2774_66453\dotNet5783_2774_6645\InitializeXmlFiles\obj\Debug\net6.0\InitializeXmlFiles.csproj.AssemblyReference.cache
+C:\Users\USER\Source\Repos\dotNet5783_2774_66453\dotNet5783_2774_6645\InitializeXmlFiles\obj\Debug\net6.0\InitializeXmlFiles.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\USER\Source\Repos\dotNet5783_2774_66453\dotNet5783_2774_6645\InitializeXmlFiles\obj\Debug\net6.0\InitializeXmlFiles.AssemblyInfoInputs.cache
+C:\Users\USER\Source\Repos\dotNet5783_2774_66453\dotNet5783_2774_6645\InitializeXmlFiles\obj\Debug\net6.0\InitializeXmlFiles.AssemblyInfo.cs
+C:\Users\USER\Source\Repos\dotNet5783_2774_66453\dotNet5783_2774_6645\InitializeXmlFiles\obj\Debug\net6.0\InitializeXmlFiles.csproj.CoreCompileInputs.cache
+C:\Users\USER\Source\Repos\dotNet5783_2774_66453\dotNet5783_2774_6645\InitializeXmlFiles\obj\Debug\net6.0\InitializeXmlFiles.csproj.CopyComplete
+C:\Users\USER\Source\Repos\dotNet5783_2774_66453\dotNet5783_2774_6645\InitializeXmlFiles\obj\Debug\net6.0\InitializeXmlFiles.dll
+C:\Users\USER\Source\Repos\dotNet5783_2774_66453\dotNet5783_2774_6645\InitializeXmlFiles\obj\Debug\net6.0\refint\InitializeXmlFiles.dll
+C:\Users\USER\Source\Repos\dotNet5783_2774_66453\dotNet5783_2774_6645\InitializeXmlFiles\obj\Debug\net6.0\InitializeXmlFiles.pdb
+C:\Users\USER\Source\Repos\dotNet5783_2774_66453\dotNet5783_2774_6645\InitializeXmlFiles\obj\Debug\net6.0\InitializeXmlFiles.genruntimeconfig.cache
+C:\Users\USER\Source\Repos\dotNet5783_2774_66453\dotNet5783_2774_6645\InitializeXmlFiles\obj\Debug\net6.0\ref\InitializeXmlFiles.dll

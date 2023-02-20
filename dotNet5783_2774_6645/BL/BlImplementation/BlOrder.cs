@@ -189,7 +189,7 @@ internal class BlOrder : BlApi.IOrder
 
 
 
-    public void UpdateOrder(Order updateOrder)
+    public int? UpdateOrder(Order updateOrder)
     {
         Dal.OrderItem.GetList(o => o.OrderID == updateOrder.ID)?.ToList().ForEach(oi => Dal.OrderItem.Delete(oi.ID));
         foreach (var item in updateOrder.Items)
@@ -207,6 +207,7 @@ internal class BlOrder : BlApi.IOrder
             product.Amount = product.Amount - oItem.Amount;
             Dal.Product.Update(product);
         }
+        return Dal.OrderItem.GetList(o => o.OrderID == updateOrder.ID)?.ToList().Count();
     }
 
 

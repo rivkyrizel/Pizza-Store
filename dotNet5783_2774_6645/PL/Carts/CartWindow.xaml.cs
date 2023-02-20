@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using PL.Products;
+using PL.General;
 
 namespace PL.Carts
 {
