@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using BlApi;
 using BO;
+using DalApi;
 
 namespace BlImplementation;
 
-public class BlUser : IUser
+public class BlUser : BlApi.IUser
 {
     private DalApi.IDal dal = DalApi.Factory.Get() ?? throw new BlNullValueException();
     public int AddUser(User u)
@@ -19,7 +20,14 @@ public class BlUser : IUser
 
     public bool IsRegistered(string email, string pass)
     {
-       return dal.User.Get(u=>u.Email==email).Password==pass;
+        try
+        {
+            return dal.User.Get(u => u.Email == email).Password == pass;
+        }
+        catch (ItemNotFound e)
+        {
+            throw new BlNullValueException();
+        }
     }
 
     public void UpdateUser(User u)

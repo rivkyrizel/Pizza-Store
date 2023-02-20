@@ -7,6 +7,7 @@ using System.Windows;
 using PL.Products;
 using BlApi;
 using PL.Orders;
+using PL.User;
 
 namespace PL
 {
@@ -31,7 +32,15 @@ namespace PL
 
         private void AddOrderBtn_Click(object sender, RoutedEventArgs e)
         {
-            new ProductItemWindow(bl,new PO.Cart()).Show();
+            if (MessageBox.Show("Do you want to sign?", "Confirmation", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+              new SignInWindow(bl).Show();
+            }
+            else
+            {
+                new ProductItemWindow(bl, new PO.Cart()).Show();
+            }
+
         }
 
         private void OrderTrackingBtn_Click(object sender, RoutedEventArgs e)

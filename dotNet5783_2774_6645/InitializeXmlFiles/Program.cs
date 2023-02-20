@@ -24,8 +24,6 @@ public class Program
         user.Email = "AAA";
         user.ID = 200000;
         user.Password = "1234";
-        user.Cart = null;
-        user.Orders = null;
         UserList.Add(user);
 
         StreamWriter wProduct = new(@"..\..\..\..\..\xml\Product.xml");

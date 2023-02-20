@@ -78,8 +78,15 @@ public class CartItem : ICartItem
         writeFile.Close();
     }
 
-    public void Delete(Func< int, int, DO.CartItem> f)
+    public void Delete(Func< DO.CartItem, bool> f)
     {
-        throw new NotImplementedException();
+        XmlSerializer ser = new XmlSerializer(typeof(List<DO.CartItem>), xRoot());
+        StreamReader r = new(cartItemSrc);
+        List<DO.CartItem>? lst = (List<DO.CartItem>?)ser.Deserialize(r);
+        lst?.Where(f).ToList().ForEach(i => lst.Remove(i));
+        r.Close();
+         StreamWriter w = new(cartItemSrc);
+        ser.Serialize(w, lst);
+        w.Close();
     }
 }

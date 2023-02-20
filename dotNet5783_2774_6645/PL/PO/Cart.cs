@@ -40,9 +40,9 @@ public class Cart : DependencyObject
         set { SetValue(totalPriceProperty, value); }
     }
 
-    public static readonly DependencyProperty customerNameProperty = DependencyProperty.Register("CustomerName", typeof(string), typeof(Cart), new UIPropertyMetadata(""));
-    public static readonly DependencyProperty customerEmailProperty = DependencyProperty.Register("CustomerEmail", typeof(string), typeof(Cart), new UIPropertyMetadata(""));
-    public static readonly DependencyProperty customerAddressProperty = DependencyProperty.Register("CustomerAddress", typeof(string), typeof(Cart), new UIPropertyMetadata(""));
+    public static readonly DependencyProperty customerNameProperty = DependencyProperty.Register("Name", typeof(string), typeof(Cart), new UIPropertyMetadata(""));
+    public static readonly DependencyProperty customerEmailProperty = DependencyProperty.Register("Email", typeof(string), typeof(Cart), new UIPropertyMetadata(""));
+    public static readonly DependencyProperty customerAddressProperty = DependencyProperty.Register("Address", typeof(string), typeof(Cart), new UIPropertyMetadata(""));
     public static readonly DependencyProperty totalPriceProperty = DependencyProperty.Register("TotalPrice", typeof(double), typeof(Cart), new UIPropertyMetadata(0.0));
-    public static readonly DependencyProperty itemsProperty = DependencyProperty.Register("Items", typeof(ObservableCollection<PO.OrderItem?>), typeof(Cart), new UIPropertyMetadata(new ObservableCollection<PO.OrderItem?>()));
+    public static readonly DependencyProperty itemsProperty = DependencyProperty.Register("Items", typeof(ObservableCollection<PO.OrderItem?>), typeof(User), new UIPropertyMetadata(new ObservableCollection<PO.OrderItem?>()));
 }

@@ -185,7 +185,6 @@ C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645\dotNet5783_2774_664
 C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645\dotNet5783_2774_6645\PL\obj\Debug\Products\ProductItemWindow.g.cs
 C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645\dotNet5783_2774_6645\PL\obj\Debug\Products\ProductListWindow.g.cs
 C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645\dotNet5783_2774_6645\PL\obj\Debug\Products\ProductWindow.g.cs
-C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645\dotNet5783_2774_6645\PL\obj\Debug\userDetails.g.cs
 C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645\dotNet5783_2774_6645\PL\obj\Debug\App.g.cs
 C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645\dotNet5783_2774_6645\PL\obj\Debug\GeneratedInternalTypeHelper.g.cs
 C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645\dotNet5783_2774_6645\PL\obj\Debug\PL_MarkupCompile.cache
@@ -200,7 +199,6 @@ C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645\dotNet5783_2774_664
 C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645\dotNet5783_2774_6645\PL\obj\Debug\Orders\UpdateOrderWindow.baml
 C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645\dotNet5783_2774_6645\PL\obj\Debug\Products\ProductItemWindow.baml
 C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645\dotNet5783_2774_6645\PL\obj\Debug\Products\ProductWindow.baml
-C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645\dotNet5783_2774_6645\PL\obj\Debug\userDetails.baml
 C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645\dotNet5783_2774_6645\PL\obj\Debug\PL.g.resources
 C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645\dotNet5783_2774_6645\PL\obj\Debug\PL.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645\dotNet5783_2774_6645\PL\obj\Debug\PL.AssemblyInfoInputs.cache
@@ -212,3 +210,7 @@ C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645\dotNet5783_2774_664
 C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645\dotNet5783_2774_6645\PL\obj\Debug\PL.pdb
 C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645\dotNet5783_2774_6645\PL\obj\Debug\PL.genruntimeconfig.cache
 C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645\dotNet5783_2774_6645\PL\obj\Debug\ref\PL.dll
+C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645\dotNet5783_2774_6645\PL\obj\Debug\Orders\userDetails.g.cs
+C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645\dotNet5783_2774_6645\PL\obj\Debug\User\SignInWindow.g.cs
+C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645\dotNet5783_2774_6645\PL\obj\Debug\Orders\userDetails.baml
+C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645\dotNet5783_2774_6645\PL\obj\Debug\User\SignInWindow.baml

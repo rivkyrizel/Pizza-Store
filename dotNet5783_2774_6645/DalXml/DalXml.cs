@@ -14,7 +14,7 @@ sealed public class DalXml : IDal
     public IOrderItem OrderItem { get; } = new Dal.OrderItem();
     public IUser User { get; } = new Dal.User();
 
-
+    public ICartItem CartItem => new Dal.CartItem();
 
     private DalXml() { }
     public static DalXml GetInstance()

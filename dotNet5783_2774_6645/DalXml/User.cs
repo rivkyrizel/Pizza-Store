@@ -47,7 +47,14 @@ public class User : IUser
         StreamReader r = new(userSrc);
         List<DO.User>? lst = (List<DO.User>?)ser.Deserialize(r);
         r.Close();
-        return lst?.Where(func) != null ? lst.Where(func).First() : throw new ItemNotFound("");
+        try
+        {
+            return lst.Where(func).First();
+        }
+        catch (Exception e)
+        {
+            throw new ItemNotFound("");
+        }
     }
 
     public IEnumerable<DO.User>? GetList(Func<DO.User, bool>? func = null)

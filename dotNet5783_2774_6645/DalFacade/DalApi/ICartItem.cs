@@ -8,6 +8,6 @@ namespace DalApi;
 
 public interface ICartItem: ICrud<DO.CartItem>
 {
-    public void Delete(Func<DO.CartItem, > f);
+    public void Delete(Func<DO.CartItem, bool> f);
 
 }

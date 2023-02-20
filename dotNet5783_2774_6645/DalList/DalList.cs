@@ -20,5 +20,6 @@ sealed internal class DalList : IDal
     public IOrderItem OrderItem => new DalOrderItem();
     public IProduct Product => new DalProduct();
     public IUser User => new DalUser();
+    public ICartItem CartItem => throw new NotImplementedException();
 }
 
