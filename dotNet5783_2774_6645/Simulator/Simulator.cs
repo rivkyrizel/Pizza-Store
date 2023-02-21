@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Simulator
+namespace Simulator;
+public static class Simulator
 {
-    internal class Simulator
-    {
-    }
+
 }

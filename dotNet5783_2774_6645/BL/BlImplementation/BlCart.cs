@@ -43,12 +43,24 @@ internal class BlCart : ICart
             if (userId < 0) throw new BlInvalideData();
 
             IEnumerable<DO.CartItem> cartItems = dal.CartItem.GetList(o => o.UserID == userId) ?? throw new NoEntitiesFound();
-            IEnumerable<DO.OrderItem> orderItems = from item in cartItems
-                                                   select dal.OrderItem.Get(o => o.ProductID == item.ProductID);
-            IEnumerable<BO.OrderItem> BOItems = from item in orderItems
-                                                select BlUtils.cast<BO.OrderItem, DO.OrderItem>(item);
+            List<BO.OrderItem> orderItems=new();
+            DO.Product d = new();
+            BO.OrderItem o = new();
+            foreach (var  item in cartItems)
+            {
+                o=BlUtils.cast<BO.OrderItem, DO.CartItem>(item);
+                d = dal.Product.Get(o => o.ID == item.ProductID);
+                o.Name = d.Name;
+                o.Price = d.Price;
+                o.TotalPrice = o.Price * o.Amount;
+                orderItems.Add(o);
+            }
+            //IEnumerable<DO.OrderItem> orderItems = from item in cartItems
+            //                                       select dal.OrderItem.Get(o => o.ProductID == item.ProductID);
+            //IEnumerable<BO.OrderItem> BOItems = from item in orderItems
+            //                                    select BlUtils.cast<BO.OrderItem, DO.Product>(item);
             cart.UserID = userId;
-            cart.Items = BOItems;
+            cart.Items = orderItems;
         }
         catch (DalApi.ItemNotFound e)
         {
