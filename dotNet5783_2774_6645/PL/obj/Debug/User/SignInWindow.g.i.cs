@@ -77,7 +77,7 @@ namespace PL.User {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/PL;component/user/signinwindow.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/PL;V1.0.0.0;component/user/signinwindow.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\User\SignInWindow.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

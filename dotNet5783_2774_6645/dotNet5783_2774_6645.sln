@@ -42,6 +42,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InitializeXmlFiles", "Initi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{4DA83230-A342-48A8-8E62-4D9B9E5DFCD2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simulator", "Simulator\Simulator.csproj", "{00469470-0F9E-4C24-8B95-5626F4918CBD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -88,6 +90,10 @@ Global
 		{4DA83230-A342-48A8-8E62-4D9B9E5DFCD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4DA83230-A342-48A8-8E62-4D9B9E5DFCD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4DA83230-A342-48A8-8E62-4D9B9E5DFCD2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00469470-0F9E-4C24-8B95-5626F4918CBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00469470-0F9E-4C24-8B95-5626F4918CBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00469470-0F9E-4C24-8B95-5626F4918CBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00469470-0F9E-4C24-8B95-5626F4918CBD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

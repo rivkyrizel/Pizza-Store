@@ -85,7 +85,7 @@ namespace PL.Carts {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/PL;component/carts/cartwindow.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/PL;V1.0.0.0;component/carts/cartwindow.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\Carts\CartWindow.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

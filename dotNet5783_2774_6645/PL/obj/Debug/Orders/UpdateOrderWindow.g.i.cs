@@ -77,7 +77,7 @@ namespace PL.Orders {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/PL;component/orders/updateorderwindow.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/PL;V1.0.0.0;component/orders/updateorderwindow.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\Orders\UpdateOrderWindow.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

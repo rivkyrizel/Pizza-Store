@@ -52,6 +52,19 @@
         "runtime": {
           "bin/placeholder/DalXml.dll": {}
         }
+      },
+      "Simulator/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "BL": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Simulator.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Simulator.dll": {}
+        }
       }
     }
   },
@@ -75,11 +88,17 @@
       "type": "project",
       "path": "../DalXml/DalXml.csproj",
       "msbuildProject": "../DalXml/DalXml.csproj"
+    },
+    "Simulator/1.0.0": {
+      "type": "project",
+      "path": "../Simulator/Simulator.csproj",
+      "msbuildProject": "../Simulator/Simulator.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0-windows7.0": [
-      "BL >= 1.0.0"
+      "BL >= 1.0.0",
+      "Simulator >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -116,6 +135,9 @@
           "projectReferences": {
             "C:\\Users\\ריזל רבקה\\Source\\Repos\\dotNet5783_2774_6645\\dotNet5783_2774_6645\\BL\\BL.csproj": {
               "projectPath": "C:\\Users\\ריזל רבקה\\Source\\Repos\\dotNet5783_2774_6645\\dotNet5783_2774_6645\\BL\\BL.csproj"
+            },
+            "C:\\Users\\ריזל רבקה\\Source\\Repos\\dotNet5783_2774_6645\\dotNet5783_2774_6645\\Simulator\\Simulator.csproj": {
+              "projectPath": "C:\\Users\\ריזל רבקה\\Source\\Repos\\dotNet5783_2774_6645\\dotNet5783_2774_6645\\Simulator\\Simulator.csproj"
             }
           }
         }
