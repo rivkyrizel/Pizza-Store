@@ -116,11 +116,11 @@ public class Order : DependencyObject
 
     public static readonly DependencyProperty UserIDProperty = DependencyProperty.Register("UserID", typeof(int?), typeof(Order), new UIPropertyMetadata(0));
 
-    public static readonly DependencyProperty CustomerNameProperty = DependencyProperty.Register("Name", typeof(string), typeof(Order), new UIPropertyMetadata(""));
+    public static readonly DependencyProperty CustomerNameProperty = DependencyProperty.Register("CustomerName", typeof(string), typeof(Order), new UIPropertyMetadata(""));
 
-    public static readonly DependencyProperty CustomerAddressProperty = DependencyProperty.Register("Address", typeof(string), typeof(Order), new UIPropertyMetadata(""));
+    public static readonly DependencyProperty CustomerAddressProperty = DependencyProperty.Register("CustomerAddress", typeof(string), typeof(Order), new UIPropertyMetadata(""));
 
-    public static readonly DependencyProperty CustomerEmailProperty = DependencyProperty.Register("Email", typeof(string), typeof(Order));
+    public static readonly DependencyProperty CustomerEmailProperty = DependencyProperty.Register("CustomerEmail", typeof(string), typeof(Order));
 
     public static readonly DependencyProperty OrderDateProperty = DependencyProperty.Register("OrderDate", typeof(DateTime?), typeof(Order));
 

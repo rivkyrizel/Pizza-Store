@@ -51,7 +51,7 @@ namespace PL.PO;
 
     public static readonly DependencyProperty IDProperty = DependencyProperty.Register("ID", typeof(int), typeof(OrderForList), new UIPropertyMetadata(0));
 
-    public static readonly DependencyProperty CustomerNameProperty = DependencyProperty.Register("Name", typeof(string), typeof(OrderForList), new UIPropertyMetadata(""));
+    public static readonly DependencyProperty CustomerNameProperty = DependencyProperty.Register("CustomerName", typeof(string), typeof(OrderForList), new UIPropertyMetadata(""));
 
 
     public static readonly DependencyProperty StatusProperty = DependencyProperty.Register("StatusProperty", typeof(BO.OrderStatus), typeof(OrderForList));
