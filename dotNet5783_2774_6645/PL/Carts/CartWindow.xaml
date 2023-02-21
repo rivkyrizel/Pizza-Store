@@ -46,7 +46,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        
+
         <Label Content="Total Price" HorizontalAlignment="Left" Height="31" Margin="467,381,0,0" VerticalAlignment="Top" Width="74"/>
         <TextBox Name="TotalPriceTxt" HorizontalAlignment="Left" Height="33" Margin="549,379,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="131" IsReadOnly="True" Text="{Binding cart.TotalPrice, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"/>
 

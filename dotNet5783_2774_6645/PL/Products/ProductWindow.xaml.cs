@@ -26,18 +26,20 @@ public partial class ProductWindow : Window
     IBl bl;
     int productID;
     PO.Cart cart;
-   public PO.Product currentProduct { get; set; }
+    public PO.Product currentProduct { get; set; }
     public Array categories { get; set; }
     public string show { get; set; }
+    public bool isRegistered { get; set; }
     private ObservableCollection<PO.Product> products { get; set; } = new();
 
-    
-    public ProductWindow(IBl Bl, string active, ObservableCollection<PO.Product> Products,  PO.Cart? Cart=null, int id = 0)
+
+    public ProductWindow(IBl Bl, string active, ObservableCollection<PO.Product> Products, PO.Cart? Cart = null, int id = 0, bool isReg = false)
     {
         InitializeComponent();
 
         bl = Bl;
         cart = Cart;
+        isRegistered = isReg;
         products = Products;
         productID = id;
         categories = Enum.GetValues(typeof(BO.eCategory));
@@ -122,7 +124,7 @@ public partial class ProductWindow : Window
     {
         try
         {
-            PLUtils.castCart(bl.Cart.AddToCart(PLUtils.cast<BO.Cart, PO.Cart>(cart), productID), cart);
+            PLUtils.castCart(bl.Cart.AddToCart(PLUtils.cast<BO.Cart, PO.Cart>(cart), productID, true), cart);
             Close();
         }
         catch (BlItemAlreadyInCart ex)

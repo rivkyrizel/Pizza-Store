@@ -1,1 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ArrayOfCartItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<CartItem>
+		<ID>100000</ID>
+		<ProductID>10000</ProductID>
+		<UserID>100000</UserID>
+		<Amount>1</Amount>
+	</CartItem>
+	<CartItem>
+		<ID>100001</ID>
+		<ProductID>100005</ProductID>
+		<UserID>200008</UserID>
+		<Amount>1</Amount>
+	</CartItem>
+	<CartItem>
+		<ID>100002</ID>
+		<ProductID>100006</ProductID>
+		<UserID>200003</UserID>
+		<Amount>0</Amount>
+	</CartItem>
+	<CartItem>
+		<ID>100003</ID>
+		<ProductID>100000</ProductID>
+		<UserID>200003</UserID>
+		<Amount>0</Amount>
+	</CartItem>
+</ArrayOfCartItem>

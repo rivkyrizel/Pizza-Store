@@ -23,7 +23,8 @@ namespace PL.User
     {
         public class Login : DependencyObject
         {
-            public bool isLogin {
+            public bool isLogin
+            {
                 get { return (bool)GetValue(loginProperty); }
                 set { SetValue(loginProperty, value); }
             }
@@ -55,26 +56,45 @@ namespace PL.User
 
         private void Sign_Click(object sender, RoutedEventArgs e)
         {
+
             try
             {
+                int userId;
                 if (l.isLogin)
                 {
-                    if (!bl.user.IsRegistered(user.Email, user.Password))
+
+                    userId = bl.user.IsRegistered(user.Email, user.Password);
+                    if (userId == 0)
                     {
-                        MessageBox.Show(" your password is incorrect");
+                        MessageBox.Show("you are not registered yet, please try signing up");
                         return;
                     }
                 }
-                else
-                    bl.user.AddUser(PLUtils.cast<BO.User, PO.User>(user));
+                else userId = bl.user.AddUser(PLUtils.cast<BO.User, PO.User>(user));
 
-                new ProductItemWindow(bl, new PO.Cart()).Show();
+                PO.Cart cart = new();
+                cart = PLUtils.cast<PO.Cart, BO.Cart>(bl.Cart.GetCart(userId));
+
+                new ProductItemWindow(bl, cart, userId, true).Show();
                 Close();
+
             }
-            catch(BlNullValueException ex)
+            catch (BlNullValueException)
             {
                 MessageBox.Show("your email is incorrect");
             }
+            catch (BlIdNotFound ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        private void loginBtn_Click_1(object sender, RoutedEventArgs e)
+        {
+
+
+
         }
     }
 }

@@ -19,7 +19,8 @@
                  Text="{Binding Path=user.Password, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"/>
         <Label Content="address" HorizontalAlignment="Left" Height="33" Margin="229,217,0,0" VerticalAlignment="Top" Width="66" Visibility="{Binding Path=l.isLogin, Mode=TwoWay, Converter={StaticResource TrueToHidden}}" />
         <TextBox HorizontalAlignment="Left" Height="33" Margin="300,217,0,0" Visibility="{Binding Path=l.isLogin, Mode=TwoWay, Converter={StaticResource TrueToHidden}}" Text="{Binding Path=user.Address, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" TextWrapping="Wrap"  VerticalAlignment="Top" Width="167"/>
-        <Button Content="Sign" Name="Sign" HorizontalAlignment="Left" Height="51" Margin="665,342,0,0" VerticalAlignment="Top" Width="108" Click="Sign_Click"/>
+        <Button Content="sign up" Name="signUpBtn" HorizontalAlignment="Left" Height="51" Margin="665,342,0,0" VerticalAlignment="Top" Width="108" Click="Sign_Click" Visibility="{Binding Path=l.isLogin, Mode=TwoWay, Converter={StaticResource TrueToHidden}}"/>
+        <Button Content="login" Name="loginBtn" HorizontalAlignment="Left" Height="51" Margin="665,342,0,0" VerticalAlignment="Top" Width="108" Visibility="{Binding Path=l.isLogin, Mode=TwoWay, Converter={StaticResource TrueToVisible}}" Click="Sign_Click"/>
 
     </Grid>
 </Window>

@@ -14,21 +14,26 @@ public class BlUser : BlApi.IUser
     private DalApi.IDal dal = DalApi.Factory.Get() ?? throw new BlNullValueException();
     public int AddUser(User u)
     {
-    
+        // if (IsRegistered(u.Email, u.Password)) throw new BlUserExistsException();
+
         return dal.User.Add(BlUtils.cast<DO.User, BO.User>(u));
     }
 
-    public bool IsRegistered(string email, string pass)
+    public int IsRegistered(string email, string pass)
     {
         try
         {
-            return dal.User.Get(u => u.Email == email).Password == pass;
+            DO.User user = dal.User.Get(u => u.Email == email);
+            if (user.Password == pass) return user.ID;
         }
         catch (ItemNotFound e)
         {
-            throw new BlNullValueException();
+            throw new BlIdNotFound(e);
         }
+        return 0;
     }
+
+
 
     public void UpdateUser(User u)
     {

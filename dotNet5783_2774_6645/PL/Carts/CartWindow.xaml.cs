@@ -13,18 +13,24 @@ namespace PL.Carts
     public partial class CartWindow : Window
     {
         IBl bl;
+        bool isRegistered;
         public PO.Cart cart { get; set; }
-        public bool isAdmin { get; set; }  
+        public bool isAdmin { get; set; }
 
-        public CartWindow(IBl Bl, PO.Cart Cart , bool admin = false)
+        public CartWindow(IBl Bl, PO.Cart Cart, bool admin = false, bool isReg = false)
         {
             bl = Bl;
+            isRegistered = isReg;
             InitializeComponent();
             cart = Cart;
+            if (isRegistered) initCart();
             isAdmin = admin;
             DataContext = this;
         }
 
+        private void initCart()
+        {
+        }
         private void confirmOrderBtn_Click(object sender, RoutedEventArgs e)
         {
             new userDetails(bl, cart).Show();
@@ -35,17 +41,17 @@ namespace PL.Carts
         {
             PO.OrderItem product = (PO.OrderItem)((Button)sender).DataContext;
             int newAmount = (((Button)sender).Name == "addProductAmountBtn") ? product.Amount + 1 : product.Amount - 1;
-            PLUtils.castCart(bl.Cart.updateAmount(PLUtils.cast<BO.Cart, PO.Cart>(cart), product.ProductID, newAmount),cart);
+            PLUtils.castCart(bl.Cart.updateAmount(PLUtils.cast<BO.Cart, PO.Cart>(cart), product.ProductID, newAmount), cart);
         }
 
         private void deleteBtn_Click(object sender, RoutedEventArgs e)
         {
-            PLUtils.castCart(bl.Cart.updateAmount(PLUtils.cast<BO.Cart, PO.Cart>(cart), ((PO.OrderItem)((Button)sender).DataContext).ProductID, 0),cart);
+            PLUtils.castCart(bl.Cart.updateAmount(PLUtils.cast<BO.Cart, PO.Cart>(cart), ((PO.OrderItem)((Button)sender).DataContext).ProductID, 0, isRegistered), cart);
         }
 
         private void addItemBtn_Click(object sender, RoutedEventArgs e)
         {
-            new ProductItemWindow(bl,cart).Show();
+            new ProductItemWindow(bl, cart, cart.UserID).Show();
             Close();
         }
 

@@ -52,6 +52,13 @@ public class BlInvalidEmailException : Exception
                     "invalid email exception";
 
 }
+
+public class BlUserExistsException : Exception
+{
+    public override string Message =>
+                    "user already registered , try loging in";
+
+}
 public class BlNegativeAmountException : Exception
 {
     public override string Message =>

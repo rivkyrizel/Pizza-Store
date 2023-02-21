@@ -13,7 +13,11 @@ namespace PL.PO;
 /// </summary>
 public class Cart : DependencyObject
 {
-
+    public int UserID
+    {
+        get { return (int)GetValue(UserIdProperty); }
+        set { SetValue(UserIdProperty, value); }
+    }
     public string? CustomerName
     {
         get { return (string)GetValue(customerNameProperty); }
@@ -44,5 +48,6 @@ public class Cart : DependencyObject
     public static readonly DependencyProperty customerEmailProperty = DependencyProperty.Register("Email", typeof(string), typeof(Cart), new UIPropertyMetadata(""));
     public static readonly DependencyProperty customerAddressProperty = DependencyProperty.Register("Address", typeof(string), typeof(Cart), new UIPropertyMetadata(""));
     public static readonly DependencyProperty totalPriceProperty = DependencyProperty.Register("TotalPrice", typeof(double), typeof(Cart), new UIPropertyMetadata(0.0));
+    public static readonly DependencyProperty UserIdProperty = DependencyProperty.Register("UserId", typeof(int), typeof(Cart), new UIPropertyMetadata(0));
     public static readonly DependencyProperty itemsProperty = DependencyProperty.Register("Items", typeof(ObservableCollection<PO.OrderItem?>), typeof(User), new UIPropertyMetadata(new ObservableCollection<PO.OrderItem?>()));
 }

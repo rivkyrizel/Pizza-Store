@@ -11,6 +11,6 @@ public interface IUser
 {
     public int AddUser(User u);
     public void UpdateUser(User u);
-    public bool IsRegistered(string email, string pass);
+    public int IsRegistered(string email, string pass);
 
 }

@@ -27,13 +27,18 @@ namespace PL.Products
     {
         IBl bl;
         PO.Cart cart_;
+        bool isRegistered;
         public List<string> lst { get; set; }
         public ObservableCollection<PO.Product> products { get; set; } = new();
-        public ProductItemWindow(IBl Bl, PO.Cart Cart)
+
+
+        public ProductItemWindow(IBl Bl, PO.Cart Cart, int userID = 0, bool isReg = false)
         {
             InitializeComponent();
             bl = Bl;
-            cart_ =Cart;
+            cart_ = Cart;
+            isRegistered = isReg;
+            cart_.UserID = userID;
             lst = Enum.GetNames(typeof(BO.eCategory)).ToList();
             lst.Insert(0, "all categories");
             cast(bl.product.GetProductItem());
@@ -56,13 +61,13 @@ namespace PL.Products
 
         private void ProductsListview_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            new ProductWindow(bl, "show", products,  cart_, ((PO.Product?)ProductsListview.SelectedItems[0])?.ID ?? throw new PlNullObjectException()).Show();
+            new ProductWindow(bl, "show", products, cart_, ((PO.Product?)ProductsListview.SelectedItems[0])?.ID ?? throw new PlNullObjectException(), isRegistered).Show();
 
         }
 
         private void viewCartBtn_Click(object sender, RoutedEventArgs e)
         {
-            new CartWindow(bl, cart_).Show();
+            new CartWindow(bl, cart_, false, isRegistered).Show();
             Close();
         }
     }

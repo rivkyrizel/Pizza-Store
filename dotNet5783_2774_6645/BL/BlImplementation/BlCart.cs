@@ -26,13 +26,35 @@ internal class BlCart : ICart
         DO.CartItem cartItem = new();
         cartItem.ProductID = productID;
         cartItem.Amount = 1;
-        cartItem.UserID = cart?.UserID??throw new BlNullValueException();
+        cartItem.UserID = cart?.UserID ?? throw new BlNullValueException();
         dal.CartItem.Add(cartItem);
     }
 
     private void confirmOrderDal(BO.Cart? cart)
     {
         dal.CartItem.Delete(c => c.UserID == cart.UserID);
+    }
+
+    public BO.Cart GetCart(int userId)
+    {
+        BO.Cart cart = new();
+        try
+        {
+            if (userId < 0) throw new BlInvalideData();
+
+            IEnumerable<DO.CartItem> cartItems = dal.CartItem.GetList(o => o.UserID == userId) ?? throw new NoEntitiesFound();
+            IEnumerable<DO.OrderItem> orderItems = from item in cartItems
+                                                   select dal.OrderItem.Get(o => o.ProductID == item.ProductID);
+            IEnumerable<BO.OrderItem> BOItems = from item in orderItems
+                                                select BlUtils.cast<BO.OrderItem, DO.OrderItem>(item);
+            cart.UserID = userId;
+            cart.Items = BOItems;
+        }
+        catch (DalApi.ItemNotFound e)
+        {
+            throw new BlIdNotFound(e);
+        }
+        return cart;
     }
 
     /// <summary>
@@ -43,12 +65,12 @@ internal class BlCart : ICart
     /// <returns> updated cart </returns>
     /// <exception cref="BlOutOfStockException"> item not in stock </exception>
     /// <exception cref="BlIdNotFound"> product ID is invalid </exception>
-    public BO.Cart AddToCart(BO.Cart? cart, int productId, bool isRegistered=false)
+    public BO.Cart AddToCart(BO.Cart? cart, int productId, bool isRegistered = false)
     {
         try
         {
-            if (isRegistered)
-                addToCartDal(cart, productId);
+            if (isRegistered) addToCartDal(cart, productId);
+
             DO.Product p = dal.Product.Get(p => p.ID == productId);
             List<BO.OrderItem> items = new List<BO.OrderItem>();
             items = cart.Items.ToList();
@@ -84,7 +106,7 @@ internal class BlCart : ICart
     /// <exception cref="BlNullValueException"> user details missing </exception>
     /// <exception cref="BlInvalidEmailException"> invalid email </exception>
     /// <exception cref="BlIdNotFound"> id does not exist </exception>
-    public void confirmOrder(BO.Cart? cart,bool isRegistered= false)
+    public void confirmOrder(BO.Cart? cart, bool isRegistered = false)
     {
         try
         {
@@ -129,12 +151,12 @@ internal class BlCart : ICart
     /// <param name="newAmount"> the new amount to update in the order </param>
     /// <returns> updated cart </returns>
     /// <exception cref="BlIdNotFound"> id of product is invalid </exception>
-    public BO.Cart updateAmount(BO.Cart cart, int productId, int newAmount, bool isRegistered= false)
+    public BO.Cart updateAmount(BO.Cart cart, int productId, int newAmount, bool isRegistered = false)
     {
         try
         {
             if (isRegistered)
-                updateAmountDal(cart,productId,newAmount);
+                updateAmountDal(cart, productId, newAmount);
             BO.Cart newCart = cart;
             List<BO.OrderItem?> x = cart.Items.ToList();
             newCart.Items = x;
@@ -142,10 +164,10 @@ internal class BlCart : ICart
             DO.Product p = dal.Product.Get(p => p.ID == productId);
 
             var orderItem = from item in cart?.Items
-                    where item?.ProductID == productId
-                    select item;
+                            where item?.ProductID == productId
+                            select item;
 
-            BO.OrderItem oi = orderItem.FirstOrDefault()??throw new NoEntitiesFound();
+            BO.OrderItem oi = orderItem.FirstOrDefault() ?? throw new NoEntitiesFound();
             if (oi.Amount + p.Amount < newAmount) throw new BlInvalidAmount();
 
             List<BO.OrderItem?> tempList = cart.Items.ToList();
