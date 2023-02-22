@@ -221,7 +221,7 @@ internal class BlOrder : BlApi.IOrder
             }
             else
             {
-                if (item.DeliveryDate < minDate)
+                if (item.ShipDate < minDate)
                 {
                     minDate = item.ShipDate;
                     minOrderId = item.ID;

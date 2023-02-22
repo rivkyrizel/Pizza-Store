@@ -89,3 +89,16 @@ C:\Users\USER\Source\Repos\dotNet5783_2774_66458888\dotNet5783_2774_6645\DalList
 C:\Users\USER\Source\Repos\dotNet5783_2774_66458888\dotNet5783_2774_6645\DalList\obj\Debug\refint\DalList.dll
 C:\Users\USER\Source\Repos\dotNet5783_2774_66458888\dotNet5783_2774_6645\DalList\obj\Debug\DalList.pdb
 C:\Users\USER\Source\Repos\dotNet5783_2774_66458888\dotNet5783_2774_6645\DalList\obj\Debug\ref\DalList.dll
+C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645222\dotNet5783_2774_6645\bin\DalList.deps.json
+C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645222\dotNet5783_2774_6645\bin\DalList.dll
+C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645222\dotNet5783_2774_6645\bin\DalList.pdb
+C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645222\dotNet5783_2774_6645\DalList\obj\Debug\DalList.csproj.AssemblyReference.cache
+C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645222\dotNet5783_2774_6645\DalList\obj\Debug\DalList.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645222\dotNet5783_2774_6645\DalList\obj\Debug\DalList.AssemblyInfoInputs.cache
+C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645222\dotNet5783_2774_6645\DalList\obj\Debug\DalList.AssemblyInfo.cs
+C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645222\dotNet5783_2774_6645\DalList\obj\Debug\DalList.csproj.CoreCompileInputs.cache
+C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645222\dotNet5783_2774_6645\DalList\obj\Debug\DalList.csproj.CopyComplete
+C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645222\dotNet5783_2774_6645\DalList\obj\Debug\DalList.dll
+C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645222\dotNet5783_2774_6645\DalList\obj\Debug\refint\DalList.dll
+C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645222\dotNet5783_2774_6645\DalList\obj\Debug\DalList.pdb
+C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645222\dotNet5783_2774_6645\DalList\obj\Debug\ref\DalList.dll

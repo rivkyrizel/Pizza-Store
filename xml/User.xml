@@ -3,22 +3,8 @@
   <User>
     <ID>200000</ID>
     <Name>Rivky</Name>
-    <Email>ABC</Email>
-    <Address>AAA</Address>
     <Password>1234</Password>
-  </User>
-  <User>
-    <ID>200001</ID>
-    <Name>vv</Name>
-    <Email>vv@vv</Email>
-    <Address>vv</Address>
-    <Password>vv</Password>
-  </User>
-  <User>
-    <ID>200002</ID>
-    <Name>rrr</Name>
-    <Email>rr@rr</Email>
-    <Address>rr</Address>
-    <Password>rr</Password>
+    <Email>AAA</Email>
+    <Address>AAA</Address>
   </User>
 </ArrayOfUser>

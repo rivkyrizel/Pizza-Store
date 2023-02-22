@@ -37,9 +37,9 @@ public class Order : IOrder
     private void initializeXelement(object orderObj, XElement xmlElement)
     {
         PropertyInfo? property = orderObj?.GetType()?.GetProperty(xmlElement.Name.ToString());
-        if (xmlElement.Name.ToString() != "ID" && !xmlElement.Name.ToString().EndsWith("Date"))
+        if (xmlElement.Name.ToString() != "ID" && !xmlElement.Name.ToString().EndsWith("Date")&& xmlElement.Name.ToString() != "UserID")
             property?.SetValue(orderObj, xmlElement.Value);
-        else if (xmlElement.Name.ToString() == "ID")
+        else if (xmlElement.Name.ToString() == "ID" || xmlElement.Name.ToString() == "UserID")
             property?.SetValue(orderObj, int.Parse(xmlElement.Value));
         else if (xmlElement.Value != "")
             property?.SetValue(orderObj, DateTime.Parse(xmlElement.Value));

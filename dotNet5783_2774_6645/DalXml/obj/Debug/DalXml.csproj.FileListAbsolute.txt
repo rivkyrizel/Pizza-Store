@@ -89,3 +89,16 @@ C:\Users\USER\Source\Repos\dotNet5783_2774_66458888\dotNet5783_2774_6645\DalXml\
 C:\Users\USER\Source\Repos\dotNet5783_2774_66458888\dotNet5783_2774_6645\DalXml\obj\Debug\refint\DalXml.dll
 C:\Users\USER\Source\Repos\dotNet5783_2774_66458888\dotNet5783_2774_6645\DalXml\obj\Debug\DalXml.pdb
 C:\Users\USER\Source\Repos\dotNet5783_2774_66458888\dotNet5783_2774_6645\DalXml\obj\Debug\ref\DalXml.dll
+C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645222\dotNet5783_2774_6645\bin\DalXml.deps.json
+C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645222\dotNet5783_2774_6645\bin\DalXml.dll
+C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645222\dotNet5783_2774_6645\bin\DalXml.pdb
+C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645222\dotNet5783_2774_6645\DalXml\obj\Debug\DalXml.csproj.AssemblyReference.cache
+C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645222\dotNet5783_2774_6645\DalXml\obj\Debug\DalXml.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645222\dotNet5783_2774_6645\DalXml\obj\Debug\DalXml.AssemblyInfoInputs.cache
+C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645222\dotNet5783_2774_6645\DalXml\obj\Debug\DalXml.AssemblyInfo.cs
+C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645222\dotNet5783_2774_6645\DalXml\obj\Debug\DalXml.csproj.CoreCompileInputs.cache
+C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645222\dotNet5783_2774_6645\DalXml\obj\Debug\DalXml.csproj.CopyComplete
+C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645222\dotNet5783_2774_6645\DalXml\obj\Debug\DalXml.dll
+C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645222\dotNet5783_2774_6645\DalXml\obj\Debug\refint\DalXml.dll
+C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645222\dotNet5783_2774_6645\DalXml\obj\Debug\DalXml.pdb
+C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645222\dotNet5783_2774_6645\DalXml\obj\Debug\ref\DalXml.dll

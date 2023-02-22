@@ -19,6 +19,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static Simulator.Simulator;
 
 namespace PL;
 
@@ -49,10 +50,10 @@ public partial class SimulatorWindow : Window
     #endregion
 
     bool isTimerRun;
-    //Duration duration;
-   // DoubleAnimation doubleanimation;
-   // ProgressBar ProgressBar;
-
+    Duration duration;
+    DoubleAnimation doubleanimation;
+    ProgressBar ProgressBar;
+    private int seconds;
 
     public SimulatorWindow(IBl Bl)
     {
@@ -64,15 +65,15 @@ public partial class SimulatorWindow : Window
     }
     void ProgressBarStart()
     {
-        //ProgressBar = new ProgressBar();
-        //ProgressBar.IsIndeterminate = false;
-        //ProgressBar.Orientation = Orientation.Horizontal;
-        //ProgressBar.Width = 500;
-        //ProgressBar.Height = 30;
-        //duration = new Duration(TimeSpan.FromSeconds(20));
-        //doubleanimation = new DoubleAnimation(200.0, duration);
-        //ProgressBar.BeginAnimation(ProgressBar.ValueProperty, doubleanimation);
-        //SBar.Items.Add(ProgressBar);
+        ProgressBar = new ProgressBar();
+        ProgressBar.IsIndeterminate = false;
+        ProgressBar.Orientation = Orientation.Horizontal;
+        ProgressBar.Width = 500;
+        ProgressBar.Height = 30;
+        duration = new Duration(TimeSpan.FromSeconds(2));
+        doubleanimation = new DoubleAnimation(200.0, duration);
+        ProgressBar.BeginAnimation(ProgressBar.ValueProperty, doubleanimation);
+        SBar.Items.Add(ProgressBar);
     }
 
     void workerStart()
@@ -89,9 +90,9 @@ public partial class SimulatorWindow : Window
 
     void WorkerDoWork(object sender, DoWorkEventArgs e)
     {
-        Simulator.Simulator.propsChanged += progressChanged;
+        propsChanged += progressChanged;
         Simulator.Simulator.stop += stop;
-        Simulator.Simulator.Run();
+        Run();
         while (!worker.CancellationPending&&isTimerRun)
         {
             worker.ReportProgress(1);
@@ -113,28 +114,44 @@ public partial class SimulatorWindow : Window
         {
             isTimerRun = false;
         }
-        this.Close();
+        if (!CheckAccess())
+        {
+            Dispatcher.BeginInvoke(stopSimulatorBtn_Click, sender, e);
+        }
+        else
+        {
+            this.Close();
+        }
+
     }
 
     void RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
     {
-        Simulator.Simulator.StopSimulator();
         this.Close();
     }
 
     void stop(object sender, EventArgs e)
     {
         stopSimulatorBtn_Click(sender,new RoutedEventArgs());
-
-        Simulator.Simulator.propsChanged -= progressChanged;
+        doWork = false;
+        propsChanged -= progressChanged;
         Simulator.Simulator.stop -= stop;
     }
 
 
     void progressChanged(object sender, EventArgs e)
     {
-        PO.Order o = new(bl.order.GetOrder((int)sender));
-
-
+      OrderEventArgs orderEventArgs = (OrderEventArgs)e;
+        seconds = orderEventArgs.seconds;
+        if (!CheckAccess())
+        {
+            Dispatcher.BeginInvoke(progressChanged, sender, e);
+        }
+        else
+        {
+            orderIDTxt.Text= orderEventArgs.order.ID.ToString();
+            timeTxt.Text=orderEventArgs.seconds.ToString();
+            statusBtn.Text=orderEventArgs.order.Status.ToString();
+        }
     }
 }

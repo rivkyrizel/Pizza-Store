@@ -22,6 +22,9 @@ public static class DataSource
 
         private static int orderItemID = 600000;
         public static int OrderItemID { get { return orderItemID++; } }
+
+        private static int userID = 200000;
+        public static int UserID { get { return userID++; } }
     }
 
     private static void createProductList()
@@ -55,6 +58,7 @@ public static class DataSource
             int numberForAdress = (int)rand.NextInt64(CustomerAdress.Length);
             int numberForEmail = (int)rand.NextInt64(CustomerEmail.Length);
             order.ID = Config.OrderID;
+            order.UserID= Config.UserID;
             order.CustomerName = CustomerName[numberForName];
             order.CustomerAddress = CustomerAdress[numberForAdress];
             order.CustomerEmail = CustomerEmail[numberForEmail];
