@@ -10,6 +10,7 @@
         <Button Name="displayProductListWindow" Content="Admin" HorizontalAlignment="Left" Margin="144,170,0,0" VerticalAlignment="Top" Height="54" Width="129" Click="displayProductListWindow_Click"/>
         <Button Content="New Order" Name="AddOrderBtn" HorizontalAlignment="Center" Height="54" Margin="0,170,0,0" VerticalAlignment="Top" Width="132" Click="AddOrderBtn_Click"/>
         <Button Content="Order Tracking" Name="OrderTrackingBtn" HorizontalAlignment="Left" Height="54" Margin="529,170,0,0" VerticalAlignment="Top" Width="129" Click="OrderTrackingBtn_Click"/>
+        <Button Content="Simulator" Name="simultorBtn" HorizontalAlignment="Left" Height="37" Margin="594,342,0,0" VerticalAlignment="Top" Width="109" Click="simultorBtn_Click"/>
 
     </Grid>
 </Window>

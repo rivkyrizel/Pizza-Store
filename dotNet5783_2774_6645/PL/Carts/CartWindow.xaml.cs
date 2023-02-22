@@ -41,7 +41,7 @@ namespace PL.Carts
         {
             PO.OrderItem product = (PO.OrderItem)((Button)sender).DataContext;
             int newAmount = (((Button)sender).Name == "addProductAmountBtn") ? product.Amount + 1 : product.Amount - 1;
-            PLUtils.castCart(bl.Cart.updateAmount(PLUtils.cast<BO.Cart, PO.Cart>(cart), product.ProductID, newAmount), cart);
+            PLUtils.castCart(bl.Cart.updateAmount(PLUtils.cast<BO.Cart, PO.Cart>(cart), product.ProductID, newAmount,isRegistered), cart);
         }
 
         private void deleteBtn_Click(object sender, RoutedEventArgs e)

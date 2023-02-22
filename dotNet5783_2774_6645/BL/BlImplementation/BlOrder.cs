@@ -7,14 +7,14 @@ namespace BlImplementation;
 
 internal class BlOrder : BlApi.IOrder
 {
-    private DalApi.IDal Dal = DalApi.Factory.Get() ?? throw new BlNullValueException();
+    private IDal Dal = DalApi.Factory.Get() ?? throw new BlNullValueException();
 
 
     private BO.OrderItem castDoOitemtoBoOitem(DO.OrderItem doItem)
     {
-        BO.OrderItem boItem = BlUtils.cast< BO.OrderItem,DO.OrderItem > (doItem);
+        BO.OrderItem boItem = BlUtils.cast<BO.OrderItem, DO.OrderItem>(doItem);
         DO.Product p = Dal.Product.Get(p => p.ID == boItem.ProductID);
-        boItem.Name= p.Name;
+        boItem.Name = p.Name;
         boItem.TotalPrice = boItem.Price * boItem.Amount;
         return boItem;
     }
@@ -29,7 +29,7 @@ internal class BlOrder : BlApi.IOrder
     private BO.OrderForList castDOtoBOOrderForList(DO.Order oDO)
     {
         BO.OrderForList oBO = BlUtils.cast<BO.OrderForList, DO.Order>(oDO);
-        IEnumerable<DO.OrderItem> listOrderItem = Dal.OrderItem.GetList(o => o.OrderID==oDO.ID)??throw new BlNullValueException();
+        IEnumerable<DO.OrderItem> listOrderItem = Dal.OrderItem.GetList(o => o.OrderID == oDO.ID) ?? throw new BlNullValueException();
         oBO.AmountOfItems = listOrderItem.Count();
         oBO.TotalPrice = calculateTotalPrice(oDO.ID);
         oBO.Status = (BO.OrderStatus)findOrderStatus(oDO);
@@ -60,7 +60,7 @@ internal class BlOrder : BlApi.IOrder
     {
         IEnumerable<DO.Order> DOlist = Dal.Order.GetList() ?? throw new BlNullValueException();
         IEnumerable<BO.OrderForList> BoList = from item in DOlist
-                                             select castDOtoBOOrderForList(item);
+                                              select castDOtoBOOrderForList(item);
         return BoList;
     }
 
@@ -77,11 +77,11 @@ internal class BlOrder : BlApi.IOrder
         {
             if (orderId < 0) throw new BlInvalideData();
             DO.Order o = Dal.Order.Get(o => o.ID == orderId);
-            BO.Order b= castDOtoBO(o);
-            IEnumerable<DO.OrderItem> n = Dal.OrderItem.GetList(o=>o.OrderID==b.ID)??throw new BlNullValueException();
+            BO.Order b = castDOtoBO(o);
+            IEnumerable<DO.OrderItem> n = Dal.OrderItem.GetList(o => o.OrderID == b.ID) ?? throw new BlNullValueException();
             IEnumerable<BO.OrderItem> a = from item in n
-                    select castDoOitemtoBoOitem(item);
-            b.Items= a;
+                                          select castDoOitemtoBoOitem(item);
+            b.Items = a;
             return b;
         }
         catch (DalApi.ItemNotFound e)
@@ -199,9 +199,36 @@ internal class BlOrder : BlApi.IOrder
 
     public IEnumerable<OrderForList?> GetOrdersForUser(int userId)
     {
-       IEnumerable<DO.Order>? oList= Dal.Order.GetList(o => o.UserID == userId);
+        IEnumerable<DO.Order>? oList = Dal.Order.GetList(o => o.UserID == userId);
         return from item in oList
                select BlUtils.cast<BO.OrderForList, DO.Order>(item);
+    }
+
+    public int? SelectOrder()
+    {
+        DateTime? minDate = DateTime.MaxValue;
+        int minOrderId = -1;
+        List<DO.Order>? oList = Dal.Order.GetList(o => o.ShipDate == null || o.DeliveryDate == null)?.ToList();
+        foreach (var item in oList)
+        {
+            if (item.ShipDate == null)
+            {
+                if (item.OrderDate < minDate)
+                {
+                    minDate = item.OrderDate;
+                    minOrderId = item.ID;
+                }
+            }
+            else
+            {
+                if (item.DeliveryDate < minDate)
+                {
+                    minDate = item.ShipDate;
+                    minOrderId = item.ID;
+                }
+            }
+        }
+        return minDate == DateTime.MaxValue ? null : minOrderId;
     }
 }
 

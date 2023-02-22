@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\USER\Source\Repos\dotNet5783_2774_664522\dotNet5783_2774_6645\PL\obj\Debug\
+C:\Users\USER\Source\Repos\dotNet5783_2774_66458888\dotNet5783_2774_6645\PL\obj\Debug\
 PL
 none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
-C:\Users\USER\Source\Repos\dotNet5783_2774_664522\dotNet5783_2774_6645\PL\App.xaml
-12429628714
+C:\Users\USER\Source\Repos\dotNet5783_2774_66458888\dotNet5783_2774_6645\PL\App.xaml
+13470514532
 
 251513444243
-199-810215524
-AdminWindow.xaml;Carts\CartWindow.xaml;MainWindow.xaml;Orders\OrderListWindow.xaml;Orders\OrderTrackingWindow.xaml;Orders\OrderWindow.xaml;Orders\UpdateOrderWindow.xaml;Orders\userDetails.xaml;Products\ProductItemWindow.xaml;Products\ProductListWindow.xaml;Products\ProductWindow.xaml;User\SignInWindow.xaml;
+199729076590
+AdminWindow.xaml;Carts\CartWindow.xaml;MainWindow.xaml;Orders\OrderListWindow.xaml;Orders\OrderTrackingWindow.xaml;Orders\OrderWindow.xaml;Orders\UpdateOrderWindow.xaml;Orders\userDetails.xaml;Products\ProductItemWindow.xaml;Products\ProductListWindow.xaml;Products\ProductWindow.xaml;SimulatorWindow.xaml;User\SignInWindow.xaml;
 
 False
 

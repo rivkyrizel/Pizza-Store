@@ -19,6 +19,9 @@
     <Page Update="Products\ProductItemWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="SimulatorWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="User\SignInWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
