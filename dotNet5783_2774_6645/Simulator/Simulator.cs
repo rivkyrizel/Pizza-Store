@@ -13,14 +13,14 @@ using System.Threading.Tasks;
 namespace Simulator;
 public static class Simulator
 {
-    static IBl bl = BlApi.Factory.Get;
+    private static IBl bl = BlApi.Factory.Get;
 
-    static BO.Order order = new();
-    static Thread? myThread { get; set; }
+    private static BO.Order order = new();
+    private static Thread? myThread { get; set; }
 
-  public static bool doWork=true;
+    private static bool doWork = true;
 
-    static Stopwatch? myStopWatch { get; set; }
+   private static Stopwatch? myStopWatch { get; set; }
 
     public class OrderEventArgs : EventArgs
     {
@@ -55,8 +55,8 @@ public static class Simulator
                 break;
             }
             Random rnd = new Random();
-            int seconds = rnd.Next(10000, 20000);
-         
+            int seconds = rnd.Next(8000, 15000);
+
             order = bl.order.GetOrder((int)orderID);
             if (order.Status == BO.OrderStatus.Confirmed)
                 bl.order.UpdateShipedOrder(order.ID);
@@ -66,5 +66,10 @@ public static class Simulator
             Thread.Sleep(seconds);
 
         }
+    }
+
+    public static void Stop()
+    {
+        doWork = false;
     }
 }

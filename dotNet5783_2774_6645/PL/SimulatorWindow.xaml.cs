@@ -133,17 +133,16 @@ public partial class SimulatorWindow : Window
 
         if (isTimerRun)
             isTimerRun = false;
-        doWork = false;
+        Simulator.Simulator.Stop();
         propsChanged -= progressChanged;
         Simulator.Simulator.stop -= stop;
         if (!CheckAccess())
             Dispatcher.BeginInvoke(stop, sender, e);
         else
         {
-         
+
             this.Close();
         }
-        this.Close();
     }
 
 
