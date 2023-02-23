@@ -16,15 +16,7 @@ public class Program
         List<Product> PrdouctList = DataSource.ProductList;
         List<DO.Order> OrderList = DataSource.OrderList;
         List<OrderItem> OrderItemList = DataSource.OrderItemList;
-        List<DO.User> UserList = new();
-        DO.User user = new DO.User();
-        user.Name = "Rivky";
-        user.Email = "Rizel";
-        user.Address = "AAA";
-        user.Email = "AAA";
-        user.ID = 200000;
-        user.Password = "1234";
-        UserList.Add(user);
+        List<DO.User> UserList = new() { new DO.User() { Name = "Rivky", Password = "1234", Email = "Rizel", Address = "aaa", ID = 200000 } };
 
         StreamWriter wProduct = new(@"..\..\..\..\..\xml\Product.xml");
         XmlSerializer serProduct = new(typeof(List<Product>));

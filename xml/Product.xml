@@ -3,71 +3,71 @@
   <Product>
     <ID>100000</ID>
     <Name>  Ravioli  </Name>
-    <Price>59</Price>
+    <Price>26</Price>
     <Category>Pasta_</Category>
-    <Amount>2257</Amount>
+    <Amount>3516</Amount>
   </Product>
   <Product>
     <ID>100001</ID>
     <Name>   Pizza   </Name>
-    <Price>96</Price>
+    <Price>87</Price>
     <Category>Pizza_</Category>
-    <Amount>3988</Amount>
+    <Amount>2611</Amount>
   </Product>
   <Product>
     <ID>100002</ID>
     <Name> Sandwich  </Name>
-    <Price>86</Price>
+    <Price>18</Price>
     <Category>Bagels</Category>
-    <Amount>3622</Amount>
+    <Amount>3842</Amount>
   </Product>
   <Product>
     <ID>100003</ID>
     <Name>Ice coffee </Name>
-    <Price>14</Price>
+    <Price>31</Price>
     <Category>Drinks</Category>
-    <Amount>4217</Amount>
+    <Amount>2943</Amount>
   </Product>
   <Product>
     <ID>100004</ID>
     <Name>  Coffee   </Name>
-    <Price>91</Price>
+    <Price>83</Price>
     <Category>Drinks</Category>
-    <Amount>1013</Amount>
+    <Amount>4296</Amount>
   </Product>
   <Product>
     <ID>100005</ID>
     <Name>   Baguet  </Name>
-    <Price>26</Price>
+    <Price>20</Price>
     <Category>Bagels</Category>
-    <Amount>2346</Amount>
+    <Amount>1566</Amount>
   </Product>
   <Product>
     <ID>100006</ID>
     <Name>Greek Salad</Name>
-    <Price>89</Price>
+    <Price>33</Price>
     <Category>Salads</Category>
-    <Amount>3612</Amount>
+    <Amount>3409</Amount>
   </Product>
   <Product>
     <ID>100007</ID>
     <Name> XL pizza  </Name>
-    <Price>99</Price>
+    <Price>75</Price>
     <Category>Pizza_</Category>
-    <Amount>3589</Amount>
+    <Amount>1430</Amount>
   </Product>
   <Product>
     <ID>100008</ID>
     <Name>Basic Salad</Name>
-    <Price>72</Price>
+    <Price>45</Price>
     <Category>Salads</Category>
-    <Amount>3512</Amount>
+    <Amount>1319</Amount>
   </Product>
   <Product>
     <ID>100009</ID>
     <Name> Coca Cola </Name>
-    <Price>42</Price>
+    <Price>69</Price>
     <Category>Drinks</Category>
-    <Amount>1033</Amount>
+    <Amount>2794</Amount>
   </Product>
 </ArrayOfProduct>

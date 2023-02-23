@@ -7,10 +7,11 @@
         mc:Ignorable="d"
         Title="SimulatorWindow" Height="500" Width="800">
     <Grid>
+        <TextBox Name="tbTime" FontSize="20" Margin="684,320,24,107" />
         <Button Content="Stop Simulation" Name="stopSimulatorBtn" HorizontalAlignment="Left" Height="64" Margin="641,15,0,0" VerticalAlignment="Top" Width="135" Click="stopSimulatorBtn_Click"/>
         <TextBlock x:Name="simulatorTxt" Text="00:00:00" HorizontalAlignment="Left" Height="80" Margin="22,10,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="230"/>
-        <StatusBar Name="SBar" Grid.Column="0" Grid.Row="5" VerticalAlignment="Bottom" >
-            <StatusBarItem Height="80">
+        <StatusBar Name="SBar"  Grid.Column="0" Grid.Row="5" VerticalAlignment="Bottom" >
+            <StatusBarItem Height="80" >
                 <TextBlock Width="72" FontSize="20">Status:</TextBlock>
             </StatusBarItem>
         </StatusBar>

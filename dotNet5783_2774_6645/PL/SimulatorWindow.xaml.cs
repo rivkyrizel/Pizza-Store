@@ -5,10 +5,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -19,6 +21,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using static Simulator.Simulator;
 
 namespace PL;
@@ -54,25 +57,41 @@ public partial class SimulatorWindow : Window
     DoubleAnimation doubleanimation;
     ProgressBar ProgressBar;
     private int seconds;
+    DispatcherTimer _timer;
+    TimeSpan _time;
 
+    private void timer(int sec)
+    {
+        _time = TimeSpan.FromSeconds(sec);
+
+        _timer = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
+        {
+            tbTime.Text = string.Format("{0:D2}", _time.Seconds);
+            if (_time == TimeSpan.Zero) _timer.Stop();
+            _time = _time.Add(TimeSpan.FromSeconds(-1));
+        }, Application.Current.Dispatcher);
+
+        _timer.Start();
+    }
     public SimulatorWindow(IBl Bl)
     {
         InitializeComponent();
         bl = Bl;
         Loaded += ToolWindow_Loaded;
         workerStart();
-        ProgressBarStart();
     }
-    void ProgressBarStart()
+    void ProgressBarStart(int s)
     {
+        if (ProgressBar != null) SBar.Items.Remove(ProgressBar);
         ProgressBar = new ProgressBar();
         ProgressBar.IsIndeterminate = false;
         ProgressBar.Orientation = Orientation.Horizontal;
         ProgressBar.Width = 500;
         ProgressBar.Height = 30;
-        duration = new Duration(TimeSpan.FromSeconds(2));
+        duration = new Duration(TimeSpan.FromSeconds(s * 2));
         doubleanimation = new DoubleAnimation(200.0, duration);
         ProgressBar.BeginAnimation(ProgressBar.ValueProperty, doubleanimation);
+
         SBar.Items.Add(ProgressBar);
     }
 
@@ -93,7 +112,7 @@ public partial class SimulatorWindow : Window
         propsChanged += progressChanged;
         Simulator.Simulator.stop += stop;
         Run();
-        while (!worker.CancellationPending&&isTimerRun)
+        while (!worker.CancellationPending && isTimerRun)
         {
             worker.ReportProgress(1);
             Thread.Sleep(1000);
@@ -101,57 +120,50 @@ public partial class SimulatorWindow : Window
     }
 
 
-    void workerProgressChanged(object sender, ProgressChangedEventArgs e)
-    {
-        simulatorTxt.Text = DateTime.Now.ToString("h:mm:ss");
-    }
+    void workerProgressChanged(object sender, ProgressChangedEventArgs e) => simulatorTxt.Text = DateTime.Now.ToString("h:mm:ss");
 
-    private void stopSimulatorBtn_Click(object sender, RoutedEventArgs e)
-    {
-        if (worker.WorkerSupportsCancellation == true)
-            worker.CancelAsync();
-        if (isTimerRun)
-        {
-            isTimerRun = false;
-        }
-        if (!CheckAccess())
-        {
-            Dispatcher.BeginInvoke(stopSimulatorBtn_Click, sender, e);
-        }
-        else
-        {
-            this.Close();
-        }
+    private void stopSimulatorBtn_Click(object sender, RoutedEventArgs e) => stop(sender, EventArgs.Empty);
 
-    }
-
-    void RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-    {
-        this.Close();
-    }
+    void RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e) => this.Close();
 
     void stop(object sender, EventArgs e)
     {
-        stopSimulatorBtn_Click(sender,new RoutedEventArgs());
+        if (worker.WorkerSupportsCancellation == true)
+            worker.CancelAsync();
+
+        if (isTimerRun)
+            isTimerRun = false;
         doWork = false;
         propsChanged -= progressChanged;
         Simulator.Simulator.stop -= stop;
+        if (!CheckAccess())
+            Dispatcher.BeginInvoke(stop, sender, e);
+        else
+        {
+         
+            this.Close();
+        }
+        this.Close();
     }
 
 
     void progressChanged(object sender, EventArgs e)
     {
-      OrderEventArgs orderEventArgs = (OrderEventArgs)e;
-        seconds = orderEventArgs.seconds;
+        OrderEventArgs orderEventArgs = (OrderEventArgs)e;
+        seconds = orderEventArgs.seconds / 1000;
+
         if (!CheckAccess())
         {
             Dispatcher.BeginInvoke(progressChanged, sender, e);
         }
         else
         {
-            orderIDTxt.Text= orderEventArgs.order.ID.ToString();
-            timeTxt.Text=orderEventArgs.seconds.ToString();
-            statusBtn.Text=orderEventArgs.order.Status.ToString();
+
+            timer(seconds - 1);
+            ProgressBarStart(seconds);
+            orderIDTxt.Text = orderEventArgs.order.ID.ToString();
+            timeTxt.Text = (seconds).ToString();
+            statusBtn.Text = orderEventArgs.order.Status.ToString();
         }
     }
 }

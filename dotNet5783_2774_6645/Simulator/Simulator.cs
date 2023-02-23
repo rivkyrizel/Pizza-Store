@@ -34,6 +34,7 @@ public static class Simulator
     }
 
     public static event EventHandler stop;
+
     public static event EventHandler<OrderEventArgs> propsChanged;
 
     public static void Run()
@@ -54,7 +55,7 @@ public static class Simulator
                 break;
             }
             Random rnd = new Random();
-            int seconds = rnd.Next(1000, 5000);
+            int seconds = rnd.Next(10000, 20000);
          
             order = bl.order.GetOrder((int)orderID);
             if (order.Status == BO.OrderStatus.Confirmed)
@@ -62,7 +63,6 @@ public static class Simulator
             else
                 bl.order.UpdateDeliveryOrder(order.ID);
             propsChanged("", new OrderEventArgs(seconds, order));
-
             Thread.Sleep(seconds);
 
         }
