@@ -39,6 +39,7 @@ public static class Simulator
 
     public static void Run()
     {
+        doWork = true;
         myThread = new Thread(new ThreadStart(Simulation));
         myThread.Start();
     }

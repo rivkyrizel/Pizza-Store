@@ -1,17 +1,1 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ArrayOfUser xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-	<User>
-		<ID>200000</ID>
-		<Name>Rivky</Name>
-		<Email>Rizel</Email>
-		<Address>aaa</Address>
-		<Password>1234</Password>
-	</User>
-	<User>
-		<ID>200001</ID>
-		<Name>eee</Name>
-		<Email>ee@ee.ee</Email>
-		<Address>ee</Address>
-		<Password>ee</Password>
-	</User>
-</ArrayOfUser>
+<?xml version="1.0" encoding="utf-8"?><ArrayOfUser xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><User><ID>200000</ID><Name>Rivky</Name><Password>1234</Password><Email>Rizel</Email><Address>aaa</Address></User></ArrayOfUser>

@@ -75,6 +75,7 @@ public partial class SimulatorWindow : Window
     }
     public SimulatorWindow(IBl Bl)
     {
+      
         InitializeComponent();
         bl = Bl;
         Loaded += ToolWindow_Loaded;
