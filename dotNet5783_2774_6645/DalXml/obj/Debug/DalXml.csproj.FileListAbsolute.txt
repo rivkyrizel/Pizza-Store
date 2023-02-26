@@ -115,3 +115,16 @@ C:\Users\USER\Source\Repos\dotNet5783_2774_66\dotNet5783_2774_6645\DalXml\obj\De
 C:\Users\USER\Source\Repos\dotNet5783_2774_66\dotNet5783_2774_6645\DalXml\obj\Debug\refint\DalXml.dll
 C:\Users\USER\Source\Repos\dotNet5783_2774_66\dotNet5783_2774_6645\DalXml\obj\Debug\DalXml.pdb
 C:\Users\USER\Source\Repos\dotNet5783_2774_66\dotNet5783_2774_6645\DalXml\obj\Debug\ref\DalXml.dll
+H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\bin\DalXml.deps.json
+H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\bin\DalXml.dll
+H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\bin\DalXml.pdb
+H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\DalXml\obj\Debug\DalXml.csproj.AssemblyReference.cache
+H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\DalXml\obj\Debug\DalXml.GeneratedMSBuildEditorConfig.editorconfig
+H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\DalXml\obj\Debug\DalXml.AssemblyInfoInputs.cache
+H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\DalXml\obj\Debug\DalXml.AssemblyInfo.cs
+H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\DalXml\obj\Debug\DalXml.csproj.CoreCompileInputs.cache
+H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\DalXml\obj\Debug\DalXml.csproj.CopyComplete
+H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\DalXml\obj\Debug\DalXml.dll
+H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\DalXml\obj\Debug\refint\DalXml.dll
+H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\DalXml\obj\Debug\DalXml.pdb
+H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\DalXml\obj\Debug\ref\DalXml.dll

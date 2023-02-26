@@ -9,6 +9,7 @@
         <convert:ZeroToVisible x:Key="ZeroToVisible"/>
         <convert:AddOrShowToHidden x:Key="AddOrShowToHidden"/>
         <convert:ShowToVisible x:Key="ShowToVisible"/>
+        <convert:ShowToHidden x:Key="ShowToHidden"/>
         <convert:ShowToTrue x:Key="ShowToTrue"/>
         <convert:TrueToVisible x:Key="TrueToVisible"/>
         <convert:TrueToHidden x:Key="TrueToHidden"/>
@@ -20,5 +21,6 @@
         <convert:ImageConverter x:Key="ImageConverter"/>
         <convert:ConvertNullToVisible x:Key="ConvertNullToVisible"/>
         <convert:ConvertNullToHidden x:Key="ConvertNullToHidden"/>
+        
     </Application.Resources>
 </Application>

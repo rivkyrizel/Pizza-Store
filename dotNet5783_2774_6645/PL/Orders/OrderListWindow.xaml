@@ -15,7 +15,7 @@
 
                     <GridViewColumn DisplayMemberBinding="{Binding Path=CustomerName}" Header="Name" Width="100"/>
 
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Status}" Header="category" Width="150"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Status}" Header="Staus" Width="150"/>
 
                     <GridViewColumn DisplayMemberBinding="{Binding Path=AmountOfItems}" Header="Amount" Width="100"/>
                     

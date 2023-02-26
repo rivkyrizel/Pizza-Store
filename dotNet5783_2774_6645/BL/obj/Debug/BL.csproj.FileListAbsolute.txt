@@ -115,3 +115,16 @@ C:\Users\USER\Source\Repos\dotNet5783_2774_66\dotNet5783_2774_6645\BL\obj\Debug\
 C:\Users\USER\Source\Repos\dotNet5783_2774_66\dotNet5783_2774_6645\BL\obj\Debug\refint\BL.dll
 C:\Users\USER\Source\Repos\dotNet5783_2774_66\dotNet5783_2774_6645\BL\obj\Debug\BL.pdb
 C:\Users\USER\Source\Repos\dotNet5783_2774_66\dotNet5783_2774_6645\BL\obj\Debug\ref\BL.dll
+H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\bin\BL.deps.json
+H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\bin\BL.dll
+H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\bin\BL.pdb
+H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\BL\obj\Debug\BL.csproj.AssemblyReference.cache
+H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\BL\obj\Debug\BL.GeneratedMSBuildEditorConfig.editorconfig
+H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\BL\obj\Debug\BL.AssemblyInfoInputs.cache
+H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\BL\obj\Debug\BL.AssemblyInfo.cs
+H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\BL\obj\Debug\BL.csproj.CoreCompileInputs.cache
+H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\BL\obj\Debug\BL.csproj.CopyComplete
+H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\BL\obj\Debug\BL.dll
+H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\BL\obj\Debug\refint\BL.dll
+H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\BL\obj\Debug\BL.pdb
+H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\BL\obj\Debug\ref\BL.dll

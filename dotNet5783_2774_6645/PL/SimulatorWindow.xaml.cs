@@ -1,5 +1,6 @@
 ﻿using BlApi;
 using BlImplementation;
+using PL.Orders;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -60,6 +61,23 @@ public partial class SimulatorWindow : Window
     DispatcherTimer _timer;
     TimeSpan _time;
 
+
+    public BO.Order? order
+    {
+        get { return (BO.Order?)GetValue(orderProperty); }
+        set { SetValue(orderProperty, value); }
+    }
+
+    public static readonly DependencyProperty orderProperty = DependencyProperty.Register("order", typeof(BO.Order), typeof(Window));
+
+    public string? newStatus
+    {
+        get { return (string?)GetValue(newStatusProperty); }
+        set { SetValue(newStatusProperty, value); }
+    }
+
+    public static readonly DependencyProperty newStatusProperty = DependencyProperty.Register("newStatus", typeof(string), typeof(Window));
+
     private void timer(int sec)
     {
         _time = TimeSpan.FromSeconds(sec);
@@ -75,10 +93,11 @@ public partial class SimulatorWindow : Window
     }
     public SimulatorWindow(IBl Bl)
     {
-      
+
         InitializeComponent();
         bl = Bl;
         Loaded += ToolWindow_Loaded;
+        DataContext = this;
         workerStart();
     }
     void ProgressBarStart(int s)
@@ -100,18 +119,18 @@ public partial class SimulatorWindow : Window
     {
         isTimerRun = true;
         worker = new BackgroundWorker();
-        worker.DoWork += WorkerDoWork;
+        worker.DoWork += WorkerDoWork!;
         worker.WorkerReportsProgress = true;
         worker.WorkerSupportsCancellation = true;
-        worker.ProgressChanged += workerProgressChanged;
-        worker.RunWorkerCompleted += RunWorkerCompleted;
+        worker.ProgressChanged += workerProgressChanged!;
+        worker.RunWorkerCompleted += RunWorkerCompleted!;
         worker.RunWorkerAsync();
     }
 
     void WorkerDoWork(object sender, DoWorkEventArgs e)
     {
-        propsChanged += progressChanged;
-        Simulator.Simulator.stop += stop;
+        propsChanged += progressChanged!;
+        Simulator.Simulator.stop += stop!;
         Run();
         while (!worker.CancellationPending && isTimerRun)
         {
@@ -135,8 +154,8 @@ public partial class SimulatorWindow : Window
         if (isTimerRun)
             isTimerRun = false;
         Simulator.Simulator.Stop();
-        propsChanged -= progressChanged;
-        Simulator.Simulator.stop -= stop;
+        propsChanged -= progressChanged!;
+        Simulator.Simulator.stop -= stop!;
         if (!CheckAccess())
             Dispatcher.BeginInvoke(stop, sender, e);
         else
@@ -161,9 +180,8 @@ public partial class SimulatorWindow : Window
 
             timer(seconds - 1);
             ProgressBarStart(seconds);
-            orderIDTxt.Text = orderEventArgs.order.ID.ToString();
-            timeTxt.Text = (seconds).ToString();
-            statusBtn.Text = orderEventArgs.order.Status.ToString();
+            order = orderEventArgs.order;
+            newStatus = ((BO.OrderStatus)((int)(object)orderEventArgs.order.Status! + 1)).ToString();
         }
     }
 }
