@@ -4,11 +4,13 @@ using DalApi;
 using DO;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
 
 internal class Product : IProduct
 {
     string productSrc = @"..\..\xml\Product.xml";
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public XmlRootAttribute xRoot()
     {
         XmlRootAttribute xRoot = new XmlRootAttribute();
@@ -16,6 +18,7 @@ internal class Product : IProduct
         xRoot.IsNullable = true;
         return xRoot;
     }
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public int Add(DO.Product product)
     {
         XmlSerializer ser = new XmlSerializer(typeof(List<DO.Product>), xRoot());
@@ -30,6 +33,7 @@ internal class Product : IProduct
         return product.ID;
     }
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Delete(int id)
     {
         XmlSerializer ser = new XmlSerializer(typeof(List<DO.Product>), xRoot());
@@ -42,6 +46,7 @@ internal class Product : IProduct
         w.Close();
     }
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public DO.Product Get(Func<DO.Product, bool> func)
     {
         XmlSerializer ser = new XmlSerializer(typeof(List<DO.Product>), xRoot());
@@ -51,6 +56,7 @@ internal class Product : IProduct
         return lst?.Where(func) != null ? lst.Where(func).First() : throw new ItemNotFound("product not found");
     }
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<DO.Product>? GetList(Func<DO.Product, bool>? func = null)
     {
         XmlSerializer ser = new XmlSerializer(typeof(List<DO.Product>), xRoot());
@@ -60,6 +66,7 @@ internal class Product : IProduct
         return (func == null ? lst : lst?.Where(func));
     }
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Update(DO.Product p)
     {
         XmlSerializer ser = new XmlSerializer(typeof(List<DO.Product>), xRoot());

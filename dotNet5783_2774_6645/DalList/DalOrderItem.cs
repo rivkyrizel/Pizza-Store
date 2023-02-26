@@ -1,5 +1,6 @@
 ﻿using DO;
 using DalApi;
+using System.Runtime.CompilerServices;
 
 namespace Dal;
 internal class DalOrderItem : IOrderItem
@@ -11,6 +12,7 @@ internal class DalOrderItem : IOrderItem
     /// </summary>
     /// <param name="orderItem"> neworder item details </param>
     /// <returns> index of new order item </returns>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public int Add(OrderItem o)
     {
         DataSource.OrderItemList.Add(o);
@@ -23,6 +25,7 @@ internal class DalOrderItem : IOrderItem
     /// <param name="orderId"> Id of order with desired item </param>
     /// <param name="productId"> Id of product </param>
     /// <exception cref="Exception"> No such product in given order </exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Delete(int id)
     {
         if (!DataSource.OrderItemList.Remove(DataSource.OrderItemList.Find(o => o.ID == id)))
@@ -36,6 +39,7 @@ internal class DalOrderItem : IOrderItem
     /// <param name="updateOrderItem"> Details of ordered item to update</param>
     /// <exception cref="Exception"> No order with given id found </exception>
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Update(OrderItem o)
     {
       
@@ -49,6 +53,7 @@ internal class DalOrderItem : IOrderItem
     /// returns all ordered items
     /// </summary>
     /// <returns> All ordered items </returns>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<OrderItem>? GetList(Func<OrderItem, bool>? func = null)
     {
         IEnumerable<OrderItem> i = DataSource.OrderItemList;
@@ -62,6 +67,7 @@ internal class DalOrderItem : IOrderItem
     /// <param name="productId"> Id of product </param>
     /// <returns> Details of ordered item </returns>
     /// <exception cref="Exception"> no order </exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public OrderItem Get(Func<OrderItem, bool> func)
     {
         IEnumerable<OrderItem> o = (IEnumerable<OrderItem>)DataSource.OrderItemList;

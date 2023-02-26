@@ -422,7 +422,6 @@ H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\PL\obj\Debug\MainWindow.g.cs
 H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\PL\obj\Debug\Orders\OrderListWindow.g.cs
 H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\PL\obj\Debug\Orders\OrderTrackingWindow.g.cs
 H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\PL\obj\Debug\Orders\OrderWindow.g.cs
-H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\PL\obj\Debug\Orders\UpdateOrderWindow.g.cs
 H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\PL\obj\Debug\Orders\userDetails.g.cs
 H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\PL\obj\Debug\Products\ProductItemWindow.g.cs
 H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\PL\obj\Debug\Products\ProductListWindow.g.cs
@@ -439,7 +438,6 @@ H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\PL\obj\Debug\Carts\CartWindow.
 H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\PL\obj\Debug\MainWindow.baml
 H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\PL\obj\Debug\Orders\OrderListWindow.baml
 H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\PL\obj\Debug\Orders\OrderTrackingWindow.baml
-H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\PL\obj\Debug\Orders\UpdateOrderWindow.baml
 H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\PL\obj\Debug\Orders\userDetails.baml
 H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\PL\obj\Debug\Products\ProductItemWindow.baml
 H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\PL\obj\Debug\Products\ProductWindow.baml
@@ -452,7 +450,7 @@ H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\PL\obj\Debug\PL.AssemblyInfo.c
 H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\PL\obj\Debug\PL.csproj.CoreCompileInputs.cache
 H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\PL\obj\Debug\PL.csproj.CopyComplete
 H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\PL\obj\Debug\PL.dll
-H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\PL\obj\Debug\refint\PL.dll
 H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\PL\obj\Debug\PL.pdb
 H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\PL\obj\Debug\PL.genruntimeconfig.cache
 H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\PL\obj\Debug\ref\PL.dll
+H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\PL\obj\Debug\refint\PL.dll

@@ -1,5 +1,6 @@
 ﻿using DalApi;
 using DO;
+using System.Runtime.CompilerServices;
 
 namespace Dal;
 
@@ -12,6 +13,7 @@ internal class DalOrder : IOrder
     /// <param name="order">the new order</param>
     /// <returns> id of the order</returns>
     /// 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public int Add(Order o)
     {
         o.ID = DataSource.Config.OrderID;
@@ -25,6 +27,7 @@ internal class DalOrder : IOrder
     /// </summary>
     /// <param name="id"> Id of order to delete </param>
     /// <exception cref="Exception"> No order found with the given id </exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Delete(int id)
     {
         if (!DataSource.OrderList.Remove(DataSource.OrderList.Find(o => o.ID == id)))
@@ -38,6 +41,7 @@ internal class DalOrder : IOrder
     /// <exception cref="Exception"> No order with the given id found </exception>
 
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Update(Order o)
     {
         int idx = DataSource.OrderList.FindIndex(pr => pr.ID == o.ID);
@@ -50,6 +54,7 @@ internal class DalOrder : IOrder
     /// returns all orders
     /// </summary>
     /// <returns> all orders in system </returns>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<Order>? GetList(Func<Order, bool>? func = null)
     {
         IEnumerable<Order> i = (IEnumerable<Order>)DataSource.OrderList;
@@ -65,6 +70,7 @@ internal class DalOrder : IOrder
     /// <exception cref="Exception"> no order with requested id found </exception>
 
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public Order Get(Func<Order, bool> func)
     {
         IEnumerable<Order> o = (IEnumerable<Order>)DataSource.OrderList;

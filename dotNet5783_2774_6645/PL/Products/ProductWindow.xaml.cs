@@ -33,7 +33,7 @@ public partial class ProductWindow : Window
     private ObservableCollection<PO.Product> products { get; set; } = new();
     string imgName;
 
-    public ProductWindow(IBl Bl, string active, ObservableCollection<PO.Product> Products, PO.Cart? Cart = null, int id = 0, bool isReg = false)
+    public ProductWindow(IBl Bl, string active, ObservableCollection<PO.Product>? Products, PO.Cart? Cart = null, int id = 0, bool isReg = false)
     {
         InitializeComponent();
 
@@ -59,18 +59,10 @@ public partial class ProductWindow : Window
             products.Add(currentProduct);
             Close();
         }
-        catch (BlIdNotFound ex)
-        {
-            MessageBox.Show(ex.Message + ex.InnerException);
-        }
-        catch (BlNullValueException ex)
-        {
-            MessageBox.Show(ex.Message);
-        }
-        catch (BlInvalideData ex)
-        {
-            MessageBox.Show(ex.Message);
-        }
+        catch (BlIdNotFound ex) { MessageBox.Show(ex.Message + ex.InnerException); }
+        catch (BlNullValueException ex) { MessageBox.Show(ex.Message); }
+        catch (BlInvalidAmount ex) { MessageBox.Show(ex.Message); }
+        catch (BlInvalideData ex) { MessageBox.Show(ex.Message); }
     }
 
     private void BtnUpdate_Click(object sender, RoutedEventArgs e)
@@ -83,18 +75,11 @@ public partial class ProductWindow : Window
             products.Insert(idx, currentProduct);
             Close();
         }
-        catch (BlIdNotFound ex)
-        {
-            MessageBox.Show(ex.Message + ex.InnerException);
-        }
-        catch (BlNullValueException ex)
-        {
-            MessageBox.Show(ex.Message);
-        }
-        catch (BlInvalideData ex)
-        {
-            MessageBox.Show(ex.Message);
-        }
+        catch (BlIdNotFound ex) { MessageBox.Show(ex.Message + ex.InnerException); }
+        catch (BlNullValueException ex) { MessageBox.Show(ex.Message); }
+        catch (BlInvalidAmount ex) { MessageBox.Show(ex.Message); }
+        catch (BlInvalideData ex) { MessageBox.Show(ex.Message); }
+        catch (BlNegativeAmountException ex) { MessageBox.Show(ex.Message); }
     }
 
     private void BtnDelete_Click(object sender, RoutedEventArgs e)

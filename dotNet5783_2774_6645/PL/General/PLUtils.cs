@@ -11,13 +11,20 @@ public class PLUtils
     public static S cast<S, T>(T t) where S : new()
     {
         object s = new S();
+        int a;
         foreach (PropertyInfo prop in t?.GetType().GetProperties() ?? throw new BlNoPropertiesInObject())
         {
+            if (prop.Name == "Image")
+                a = 5;
             PropertyInfo? type = s.GetType().GetProperty(prop.Name);
 
             if (type == null) continue;
 
             var value = t.GetType().GetProperty(prop.Name)?.GetValue(t, null);
+            if(type.ReflectedType.FullName== "PL.PO.Product" && prop.ReflectedType.FullName == "BO.ProductItem"&& prop.Name=="InStock")
+            {
+              value= t.GetType().GetProperty("Amount")?.GetValue(t, null);
+            }
 
             if (type.Name == "Items")
             {

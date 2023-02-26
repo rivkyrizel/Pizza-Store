@@ -33,7 +33,10 @@ namespace PL.Carts
         }
         private void confirmOrderBtn_Click(object sender, RoutedEventArgs e)
         {
-            new userDetails(bl, cart).Show();
+            if (isRegistered)
+                bl.Cart.confirmOrder(PLUtils.cast<BO.Cart, PO.Cart>(cart));
+            else
+                new userDetails(bl, cart).Show();
             Close();
         }
 
@@ -41,7 +44,7 @@ namespace PL.Carts
         {
             PO.OrderItem product = (PO.OrderItem)((Button)sender).DataContext;
             int newAmount = (((Button)sender).Name == "addProductAmountBtn") ? product.Amount + 1 : product.Amount - 1;
-            PLUtils.castCart(bl.Cart.updateAmount(PLUtils.cast<BO.Cart, PO.Cart>(cart), product.ProductID, newAmount,isRegistered), cart);
+            PLUtils.castCart(bl.Cart.updateAmount(PLUtils.cast<BO.Cart, PO.Cart>(cart), product.ProductID, newAmount, isRegistered), cart);
         }
 
         private void deleteBtn_Click(object sender, RoutedEventArgs e)
@@ -55,9 +58,5 @@ namespace PL.Carts
             Close();
         }
 
-        private void updateOrderBtn_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }

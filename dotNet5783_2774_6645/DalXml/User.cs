@@ -1,5 +1,6 @@
 ﻿using DalApi;
 using DO;
+using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
 
 namespace Dal;
@@ -7,6 +8,7 @@ namespace Dal;
 public class User : IUser
 {
     static string userSrc = @"..\..\xml\User.xml";
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public XmlRootAttribute xRoot()
     {
         XmlRootAttribute xRoot = new XmlRootAttribute();
@@ -15,6 +17,7 @@ public class User : IUser
         return xRoot;
     }
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public int Add(DO.User user)
     {
         XmlSerializer ser = new XmlSerializer(typeof(List<DO.User>), xRoot());
@@ -29,6 +32,7 @@ public class User : IUser
         return user.ID;
     }
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Delete(int id)
     {
         XmlSerializer ser = new XmlSerializer(typeof(List<DO.User>), xRoot());
@@ -41,6 +45,7 @@ public class User : IUser
         w.Close();
     }
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public DO.User Get(Func<DO.User, bool> func)
     {
         XmlSerializer ser = new XmlSerializer(typeof(List<DO.User>), xRoot());
@@ -57,6 +62,7 @@ public class User : IUser
         }
     }
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<DO.User>? GetList(Func<DO.User, bool>? func = null)
     {
         XmlSerializer ser = new XmlSerializer(typeof(List<DO.User>), xRoot());
@@ -66,6 +72,7 @@ public class User : IUser
         return (func == null ? lst : lst?.Where(func));
     }
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Update(DO.User order)
     {
         XmlSerializer ser = new XmlSerializer(typeof(List<DO.User>), xRoot());

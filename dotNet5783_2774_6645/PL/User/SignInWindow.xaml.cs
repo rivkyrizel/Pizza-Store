@@ -62,7 +62,6 @@ namespace PL.User
                 int userId;
                 if (l.isLogin)
                 {
-
                     userId = bl.user.IsRegistered(user.Email, user.Password);
                     if (userId == 0)
                     {
@@ -87,13 +86,6 @@ namespace PL.User
             {
                 MessageBox.Show(ex.Message);
             }
-
-        }
-
-        private void loginBtn_Click_1(object sender, RoutedEventArgs e)
-        {
-
-
 
         }
     }

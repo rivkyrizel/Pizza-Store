@@ -3,6 +3,7 @@ using DalApi;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Xml.Linq;
 
 public class Order : IOrder
@@ -47,6 +48,7 @@ public class Order : IOrder
             property?.SetValue(orderObj, null);
 
     }
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public int Add(DO.Order order)
     {
         XElement? root = XDocument.Load(orderSrc).Root;
@@ -60,6 +62,7 @@ public class Order : IOrder
         return order.ID;
     }
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Delete(int id)
     {
         XElement? root = XDocument.Load(orderSrc).Root;
@@ -67,6 +70,7 @@ public class Order : IOrder
         root?.Save(orderSrc);
     }
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public DO.Order Get(Func<DO.Order, bool> func)
     {
         List<DO.Order> list = createList();
@@ -74,6 +78,7 @@ public class Order : IOrder
     }
 
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<DO.Order>? GetList(Func<DO.Order, bool>? func = null)
     {
         List<DO.Order> list = createList();
@@ -81,6 +86,7 @@ public class Order : IOrder
         return (func == null ? list : list?.Where(func));
     }
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Update(DO.Order order)
     {
         XElement? root = XDocument.Load(orderSrc).Root;

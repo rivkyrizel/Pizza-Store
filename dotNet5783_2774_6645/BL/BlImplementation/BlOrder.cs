@@ -2,6 +2,7 @@
 using BO;
 using DalApi;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace BlImplementation;
 
@@ -58,7 +59,7 @@ internal class BlOrder : BlApi.IOrder
     /// <returns> list of orders </returns>
     public IEnumerable<BO.OrderForList?> OrderList()
     {
-        
+
         IEnumerable<DO.Order> DOlist = Dal.Order.GetList() ?? throw new BlNullValueException();
         IEnumerable<BO.OrderForList> BoList = from item in DOlist
                                               select castDOtoBOOrderForList(item);
@@ -150,6 +151,7 @@ internal class BlOrder : BlApi.IOrder
     /// <returns> updated order </returns>
     /// <exception cref="BlInvalidStatusException"> order status not correct </exception>
     /// <exception cref="BlIdNotFound"> order with specified id not found </exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public BO.Order UpdateShipedOrder(int orderId)
     {
         try
@@ -171,6 +173,7 @@ internal class BlOrder : BlApi.IOrder
         }
     }
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public OrderTracking OrderTracking(int orderId)
     {
         try
@@ -198,18 +201,24 @@ internal class BlOrder : BlApi.IOrder
         }
     }
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<OrderForList?> GetOrdersForUser(int userId)
     {
-        IEnumerable<DO.Order>? oList = Dal.Order.GetList(o => o.UserID == userId);
+        IEnumerable<DO.Order>? oList;
+        lock (Dal)
+            oList = Dal.Order.GetList(o => o.UserID == userId);
         return from item in oList
                select BlUtils.cast<BO.OrderForList, DO.Order>(item);
     }
 
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public int? SelectOrder()
     {
         DateTime? minDate = DateTime.MaxValue;
+        List<DO.Order>? oList;
         int minOrderId = -1;
-        List<DO.Order>? oList = Dal.Order.GetList(o => o.ShipDate == null || o.DeliveryDate == null)?.ToList();
+        lock (Dal)
+            oList = Dal.Order.GetList(o => o.ShipDate == null || o.DeliveryDate == null)?.ToList();
         foreach (var item in oList)
         {
             if (item.ShipDate == null)

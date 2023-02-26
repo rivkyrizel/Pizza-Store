@@ -125,6 +125,6 @@ H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\DalList\obj\Debug\DalList.Asse
 H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\DalList\obj\Debug\DalList.csproj.CoreCompileInputs.cache
 H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\DalList\obj\Debug\DalList.csproj.CopyComplete
 H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\DalList\obj\Debug\DalList.dll
-H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\DalList\obj\Debug\refint\DalList.dll
 H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\DalList\obj\Debug\DalList.pdb
 H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\DalList\obj\Debug\ref\DalList.dll
+H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\DalList\obj\Debug\refint\DalList.dll

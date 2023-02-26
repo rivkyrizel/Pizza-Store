@@ -115,6 +115,6 @@ H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\DalFacade\obj\Debug\DalFacade.
 H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\DalFacade\obj\Debug\DalFacade.AssemblyInfo.cs
 H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\DalFacade\obj\Debug\DalFacade.csproj.CoreCompileInputs.cache
 H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\DalFacade\obj\Debug\DalFacade.dll
-H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\DalFacade\obj\Debug\refint\DalFacade.dll
 H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\DalFacade\obj\Debug\DalFacade.pdb
 H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\DalFacade\obj\Debug\ref\DalFacade.dll
+H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\DalFacade\obj\Debug\refint\DalFacade.dll

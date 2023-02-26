@@ -24,7 +24,7 @@
                     <Label Grid.Row="2"  Content="{Binding Name}"   Padding="2"  HorizontalContentAlignment="Center" HorizontalAlignment="Center" FontSize="18"/>
                     <Label Grid.Row="3" Content=" Price: " FontSize="15"  Padding="2"/>
                     <Label Grid.Row="3" Margin="45,0,0,0" FontSize="15" Content="{Binding Price}"  Padding="2" />
-                    <Label Grid.Row="4"   Content="{Binding Instock}"  Padding="2" />
+                    <Label Grid.Row="4" Content="{Binding InStock}"  Padding="2" />
                 </Grid>
             </Border>
         </DataTemplate>
@@ -64,46 +64,4 @@
         </ScrollViewer>
         <Button  Grid.Row="2" Margin="-50,30,10,10"  Content="🛒" Foreground="red" Background="White"  FontSize="35"  Height="50" Width="200"   Click="viewCartBtn_Click"/>
     </Grid>
-    <!--<Grid Name="MainGrid">
-
-
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="5*"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
-        <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto">
-            <Grid.ColumnDefinitions >
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions >
-
-            <ComboBox Grid.Column="2" Margin="100,16,16,16" SelectedIndex="0" Name="AttributeSelector"  ItemsSource="{Binding lst}" SelectionChanged="AttributeSelector_SelectionChanged"  Grid.ColumnSpan="2"/>
-            <Label Content="Category:" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" FontFamily="Anivers" Grid.Column="1"/>
-        </Grid>
-
-
-        <ListView   Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" ItemsSource="{Binding products}"  x:Name="ProductsListview" MouseDoubleClick="ProductsListview_MouseDoubleClick" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="White" Foreground="#FF041F65" >
-            <ListView.View >
-                <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Employee Information" >
-
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=ID, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"   Header="ID" Width="100"/>
-
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Name, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" Header="Name" Width="100"/>
-
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Category, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" Header="category" Width="100"/>
-
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Price, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" Header="Price" Width="100"/>
-
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <Grid Name="prodListbtns">
-            <Button Content="view cart" Name="viewCartBtn" HorizontalAlignment="Left" Height="46" Margin="30,10,0,0" VerticalAlignment="Top" Width="104" Click="viewCartBtn_Click" Visibility="{Binding admin, Mode=OneTime, Converter={StaticResource TrueToHidden}}" RenderTransformOrigin="0.701,0.487"/>
-        </Grid>
-
-    </Grid>-->
 </Window>

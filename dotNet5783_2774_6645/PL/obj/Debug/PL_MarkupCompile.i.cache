@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\PL\App.xaml
-13470514532
+12-1264888101
 
-27-1526144994
-199-1383201653
-AdminWindow.xaml;Carts\CartWindow.xaml;MainWindow.xaml;Orders\OrderListWindow.xaml;Orders\OrderTrackingWindow.xaml;Orders\OrderWindow.xaml;Orders\UpdateOrderWindow.xaml;Orders\userDetails.xaml;Products\ProductItemWindow.xaml;Products\ProductListWindow.xaml;Products\ProductWindow.xaml;SimulatorWindow.xaml;User\SignInWindow.xaml;
+26-1437493759
+199-2028078345
+AdminWindow.xaml;Carts\CartWindow.xaml;MainWindow.xaml;Orders\OrderListWindow.xaml;Orders\OrderTrackingWindow.xaml;Orders\OrderWindow.xaml;Orders\userDetails.xaml;Products\ProductItemWindow.xaml;Products\ProductListWindow.xaml;Products\ProductWindow.xaml;SimulatorWindow.xaml;User\SignInWindow.xaml;
 
 True
 

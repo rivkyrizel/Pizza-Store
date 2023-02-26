@@ -9,10 +9,6 @@ namespace BlImplementation;
 public class BlProduct : BlApi.IProduct
 {
 
-    // public Action<BO.Product>? updtedObjectAction { get; set; }
-
-
-
     private DalApi.IDal dal = DalApi.Factory.Get() ?? throw new BlNullValueException();
 
 
@@ -31,7 +27,8 @@ public class BlProduct : BlApi.IProduct
         S s = BlUtils.cast<S, T>(t);
         var value = t?.GetType().GetProperty("Category")?.GetValue(t, null) ?? throw new BlNullValueException();
         s?.GetType().GetProperty("Category")?.SetValue(s, (BO.eCategory?)(int)value);
-
+        var value2 = t?.GetType().GetProperty("Image")?.GetValue(t, null);
+        s?.GetType().GetProperty("Image")?.SetValue(s, (string)value2);
         switch (s?.GetType().Name)
         {
             case "Product":
@@ -55,15 +52,16 @@ public class BlProduct : BlApi.IProduct
     /// <param name="p"> new product </param>
     public int AddProduct(BO.Product p)
     {
-        if (p.Name != "" && p.Price > 0 && p.InStock > 0 && p.Category != null)
+        if (p.Price < 0) throw new BlInvalideData();
+        if (p.Name == "" || p.Image == null) throw new BlNullValueException();
+        if (p.InStock > 0 && p.Category != null)
         {
-            int id= dal.Product.Add(castBOToDO(p));
+            int id = dal.Product.Add(castBOToDO(p));
             p.Image = copyFiles(p.Image!, id.ToString());
             return id;
 
         }
-        else
-            throw new BlNullValueException();
+        else throw new BlInvalidAmount();
     }
 
     /// <summary>
@@ -76,15 +74,14 @@ public class BlProduct : BlApi.IProduct
     {
         try
         {
-            IEnumerable<DO.OrderItem> orderItems = dal.OrderItem.GetList() ?? throw new BlNullValueException();
+            IEnumerable<DO.OrderItem> orderItems;
+            lock (dal)
+                orderItems = dal.OrderItem.GetList() ?? throw new BlNullValueException();
 
             if (orderItems.ToList().Exists(i => i.ProductID == id)) throw new BlProductFoundInOrders();
             dal.Product.Delete(id);
         }
-        catch (DalApi.ItemNotFound e)
-        {
-            throw new BlIdNotFound(e);
-        }
+        catch (DalApi.ItemNotFound e) { throw new BlIdNotFound(e); }
 
     }
 
@@ -113,14 +110,13 @@ public class BlProduct : BlApi.IProduct
         try
         {
             if (id > 0)
-                return castProduct<BO.Product, DO.Product>(dal.Product.Get(p => p.ID == id));
-
+            {
+                lock (dal)
+                    return castProduct<BO.Product, DO.Product>(dal.Product.Get(p => p.ID == id));
+            }
             throw new BlInvalideData();
         }
-        catch (DalApi.ItemNotFound e)
-        {
-            throw new BlIdNotFound(e);
-        }
+        catch (DalApi.ItemNotFound e) { throw new BlIdNotFound(e); }
 
     }
 
@@ -146,10 +142,14 @@ public class BlProduct : BlApi.IProduct
     public IEnumerable<BO.ProductItem> GetProductItem(BO.eCategory? e = null)
     {
         IEnumerable<DO.Product> DOlist;
-        if (e != null) DOlist = dal.Product.GetList(p => (int)(object)p.Category == (int)(object)e) ?? throw new BlNullValueException();
-        else DOlist = dal.Product.GetList() ?? throw new BlNullValueException();
-        IEnumerable<BO.ProductItem> BOlist = from item in DOlist
-                                             select castProduct<BO.ProductItem, DO.Product>(item);
+        IEnumerable<BO.ProductItem> BOlist;
+        lock (dal)
+        {
+            if (e != null) DOlist = dal.Product.GetList(p => (int)(object)p.Category == (int)(object)e) ?? throw new BlNullValueException();
+            else DOlist = dal.Product.GetList() ?? throw new BlNullValueException();
+            BOlist = from item in DOlist
+                     select castProduct<BO.ProductItem, DO.Product>(item);
+        }
         return BOlist;
     }
 
@@ -164,23 +164,21 @@ public class BlProduct : BlApi.IProduct
     {
         try
         {
-
             if (p.ID < 0) throw new BlInvalideData();
-
-            if (p.Name != "" && p.Price > 0 && p.InStock > 0)
+            if (p.Price < 0 || p.InStock < 0) throw new BlNegativeAmountException();
+            if (p.Name == "" || p.Image == null) throw new BlNullValueException();
+            if (p.InStock > 0 && p.Category != null)
             {
-                p.Image = copyFiles(p.Image, p.ID.ToString());
-                dal.Product.Update(castBOToDO(p));
+                p.Image = copyFiles(p.Image!, p.ID.ToString());
+                lock (dal)
+                    dal.Product.Update(castBOToDO(p));
                 return;
             }
-
-            throw new BlNullValueException();
+            throw new BlInvalidAmount();
         }
-        catch (DalApi.ItemNotFound e)
-        {
-            throw new BlIdNotFound(e);
-        }
+        catch (DalApi.ItemNotFound e) { throw new BlIdNotFound(e); }
     }
+
 
     private string copyFiles(string sourcePath, string destinationName)
     {

@@ -10,13 +10,10 @@ namespace BlApi;
 
 public interface IUser
 {
-    [MethodImpl(MethodImplOptions.Synchronized)]
     public int AddUser(User u);
 
-    [MethodImpl(MethodImplOptions.Synchronized)]
     public void UpdateUser(User u);
 
-    [MethodImpl(MethodImplOptions.Synchronized)]
     public int IsRegistered(string email, string pass);
 
 }

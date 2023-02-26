@@ -2,6 +2,8 @@
 using BO;
 using DO;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using System.Runtime.Intrinsics.Arm;
 using System.Text.RegularExpressions;
 
 namespace BlImplementation;
@@ -32,31 +34,34 @@ internal class BlCart : ICart
 
     private void confirmOrderDal(BO.Cart? cart)
     {
-        dal.CartItem.Delete(c => c.UserID == cart.UserID);
+        lock (dal)
+            dal.CartItem.Delete(c => c.UserID == cart.UserID);
     }
 
+
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public BO.Cart GetCart(int userId)
     {
         BO.Cart cart = new();
         try
         {
+            IEnumerable<DO.CartItem> cartItems;
+            BO.User userDetails;
+            List<BO.OrderItem> orderItems;
             if (userId < 0) throw new BlInvalideData();
-
-            IEnumerable<DO.CartItem> cartItems = dal.CartItem.GetList(o => o.UserID == userId) ?? throw new NoEntitiesFound();
-            List<BO.OrderItem> orderItems=new();
-            DO.Product d = new();
-            BO.OrderItem o = new();
-            foreach (var  item in cartItems)
+            lock (dal)
             {
-                o=BlUtils.cast<BO.OrderItem, DO.CartItem>(item);
-                d = dal.Product.Get(o => o.ID == item.ProductID);
-                o.Name = d.Name;
-                o.Price = d.Price;
-                o.TotalPrice = o.Price * o.Amount;
-                orderItems.Add(o);
+                cartItems = dal.CartItem.GetList(o => o.UserID == userId) ?? throw new NoEntitiesFound();
+                userDetails = BlUtils.cast<BO.User, DO.User>(dal.User.Get(i => i.ID == userId));
+                orderItems = (from item in cartItems
+                              let p = dal.Product.Get(o => o.ID == item.ProductID)
+                              select new BO.OrderItem { ProductID = item.ProductID, Amount = item.Amount, Name = p.Name, Price = p.Price, TotalPrice = p.Price * item.Amount }).ToList();
             }
             cart.UserID = userId;
             cart.Items = orderItems;
+            cart.CustomerName = userDetails.Name;
+            cart.CustomerEmail = userDetails.Email;
+            cart.CustomerAddress = userDetails.Address;
         }
         catch (DalApi.ItemNotFound e)
         {
@@ -73,6 +78,7 @@ internal class BlCart : ICart
     /// <returns> updated cart </returns>
     /// <exception cref="BlOutOfStockException"> item not in stock </exception>
     /// <exception cref="BlIdNotFound"> product ID is invalid </exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public BO.Cart AddToCart(BO.Cart? cart, int productId, bool isRegistered = false)
     {
         try
@@ -114,6 +120,7 @@ internal class BlCart : ICart
     /// <exception cref="BlNullValueException"> user details missing </exception>
     /// <exception cref="BlInvalidEmailException"> invalid email </exception>
     /// <exception cref="BlIdNotFound"> id does not exist </exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void confirmOrder(BO.Cart? cart, bool isRegistered = false)
     {
         try
@@ -159,6 +166,7 @@ internal class BlCart : ICart
     /// <param name="newAmount"> the new amount to update in the order </param>
     /// <returns> updated cart </returns>
     /// <exception cref="BlIdNotFound"> id of product is invalid </exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public BO.Cart updateAmount(BO.Cart cart, int productId, int newAmount, bool isRegistered = false)
     {
         try
@@ -168,8 +176,9 @@ internal class BlCart : ICart
             BO.Cart newCart = cart;
             List<BO.OrderItem?> x = cart.Items.ToList();
             newCart.Items = x;
-
-            DO.Product p = dal.Product.Get(p => p.ID == productId);
+            DO.Product p;
+            lock (dal)
+                p = dal.Product.Get(p => p.ID == productId);
 
             var orderItem = from item in cart?.Items
                             where item?.ProductID == productId
@@ -207,7 +216,8 @@ internal class BlCart : ICart
         DO.CartItem cartItem = new();
         cartItem.ProductID = productID;
         cartItem.Amount = newAmount;
-        cartItem.ID = dal.CartItem.Get(c => c.ProductID == productID && c.UserID == cart.UserID).ID;
+        lock (dal)
+            cartItem.ID = dal.CartItem.Get(c => c.ProductID == productID && c.UserID == cart.UserID).ID;
         cartItem.UserID = cart?.UserID ?? throw new BlNullValueException();
         dal.CartItem.Update(cartItem);
     }

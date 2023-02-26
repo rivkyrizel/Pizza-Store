@@ -6,24 +6,26 @@
         xmlns:local="clr-namespace:PL.Orders"
         mc:Ignorable="d"
         Title="OrderListWindow" Height="450" Width="800">
-    <Grid>
-        <ListView Name="OrderListView" d:ItemsSource="{d:SampleData ItemCount=5}" MouseDoubleClick="OrderListView_MouseDoubleClick" Margin="124,44,130,-17">
-            <ListView.View>
-                <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Employee Information" >
+    <Border Grid.Row="2" BorderBrush="black" BorderThickness="2" Margin="90,0,120,0" Padding="15">
+        <Grid Margin="32,24,-8,-8">
+            <ListView Name="OrderListView" d:ItemsSource="{d:SampleData ItemCount=5}" MouseDoubleClick="OrderListView_MouseDoubleClick" Margin="-43,10,0,17">
+                <ListView.View>
+                    <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Employee Information" >
 
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=ID}"   Header="ID" Width="100"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=ID}"   Header="ID" Width="100"/>
 
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=CustomerName}" Header="Name" Width="100"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=CustomerName}" Header="Name" Width="100"/>
 
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Status}" Header="Staus" Width="150"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Status}" Header="Staus" Width="150"/>
 
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=AmountOfItems}" Header="Amount" Width="100"/>
-                    
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=TotalPrice}" Header="Price" Width="100"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=AmountOfItems}" Header="Amount" Width="100"/>
 
-                </GridView>
-            </ListView.View>
-        </ListView>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=TotalPrice}" Header="Price" Width="100"/>
 
-    </Grid>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+        </Grid>
+    </Border>
 </Window>

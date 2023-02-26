@@ -29,7 +29,7 @@ namespace PL.Products
         PO.Cart cart_;
         bool isRegistered;
         public List<string> lst { get; set; }
-        public ObservableCollection<PO.Product> products { get; set; } = new();
+        public ObservableCollection<PO.ProductItem> products { get; set; } = new();
 
 
         public ProductItemWindow(IBl Bl, PO.Cart Cart, int userID = 0, bool isReg = false)
@@ -47,7 +47,7 @@ namespace PL.Products
         public void cast(IEnumerable<ProductItem?> enumerable)
         {
             products.Clear();
-            enumerable.ToList().ForEach(p => products.Add(PLUtils.cast<PO.Product, BO.ProductItem>(p)));
+            enumerable.ToList().ForEach(p => products.Add(PLUtils.cast<PO.ProductItem, BO.ProductItem>(p)));
         }
 
         private void AttributeSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -61,7 +61,7 @@ namespace PL.Products
 
         private void ProductsListview_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            new ProductWindow(bl, "show", products, cart_, ((PO.Product)((ListView)sender).SelectedItem)?.ID ?? throw new PlNullObjectException(), isRegistered).Show();
+            new ProductWindow(bl, "show", null, cart_, ((PO.ProductItem)((ListView)sender).SelectedItem)?.ID ?? throw new PlNullObjectException(), isRegistered).Show();
 
         }
 

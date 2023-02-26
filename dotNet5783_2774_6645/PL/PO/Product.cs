@@ -20,7 +20,7 @@ namespace PL.PO
         }
 
 
-        public string? Name
+        public string Name
         {
             get { return (string)GetValue(NameProperty); }
             set { SetValue(NameProperty, value); }
@@ -62,9 +62,9 @@ namespace PL.PO
             Image = p.Image;
         }
 
-        public static readonly DependencyProperty imgProperty = DependencyProperty.Register("Image", typeof(string), typeof(ProductItem));
+        public static readonly DependencyProperty imgProperty = DependencyProperty.Register("Image", typeof(string), typeof(Product));
         public static readonly DependencyProperty IDProperty = DependencyProperty.Register("ID", typeof(int), typeof(Product));
-        public static readonly DependencyProperty NameProperty = DependencyProperty.Register("Name", typeof(string), typeof(Product), new UIPropertyMetadata(""));
+        public static readonly DependencyProperty NameProperty = DependencyProperty.Register("Name", typeof(string), typeof(Product));
         public static readonly DependencyProperty PriceProperty = DependencyProperty.Register("Price", typeof(double), typeof(Product));
         public static readonly DependencyProperty InStockProperty = DependencyProperty.Register("InStock", typeof(int), typeof(Product), new UIPropertyMetadata(0));
         public static readonly DependencyProperty CategoryProperty = DependencyProperty.Register("Category", typeof(BO.eCategory), typeof(Product), new UIPropertyMetadata(null));

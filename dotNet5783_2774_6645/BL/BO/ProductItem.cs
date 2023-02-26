@@ -9,7 +9,7 @@ public class ProductItem
     public eCategory? Category { get; set; }
     public string? Image { get; set; }
     public int Amount { get; set; }
-  //  public bool InStock { get; set; }
+   public bool InStock { get; set; }
 
     public override string ToString() =>
     $@"|  {ID}  |   {Name}    |  {Category}  |  {Price}   |   {Amount}   

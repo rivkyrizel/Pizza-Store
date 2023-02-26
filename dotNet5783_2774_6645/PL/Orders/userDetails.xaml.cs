@@ -23,7 +23,7 @@ public partial class userDetails : Window
 {
     PO.Cart cart;
     IBl bl;
-    public userDetails(IBl Bl,PO.Cart Cart )
+    public userDetails(IBl Bl,PO.Cart Cart)
     {
         bl = Bl;
         InitializeComponent();

@@ -7,7 +7,7 @@
         xmlns:localy="clr-namespace:PL.PO"
         mc:Ignorable="d"
        
-        Title="ProductWindow" Height="450" Width="800">
+        Title="ProductWindow" Height="550" Width="800">
     <Grid Name="p">
         <Grid Name="GridData" RenderTransformOrigin="0.538,0.394" >
             <Label 
@@ -24,7 +24,7 @@
             <Label 
             Name="LblAmount" FontSize="18" Content="amount" HorizontalAlignment="Left" Height="36" Margin="36,193,0,0" VerticalAlignment="Top" Width="79"/>
             <TextBox 
-            Name="TxtAmount" IsReadOnly="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, Path=show ,Converter={StaticResource ShowToTrue}}" HorizontalAlignment="Left" Margin="127,0,0,0" TextWrapping="Wrap" Text="{Binding Path=currentProduct.InStock, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" VerticalAlignment="Center" Width="190" Height="30">
+            Name="TxtAmount" IsReadOnly="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, Path=show ,Converter={StaticResource ShowToTrue}}" HorizontalAlignment="Left" Margin="127,-100,0,0" TextWrapping="Wrap" Text="{Binding Path=currentProduct.InStock, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" VerticalAlignment="Center" Width="190" Height="30">
             </TextBox>
             <ComboBox 
             Name="SelectCategory" ItemsSource="{Binding categories}" HorizontalAlignment="Left" Text="{Binding Path=currentProduct.Category, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" Margin="127,155,0,0" VerticalAlignment="Top" Width="120" IsEditable ="False">
@@ -38,7 +38,7 @@
             Content="➜" Name="BtnReturn"   HorizontalAlignment="Left" Margin="687,0,0,369" VerticalAlignment="Bottom" Height="49" Width="83" FontSize="36" BorderBrush="#00707070" Click="BtnReturn_Click">
             </Button>
         </Grid>
-        <Grid x:Name="gridBtn">
+        <Grid x:Name="gridBtn" Margin="0,2,0,-2">
             <Button 
             Name="BtnAdd" Content="Add" Visibility="{Binding show, Mode=OneTime, Converter={StaticResource ShowOrUpdateToHidden}}" HorizontalAlignment="Left" Margin="88,297,0,0" VerticalAlignment="Top" Click="Button_Click" Height="35" Width="72">
             </Button>
