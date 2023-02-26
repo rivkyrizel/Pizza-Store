@@ -146,10 +146,12 @@
         </Border>
         <Label Content="Total Price:"  Grid.Row="3"  FontSize="15"  HorizontalAlignment="Left" VerticalAlignment="Top" Height="40" Width="110" />
         <Label  Grid.Row="3" Margin="100,0,0,0"   FontSize="15" HorizontalAlignment="Left" Content="{Binding pOrder.TotalPrice}" VerticalAlignment="Top" Width="200" />
+        <Button Grid.Row="3" Width="100" Height="25" Content="update"  Click="updateOrderBtn_Click" Margin="650,0,0,0" />
     </Grid>
 </Window>
 
 
+    
 
 
 <!--<Window x:Class="PL.Orders.OrderWindow"

@@ -33,9 +33,15 @@ namespace PL.Orders
         {
             bl = Bl;
             InitializeComponent();
-
-            orders = new ObservableCollection<PO.OrderForList>(from item in bl.order.OrderList()
-                                                               select new PO.OrderForList(item));
+            try
+            {
+                orders = new ObservableCollection<PO.OrderForList>(from item in bl.order.OrderList()
+                                                                   select new PO.OrderForList(item));
+            }
+            catch (BlNullValueException e)
+            {
+                MessageBox.Show(e.Message);
+            }
             OrderListView.ItemsSource = orders;
         }
 

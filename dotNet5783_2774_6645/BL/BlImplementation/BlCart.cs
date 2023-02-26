@@ -55,10 +55,6 @@ internal class BlCart : ICart
                 o.TotalPrice = o.Price * o.Amount;
                 orderItems.Add(o);
             }
-            //IEnumerable<DO.OrderItem> orderItems = from item in cartItems
-            //                                       select dal.OrderItem.Get(o => o.ProductID == item.ProductID);
-            //IEnumerable<BO.OrderItem> BOItems = from item in orderItems
-            //                                    select BlUtils.cast<BO.OrderItem, DO.Product>(item);
             cart.UserID = userId;
             cart.Items = orderItems;
         }

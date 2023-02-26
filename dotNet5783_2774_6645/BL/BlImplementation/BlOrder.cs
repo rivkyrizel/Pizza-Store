@@ -58,6 +58,7 @@ internal class BlOrder : BlApi.IOrder
     /// <returns> list of orders </returns>
     public IEnumerable<BO.OrderForList?> OrderList()
     {
+        
         IEnumerable<DO.Order> DOlist = Dal.Order.GetList() ?? throw new BlNullValueException();
         IEnumerable<BO.OrderForList> BoList = from item in DOlist
                                               select castDOtoBOOrderForList(item);

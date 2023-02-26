@@ -63,3 +63,16 @@ C:\Users\USER\Source\Repos\dotNet5783_2774_66\dotNet5783_2774_6645\Simulator\obj
 C:\Users\USER\Source\Repos\dotNet5783_2774_66\dotNet5783_2774_6645\Simulator\obj\Debug\refint\Simulator.dll
 C:\Users\USER\Source\Repos\dotNet5783_2774_66\dotNet5783_2774_6645\Simulator\obj\Debug\Simulator.pdb
 C:\Users\USER\Source\Repos\dotNet5783_2774_66\dotNet5783_2774_6645\Simulator\obj\Debug\ref\Simulator.dll
+H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\bin\Simulator.deps.json
+H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\bin\Simulator.dll
+H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\bin\Simulator.pdb
+H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\Simulator\obj\Debug\Simulator.csproj.AssemblyReference.cache
+H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\Simulator\obj\Debug\Simulator.GeneratedMSBuildEditorConfig.editorconfig
+H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\Simulator\obj\Debug\Simulator.AssemblyInfoInputs.cache
+H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\Simulator\obj\Debug\Simulator.AssemblyInfo.cs
+H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\Simulator\obj\Debug\Simulator.csproj.CoreCompileInputs.cache
+H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\Simulator\obj\Debug\Simulator.csproj.CopyComplete
+H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\Simulator\obj\Debug\Simulator.dll
+H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\Simulator\obj\Debug\refint\Simulator.dll
+H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\Simulator\obj\Debug\Simulator.pdb
+H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\Simulator\obj\Debug\ref\Simulator.dll
