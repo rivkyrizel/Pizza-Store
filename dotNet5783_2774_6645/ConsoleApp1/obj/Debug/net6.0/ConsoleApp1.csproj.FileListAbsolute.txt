@@ -58,3 +58,23 @@ C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645\dotNet5783_2774_664
 C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645\dotNet5783_2774_6645\ConsoleApp1\obj\Debug\net6.0\ConsoleApp1.pdb
 C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645\dotNet5783_2774_6645\ConsoleApp1\obj\Debug\net6.0\ConsoleApp1.genruntimeconfig.cache
 C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645\dotNet5783_2774_6645\ConsoleApp1\obj\Debug\net6.0\ref\ConsoleApp1.dll
+C:\Users\USER\source\repos\dotNet5783_2774_66\dotNet5783_2774_6645\ConsoleApp1\bin\Debug\net6.0\ConsoleApp1.exe
+C:\Users\USER\source\repos\dotNet5783_2774_66\dotNet5783_2774_6645\ConsoleApp1\bin\Debug\net6.0\ConsoleApp1.deps.json
+C:\Users\USER\source\repos\dotNet5783_2774_66\dotNet5783_2774_6645\ConsoleApp1\bin\Debug\net6.0\ConsoleApp1.runtimeconfig.json
+C:\Users\USER\source\repos\dotNet5783_2774_66\dotNet5783_2774_6645\ConsoleApp1\bin\Debug\net6.0\ConsoleApp1.dll
+C:\Users\USER\source\repos\dotNet5783_2774_66\dotNet5783_2774_6645\ConsoleApp1\bin\Debug\net6.0\ConsoleApp1.pdb
+C:\Users\USER\source\repos\dotNet5783_2774_66\dotNet5783_2774_6645\ConsoleApp1\bin\Debug\net6.0\DalFacade.dll
+C:\Users\USER\source\repos\dotNet5783_2774_66\dotNet5783_2774_6645\ConsoleApp1\bin\Debug\net6.0\DalXml.dll
+C:\Users\USER\source\repos\dotNet5783_2774_66\dotNet5783_2774_6645\ConsoleApp1\bin\Debug\net6.0\DalXml.pdb
+C:\Users\USER\source\repos\dotNet5783_2774_66\dotNet5783_2774_6645\ConsoleApp1\bin\Debug\net6.0\DalFacade.pdb
+C:\Users\USER\source\repos\dotNet5783_2774_66\dotNet5783_2774_6645\ConsoleApp1\obj\Debug\net6.0\ConsoleApp1.csproj.AssemblyReference.cache
+C:\Users\USER\source\repos\dotNet5783_2774_66\dotNet5783_2774_6645\ConsoleApp1\obj\Debug\net6.0\ConsoleApp1.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\USER\source\repos\dotNet5783_2774_66\dotNet5783_2774_6645\ConsoleApp1\obj\Debug\net6.0\ConsoleApp1.AssemblyInfoInputs.cache
+C:\Users\USER\source\repos\dotNet5783_2774_66\dotNet5783_2774_6645\ConsoleApp1\obj\Debug\net6.0\ConsoleApp1.AssemblyInfo.cs
+C:\Users\USER\source\repos\dotNet5783_2774_66\dotNet5783_2774_6645\ConsoleApp1\obj\Debug\net6.0\ConsoleApp1.csproj.CoreCompileInputs.cache
+C:\Users\USER\source\repos\dotNet5783_2774_66\dotNet5783_2774_6645\ConsoleApp1\obj\Debug\net6.0\ConsoleApp1.csproj.CopyComplete
+C:\Users\USER\source\repos\dotNet5783_2774_66\dotNet5783_2774_6645\ConsoleApp1\obj\Debug\net6.0\ConsoleApp1.dll
+C:\Users\USER\source\repos\dotNet5783_2774_66\dotNet5783_2774_6645\ConsoleApp1\obj\Debug\net6.0\refint\ConsoleApp1.dll
+C:\Users\USER\source\repos\dotNet5783_2774_66\dotNet5783_2774_6645\ConsoleApp1\obj\Debug\net6.0\ConsoleApp1.pdb
+C:\Users\USER\source\repos\dotNet5783_2774_66\dotNet5783_2774_6645\ConsoleApp1\obj\Debug\net6.0\ConsoleApp1.genruntimeconfig.cache
+C:\Users\USER\source\repos\dotNet5783_2774_66\dotNet5783_2774_6645\ConsoleApp1\obj\Debug\net6.0\ref\ConsoleApp1.dll

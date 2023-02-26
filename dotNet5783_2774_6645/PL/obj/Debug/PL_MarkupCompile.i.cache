@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-C:\Users\USER\Source\Repos\dotNet5783_2774_66\dotNet5783_2774_6645\PL\obj\Debug\
+C:\Users\USER\source\repos\dotNet5783_2774_66\dotNet5783_2774_6645\PL\obj\Debug\
 PL
 none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
-C:\Users\USER\Source\Repos\dotNet5783_2774_66\dotNet5783_2774_6645\PL\App.xaml
+C:\Users\USER\source\repos\dotNet5783_2774_66\dotNet5783_2774_6645\PL\App.xaml
 141004263520
 
 28-596805282
-199-1852996349
+199-1926639683
 AdminWindow.xaml;Carts\CartWindow.xaml;MainWindow.xaml;Orders\OrderListWindow.xaml;Orders\OrderTrackingWindow.xaml;Orders\OrderWindow.xaml;Orders\UpdateOrderWindow.xaml;Orders\userDetails.xaml;Products\ProductItemWindow.xaml;Products\ProductListWindow.xaml;Products\ProductWindow.xaml;SimulatorWindow.xaml;User\SignInWindow.xaml;Window1.xaml;
 
 False

@@ -46,3 +46,19 @@ C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645\dotNet5783_2774_664
 C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645\dotNet5783_2774_6645\BlTest\obj\Debug\BlTest.pdb
 C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645\dotNet5783_2774_6645\BlTest\obj\Debug\BlTest.genruntimeconfig.cache
 C:\Users\ריזל רבקה\Source\Repos\dotNet5783_2774_6645\dotNet5783_2774_6645\BlTest\obj\Debug\ref\BlTest.dll
+C:\Users\USER\source\repos\dotNet5783_2774_66\dotNet5783_2774_6645\bin\BlTest.exe
+C:\Users\USER\source\repos\dotNet5783_2774_66\dotNet5783_2774_6645\bin\BlTest.deps.json
+C:\Users\USER\source\repos\dotNet5783_2774_66\dotNet5783_2774_6645\bin\BlTest.runtimeconfig.json
+C:\Users\USER\source\repos\dotNet5783_2774_66\dotNet5783_2774_6645\bin\BlTest.dll
+C:\Users\USER\source\repos\dotNet5783_2774_66\dotNet5783_2774_6645\bin\BlTest.pdb
+C:\Users\USER\source\repos\dotNet5783_2774_66\dotNet5783_2774_6645\BlTest\obj\Debug\BlTest.csproj.AssemblyReference.cache
+C:\Users\USER\source\repos\dotNet5783_2774_66\dotNet5783_2774_6645\BlTest\obj\Debug\BlTest.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\USER\source\repos\dotNet5783_2774_66\dotNet5783_2774_6645\BlTest\obj\Debug\BlTest.AssemblyInfoInputs.cache
+C:\Users\USER\source\repos\dotNet5783_2774_66\dotNet5783_2774_6645\BlTest\obj\Debug\BlTest.AssemblyInfo.cs
+C:\Users\USER\source\repos\dotNet5783_2774_66\dotNet5783_2774_6645\BlTest\obj\Debug\BlTest.csproj.CoreCompileInputs.cache
+C:\Users\USER\source\repos\dotNet5783_2774_66\dotNet5783_2774_6645\BlTest\obj\Debug\BlTest.csproj.CopyComplete
+C:\Users\USER\source\repos\dotNet5783_2774_66\dotNet5783_2774_6645\BlTest\obj\Debug\BlTest.dll
+C:\Users\USER\source\repos\dotNet5783_2774_66\dotNet5783_2774_6645\BlTest\obj\Debug\refint\BlTest.dll
+C:\Users\USER\source\repos\dotNet5783_2774_66\dotNet5783_2774_6645\BlTest\obj\Debug\BlTest.pdb
+C:\Users\USER\source\repos\dotNet5783_2774_66\dotNet5783_2774_6645\BlTest\obj\Debug\BlTest.genruntimeconfig.cache
+C:\Users\USER\source\repos\dotNet5783_2774_66\dotNet5783_2774_6645\BlTest\obj\Debug\ref\BlTest.dll

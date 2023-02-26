@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
 
 namespace PL;
@@ -143,6 +144,57 @@ public class DeliveryToVisible : IValueConverter
     }
 }
 
+public class ConvertConfirmStatusToVisible : IMultiValueConverter
+{
+    public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+    {
+        BO.OrderStatus? status = (OrderStatus?)(values[0]!);
+        string? statusWindow = (values[1]!).ToString();
+        if (statusWindow == "False" || status != BO.OrderStatus.Confirmed)
+            return Visibility.Hidden;
+        else
+            return Visibility.Visible;
+    }
+
+    public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}
+
+public class ConvertSendStatusToVisible : IMultiValueConverter
+{
+    public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+    {
+        PO.Order status= new();
+        status.Status = (OrderStatus?)(values[0]!);
+        string? admin = (values[1]!).ToString();
+        if (admin == "False" || status.Status != BO.OrderStatus.Sent)
+            return Visibility.Hidden;
+        else
+            return Visibility.Visible;
+    }
+
+    public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}
+
+public class ConvertShipDateToTrue : IMultiValueConverter
+{
+    public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+    {
+        string? admin = (values[0]!).ToString();
+        return values[1] != null && admin == "True" ? ((((PO.Order?)values[1])?.ShipDate < DateTime.Now) ? Visibility.Hidden : Visibility.Visible) : Visibility.Hidden;
+    }
+
+
+    public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}
 
 
 

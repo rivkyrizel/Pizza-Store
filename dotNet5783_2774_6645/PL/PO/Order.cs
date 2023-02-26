@@ -83,7 +83,7 @@ public class Order : DependencyObject
     }
     public BO.OrderStatus? Status
     {
-        get { return (BO.OrderStatus)GetValue(StatusProperty); }
+        get { return (BO.OrderStatus?)GetValue(StatusProperty); }
         set { SetValue(StatusProperty, value); }
     }
     public IEnumerable<BO.OrderItem?>? Items
@@ -112,6 +112,10 @@ public class Order : DependencyObject
         Status = o.Status;
     }
 
+    public Order()
+    {
+    }
+
     public static readonly DependencyProperty IDProperty = DependencyProperty.Register("ID", typeof(int), typeof(Order), new UIPropertyMetadata(0));
 
     public static readonly DependencyProperty UserIDProperty = DependencyProperty.Register("UserID", typeof(int?), typeof(Order), new UIPropertyMetadata(0));
@@ -128,7 +132,7 @@ public class Order : DependencyObject
 
     public static readonly DependencyProperty ShipDateProperty = DependencyProperty.Register("ShipDate", typeof(DateTime?), typeof(Order), new UIPropertyMetadata(null));
 
-    public static readonly DependencyProperty StatusProperty = DependencyProperty.Register("StatusProperty", typeof(BO.OrderStatus), typeof(Order));
+    public static readonly DependencyProperty StatusProperty = DependencyProperty.Register("StatusProperty", typeof(BO.OrderStatus?), typeof(Order));
 
     public static readonly DependencyProperty ItemsProperty = DependencyProperty.Register("Items", typeof(IEnumerable<BO.OrderItem>), typeof(Order));
 

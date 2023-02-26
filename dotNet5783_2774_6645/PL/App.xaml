@@ -1,18 +1,21 @@
 ﻿<Application x:Class="PL.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:localy="clr-namespace:PL"
+             xmlns:convert="clr-namespace:PL"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <localy:ShowOrUpdateToHidden x:Key="ShowOrUpdateToHidden"/>
-        <localy:ZeroToHidden x:Key="ZeroToHidden"/>
-        <localy:ZeroToVisible x:Key="ZeroToVisible"/>
-        <localy:AddOrShowToHidden x:Key="AddOrShowToHidden"/>
-        <localy:ShowToVisible x:Key="ShowToVisible"/>
-        <localy:ShowToTrue x:Key="ShowToTrue"/>
-        <localy:TrueToVisible x:Key="TrueToVisible"/>
-        <localy:TrueToHidden x:Key="TrueToHidden"/>
-        <localy:ShipedToVisible x:Key="ShipedToVisible"/>
-        <localy:DeliveryToVisible x:Key="DeliveryToVisible"/>
+        <convert:ShowOrUpdateToHidden x:Key="ShowOrUpdateToHidden"/>
+        <convert:ZeroToHidden x:Key="ZeroToHidden"/>
+        <convert:ZeroToVisible x:Key="ZeroToVisible"/>
+        <convert:AddOrShowToHidden x:Key="AddOrShowToHidden"/>
+        <convert:ShowToVisible x:Key="ShowToVisible"/>
+        <convert:ShowToTrue x:Key="ShowToTrue"/>
+        <convert:TrueToVisible x:Key="TrueToVisible"/>
+        <convert:TrueToHidden x:Key="TrueToHidden"/>
+        <convert:ShipedToVisible x:Key="ShipedToVisible"/>
+        <convert:DeliveryToVisible x:Key="DeliveryToVisible"/>
+        <convert:ConvertSendStatusToVisible x:Key="ConvertSendStatusToVisible"/>
+        <convert:ConvertConfirmStatusToVisible x:Key="ConvertConfirmStatusToVisible"/>
+        <convert:ConvertShipDateToTrue x:Key="ConvertShipDateToTrue"/>
     </Application.Resources>
 </Application>

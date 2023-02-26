@@ -52,9 +52,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\USER\\Source\\Repos\\dotNet5783_2774_66\\dotNet5783_2774_6645\\ConsoleApp1\\ConsoleApp1.csproj",
+      "projectUniqueName": "C:\\Users\\USER\\source\\repos\\dotNet5783_2774_66\\dotNet5783_2774_6645\\ConsoleApp1\\ConsoleApp1.csproj",
       "projectName": "ConsoleApp1",
-      "projectPath": "C:\\Users\\USER\\Source\\Repos\\dotNet5783_2774_66\\dotNet5783_2774_6645\\ConsoleApp1\\ConsoleApp1.csproj",
+      "projectPath": "C:\\Users\\USER\\source\\repos\\dotNet5783_2774_66\\dotNet5783_2774_6645\\ConsoleApp1\\ConsoleApp1.csproj",
       "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\USER\\Source\\Repos\\dotNet5783_2774_66\\dotNet5783_2774_6645\\ConsoleApp1\\obj\\",
       "projectStyle": "PackageReference",
@@ -78,8 +78,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\USER\\Source\\Repos\\dotNet5783_2774_66\\dotNet5783_2774_6645\\DalXml\\DalXml.csproj": {
-              "projectPath": "C:\\Users\\USER\\Source\\Repos\\dotNet5783_2774_66\\dotNet5783_2774_6645\\DalXml\\DalXml.csproj"
+            "C:\\Users\\USER\\source\\repos\\dotNet5783_2774_66\\dotNet5783_2774_6645\\DalXml\\DalXml.csproj": {
+              "projectPath": "C:\\Users\\USER\\source\\repos\\dotNet5783_2774_66\\dotNet5783_2774_6645\\DalXml\\DalXml.csproj"
             }
           }
         }

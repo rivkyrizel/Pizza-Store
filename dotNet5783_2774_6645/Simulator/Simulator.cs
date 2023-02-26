@@ -64,7 +64,6 @@ public static class Simulator
                 bl.order.UpdateDeliveryOrder(order.ID);
             propsChanged("", new OrderEventArgs(seconds, order));
             Thread.Sleep(seconds);
-
         }
     }
 

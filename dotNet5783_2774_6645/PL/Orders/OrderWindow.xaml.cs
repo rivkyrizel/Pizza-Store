@@ -4,6 +4,8 @@ using System.Linq;
 using System.Windows;
 using PL.Carts;
 using PL.General;
+using System.Collections.Generic;
+using System.Windows.Controls;
 
 namespace PL.Orders
 {
@@ -18,6 +20,15 @@ namespace PL.Orders
         public bool isAdmin { get; set; }
         ObservableCollection<PO.OrderForList>? orders;
 
+        public BO.OrderStatus? Status
+        {
+            get { return (BO.OrderStatus?)GetValue(StatusProperty); }
+            set { SetValue(StatusProperty, value); }
+        }
+
+        public static readonly DependencyProperty StatusProperty = DependencyProperty.Register("Status", typeof(BO.OrderStatus?), typeof(OrderWindow));
+
+
         public OrderWindow(IBl Bl, int id, bool admin = true, ObservableCollection<PO.OrderForList>? o = null)
         {
             InitializeComponent();
@@ -26,6 +37,7 @@ namespace PL.Orders
             try
             {
                 pOrder = new(bl.order.GetOrder(id));
+                Status= pOrder.Status;  
             }
             catch (BlIdNotFound e)
             {
@@ -36,7 +48,6 @@ namespace PL.Orders
                 MessageBox.Show(e.Message);
             }
             orders = o;
-            listViewOrderItems.ItemsSource = pOrder?.Items;
             isAdmin = admin;
             DataContext = this;
         }
@@ -55,8 +66,7 @@ namespace PL.Orders
                 orders.Remove(order);
                 order.Status = BO.OrderStatus.DeliveredToCustomer;
                 orders.Insert(idx, order);
-                pOrder.Status = BO.OrderStatus.DeliveredToCustomer;
-                Close();
+                Status = pOrder.Status = BO.OrderStatus.DeliveredToCustomer;
             }
             catch (BlInvalidStatusException ex)
             {
@@ -82,9 +92,8 @@ namespace PL.Orders
                 orders.Remove(order);
                 order.Status = BO.OrderStatus.Sent;
                 orders.Insert(idx, order);
-                pOrder.Status = BO.OrderStatus.Sent;
+                Status=pOrder.Status = BO.OrderStatus.Sent;
                 pOrder.ShipDate = bl.order.GetOrder(orderId).ShipDate;
-                Close();
             }
             catch (BlInvalidStatusException ex)
             {
@@ -101,10 +110,60 @@ namespace PL.Orders
 
         }
 
+        private void changeProductAmountBtn_Click(object sender, RoutedEventArgs e)
+        {
+            List<BO.OrderItem> lst = new List<BO.OrderItem>(pOrder.Items.ToList());
+            BO.OrderItem product = (BO.OrderItem)((Button)sender).DataContext;
+            int newAmount = (((Button)sender).Name == "addProductAmountBtn") ? product.Amount + 1 : product.Amount - 1;
+            pOrder.TotalPrice = (pOrder.TotalPrice - product.Price * product.Amount) + product.Price * newAmount;
+            product.Amount = newAmount;
+            if (newAmount.Equals(0))
+                lst.Remove(product);
+            else
+                lst[lst.FindIndex(i => i.ProductID == product.ProductID)] = product;
+            pOrder.Items = lst;
+        }
+
+
         private void updateOrderBtn_Click(object sender, RoutedEventArgs e)
         {
-            new UpdateOrderWindow(bl, pOrder, orders).Show();
-            Close();
+            try
+            {
+                BO.Order o = new();
+                o.Status = pOrder.Status;
+                o.OrderDate = pOrder.OrderDate;
+                o.ShipDate = pOrder.ShipDate;
+                o.CustomerName = pOrder.CustomerName;
+                o.CustomerAddress = pOrder.CustomerAddress;
+                o.CustomerEmail = pOrder.CustomerEmail;
+                o.DeliveryDate = pOrder.DeliveryDate;
+                o.Items = pOrder.Items;
+                o.ID = pOrder.ID;
+                int idx = orders.ToList().FindIndex(o => pOrder.ID == o.ID);
+                orders.RemoveAt(idx);
+                PO.OrderForList ol = PLUtils.cast<PO.OrderForList, BO.OrderForList>(PLUtils.cast<BO.OrderForList, PO.Order>(pOrder));
+                ol.AmountOfItems = bl.order.UpdateOrder(o) ?? throw new PlNullObjectException();
+                orders.Insert(idx, ol);
+                Close();
+            }
+            catch (BlInvalidAmount ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            catch (BlNegativeAmountException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            catch (BlIdNotFound ex)
+            {
+                MessageBox.Show(ex.Message + ex.InnerException);
+            }
+            catch (PlNullObjectException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }
+
+

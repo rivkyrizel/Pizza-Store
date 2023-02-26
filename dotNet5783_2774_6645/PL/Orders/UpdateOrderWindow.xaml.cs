@@ -29,6 +29,7 @@ namespace PL.Orders
         IBl bl;
         public PO.Order poOrder { get; set; }
         ObservableCollection<PO.OrderForList>? orders;
+
         public UpdateOrderWindow(IBl Bl, PO.Order o, ObservableCollection<PO.OrderForList>? porders)
         {
             InitializeComponent();
@@ -45,6 +46,8 @@ namespace PL.Orders
             List<BO.OrderItem> lst = new List<BO.OrderItem>(poOrder.Items.ToList());
             BO.OrderItem product = (BO.OrderItem)((Button)sender).DataContext;
             int newAmount = (((Button)sender).Name == "addProductAmountBtn") ? product.Amount + 1 : product.Amount - 1;
+            if(newAmount.Equals(0))
+                lst.Remove(product);
             poOrder.TotalPrice = (poOrder.TotalPrice - product.Price * product.Amount) + product.Price * newAmount;
             product.Amount = newAmount;
             lst[lst.FindIndex(i => i.ProductID == product.ProductID)] = product;
