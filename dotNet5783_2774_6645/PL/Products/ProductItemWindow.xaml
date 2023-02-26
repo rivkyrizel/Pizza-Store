@@ -5,8 +5,66 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Products"
         mc:Ignorable="d"
-        Title="ProductItemWindow" Height="450" Width="800">
-    <Grid Name="MainGrid">
+        Title="ProductItemWindow" Height="750" Width="1200">
+
+    <Window.Resources>
+
+        <DataTemplate  x:Key="MyDataTemplate">
+            <Border BorderBrush="Black"  BorderThickness="2">
+                <Grid Width="260" Height="300" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.5*" />
+                        <RowDefinition Height="3.5*" />
+                        <RowDefinition Height="0.5*" />
+                        <RowDefinition Height="0.5*" />
+                        <RowDefinition Height="0.5*" />
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0"  Content="{Binding Category}" FontSize="15"   Padding="2" />
+                    <Image   Grid.Row="1" Source="{Binding Image,Mode=OneWay, Converter={StaticResource ImageConverter}}"/>
+                    <Label Grid.Row="2"  Content="{Binding Name}"   Padding="2"  HorizontalContentAlignment="Center" HorizontalAlignment="Center" FontSize="18"/>
+                    <Label Grid.Row="3" Content=" Price: " FontSize="15"  Padding="2"/>
+                    <Label Grid.Row="3" Margin="45,0,0,0" FontSize="15" Content="{Binding Price}"  Padding="2" />
+                    <Label Grid.Row="4"   Content="{Binding Instock}"  Padding="2" />
+                </Grid>
+            </Border>
+        </DataTemplate>
+    </Window.Resources>
+
+
+
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+        </Grid>
+        <ComboBox Grid.Column="2" Margin="100,16,16,16" SelectedIndex="0" Name="AttributeSelector"  ItemsSource="{Binding lst}" SelectionChanged="AttributeSelector_SelectionChanged"  Grid.ColumnSpan="2"/>
+
+        <ScrollViewer Grid.Row="1"   VerticalScrollBarVisibility="Auto">
+            <ListView MouseDoubleClick="ProductsListview_MouseDoubleClick "  ScrollViewer.HorizontalScrollBarVisibility="Disabled"  ItemsSource="{Binding products}" ItemTemplate="{StaticResource MyDataTemplate}">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel />
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+            </ListView>
+        </ScrollViewer>
+        <Button  Grid.Row="2" Margin="-50,30,10,10"  Content="🛒" Foreground="red" Background="White"  FontSize="35"  Height="50" Width="200"   Click="viewCartBtn_Click"/>
+    </Grid>
+    <!--<Grid Name="MainGrid">
 
 
         <Grid.RowDefinitions>
@@ -47,5 +105,5 @@
             <Button Content="view cart" Name="viewCartBtn" HorizontalAlignment="Left" Height="46" Margin="30,10,0,0" VerticalAlignment="Top" Width="104" Click="viewCartBtn_Click" Visibility="{Binding admin, Mode=OneTime, Converter={StaticResource TrueToHidden}}" RenderTransformOrigin="0.701,0.487"/>
         </Grid>
 
-    </Grid>
+    </Grid>-->
 </Window>

@@ -380,7 +380,6 @@ C:\Users\USER\Source\Repos\dotNet5783_2774_66\dotNet5783_2774_6645\PL\obj\Debug\
 C:\Users\USER\Source\Repos\dotNet5783_2774_66\dotNet5783_2774_6645\PL\obj\Debug\Products\ProductWindow.g.cs
 C:\Users\USER\Source\Repos\dotNet5783_2774_66\dotNet5783_2774_6645\PL\obj\Debug\SimulatorWindow.g.cs
 C:\Users\USER\Source\Repos\dotNet5783_2774_66\dotNet5783_2774_6645\PL\obj\Debug\User\SignInWindow.g.cs
-C:\Users\USER\Source\Repos\dotNet5783_2774_66\dotNet5783_2774_6645\PL\obj\Debug\Window1.g.cs
 C:\Users\USER\Source\Repos\dotNet5783_2774_66\dotNet5783_2774_6645\PL\obj\Debug\App.g.cs
 C:\Users\USER\Source\Repos\dotNet5783_2774_66\dotNet5783_2774_6645\PL\obj\Debug\GeneratedInternalTypeHelper.g.cs
 C:\Users\USER\Source\Repos\dotNet5783_2774_66\dotNet5783_2774_6645\PL\obj\Debug\PL_MarkupCompile.cache
@@ -398,7 +397,6 @@ C:\Users\USER\Source\Repos\dotNet5783_2774_66\dotNet5783_2774_6645\PL\obj\Debug\
 C:\Users\USER\Source\Repos\dotNet5783_2774_66\dotNet5783_2774_6645\PL\obj\Debug\Products\ProductWindow.baml
 C:\Users\USER\Source\Repos\dotNet5783_2774_66\dotNet5783_2774_6645\PL\obj\Debug\SimulatorWindow.baml
 C:\Users\USER\Source\Repos\dotNet5783_2774_66\dotNet5783_2774_6645\PL\obj\Debug\User\SignInWindow.baml
-C:\Users\USER\Source\Repos\dotNet5783_2774_66\dotNet5783_2774_6645\PL\obj\Debug\Window1.baml
 C:\Users\USER\Source\Repos\dotNet5783_2774_66\dotNet5783_2774_6645\PL\obj\Debug\PL.g.resources
 C:\Users\USER\Source\Repos\dotNet5783_2774_66\dotNet5783_2774_6645\PL\obj\Debug\PL.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\USER\Source\Repos\dotNet5783_2774_66\dotNet5783_2774_6645\PL\obj\Debug\PL.AssemblyInfoInputs.cache

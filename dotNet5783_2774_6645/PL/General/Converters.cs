@@ -2,11 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
+using System.Windows.Media.Imaging;
 
 namespace PL;
 
@@ -197,6 +199,69 @@ public class ConvertShipDateToTrue : IMultiValueConverter
 }
 
 
+class ImageConverter : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        try
+        {
+            if (!File.Exists((string)value))
+                throw new Exception("");
+            using (var stream = File.OpenRead((string)value))
+            {
+                var bmp = new BitmapImage();
+                bmp.BeginInit();
+                bmp.StreamSource = stream;
+                bmp.CacheOption = BitmapCacheOption.OnLoad;
+                bmp.EndInit();
+                return bmp;
+            }
+        }
+        catch (Exception ex)
+        {
+            return new BitmapImage(new Uri(@"..\img\empty_image.gif", UriKind.RelativeOrAbsolute));
+        }
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        try
+        {
+            return ((BitmapImage)value).UriSource.AbsolutePath;
+        }
+        catch
+        {
+            return @"..\img\empty_image.gif";
+        }
+    }
+
+}
+
+public class ConvertNullToVisible : IValueConverter
+{
+    public object Convert(object? value, Type targetType, object parameter, CultureInfo culture)
+    {
+        return value == null ? Visibility.Visible : Visibility.Hidden;
+    }
+    public object ConvertBack(object? value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}
 
 
-
+public class ConvertNullToHidden : IValueConverter
+{
+    public object Convert(object? value, Type targetType, object parameter, CultureInfo culture)
+    {
+        if (value == null)
+        {
+            return Visibility.Hidden;
+        }
+        return Visibility.Visible;
+    }
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}

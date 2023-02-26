@@ -41,6 +41,14 @@ namespace PL.PO
             get { return (BO.eCategory)GetValue(CategoryProperty); }
             set { SetValue(CategoryProperty, value); }
         }
+
+        public string? Image
+        {
+            get { return (string?)GetValue(imgProperty); }
+            set { SetValue(imgProperty, value); }
+        }
+
+
         public Product() { }
 
 
@@ -51,8 +59,10 @@ namespace PL.PO
             Category = p.Category;
             InStock = p.InStock;
             ID = p.ID;
+            Image = p.Image;
         }
 
+        public static readonly DependencyProperty imgProperty = DependencyProperty.Register("Image", typeof(string), typeof(ProductItem));
         public static readonly DependencyProperty IDProperty = DependencyProperty.Register("ID", typeof(int), typeof(Product));
         public static readonly DependencyProperty NameProperty = DependencyProperty.Register("Name", typeof(string), typeof(Product), new UIPropertyMetadata(""));
         public static readonly DependencyProperty PriceProperty = DependencyProperty.Register("Price", typeof(double), typeof(Product));

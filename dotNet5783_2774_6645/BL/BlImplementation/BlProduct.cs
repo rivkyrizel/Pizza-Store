@@ -1,23 +1,25 @@
 ﻿using BlApi;
 using BO;
+using DalApi;
+using DO;
 using System.Reflection;
 
 namespace BlImplementation;
 
-public class BlProduct : IProduct
+public class BlProduct : BlApi.IProduct
 {
 
-   // public Action<BO.Product>? updtedObjectAction { get; set; }
+    // public Action<BO.Product>? updtedObjectAction { get; set; }
 
- 
+
 
     private DalApi.IDal dal = DalApi.Factory.Get() ?? throw new BlNullValueException();
 
 
-    
+
     private DO.Product castBOToDO(BO.Product pBO)
     {
-       
+
         DO.Product pDO = BlUtils.cast<DO.Product, BO.Product>(pBO);
         pDO.Category = (DO.eCategory?)pBO.Category;
         pDO.Amount = (int)pBO.InStock;
@@ -54,7 +56,12 @@ public class BlProduct : IProduct
     public int AddProduct(BO.Product p)
     {
         if (p.Name != "" && p.Price > 0 && p.InStock > 0 && p.Category != null)
-          return dal.Product.Add(castBOToDO(p));
+        {
+            int id= dal.Product.Add(castBOToDO(p));
+            p.Image = copyFiles(p.Image!, id.ToString());
+            return id;
+
+        }
         else
             throw new BlNullValueException();
     }
@@ -162,6 +169,7 @@ public class BlProduct : IProduct
 
             if (p.Name != "" && p.Price > 0 && p.InStock > 0)
             {
+                p.Image = copyFiles(p.Image, p.ID.ToString());
                 dal.Product.Update(castBOToDO(p));
                 return;
             }
@@ -171,6 +179,26 @@ public class BlProduct : IProduct
         catch (DalApi.ItemNotFound e)
         {
             throw new BlIdNotFound(e);
+        }
+    }
+
+    private string copyFiles(string sourcePath, string destinationName)
+    {
+        try
+        {
+            int postfixIndex = sourcePath.LastIndexOf('.');
+            string postfix = sourcePath.Substring(postfixIndex);
+            destinationName += postfix;
+            string destinationPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
+            destinationPath = destinationPath!.Substring(0, destinationPath.Length - 3);
+            string destinationFullName = @"\..\img\" + destinationName;
+            System.IO.File.Copy(sourcePath, destinationPath + "\\" + destinationFullName, true);
+            string destinationFullNameDal = @"..\\..\\img\" + destinationName;
+            return destinationFullNameDal;
+        }
+        catch (Exception ex)
+        {
+            return @"..\..\img\0.png";
         }
     }
 

@@ -61,7 +61,7 @@ namespace PL.Products
 
         private void ProductsListview_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            new ProductWindow(bl, "show", products, cart_, ((PO.Product?)ProductsListview.SelectedItems[0])?.ID ?? throw new PlNullObjectException(), isRegistered).Show();
+            new ProductWindow(bl, "show", products, cart_, ((PO.Product)((ListView)sender).SelectedItem)?.ID ?? throw new PlNullObjectException(), isRegistered).Show();
 
         }
 

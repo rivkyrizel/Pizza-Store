@@ -51,6 +51,14 @@
             <Button 
             Name="addToCartBtn" Content="add to cart" HorizontalAlignment="Left" Height="54" Margin="581,120,0,0" Visibility="{Binding show , Mode=OneTime, Converter={StaticResource ShowToVisible}}" VerticalAlignment="Top" Width="93" Click="addToCartBtn_Click">
             </Button>
+
+            <StackPanel Width="200" Height="200" Grid.Column="0" Margin="528,197,72,37" >
+                <Image x:Name="productImg" Source="{Binding currentProduct.Image, Converter={StaticResource ImageConverter}, Mode=OneWay}"
+                        MinHeight="100" MinWidth="100" Stretch="Fill" Height="138" Width="198"/>
+            </StackPanel >
+            <Button   Grid.Row="2" Grid.Column="0"  Visibility="{Binding show, Mode=OneTime, Converter={StaticResource ShowOrUpdateToHidden}}"  Content="add image" Height="34" Width="150" Click="changeImageButton_Click" RenderTransformOrigin="0.49,-0.994" />
+            <Button   Grid.Row="2" Grid.Column="0"   Content="update image"  Height="34" Width="150" Click="changeImageButton_Click" RenderTransformOrigin="0.49,-0.994" />
         </Grid>
+        <Image HorizontalAlignment="Left" Height="100" Margin="-128,297,0,0" VerticalAlignment="Top" Width="100"/>
     </Grid>
 </Window>

@@ -6,7 +6,6 @@
         mc:Ignorable="d"
          Title="ProductListWindow" Height="640" Width="800">
 
-
     <Grid Name="MainGrid">
 
 

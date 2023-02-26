@@ -17,5 +17,8 @@
         <convert:ConvertSendStatusToVisible x:Key="ConvertSendStatusToVisible"/>
         <convert:ConvertConfirmStatusToVisible x:Key="ConvertConfirmStatusToVisible"/>
         <convert:ConvertShipDateToTrue x:Key="ConvertShipDateToTrue"/>
+        <convert:ImageConverter x:Key="ImageConverter"/>
+        <convert:ConvertNullToVisible x:Key="ConvertNullToVisible"/>
+        <convert:ConvertNullToHidden x:Key="ConvertNullToHidden"/>
     </Application.Resources>
 </Application>

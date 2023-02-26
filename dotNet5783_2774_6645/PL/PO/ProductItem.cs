@@ -27,6 +27,13 @@ public class ProductItem : DependencyObject
         get { return (string)GetValue(nameProperty); }
         set { SetValue(nameProperty, value); }
     }
+
+    public string? Image
+    {
+        get { return (string?)GetValue(imgProperty); }
+        set { SetValue(imgProperty, value); }
+    }
+
     public double Price//productPrice
     {
         get { return (double)GetValue(priceProperty); }
@@ -52,6 +59,7 @@ public class ProductItem : DependencyObject
 
     public static readonly DependencyProperty IDProperty = DependencyProperty.Register("ID", typeof(int), typeof(ProductItem), new UIPropertyMetadata(0));
     public static readonly DependencyProperty nameProperty = DependencyProperty.Register("Name", typeof(string), typeof(ProductItem), new UIPropertyMetadata(""));
+    public static readonly DependencyProperty imgProperty = DependencyProperty.Register("Image", typeof(string), typeof(ProductItem));
     public static readonly DependencyProperty priceProperty = DependencyProperty.Register("Price", typeof(double), typeof(ProductItem), new UIPropertyMetadata(0.0));
     public static readonly DependencyProperty categoryProperty = DependencyProperty.Register("Category", typeof(BO.eCategory), typeof(ProductItem), new UIPropertyMetadata(""));
     public static readonly DependencyProperty amountProperty = DependencyProperty.Register("Amount", typeof(int), typeof(ProductItem), new UIPropertyMetadata(0));

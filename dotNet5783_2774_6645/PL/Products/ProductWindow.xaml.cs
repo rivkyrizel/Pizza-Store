@@ -31,7 +31,7 @@ public partial class ProductWindow : Window
     public string show { get; set; }
     public bool isRegistered { get; set; }
     private ObservableCollection<PO.Product> products { get; set; } = new();
-
+    string imgName;
 
     public ProductWindow(IBl Bl, string active, ObservableCollection<PO.Product> Products, PO.Cart? Cart = null, int id = 0, bool isReg = false)
     {
@@ -141,6 +141,17 @@ public partial class ProductWindow : Window
         }
     }
 
+    private void changeImageButton_Click(object sender, RoutedEventArgs e)
+    {
+        Microsoft.Win32.OpenFileDialog f = new Microsoft.Win32.OpenFileDialog();
+        f.Filter = "JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg|GIF Files (*.gif)|*.gif";
+        if (f.ShowDialog() == true)
+        {
+            productImg.Source = new BitmapImage(new Uri(f.FileName));
+            currentProduct.Image = imgName = f.FileName;
+        }
+
+    }
 }
 
 

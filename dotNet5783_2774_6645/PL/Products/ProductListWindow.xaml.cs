@@ -64,7 +64,7 @@ public partial class ProductListWindow : Window
 
     private void ProductsListview_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
-        new ProductWindow(bl, "update", products, null,((PO.Product?)ProductsListview.SelectedItems[0])?.ID ?? throw new PlNullObjectException()).Show();
+    new ProductWindow(bl, "update", products, null,((PO.Product?)ProductsListview.SelectedItems[0])?.ID ?? throw new PlNullObjectException()).Show();
     }
 
 }
