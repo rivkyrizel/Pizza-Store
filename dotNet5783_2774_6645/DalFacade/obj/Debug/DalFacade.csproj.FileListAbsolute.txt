@@ -118,3 +118,15 @@ H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\DalFacade\obj\Debug\DalFacade.
 H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\DalFacade\obj\Debug\DalFacade.pdb
 H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\DalFacade\obj\Debug\ref\DalFacade.dll
 H:\C#\dotNet5783_2774_664511\dotNet5783_2774_6645\DalFacade\obj\Debug\refint\DalFacade.dll
+C:\Users\USER\Source\Repos\RRRRR\dotNet5783_2774_6645\bin\DalFacade.deps.json
+C:\Users\USER\Source\Repos\RRRRR\dotNet5783_2774_6645\bin\DalFacade.dll
+C:\Users\USER\Source\Repos\RRRRR\dotNet5783_2774_6645\bin\DalFacade.pdb
+C:\Users\USER\Source\Repos\RRRRR\dotNet5783_2774_6645\DalFacade\obj\Debug\DalFacade.csproj.AssemblyReference.cache
+C:\Users\USER\Source\Repos\RRRRR\dotNet5783_2774_6645\DalFacade\obj\Debug\DalFacade.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\USER\Source\Repos\RRRRR\dotNet5783_2774_6645\DalFacade\obj\Debug\DalFacade.AssemblyInfoInputs.cache
+C:\Users\USER\Source\Repos\RRRRR\dotNet5783_2774_6645\DalFacade\obj\Debug\DalFacade.AssemblyInfo.cs
+C:\Users\USER\Source\Repos\RRRRR\dotNet5783_2774_6645\DalFacade\obj\Debug\DalFacade.csproj.CoreCompileInputs.cache
+C:\Users\USER\Source\Repos\RRRRR\dotNet5783_2774_6645\DalFacade\obj\Debug\DalFacade.dll
+C:\Users\USER\Source\Repos\RRRRR\dotNet5783_2774_6645\DalFacade\obj\Debug\refint\DalFacade.dll
+C:\Users\USER\Source\Repos\RRRRR\dotNet5783_2774_6645\DalFacade\obj\Debug\DalFacade.pdb
+C:\Users\USER\Source\Repos\RRRRR\dotNet5783_2774_6645\DalFacade\obj\Debug\ref\DalFacade.dll

@@ -157,7 +157,7 @@
     <CustomerEmail>hhh</CustomerEmail>
     <CustomerAddress>fff</CustomerAddress>
     <OrderDate>2013-12-23T00:00:00</OrderDate>
-    <ShipDate />
+    <ShipDate>2023-03-04T19:36:28.397091+02:00</ShipDate>
     <DeliveryDate />
   </Order>
   <Order>
@@ -187,7 +187,7 @@
     <CustomerEmail>hhh</CustomerEmail>
     <CustomerAddress>eee</CustomerAddress>
     <OrderDate>2013-05-07T00:00:00</OrderDate>
-    <ShipDate />
+    <ShipDate>2023-03-04T19:36:15.3475995+02:00</ShipDate>
     <DeliveryDate />
   </Order>
   <Order>

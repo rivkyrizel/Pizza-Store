@@ -27,23 +27,25 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ריזל רבקה\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\USER\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "H:\\C#\\dotNet5783_2774_664511\\dotNet5783_2774_6645\\Stage0\\Stage0.csproj",
+      "projectUniqueName": "C:\\Users\\USER\\source\\repos\\RRRRR\\dotNet5783_2774_6645\\Stage0\\Stage0.csproj",
       "projectName": "Stage0",
-      "projectPath": "H:\\C#\\dotNet5783_2774_664511\\dotNet5783_2774_6645\\Stage0\\Stage0.csproj",
-      "packagesPath": "C:\\Users\\ריזל רבקה\\.nuget\\packages\\",
-      "outputPath": "H:\\C#\\dotNet5783_2774_664511\\dotNet5783_2774_6645\\Stage0\\obj\\",
+      "projectPath": "C:\\Users\\USER\\source\\repos\\RRRRR\\dotNet5783_2774_6645\\Stage0\\Stage0.csproj",
+      "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\USER\\Source\\Repos\\RRRRR\\dotNet5783_2774_6645\\Stage0\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\ריזל רבקה\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\USER\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -58,8 +60,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "H:\\C#\\dotNet5783_2774_664511\\dotNet5783_2774_6645\\DalFacade\\DalFacade.csproj": {
-              "projectPath": "H:\\C#\\dotNet5783_2774_664511\\dotNet5783_2774_6645\\DalFacade\\DalFacade.csproj"
+            "C:\\Users\\USER\\source\\repos\\RRRRR\\dotNet5783_2774_6645\\DalFacade\\DalFacade.csproj": {
+              "projectPath": "C:\\Users\\USER\\source\\repos\\RRRRR\\dotNet5783_2774_6645\\DalFacade\\DalFacade.csproj"
             }
           }
         }
@@ -79,7 +81,8 @@
           "net47",
           "net471",
           "net472",
-          "net48"
+          "net48",
+          "net481"
         ],
         "assetTargetFallback": true,
         "warn": true,
@@ -88,7 +91,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
       }
     }
   }

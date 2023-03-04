@@ -168,6 +168,11 @@ namespace PL.Orders
                 MessageBox.Show(ex.Message);
             }
         }
+
+        private void listOfProduct_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
 
