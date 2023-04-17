@@ -12,22 +12,22 @@ Project structure: 3 Tier architecture.
 The project includes:
 
 
-    •	Object Oriented Programming. 
+   •	Object Oriented Programming. 
 
-    •	Design pattern: singleton, factory, observer.
+   •	Design pattern: singleton, factory, observer.
 
-    •	Multithreading.
+   •	Multithreading.
 
-    •	Xml.
+   •	Xml.
 
-    •	WPF.
+   •	WPF.
 
-    •	Reflection.
+   •	Reflection.
 
-    •	Events.
+   •	Events.
 
-    •	Dependency Property.
+   •	Dependency Property.
 
-    •	Possibility of automatic simulation.
+   •	Possibility of automatic simulation.
     
-    •	Binding.
+   •	Binding.
