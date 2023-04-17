@@ -1,4 +1,4 @@
-Pizza Store System:
+ Pizza Store System:
 
 
 
@@ -9,26 +9,25 @@ Development of a window application for managing a pizza store. Customer and emp
 Project structure: 3 Tier architecture.
 
 
-Using:
+The project includes:
 
 
-  •	Object Oriented Design. 
+    •	Object Oriented Programming. 
 
-  •	Design pattern: singleton, factory, observer.
+    •	Design pattern: singleton, factory, observer.
 
-  •	Multithreading.
+    •	Multithreading.
 
-  •	Xml.
+    •	Xml.
 
-  •	WPF.
+    •	WPF.
 
-  •	Reflection.
+    •	Reflection.
 
-  •	Events.
+    •	Events.
 
-  •	Dependency Property.
+    •	Dependency Property.
 
-  •	Possibility of automatic simulation.
-
-
-
+    •	Possibility of automatic simulation.
+    
+    •	Binding.
