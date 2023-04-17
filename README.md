@@ -1,6 +1,18 @@
-hi rivky whats up?
-Hello World
-# dotNet5783_2774_6645
+Pizza Store System:
 
-# הערה
-שלב 2 הוגש בזמן מלבד שורה אחת שהוגשה לאחר זמן מה
+Development of a window application for managing a pizza store. Customer and employee interface. 
+
+Possibility of automatic simulation.
+
+Project structure: 3 Tier architecture.
+
+Using:
+
+Object Oriented Design.
+Design pattern: singleton, factory, observer.
+Multithreading.
+Xml.
+WPF.
+Reflection.
+Events.
+Dependency Property.
