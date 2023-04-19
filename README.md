@@ -32,6 +32,10 @@ The project includes:
 10.	Binding.
 
 ### Screenshots:
+
+The Store:
 ![1](https://user-images.githubusercontent.com/100497249/232601198-2d421a64-6dda-4977-82f2-69d05928b3c0.png)
+
+Update order to Manager:
 ![12](https://user-images.githubusercontent.com/100497249/232601249-45947819-ceb5-43ee-8d38-612185c132cc.png)
 
