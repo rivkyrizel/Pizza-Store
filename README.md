@@ -34,8 +34,12 @@ The project includes:
 ### Screenshots:
 
 The Store:
-![1](https://user-images.githubusercontent.com/100497249/232601198-2d421a64-6dda-4977-82f2-69d05928b3c0.png)
+<table><tr><td>
+<img src="https://user-images.githubusercontent.com/100497249/232601198-2d421a64-6dda-4977-82f2-69d05928b3c0.png" data-canonical-src="https://user-images.githubusercontent.com/100497249/232601198-2d421a64-6dda-4977-82f2-69d05928b3c0.png" width="600" height="400" />
+</td></tr></table>
+
 
 Update order to Manager:
-![12](https://user-images.githubusercontent.com/100497249/232601249-45947819-ceb5-43ee-8d38-612185c132cc.png)
+
+<img src="https://user-images.githubusercontent.com/100497249/232601249-45947819-ceb5-43ee-8d38-612185c132cc.png" data-canonical-src="https://user-images.githubusercontent.com/100497249/232601249-45947819-ceb5-43ee-8d38-612185c132cc.png" width="600" height="400" />
 
